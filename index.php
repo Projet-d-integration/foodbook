@@ -3,8 +3,6 @@
 <head>
     <title>Acceuil Foodbook</title>
     <meta charset="utf-8">
-    <?php require_once('fonctions.php'); ?>
-    <?php require_once('sql.php'); ?>
     <style>
         <?php require 'styles/index.css'; ?>
     </style>
@@ -18,10 +16,10 @@
     //     session_destroy();
     // } 
 ?>
+
 <body> 
-    
     <div class="wrapper">
-        Hello i am a wrapper
+        <a href="ui-kit.php">Accéder au ui-kit</a>
     </div>  
 </body>
 
