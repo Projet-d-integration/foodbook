@@ -7,4 +7,8 @@
         </div>';
     }
 
+    function RenderFavicon() {
+        
+    }
+
 ?>

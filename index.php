@@ -2,6 +2,8 @@
 
 <head>
     <title>Accueil Foodbook</title>
+    <link rel="icon" type="image/x-icon" href="utilities/recipe.ico">
+
     <meta charset="utf-8">
     <style>
         <?php require 'styles/index.css'; ?>
