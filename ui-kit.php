@@ -4,7 +4,7 @@
     <title>Devs space Foodbook</title>
     <meta charset="utf-8">
     <style>
-        <?php require 'styles/index.css'; ?>
+        <?php require 'styles/ui-kit.css'; ?>
     </style>
 </head>
 
@@ -28,22 +28,46 @@
 
 <body> 
     <div class="wrapper">
+
+        <div class="header-banner">
+            <div class="banner-title">
+                <img src="utilities/foodbook-logo.svg" class="foodbook-logo"></img>
+                FoodBook - Ui -Kit
+            </div>
+        </div>
+
         <div class="colors-wrapper">
             <div class="color-wrapper">
-                <div class="color-label"></div>
-                <div class="color color-one"></div>
+                <div class="color-label">
+                    --color-primary
+                </div>
+                <div class="color color-one">
+                    #333333
+                </div>
             </div>
             <div class="color-wrapper">
-                <div class="color-label"></div>
-                <div class="color color-two"></div>
+                <div class="color-label">
+                    --color-secondary
+                </div>
+                <div class="color color-two">
+                    #FFFFFF
+                </div>
             </div>
             <div class="color-wrapper">
-                <div class="color-label"></div>
-                <div class="color color-three"></div>
+                <div class="color-label">
+                    --color-tertiary
+                </div>
+                <div class="color color-three">
+                    #E1F4F3
+                </div>
             </div>
             <div class="color-wrapper">
-                <div class="color-label"></div>
-                <div class="color color-four"></div>
+                <div class="color-label">
+                    --color-accent
+                </div>
+                <div class="color color-four">
+                    #706C61
+                </div>
             </div>
         </div>
     </div>  

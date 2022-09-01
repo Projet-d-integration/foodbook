@@ -1,6 +1,29 @@
+body {
+    font-family: Verdana;
+    margin: 0;
+}
+
 .wrapper {
     width: 100%;
     height: 100%;
+}
+
+.header-banner {
+    background: #cccccc;
+}
+
+.foodbook-logo {
+    height: 5rem;
+    width: 10rem;
+}
+
+.colors-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5rem;
+    padding: 2rem;
+
 }
 
 .color-wrapper {
@@ -10,7 +33,7 @@
 }
 
 .color-label {
-    font-size: 5rem;
+    font-size: 2rem;
 }
 
 .color {
@@ -18,10 +41,14 @@
     border-radius: 50%;
     height: 5rem;
     width: 5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .color-one {
     background: var(--color-primary);
+    color: white;
 }
 
 .color-two {
@@ -34,4 +61,5 @@
 
 .color-four {
     background: var(--color-accent);
+    color: white;
 }
