@@ -6,12 +6,24 @@ body {
     --color-accent: #706C61;
     --color-accent-hover: #a09c92;
 
+    --transition: 0.3s;
+
     font-family: Verdana;
     margin: 0;
+    height: 100%;
 }
 
 a, a:hover, a:focus, a:active {
     text-decoration: none;
+}
+
+.foodbook-logo {
+    height: 7.5rem;
+    width: 15rem;
+}
+
+.foodbook-logo > * {
+    fill: var(--color-accent);
 }
 
 .button {
@@ -22,6 +34,7 @@ a, a:hover, a:focus, a:active {
     align-items: center;
     text-align: center;
     width: fit-content;
+    transition: var(--transition);
 }
 
 .button:hover {
@@ -46,4 +59,34 @@ a, a:hover, a:focus, a:active {
 
 .button-secondary:hover {
     background: var(--color-tertiary-hover);
+}
+
+.button-tertiary {
+    text-decoration: underline;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.button-tertiary:hover {
+    text-decoration: none;
+}
+
+.button-tertiary:hover .arrow-svg {
+    opacity: 1;
+}
+
+.arrow-svg {
+    opacity: 0;
+    width: 2rem;
+    height: 1rem;
+    transition: var(--transition);
+}
+
+.footer {
+    border-top: 1px solid var(--color-accent-hover);
+    color: #706C61;
+    font-style: italic;
+    font-size: 0.8rem;
+    padding: 0.5rem 2rem;
 }

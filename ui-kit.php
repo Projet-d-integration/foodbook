@@ -4,8 +4,10 @@
     <title>Ui-kit Foodbook</title>
     <meta charset="utf-8">
     <style>
-        <?php require 'styles/must-have.css'; ?>
         <?php require 'styles/ui-kit.css'; ?>
+
+        <?php require 'styles/must-have.css'; ?>
+        <?php require 'scripts/body-scripts.php'; ?>
     </style>
 </head>
 
@@ -71,7 +73,16 @@
                 <div class="label"> button-secondary </div>
                 <a class="button button-secondary"> Lorem ipsum </a>
             </div>
+
+            <div class="item-wrapper">
+                <div class="label"> button-tertiary </div>
+                <a class="button button-tertiary"> Lorem ipsum
+                    <div class="button-tertiary-arrow"><?php echo file_get_contents("utilities/arrow.svg"); ?></div>
+                </a>
+            </div>
         </div>
     </div>  
+
+    <?php GenerateFooter(); ?>
 </body>
 
