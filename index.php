@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <style>
         <?php require 'styles/index.css'; ?>
+        <?php require 'styles/must-have.css'; ?>
     </style>
 </head>
 
@@ -18,7 +19,12 @@
 ?>
 
 <body> 
+
+    <div class="header-banner">
+        <a href="index.php"><?php echo file_get_contents("utilities/foodbook-logo.svg"); ?></a>
+        <div class="banner-title"> Accueil </div>
+    </div>
     <div class="wrapper">
-        <a href="ui-kit.php">Accéder au ui-kit</a>
+        <a href="ui-kit.php" class="button button-primary">Accéder au ui-kit</a>
     </div>  
 </body>

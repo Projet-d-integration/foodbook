@@ -1,9 +1,10 @@
 <?php session_start(); ?>
 
 <head>
-    <title>Devs space Foodbook</title>
+    <title>Ui-kit Foodbook</title>
     <meta charset="utf-8">
     <style>
+        <?php require 'styles/must-have.css'; ?>
         <?php require 'styles/ui-kit.css'; ?>
     </style>
 </head>
@@ -17,57 +18,58 @@
     // } 
 ?>
 
-<style>
-    .color {
-        --color-primary: #333333;
-        --color-secondary: #FFFFFF;
-        --color-tertiary: #E1F4F3;
-        --color-accent: #706C61;
-    }
-</style>
-
 <body> 
     <div class="wrapper">
 
         <div class="header-banner">
-            <div class="banner-title">
-                <img src="utilities/foodbook-logo.svg" class="foodbook-logo"></img>
-                FoodBook - Ui -Kit
+            <a href="index.php"><?php echo file_get_contents("utilities/foodbook-logo.svg"); ?></a>
+            <div class="banner-title"> Ui-Kit </div>
+        </div>
+
+        <div class="title"> Colors : </div>
+        <div class="content-wrapper">
+            <div class="item-wrapper">
+                <div class="label"> --color-primary </div>
+                <div class="color color-primary"> #333333 </div>
+            </div>
+
+            <div class="item-wrapper">
+                <div class="label"> --color-secondary </div>
+                <div class="color color-secondary"> #FFFFFF </div>
+            </div>
+
+            <div class="item-wrapper">
+                <div class="label"> --color-tertiary </div>
+                <div class="color color-tertiary"> #c7eae9 </div>
+            </div>
+
+            <div class="item-wrapper">
+                <div class="label"> --color-tertiary-hover </div>
+                <div class="color color-tertiary-hover"> #E1F4F3 </div>
+            </div>
+
+            <div class="item-wrapper">
+                <div class="label"> --color-accent </div>
+                <div class="color color-four"> #706C61 </div>
+            </div>
+
+            <div class="item-wrapper">
+                <div class="label"> --color-accent-hover </div>
+                <div class="color color-five"> #a09c92 </div>
             </div>
         </div>
 
-        <div class="colors-wrapper">
-            <div class="color-wrapper">
-                <div class="color-label">
-                    --color-primary
-                </div>
-                <div class="color color-one">
-                    #333333
-                </div>
+        <div class="title"> Buttons : </div>
+
+        <div class="content-wrapper">
+            <div class="item-wrapper">
+                <div class="label"> button-primary </div>
+                <a class="button button-primary"> Lorem ipsum </a>
             </div>
-            <div class="color-wrapper">
-                <div class="color-label">
-                    --color-secondary
-                </div>
-                <div class="color color-two">
-                    #FFFFFF
-                </div>
-            </div>
-            <div class="color-wrapper">
-                <div class="color-label">
-                    --color-tertiary
-                </div>
-                <div class="color color-three">
-                    #E1F4F3
-                </div>
-            </div>
-            <div class="color-wrapper">
-                <div class="color-label">
-                    --color-accent
-                </div>
-                <div class="color color-four">
-                    #706C61
-                </div>
+
+            <div class="item-wrapper dark-background">
+                <div class="label"> button-secondary </div>
+                <a class="button button-secondary"> Lorem ipsum </a>
             </div>
         </div>
     </div>  

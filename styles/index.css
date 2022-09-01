@@ -1,9 +1,28 @@
-.wrapper {
-    padding: 2rem;
-    background: greenyellow;
+.header-banner {
+    background: var(--color-primary);
+    color: var(--color-secondary);
+    display: flex;
+    align-items: center;
+    padding: 1rem 0;
+    border-radius: 0 0 0.5rem 0.5rem;
+    gap: 2rem;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
-a, a:hover, a:focus, a:active {
-    text-decoration: none;
-    color: inherit;
+.banner-title {
+    font-size: 3rem;
 }
+
+svg {
+    height: 7.5rem;
+    width: 15rem;
+}
+
+svg > * {
+    fill: var(--color-accent);
+}
+
+.wrapper {
+    padding: 2rem;
+}
+
