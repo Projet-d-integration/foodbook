@@ -9,8 +9,24 @@ body {
     --transition: 0.3s;
 
     font-family: Verdana;
+    color: var(--color-primary);
     margin: 0;
     height: 100%;
+}
+
+.header-banner {
+    background: var(--color-primary);
+    color: var(--color-secondary);
+    display: flex;
+    align-items: center;
+    padding: 1rem 0;
+    border-radius: 0 0 0.5rem 0.5rem;
+    gap: 2rem;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.banner-title {
+    font-size: 3rem;
 }
 
 a, a:hover, a:focus, a:active {
@@ -27,14 +43,15 @@ a, a:hover, a:focus, a:active {
 }
 
 .button {
-    padding: 1rem 3rem;
-    border-radius: 0.75rem;
+    transition: var(--transition);
+    color: var(--color-primary);
+    padding: 0.5rem 2rem;
+    border-radius: 0.5rem;
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
     width: fit-content;
-    transition: var(--transition);
 }
 
 .button:hover {
@@ -63,6 +80,7 @@ a, a:hover, a:focus, a:active {
 
 .button-tertiary {
     text-decoration: underline;
+    font-weight: unset;
     display: flex;
     align-items: center;
     gap: 1rem;
@@ -76,11 +94,16 @@ a, a:hover, a:focus, a:active {
     opacity: 1;
 }
 
+.login-button {
+    position: absolute;
+    right: 2rem;
+}
+
 .arrow-svg {
+    transition: var(--transition);
     opacity: 0;
     width: 2rem;
     height: 1rem;
-    transition: var(--transition);
 }
 
 .footer {
