@@ -2,13 +2,17 @@
 
 <head>
     <title>Ui-kit Foodbook</title>
+
     <meta charset="utf-8">
+
     <style>
         <?php require 'styles/ui-kit.css'; ?>
 
         <?php require 'styles/must-have.css'; ?>
         <?php require 'scripts/body-scripts.php'; ?>
     </style>
+
+    <?php RenderFavicon(); ?>
 </head>
 
 <?php 
@@ -66,19 +70,17 @@
         <div class="content-wrapper">
             <div class="item-wrapper">
                 <div class="label"> button-primary </div>
-                <a class="button button-primary"> Lorem ipsum </a>
+                <?php GenerateButtonPrimary("Lorem Ipsum", ""); ?>
             </div>
 
             <div class="item-wrapper dark-background">
                 <div class="label"> button-secondary </div>
-                <a class="button button-secondary"> Lorem ipsum </a>
+                <?php GenerateButtonSecondary("Lorem Ipsum", ""); ?>
             </div>
 
             <div class="item-wrapper">
                 <div class="label"> button-tertiary </div>
-                <a class="button button-tertiary"> Lorem ipsum
-                    <div class="button-tertiary-arrow"><?php echo file_get_contents("utilities/arrow.svg"); ?></div>
-                </a>
+                <?php GenerateButtonTertiary("Lorem Ipsum", ""); ?>
             </div>
         </div>
     </div>  
