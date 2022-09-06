@@ -15,6 +15,8 @@
     <?php RenderFavicon(); ?>
 </head>
 
+this is a test
+
 <?php 
     // close session
     // if(!empty($_SESSION))
