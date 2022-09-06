@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS InfoRecette(
   `tempsPreparation` VARCHAR(45) NOT NULL,
   `nbPortions` INT NOT NULL,
   `description` VARCHAR(200) NULL,
-  `Instruction` VARCHAR(450) NOT NULL,
+  `instruction` VARCHAR(450) NOT NULL,
   `Recette_idRecette` INT NOT NULL,
   PRIMARY KEY (`Recette_idRecette`),
   CONSTRAINT `fk_InfoRecette_Recette1`
