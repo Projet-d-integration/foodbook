@@ -19,7 +19,7 @@
     <div class="header-banner">
         <a href="index.php"><?php echo file_get_contents("utilities/foodbook-logo.svg"); ?></a>
         <div class="banner-title"> Accueil </div>
-        <a href="login.php" class="button button-secondary login-button"> Login </a>
+        <a href="login.php" class="button button-secondary login-button"> Login hasbullah </a>
     </div>
     <div class="wrapper">
         <a href="ui-kit.php" class="button button-primary">Accéder au ui-kit</a>
