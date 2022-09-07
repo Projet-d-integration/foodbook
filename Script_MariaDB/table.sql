@@ -141,6 +141,7 @@ CREATE TABLE IF NOT EXISTS ListeEpicerie(
 DROP TABLE IF EXISTS ContenueListeEpicerie;
 CREATE TABLE IF NOT EXISTS ContenueListeEpicerie(
   `qteIngredient` INT NOT NULL,
+  `estChecked` BIT(1) NOT NULL DEFAULT 0,
   `ListeEpicerie_idListeEpicerie` INT NOT NULL,
   `Ingredient_idIngredient` INT NOT NULL,
   PRIMARY KEY (`ListeEpicerie_idListeEpicerie`, `Ingredient_idIngredient`),
