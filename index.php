@@ -15,17 +15,6 @@
     <?php RenderFavicon(); ?>
 </head>
 
-this is a test
-
-<?php 
-    // close session
-    // if(!empty($_SESSION))
-    // {
-    //     session_unset();
-    //     session_destroy();
-    // } 
-?>
-
 <body> 
     <div class="header-banner">
         <a href="index.php"><?php echo file_get_contents("utilities/foodbook-logo.svg"); ?></a>

@@ -13,16 +13,9 @@
     </style>
     
     <?php RenderFavicon(); ?>
-</head>
 
-<?php 
-    // close session
-    // if(!empty($_SESSION))
-    // {
-    //     session_unset();
-    //     session_destroy();
-    // } 
-?>
+    <?php header("Location: https://www.youtube.com/watch?v=dQw4w9WgXcQ"); ?>
+</head>
 
 <body> 
     <div class="header-banner">

@@ -15,15 +15,6 @@
     <?php RenderFavicon(); ?>
 </head>
 
-<?php 
-    // close session
-    // if(!empty($_SESSION))
-    // {
-    //     session_unset();
-    //     session_destroy();
-    // } 
-?>
-
 <body> 
     <div class="wrapper">
 
