@@ -33,6 +33,37 @@ a, a:hover, a:focus, a:active {
     text-decoration: none;
 }
 
+input:focus {
+    outline: none;
+}
+
+input {
+    border: none;
+}   
+
+.searchbar {
+    background: var(--color-secondary);
+    position: absolute;
+    display: flex;
+    align-items: center;
+    width: fit-content;
+    left: calc(50% - 10rem);
+    gap: 1rem;
+    padding: 0.6rem 1.2rem 0.6rem 0.6rem;
+    border-radius: 0.5rem;
+}
+
+.searchbar-input {
+    width: 15rem;
+    font-size: 1rem;
+    padding: 0.4rem;
+}
+
+.searchbar-input::placeholder {
+    color: var(--color-accent-hover);
+    font-style: italic;
+}
+
 .foodbook-logo {
     height: 7.5rem;
     width: 15rem;
@@ -40,6 +71,16 @@ a, a:hover, a:focus, a:active {
 
 .foodbook-logo > * {
     fill: var(--color-accent);
+}
+
+.search-icon {
+    width: 1rem;
+    height: 1rem;
+    cursor: pointer;
+}
+
+.search-icon > * {
+    fill: var(--color-primary);
 }
 
 .button {
@@ -94,9 +135,33 @@ a, a:hover, a:focus, a:active {
     opacity: 1;
 }
 
-.login-button {
+.svg-button {
     position: absolute;
-    right: 2rem;
+}
+
+.svg-button > * {
+    fill: var(--color-secondary);
+}
+
+.svg-button svg {
+    width: 2rem;
+    height: 2rem;
+}
+
+.login-button {
+    right: 4rem;
+}
+
+.list-button {
+    right: 8rem;
+}
+
+.inventory-button {
+    right: 12rem;
+}
+
+.hidden-cursor {
+    cursor: default;
 }
 
 .arrow-svg {

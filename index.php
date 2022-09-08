@@ -19,10 +19,34 @@
     <div class="header-banner">
         <a href="index.php"><?php echo file_get_contents("utilities/foodbook-logo.svg"); ?></a>
         <div class="banner-title"> Accueil </div>
-        <a href="login.php" class="button button-secondary login-button"> Login </a>
+
+        <div class="searchbar">
+            <input type="text" class="searchbar-input" placeholder="type something"></input>
+            <div class="search-icon"><?php echo file_get_contents("utilities/search.svg"); ?></div>
+        </div>
+
+        <a href="login.php" class="svg-button list-button"> <?php echo file_get_contents("utilities/food.svg"); ?> </a>
+        <a href="login.php" class="svg-button inventory-button"> <?php echo file_get_contents("utilities/list.svg"); ?> </a>
+        <a href="login.php" class="svg-button login-button"> <?php echo file_get_contents("utilities/account.svg"); ?> </a>
     </div>
-    <div class="wrapper">
-        <a href="ui-kit.php" class="button button-primary">Accéder au ui-kit</a>
+
+    <div class="separators">
+        <a href="recette.php" class="separator">
+           <div class="separator-text">Poulet</div>
+           <div class="arrow">></div>
+        </a>
+        <a href="recette.php" class="separator">
+           <div class="separator-text">Boeuf</div>
+           <div class="arrow">></div>
+        </a>
+        <a href="recette.php" class="separator">
+           <div class="separator-text">Végé</div>
+           <div class="arrow">></div>
+        </a>
+        <a href="recette.php" class="separator">
+           <div class="separator-text">Pâtes</div>
+           <div class="arrow">></div>
+        </a>
     </div>  
 
     <?php GenerateFooter(); ?>
