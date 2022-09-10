@@ -16,53 +16,65 @@
 </head>
 
 <body>
-    <h1> Liste de recettes possible avec : <!--Poulet, boeuf,whatever--></h1>
+
+<div class="header-banner">
+        <a href="index.php"><?php echo file_get_contents("utilities/foodbook-logo.svg"); ?></a>
+        <div class="banner-title"> Liste de recettes </div>
+
+        <div class="searchbar">
+            <input type="text" class="searchbar-input" placeholder="type something"></input>
+            <div class="search-icon"><?php echo file_get_contents("utilities/search.svg"); ?></div>
+        </div>
+
+        <a href="login.php" class="svg-button list-button"> <?php echo file_get_contents("utilities/food.svg"); ?> </a>
+        <a href="login.php" class="svg-button inventory-button"> <?php echo file_get_contents("utilities/list.svg"); ?> </a>
+        <a href="login.php" class="svg-button login-button"> <?php echo file_get_contents("utilities/account.svg"); ?> </a>
+    </div>
 
     <div class="recipes-container">
-        <div class="recipe-box">
+        <a href="recipe.php" class="recipe-box">
             recette
-        </div>
-        <div class="recipe-box">
+        </a>
+        <a href="recipe.php" class="recipe-box">
             recette
-        </div>
-        <div class="recipe-box">
+        </a>
+        <a href="recipe.php" class="recipe-box">
             recette
-        </div>
-        <div class="recipe-box">
+        </a>
+        <a href="recipe.php" class="recipe-box">
             recette
-        </div>
-        <div class="recipe-box">
+        </a>
+        <a href="recipe.php" class="recipe-box">
             recette
-        </div>
-        <div class="recipe-box">
+        </a>
+        <a href="recipe.php" class="recipe-box">
             recette
-        </div>
-        <div class="recipe-box">
+        </a>
+        <a href="recipe.php" class="recipe-box">
             recette
-        </div>
-        <div class="recipe-box">
+        </a>
+        <a href="recipe.php" class="recipe-box">
             recette
-        </div>
-        <div class="recipe-box">
+        </a>
+        <a href="recipe.php" class="recipe-box">
             recette
-        </div>
-        <div class="recipe-box">
+        </a>
+        <a href="recipe.php" class="recipe-box">
             recette
-        </div>
-        <div class="recipe-box">
+        </a>
+        <a href="recipe.php" class="recipe-box">
             recette
-        </div>
-        <div class="recipe-box">
+        </a>
+        <a href="recipe.php" class="recipe-box">
             recette
-        </div>
-        <div class="recipe-box">
+        </a>
+        <a href="recipe.php" class="recipe-box">
             recette
-        </div>
-        <div class="recipe-box">
+        </a>
+        <a href="recipe.php" class="recipe-box">
             recette
-        </div>
-        <div class="recipe-box">
-            recette
-        </div>
+        </a>
     </div>
+
+    <?php GenerateFooter(); ?>
 </body>

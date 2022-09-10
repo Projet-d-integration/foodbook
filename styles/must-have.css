@@ -30,6 +30,7 @@ body {
 }
 
 a, a:hover, a:focus, a:active {
+    color: var(--color-primary);
     text-decoration: none;
 }
 
@@ -133,6 +134,25 @@ input {
 
 .button-tertiary:hover .arrow-svg {
     opacity: 1;
+}
+
+.interractible-svg {
+    width: fit-content;
+    height: fit-content;
+    border-radius: 50%;
+}
+
+.interractible-svg:hover {
+    cursor: pointer;
+}
+
+.interractible-svg svg {
+    width: 2rem;
+    height: 2rem;
+}
+
+.interractible-svg > * {
+    fill: var(--color-primary);
 }
 
 .svg-button {

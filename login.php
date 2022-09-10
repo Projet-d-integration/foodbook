@@ -22,7 +22,18 @@
     </div>
 
     <div class="wrapper">
-        
+        <div class="input-username">
+            <input class="text-input" type="text" placeholder="Username...">
+        </div>
+
+        <div class="input-password">
+            <input type="password" class="text-input" placeholder="Password...">
+        </div>
+
+        <div class="validation-login-button">
+            <?php GenerateButtonPrimary("Se connecter", "index.php") ?>
+
+        </div>
     </div>
 
     <?php GenerateFooter(); ?>

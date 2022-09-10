@@ -31,19 +31,19 @@
     </div>
 
     <div class="separators">
-        <a href="recette.php" class="separator">
+        <a href="recipes-list.php" class="separator">
            <div class="separator-text">Poulet</div>
            <div class="arrow">></div>
         </a>
-        <a href="recette.php" class="separator">
+        <a href="recipes-list.php" class="separator">
            <div class="separator-text">Boeuf</div>
            <div class="arrow">></div>
         </a>
-        <a href="recette.php" class="separator">
+        <a href="recipes-list.php" class="separator">
            <div class="separator-text">Végé</div>
            <div class="arrow">></div>
         </a>
-        <a href="recette.php" class="separator">
+        <a href="recipes-list.php" class="separator">
            <div class="separator-text">Pâtes</div>
            <div class="arrow">></div>
         </a>
