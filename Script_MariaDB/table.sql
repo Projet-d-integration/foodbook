@@ -9,6 +9,7 @@ CREATE TABLE IF NOT EXISTS Utilisateur(
   `nom` VARCHAR(45) NOT NULL,
   `prenom` VARCHAR(45) NOT NULL,
   `email` VARCHAR(45) NOT NULL,
+  `motDePasse` VARBINARY(256) NOT NULL,
   PRIMARY KEY (`idCompte`));
 
 Drop Table IF EXISTS TypeRecette;
