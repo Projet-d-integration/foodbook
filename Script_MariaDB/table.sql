@@ -195,3 +195,6 @@ CREATE TABLE IF NOT EXISTS CodeBare(
   `Ingredient_idIngredient` INT NOT NULL,
   PRIMARY KEY (`idCodeBare`, `Ingredient_idIngredient`),
   CONSTRAINT `fk_CodeBare_Ingredient1`
+	FOREIGN KEY (`Ingredient_idIngredient`)
+    REFERENCES `FoodBook`.`Ingredient` (`idIngredient`)
+  );
