@@ -28,6 +28,7 @@ INSERT INTO TypeIngredient VALUES('Épices');
 INSERT INTO TypeIngredient VALUES('Pâte');
 INSERT INTO TypeIngredient VALUES('Jus');
 INSERT INTO TypeIngredient VALUES('Sucre');
+INSERT INTO TypeIngredient VALUES('Oeufs et Substitus');
 INSERT INTO TypeIngredient VALUES('Autre');
 
 /*Gramme,Kilogramme,Milligramme, Litre, Millilitre */
