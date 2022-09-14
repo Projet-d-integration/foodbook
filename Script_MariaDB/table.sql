@@ -9,6 +9,7 @@ CREATE TABLE IF NOT EXISTS Utilisateur(
   `nom` VARCHAR(45) NOT NULL,
   `prenom` VARCHAR(45) NOT NULL,
   `email` VARCHAR(45) NOT NULL,
+  `motDePasse` VARBINARY(256) NOT NULL,
   PRIMARY KEY (`idCompte`));
 
 Drop Table IF EXISTS TypeRecette;
@@ -195,3 +196,6 @@ CREATE TABLE IF NOT EXISTS CodeBare(
   `Ingredient_idIngredient` INT NOT NULL,
   PRIMARY KEY (`idCodeBare`, `Ingredient_idIngredient`),
   CONSTRAINT `fk_CodeBare_Ingredient1`
+	FOREIGN KEY (`Ingredient_idIngredient`)
+    REFERENCES `FoodBook`.`Ingredient` (`idIngredient`)
+  );
