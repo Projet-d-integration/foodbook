@@ -8,7 +8,7 @@ USE FoodBook;
 
 /* Déjeuner, Dinner, Souper, Entrée, À-côtés , Dessert, Collations, Cocktails, Sauce  */
 INSERT INTO TypeRecette VALUES('Déjeuner');
-INSERT INTO TypeRecette VALUES('Dinner');
+INSERT INTO TypeRecette VALUES('Diner');
 INSERT INTO TypeRecette VALUES('Souper');
 INSERT INTO TypeRecette VALUES('Entrée');
 INSERT INTO TypeRecette VALUES('À-côtés');
@@ -37,3 +37,4 @@ INSERT INTO Metrique VALUES('Gramme');
 INSERT INTO Metrique VALUES('Kilogramme');
 INSERT INTO Metrique VALUES('Millilitre');
 INSERT INTO Metrique VALUES('Litre');
+INSERT INTO Metrique VALUES('Livre');
