@@ -1,0 +1,104 @@
+.recipe-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 5rem 20rem;
+    gap: 2rem;
+
+}
+
+.recipe-header {
+    width: 100%;
+    display: flex;
+}
+
+.recipe-image{
+    background: var(--color-accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-secondary);
+    border-radius: 0.5rem;
+    width: 20rem;
+    height: 20rem;
+}
+
+.recipe-title {
+    margin: 0 0 0 5rem;
+    font-size: 3rem;
+    display: flex;
+    align-items: center;
+}
+
+.checkboxes-container {
+    margin-left: 2rem;
+}
+
+.recipe-ingredients {
+    border: 0.1rem solid var(--color-primary);
+    background: var(--color-accent);
+    color: var(--color-secondary);
+    border-radius: 0.5rem;
+    padding: 3rem 0 3rem 0;
+    width: 100%;
+}
+
+.recipe-steps {
+    border: 0.1rem solid var(--color-primary);
+    background: var(--color-accent);
+    color: var(--color-secondary);
+    border-radius: 0.5rem;
+    padding: 3rem 0 3rem 0;
+    width: 100%;
+}
+
+.recipe-video {
+    background: var(--color-accent);
+    color: var(--color-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.5rem;
+    width: 50%;
+    height: 20rem;
+}
+
+.recipe-video:hover {
+    background: var(--color-accent-hover);
+    color: var(--color-secondary);
+}
+
+.checkbox:checked .strike-through  {
+    text-decoration: line-through;
+}
+
+.publisher-info {
+    border: 0.1rem solid var(--color-primary);
+    background: var(--color-accent);
+    color: var(--color-secondary);
+    border-radius: 0.5rem;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    height: 5rem;
+    width: 100%;
+}
+
+.recipe-save-like{
+    display: flex;
+    margin-right: 4rem;
+    width: 100%;
+    justify-content: flex-end;
+    gap: 2rem;
+}
+
+.recipe-comments{
+    background: var(--color-accent);
+    color: var(--color-secondary);
+    border-radius: 0.5rem;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    width: 100%;
+    height: 15rem;
+}

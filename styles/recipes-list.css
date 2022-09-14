@@ -1,0 +1,23 @@
+.recipes-container {
+    margin: 5rem 20rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 4rem;
+}
+
+.recipe-box {
+    background: var(--color-accent);
+    color: var(--color-secondary);
+    border-radius: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 15rem;
+    height: 15rem;
+}
+
+.recipe-box:hover{
+    background: var(--color-accent-hover);
+    cursor: pointer;
+}
