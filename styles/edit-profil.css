@@ -1,0 +1,25 @@
+.edit-profil-form{
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+    margin: 5rem 20rem;
+    align-items: center;
+}
+.text-input-profil{
+    background: var(--color-accent);
+    color: var(--color-secondary);
+    padding: 0.6rem 1.2rem 0.6rem 0.6rem;
+    border-radius: 0.5rem;
+    width: 30rem;
+    font-size: 1rem;
+    
+}    
+
+
+.text-input-profil::placeholder{
+    font-style: italic;
+    color: white;
+}
+.get-rick-rolled-kid{
+    background: url("https://variety.com/wp-content/uploads/2021/07/Rick-Astley-Never-Gonna-Give-You-Up.png?w=681&h=383&crop=1");
+}
