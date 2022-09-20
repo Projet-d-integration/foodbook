@@ -97,4 +97,23 @@ Function VerifiyUser($email,$psswd){
     return $exist;
 }
 
+/* Change the firstname, lastname and password by using the email as an identificator */
+function ModifyUser($nom, $prenom, $email,$motDePasse)
+{
+    Connexion();
+    global $pdo;
+    try {
+        $sqlProcedure = "CALL modifierUtilisateur(:nom,:prenom,:email,:motDePasse)";
+        $stmt = $pdo->prepare($sqlProcedure);
+        $stmt->bindParam(':nom', $nom, PDO::PARAM_STR);
+        $stmt->bindParam(':prenom', $prenom, PDO::PARAM_STR);
+        $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+        $stmt->bindParam(':motDePasse', $motDePasse, PDO::PARAM_STR);
+        $stmt->execute();
+        $stmt->closeCursor();
+    } catch (PDOException $e) {
+        return $e->getMessage();
+    }
+}
+echo ModifyUser('Tetrault','Samy','sam-tetrault@hotmail.com','projetdirige');
 ?>
