@@ -10,7 +10,7 @@
 
         <?php require 'styles/must-have.css'; ?>
         <?php require 'scripts/body-scripts.php'; ?>
-        <?php require 'db.php'; ?>
+        <?php require 'scripts/db.php'; ?>
     </style>
     
     <?php RenderFavicon(); ?>

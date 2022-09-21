@@ -10,6 +10,7 @@ body {
 
     font-family: Verdana;
     color: var(--color-primary);
+    font-size: 1rem;
     margin: 0;
     height: 100%;
 }
@@ -84,9 +85,20 @@ input {
     fill: var(--color-primary);
 }
 
+.error_message {
+    display: none;
+    color: red;
+}
+
+.success_message {
+    display: none;
+    color: green;
+}
+
 .button {
     transition: var(--transition);
     color: var(--color-primary);
+    font-size: 1rem;
     padding: 0.5rem 2rem;
     border-radius: 0.5rem;
     display: flex;
