@@ -17,11 +17,11 @@ END $$
 
 /* Modifie le nom, prenom et mot de passe de l'utilisateur*/
 DELIMITER $$
-CREATE PROCEDURE modifierUtilisateur (pNom VARCHAR(45), pPrenom VARCHAR(45), pEmail VARCHAR(45),pMotDePasse varchar(40))
+CREATE PROCEDURE modifierUtilisateur (pNom VARCHAR(45), pPrenom VARCHAR(45), pEmail VARCHAR(45),pMotDePasse varbinary(256))
 BEGIN 
 	IF(TRIM(pNom) != '' AND TRIM(pPrenom) != '' AND TRIM(pEmail) != '' AND TRIM(pMotDePasse) != '') THEN
 		start TRANSACTION;
-			UPDATE Utilisateur SET nom = pNom,prenom = pPrenom, motDePasse = SHA2(pMotDePasse, 512) WHERE email = pEmail;
+			UPDATE Utilisateur SET nom = pNom,prenom = pPrenom, motDePasse = pMotDePasse WHERE email = pEmail;
 		COMMIT;
 	ELSE
 		SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'There is missing or wrong paramters';
@@ -120,12 +120,12 @@ BEGIN
 END $$
 /*Modifie la qte d'un ingredient dans l'inventaire*/
 DELIMITER $$
-CREATE PROCEDURE ModifierIngredientInventaire (pIdCompte INT, pIdIngredient INT, pQte INT)
+CREATE PROCEDURE ModifierIngredientInventaire (pIdCompte INT, pIdIngredient INT, pQte INT, pInventaireEmplacement INT)
 BEGIN 
 	IF(TRIM(pIdCompte) != '' AND TRIM(pIdIngredient) != '' AND TRIM(pQte) != '' ) THEN
 		start TRANSACTION;
-			UPDATE Inventaire SET qteIngredient = pQte WHERE  Utilisateur_idCompte = pIdCompte AND pIdIngredient = pIdTypeIngredient;
-		COMMIT;
+			UPDATE Inventaire SET qteIngredient = pQte, inventaire_emplacement = pInventaireEmplacement WHERE  Utilisateur_idCompte = pIdCompte AND pIdIngredient = pIdTypeIngredient   
+		COMMIT; 
 	ELSE
 		SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'There is missing or wrong parameters';
 	END IF;
@@ -175,3 +175,15 @@ BEGIN
     INSERT INTO Emplacement(idEmplacement, nomEmplacement, Svg)
 		VALUES(pIdEmplacement, pNomEmplacement, pSvg);
 END $$
+
+DELIMITER $$
+CREATE PROCEDURE ModifierPlacement (pIdEmplacement INT,pNomEmplacement varchar(45), pSvg VARCHAR(40))
+BEGIN 
+	IF(TRIM(pIdEmplacement) != '' AND TRIM(pNomEmplacement) != '' AND TRIM(pSvg) != '') THEN
+		start TRANSACTION;
+			UPDATE Emplacement SET nomEmplacement = pNomEmplacement, Svg = pSvg WHERE idEmplacement = pIdEmplacement;
+		COMMIT;
+	ELSE
+		SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'There is missing or wrong parameters';
+	END IF;
+END$$

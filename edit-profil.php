@@ -23,15 +23,17 @@
 
 <?php
 
+$info_user = UserInfo($_SESSION['email']);
+
+
 if($_SERVER['REQUEST_METHOD'] === 'POST')
 {
     if(isset($_POST['edit-confirm-profil']))
     {
-        if(empty($_POST["name-profil-input"]) || empty($_POST["last-name-profil-input"]) || empty($_POST["email-profil-input"]))
+        if(empty($_POST["name-profil-input"]) || empty($_POST["last-name-profil-input"]))
         {
             echo '<script>window.onload = () => { document.getElementById("error_entries").style.display = "block"; }</script>';
         }
-        
         else if($_POST["pwd-profil-input"] != $_POST["confirm-pwd-profil-input"])
         {
             echo '<script>window.onload = () => { document.getElementById("error_mdp_confirm").style.display = "block"; }</script>';
@@ -52,27 +54,29 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
                     window.onload = () => { document.getElementById("error_mdp").style.display = "block"; }
                 </script>';
             }
+            else{
+                ModifyUser($_POST["name-profil-input"], $_POST["last-name-profil-input"],$info_user[3],hash("sha512",$_POST["pwd-profil-input"]));
+                $info_user[1] = $_POST["name-profil-input"];
+                $info_user[2] = $_POST["last-name-profil-input"];
+                echo'<script>window.onload = () => { document.getElementById("success_modified").style.display = "block"; } </script>';
+            }
         }
-        
         else{
-            ModifyUser($_POST["name-profil-input"], $_POST["last-name-profil-input"],$info_user[3],$_POST["pwd-profil-input"]);
+            ModifyUser($_POST["name-profil-input"], $_POST["last-name-profil-input"],$info_user[3],$info_user[4]);
+            $info_user[1] = $_POST["name-profil-input"];
+            $info_user[2] = $_POST["last-name-profil-input"];
+            echo'<script>window.onload = () => { document.getElementById("success_modified").style.display = "block"; } </script>';
         }
     }
 }
 ?>
-
-
-
-
-
-
 <body> 
     <div class="header-banner">
         <a href="index.php"><?php echo file_get_contents("utilities/foodbook-logo.svg"); ?></a>
         <div class="banner-title"> Modifier mon profil </div>
     </div>
 
-    <?php $info_user = UserInfo($_SESSION['email']) ?>
+
 
     <form method="POST" class="edit-profil-form">
         <input type="text" name="name-profil-input" placeholder="New name..." class="text-input-profil" value="<?= $info_user[1] ?>">
@@ -89,7 +93,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
         <div class="error_message" id="error_mdp_confirm">Les mots de passe ne correspondent pas</div>
         <div class="error_message" id="error_name">Nom ou nom de famille invalide : ne doivent que contenir des lettres</div>
         <div class="error_message" id="error_mdp">Mot de passe invalide, il doit contenir minumum 5 caractères, dont au moins 1 lettre et 1 chiffre</div>
-
+        <div class="success_message" id="success_modified">Vos informations ont été correctement modifiées.</div>
 
         <input type="submit" value="Modifier" class="button button-primary" name="edit-confirm-profil">
 
