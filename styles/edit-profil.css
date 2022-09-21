@@ -20,3 +20,8 @@
     font-style: italic;
     color: white;
 }
+.wrapper-modify_email{
+    display: flex;
+    flex-direction: column;
+    margin:15rem 10rem;
+}

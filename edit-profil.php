@@ -1,4 +1,9 @@
-<?php session_start(); ?>
+<?php 
+    session_start(); 
+    if(empty($_SESSION['idUser'])){
+        echo "<script>window.location.href='index.php'</script>";
+    }
+?>
 
 <head>
     <title>Modifier Profil Foodbook</title>
@@ -18,8 +23,6 @@
 
 <?php
 
-$current_email = $info_user[3];
-
 if($_SERVER['REQUEST_METHOD'] === 'POST')
 {
     if(isset($_POST['edit-confirm-profil']))
@@ -28,24 +31,12 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
         {
             echo '<script>window.onload = () => { document.getElementById("error_entries").style.display = "block"; }</script>';
         }
-
-        else if($_POST["email-profil-input"] != $current_email)
-        {
-            if(UserExist($_POST['email-profil-input']))
-            {
-                echo '<script>window.onload = () => { document.getElementById("error_email_used").style.display = "block"; }</script>';
-            }
-
-            if(ValidateEmailInput($_POST['email-profil-input']))
-            {
-                echo '<script>window.onload = () => { document.getElementById("error_email").style.display = "block"; }</script>';
-            }
-        }
+        
         else if($_POST["pwd-profil-input"] != $_POST["confirm-pwd-profil-input"])
         {
             echo '<script>window.onload = () => { document.getElementById("error_mdp_confirm").style.display = "block"; }</script>';
         }
-        else if(!ValidateNameInput($_POST["name-profil-input"]) ||  !ValidateNameInput($_POST["last-name-profil-input"]))
+        else if(!ValidateNameInput($_POST["name-profil-input"]) || !ValidateNameInput($_POST["last-name-profil-input"]))
         {
             echo '
                 <script>
@@ -64,14 +55,10 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
         }
         
         else{
-            #ModifyUser($_POST["name-profil-input"], $_POST["last-name-profil-input"],$_POST["email-profil-input"],$_POST["pwd-profil-input"]);
-            echo 'Pret à être modifier';
+            ModifyUser($_POST["name-profil-input"], $_POST["last-name-profil-input"],$_SESSION['email'],$_POST["pwd-profil-input"]);
         }
     }
 }
-
-
-
 ?>
 
 
@@ -92,7 +79,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
 
         <input type="text" name="last-name-profil-input" placeholder="New last name..." class="text-input-profil" value="<?= $info_user[2] ?>">
 
-        <input type="email" name="email-profil-input" placeholder="New email..." class="text-input-profil" value="<?= $info_user[3] ?>">
+        <input type="hidden" name="email-profil-input" placeholder="New email..." class="text-input-profil" value="<?= $info_user[3] ?>">
 
         <input type="password" name="pwd-profil-input" placeholder="New password..." class="text-input-profil">
 
@@ -107,8 +94,9 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
 
 
         <input type="submit" value="Modifier" class="button button-primary" name="edit-confirm-profil">
-    </form>
 
+        <a class="button button-primary" href="edit-email-profil.php">Modifier votre courriel?</a>
+    </form>
 
 
 </body>

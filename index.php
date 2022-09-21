@@ -1,4 +1,10 @@
-<?php session_start(); ?>
+<?php 
+    session_start(); 
+    if(array_key_exists('buttonDeconnecter', $_POST)) {
+        session_destroy();
+        header('Location: index.php');
+    }
+?>
 
 <head>
     <title>Accueil Foodbook</title>
@@ -28,10 +34,13 @@
         <div class="svg-wrapper">
             <a href="login.php" class="svg-button list-button"> <?php echo file_get_contents("utilities/food.svg"); ?> </a>
             <a href="login.php" class="svg-button inventory-button"> <?php echo file_get_contents("utilities/list.svg"); ?> </a>
-            <a href="login.php" class="svg-button login-button"> <?php echo file_get_contents("utilities/account.svg"); ?> </a>
             <?php 
                 if(!empty($_SESSION['idUser'])){
-                    echo '<button onclick class="svg-button login-button"> '.file_get_contents("utilities/logout.svg").'</button>';
+                    echo '<a href="edit-profil.php" class="svg-button login-button"> '.file_get_contents("utilities/account.svg").'</a>';
+                    echo '<form method="post"><button type="submit" name="buttonDeconnecter" class="svg-button login-button" value="buttonDeconnecter" />'.file_get_contents("utilities/logout.svg").'</form>';
+                }
+                else{
+                    echo '<a href="login.php" class="svg-button login-button"> '.file_get_contents("utilities/account.svg").'</a>';
                 }
             ?>
         </div>

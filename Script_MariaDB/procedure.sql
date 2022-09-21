@@ -168,3 +168,10 @@ BEGIN
 		SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'There is missing or wrong parameters';
 	END IF;
 END$$
+
+DELIMITER $$
+CREATE PROCEDURE AjouterEmplacement (pIdEmplacement INT,pNomEmplacement varchar(45), pSvg VARCHAR(40))
+BEGIN
+    INSERT INTO Emplacement(idEmplacement, nomEmplacement, Svg)
+		VALUES(pIdEmplacement, pNomEmplacement, pSvg);
+END $$

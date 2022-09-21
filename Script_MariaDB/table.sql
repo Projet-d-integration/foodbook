@@ -211,3 +211,5 @@ ALTER TABLE Inventaire
 ADD CONSTRAINT fk_inventaire_emplacement
 FOREIGN KEY (`inventaire_emplacement`)
 REFERENCES Emplacement (idEmplacement);
+
+ALTER TABLE Emplacement ADD `Svg` VARCHAR(40);
