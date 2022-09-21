@@ -55,7 +55,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
         }
         
         else{
-            ModifyUser($_POST["name-profil-input"], $_POST["last-name-profil-input"],$_SESSION['email'],$_POST["pwd-profil-input"]);
+            ModifyUser($_POST["name-profil-input"], $_POST["last-name-profil-input"],$info_user[3],$_POST["pwd-profil-input"]);
         }
     }
 }
