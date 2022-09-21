@@ -37,6 +37,6 @@
 
     // Returns true if password has right formatting
     function ValidatePasswordInput($input) {
-        return preg_match("/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{5,}$/", $input) == 0;
+        return preg_match("/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{5,}$/", $input);
     }
 ?>

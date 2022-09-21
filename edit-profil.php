@@ -25,13 +25,13 @@
     <?php $info_user = UserInfo($_SESSION['email']) ?>
 
     <form method="POST" class="edit-profil-form">
-        <input type="text" name="name-profil-input" placeholder="New name..." class="text-input-profil">
+        <input type="text" name="name-profil-input" placeholder="New name..." class="text-input-profil" value="<?= $info_user[1] ?>">
 
-        <input type="text" name="last-name-profil-input" placeholder="New last name..." class="text-input-profil">
+        <input type="text" name="last-name-profil-input" placeholder="New last name..." class="text-input-profil" value="<?= $info_user[2] ?>">
 
-        <input type="email" name="email-profil-input" placeholder="New email..." class="text-input-profil">
+        <input type="email" name="email-profil-input" placeholder="New email..." class="text-input-profil" value="<?= $info_user[3] ?>">
 
-        <input type="password" name="pwd-profil-input" placeholder="New password..." class="text-input-profil">
+        <input type="password" name="pwd-profil-input" placeholder="New password..." class="text-input-profil" value="<?= $info_user[4] ?>">
 
         <input type="password" name="confirm-pwd-profil-input" placeholder="Confirm new password..." class="text-input-profil">
 
