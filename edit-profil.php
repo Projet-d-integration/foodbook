@@ -22,6 +22,21 @@
         <div class="banner-title"> Modifier mon profil </div>
     </div>
 
+    <form action="POST" class="edit-profil-form">
+        <input type="text" name="name-profil-input" class="text-input-profil" placeholder="New name...">
+
+        <input type="text" name="last-name-profil-input" class="text-input-profil" placeholder="New last name...">
+
+        <input type="email" name="email-profil-input" class="text-input-profil" placeholder="New email...">
+
+        <input type="password" name="pwd-profil-input" class="text-input-profil" placeholder="New password...">
+
+        <input type="password" name="confirm-pwd-profil-input" class="text-input-profil" placeholder="Confirm new password...">
+
+        <input type="submit" class="buttton button-primary" name="edit-confirm-profil" value="Modifier" >
+
+    </form>
+
    <?php GenerateFormEditProfil(); ?>
 </body>
 
