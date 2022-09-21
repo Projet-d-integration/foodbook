@@ -25,23 +25,18 @@
         </a>';
     }
 
-    function GenerateFormEditProfil()
-    {
-        #rajouter méthode pour aller chercher toutes les infos du users connecté
+    // Returns true if an email has a valid format
+    function ValidateEmailInput($input) { 
+        return !filter_var($input, FILTER_VALIDATE_EMAIL);
+    }
 
+    // Returns true if name has valid format
+    function ValidateNameInput($input){
+        return preg_match("/^[a-zA-Z-' ]*$/", $input);
+    }
 
-        echo '<form method="POST" class="edit-profil-form">
-        <input type="text" name="name-profil-input" placeholder="New name..." class="text-input-profil">
-
-        <input type="text" name="last-name-profil-input" placeholder="New last name..." class="text-input-profil">
-
-        <input type="email" name="email-profil-input" placeholder="New email..." class="text-input-profil">
-
-        <input type="password" name="pwd-profil-input" placeholder="New password..." class="text-input-profil">
-
-        <input type="password" name="confirm-pwd-profil-input" placeholder="Confirm new password..." class="text-input-profil">
-
-        <input type="submit" value="Modifier" class="button button-primary" name="edit-confirm-profil">
-         </form>';
+    // Returns true if password has right formatting
+    function ValidatePasswordInput($input) {
+        return preg_match("/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{5,}$/", $input) == 0;
     }
 ?>
