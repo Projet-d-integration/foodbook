@@ -55,12 +55,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
         }          
     }
 }
-
 ?>
-
-
 <body>
-
 <div class="header-banner">
         <a href="index.php"><?php echo file_get_contents("utilities/foodbook-logo.svg"); ?></a>
         <div class="banner-title"> Modifier mon courriel</div>
