@@ -72,7 +72,7 @@ function UserExist($email)
     return $exist;
 }
 
-Function VerifiyUser($email,$psswd){
+function VerifiyUser($email,$psswd){
     // 0 -> false
     // 1 -> true
 
@@ -116,4 +116,5 @@ function ModifyUser($nom, $prenom, $email,$motDePasse)
     }
 }
 echo ModifyUser('Tetrault','Samy','sam-tetrault@hotmail.com','projetdirige');
+
 ?>
