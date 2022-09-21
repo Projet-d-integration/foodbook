@@ -72,7 +72,7 @@ function UserExist($email)
     return $exist;
 }
 
-Function VerifiyUser($email,$psswd){
+Function VerifyUser($email,$psswd){
     // 0 -> false
     // 1 -> true
 
