@@ -24,4 +24,19 @@
             <div class="button-tertiary-arrow"> '.file_get_contents("./utilities/arrow.svg").'</div>
         </a>';
     }
+
+    // Returns true if an email has a valid format
+    function ValidateEmailInput($input) { 
+        return !filter_var($input, FILTER_VALIDATE_EMAIL);
+    }
+
+    // Returns true if name has valid format
+    function ValidateNameInput($input){
+        return preg_match("/^[a-zA-Z-' ]*$/", $input);
+    }
+
+    // Returns true if password has right formatting
+    function ValidatePasswordInput($input) {
+        return preg_match("/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{5,}$/", $input) == 0;
+    }
 ?>

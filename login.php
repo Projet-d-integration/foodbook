@@ -10,10 +10,38 @@
 
         <?php require 'styles/must-have.css'; ?>
         <?php require 'scripts/body-scripts.php'; ?>
+        <?php require 'scripts/db.php'; ?>
     </style>
     
     <?php RenderFavicon(); ?>
 </head>
+
+<?php 
+    if($_SERVER['REQUEST_METHOD'] === 'POST'){
+        if(!empty($_POST['email-input'])
+        && !empty($_POST['password-input']))
+        {
+            if(VerifyUser($_POST['email-input'], $_POST['password-input'])) {
+                echo '
+                <script>
+                    window.onload = () => { document.getElementById("successful_login").style.display = "block"; }
+                </script>';
+            }
+            else{
+                echo'
+                <script>
+                    window.onload = () => { document.getElementBerror_connexion").style.display = "block"; }
+                </script>';
+            }
+        }
+        else {
+            echo '  
+            <script>
+                window.onload = () => { document.getElementById("error_entries").style.display = "block"; }
+            </script>';
+        }
+    }
+?>
 
 <body> 
     <div class="header-banner">
@@ -21,20 +49,27 @@
         <div class="banner-title"> Login </div>
     </div>
 
-    <div class="wrapper">
-        <div class="input-username">
-            <input class="text-input" type="text" placeholder="Username...">
-        </div>
+    <form class="wrapper" method="POST">
 
-        <div class="input-password">
-            <input type="password" class="text-input" placeholder="Password...">
-        </div>
+        <input class="text-input" name="email-input" type="text" placeholder="Addresse courriel">
+        <input type="password" name="password-input" class="text-input" placeholder="Mot de passe">
 
-        <div class="validation-login-button">
-            <?php GenerateButtonPrimary("Se connecter", "index.php") ?>
+        <div class="error_message" id="error_entries">Tous les champs sont obligatoires</div>
+        <div class="error_message" id="error_connexion">Nom d'utilisateur ou mot de passe invalide</div>
 
+        <div class="success_message" id="successful_login">Vous avez été connecté avec succès!</div>
+
+        <div class="buttons-wrapper">
+            <div class="create-account-button">
+                <?php GenerateButtonTertiary("S'inscrire", "create-account.php");?>
+            </div>
+
+            <div>
+                <input type="submit" name="validation-login" value="Se connecter" class="button button-primary">
+            </div>
+            
         </div>
-    </div>
+    </form>
 
     <?php GenerateFooter(); ?>
 </body>
