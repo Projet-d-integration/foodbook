@@ -39,12 +39,4 @@
     function ValidatePasswordInput($input) {
         return preg_match("/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{5,}$/", $input) == 0;
     }
-
-    function GenerateFormEditProfil()
-    {
-
-
-
-        echo '';
-    }
 ?>
