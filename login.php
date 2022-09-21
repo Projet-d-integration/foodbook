@@ -22,10 +22,16 @@
         && !empty($_POST['password-input']))
         {
             if(VerifyUser($_POST['email-input'], $_POST['password-input'])) {
-                echo '
+                //$UserInfo = UserInfo($_POST['email-input']);
+                //$_SESSION['idUser'] = $UserInfo[0];
+                //$_SESSION['nom'] = $UserInfo[1];
+                //$_SESSION['prenom'] = $UserInfo[2];
+                //$_SESSION['email'] = $UserInfo[3];
+                /*echo '
                 <script>
                     window.onload = () => { document.getElementById("successful_login").style.display = "block"; }
-                </script>';
+                </script>';*/
+                //echo '<h1>$_SESSION["idUser"]</h1>';
             }
             else{
                 echo'

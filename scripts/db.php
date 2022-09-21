@@ -3,7 +3,7 @@
 /* Fichier Php qui vas contenir toute les entrées ou les sorties de la bd */
 
 /* La function connexion vas être appeler à chaque function pour se connecter*/
-/* Après l'appel de connexion il faut global $pdo; */
+/* Après l'appel de connexion il faut global $PDO; */
 function Connexion()
 {
     session_start();
@@ -21,8 +21,8 @@ function Connexion()
         PDO::ATTR_EMULATE_PREPARES   => false,
     ];
     try {
-        global $pdo; // Variable importante qui seras utile dans toute les fonctions 
-        $pdo = new PDO($dsn, $user, $pass, $options);
+        global $PDO; // Variable importante qui seras utile dans toute les fonctions 
+        $PDO = new PDO($dsn, $user, $pass, $options);
     } catch (\PDOException $e) {
         throw new \PDOException($e->getMessage(), (int)$e->getCode());
     }
@@ -32,10 +32,10 @@ function Connexion()
 function AddUser($nom, $prenom, $email,$motDePasse)
 {
     Connexion();
-    global $pdo;
+    global $PDO;
     try {
         $sqlProcedure = "CALL AjouterUtilisateur(:nom,:prenom,:email,:motDePasse)";
-        $stmt = $pdo->prepare($sqlProcedure);
+        $stmt = $PDO->prepare($sqlProcedure);
         $stmt->bindParam(':nom', $nom, PDO::PARAM_STR);
         $stmt->bindParam(':prenom', $prenom, PDO::PARAM_STR);
         $stmt->bindParam(':email', $email, PDO::PARAM_STR);
@@ -53,9 +53,9 @@ function UserExist($email)
     // 1 -> true
 
     Connexion();
-    global $pdo;
+    global $PDO;
 
-    $stmt = $pdo->prepare("SELECT EXISTS (SELECT nom FROM Utilisateur WHERE email = :pEmail);", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+    $stmt = $PDO->prepare("SELECT EXISTS (SELECT nom FROM Utilisateur WHERE email = :pEmail);", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
     $stmt->bindParam(':pEmail', $email, PDO::PARAM_STR);
     $stmt->execute();
 
@@ -72,14 +72,14 @@ function UserExist($email)
     return $exist;
 }
 
-Function VerifyUser($email,$psswd){
+Function VerifiyUser($email,$psswd){
     // 0 -> false
     // 1 -> true
 
     Connexion();
-    global $pdo;
+    global $PDO;
 
-    $stmt = $pdo->prepare("SELECT EXISTS (SELECT nom FROM Utilisateur WHERE email = :pEmail AND motDePasse = :pPsswd);", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+    $stmt = $PDO->prepare("SELECT EXISTS (SELECT nom FROM Utilisateur WHERE email = :pEmail AND motDePasse = :pPsswd);", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
     $stmt->bindParam(':pEmail', $email, PDO::PARAM_STR);
     $stmt->bindParam(':pPsswd', hash("sha512",$psswd), PDO::PARAM_STR);
     $stmt->execute();
@@ -97,4 +97,53 @@ Function VerifyUser($email,$psswd){
     return $exist;
 }
 
+/* Change the firstname, lastname and password by using the email as an identificator */
+function ModifyUser($nom, $prenom, $email,$motDePasse)
+{
+    Connexion();
+    global $PDO;
+    try {
+        $sqlProcedure = "CALL modifierUtilisateur(:nom,:prenom,:email,:motDePasse)";
+        $stmt = $PDO->prepare($sqlProcedure);
+        $stmt->bindParam(':nom', $nom, PDO::PARAM_STR);
+        $stmt->bindParam(':prenom', $prenom, PDO::PARAM_STR);
+        $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+        $stmt->bindParam(':motDePasse', $motDePasse, PDO::PARAM_STR);
+        $stmt->execute();
+        $stmt->closeCursor();
+    } catch (PDOException $e) {
+        return $e->getMessage();
+    }
+}
+
+/* Cela retourne un tableau qui contient les informations de l'utilisateur */
+function UserInfo($email)
+{
+    Connexion();
+    global $PDO;
+    mysqli_set_charset($PDO, "utf8mb4");
+
+    $stmt = $PDO->prepare("SELECT * FROM Utilisateur WHERE email = :pEmail", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+    $stmt->bindParam(':pEmail', $email, PDO::PARAM_STR);
+    $stmt->execute();
+    while ($donnee = $stmt->fetch(PDO::FETCH_NUM)) {
+        $rangee = [];
+        array_push($rangee, $donnee[0]); // Id compte
+        array_push($rangee, $donnee[1]); // nom
+        array_push($rangee, $donnee[2]); // prenom
+        array_push($rangee, $donnee[3]); // email
+        array_push($rangee, $donnee[4]); // mot de passe chiffrer (hash("sha512",$psswd))
+    }
+    $stmt->closeCursor();
+    return $rangee;
+}
+
+/* Liste a faire sur Workbench et Php */
+/*
+    1- Insertion,Mofication et Select de la table profil
+    2- Insertion,Mofication et Select de la table ingredient
+    3- Insertion,Mofication et Select de la table inventaire
+    4- Creer une fonction pour ajouter et retirer un ingredient (+1 et -1)
+    5- Retirer un ingredient de mon inventaire
+*/
 ?>
