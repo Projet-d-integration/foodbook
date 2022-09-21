@@ -86,8 +86,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
         <input type="password" name="confirm-pwd-profil-input" placeholder="Confirm new password..." class="text-input-profil">
 
         <div class="error_message" id="error_entries">Veuillez remplir les champs obligatoire.</div>
-        <div class="error_message" id="error_email_used">Courriel déjà utilisé</div>
-        <div class="error_message" id="error_email">Courriel invalide</div>
         <div class="error_message" id="error_mdp_confirm">Les mots de passe ne correspondent pas</div>
         <div class="error_message" id="error_name">Nom ou nom de famille invalide : ne doivent que contenir des lettres</div>
         <div class="error_message" id="error_mdp">Mot de passe invalide, il doit contenir minumum 5 caractères, dont au moins 1 lettre et 1 chiffre</div>
