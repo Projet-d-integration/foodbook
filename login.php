@@ -27,10 +27,7 @@
                 $_SESSION['nom'] = $UserInfo[1];
                 $_SESSION['prenom'] = $UserInfo[2];
                 $_SESSION['email'] = $UserInfo[3];
-                echo '
-                <script>
-                    window.onload = () => { document.getElementById("successful_login").style.display = "block"; }
-                </script>';
+                echo "<script>window.location.href='index.php'</script>";
             }
             else{
                 echo'

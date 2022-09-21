@@ -25,9 +25,16 @@
             <div class="search-icon"><?php echo file_get_contents("utilities/search.svg"); ?></div>
         </div>
 
-        <a href="login.php" class="svg-button list-button"> <?php echo file_get_contents("utilities/food.svg"); ?> </a>
-        <a href="login.php" class="svg-button inventory-button"> <?php echo file_get_contents("utilities/list.svg"); ?> </a>
-        <a href="login.php" class="svg-button login-button"> <?php echo file_get_contents("utilities/account.svg"); ?> </a>
+        <div class="svg-wrapper">
+            <a href="login.php" class="svg-button list-button"> <?php echo file_get_contents("utilities/food.svg"); ?> </a>
+            <a href="login.php" class="svg-button inventory-button"> <?php echo file_get_contents("utilities/list.svg"); ?> </a>
+            <a href="login.php" class="svg-button login-button"> <?php echo file_get_contents("utilities/account.svg"); ?> </a>
+            <?php 
+                if(!empty($_SESSION['idUser'])){
+                    echo '<button onclick class="svg-button login-button"> '.file_get_contents("utilities/logout.svg").'</button>';
+                }
+            ?>
+        </div>
     </div>
 
     <div class="separators">

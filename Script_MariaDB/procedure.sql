@@ -113,10 +113,10 @@ END$$
 
 /*Ajoute un ingredient à l'inventaire*/
 DELIMITER $$
-CREATE PROCEDURE AjouterIngredientInventaire (pIdCompte INT, pIdIngredient INT, pQte INT)
+CREATE PROCEDURE AjouterIngredientInventaire (pIdCompte INT, pIdIngredient INT, pQte INT, pIdEmplacement INT)
 BEGIN
-    INSERT INTO Inventaire(qteIngredient,Utilisateur_idCompte,Ingredient_idIngredient)
-		VALUES(pQte,pIdCompte,pIdIngredient);
+    INSERT INTO Inventaire(qteIngredient,Utilisateur_idCompte,Ingredient_idIngredient, inventaire_emplacement)
+		VALUES(pQte,pIdCompte,pIdIngredient, pIdEmplacement);
 END $$
 /*Modifie la qte d'un ingredient dans l'inventaire*/
 DELIMITER $$
