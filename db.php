@@ -115,5 +115,35 @@ function ModifyUser($nom, $prenom, $email,$motDePasse)
         return $e->getMessage();
     }
 }
-echo ModifyUser('Tetrault','Samy','sam-tetrault@hotmail.com','projetdirige');
+
+/* Cela retourne un tableau qui contient les informations de l'utilisateur */
+function UserInfo($email)
+{
+    Connexion();
+    global $pdo;
+    mysqli_set_charset($pdo, "utf8mb4");
+
+    $stmt = $pdo->prepare("SELECT * FROM Utilisateur WHERE email = :pEmail", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+    $stmt->bindParam(':pEmail', $email, PDO::PARAM_STR);
+    $stmt->execute();
+    while ($donnee = $stmt->fetch(PDO::FETCH_NUM)) {
+        $rangee = [];
+        array_push($rangee, $donnee[0]); // Id compte
+        array_push($rangee, $donnee[1]); // nom
+        array_push($rangee, $donnee[2]); // prenom
+        array_push($rangee, $donnee[3]); // email
+        array_push($rangee, $donnee[4]); // mot de passe chiffrer (hash("sha512",$psswd))
+    }
+    $stmt->closeCursor();
+    return $rangee;
+}
+
+/* Liste a faire sur Workbench et Php */
+/*
+    1- Insertion,Mofication et Select de la table profil
+    2- Insertion,Mofication et Select de la table ingredient
+    3- Insertion,Mofication et Select de la table inventaire
+    4- Creer une fonction pour ajouter et retirer un ingredient (+1 et -1)
+    5- Retirer un ingredient de mon inventaire
+*/
 ?>
