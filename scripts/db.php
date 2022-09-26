@@ -452,15 +452,16 @@ function SingleIngredientInfo($idIngredient)
     return $rangee;
 }
 //Ajouter Ingredient Inventaire
-function AddIngredientInventory($pIdAccount, $pIdIngredient, $pQty){
+function AddIngredientInventory($pIdAccount, $pIdIngredient, $pQty, $pIdEmplacement){
     Connexion();
     global $PDO;
     try{
-        $sqlProcedure = "CALL AjouterIngredientInventaire(:pIdAccount, :pIdIngredient, :pQty)";
+        $sqlProcedure = "CALL AjouterIngredientInventaire(:pIdAccount, :pIdIngredient, :pQty, :pIdEmplacement)";
         $stmt = $PDO->prepare($sqlProcedure);
         $stmt->bindParam(':pIdAccount', $pIdAccount, PDO::PARAM_INT);
         $stmt->bindParam(':pTypIdIngredientpeNom', $pIdIngredient, PDO::PARAM_INT);
         $stmt->bindParam(':pQty', $pQty, PDO::PARAM_INT);
+        $stmt->bindParam(':pIdEmplacement', $pIdEmplacement, PDO::PARAM_INT);
         $stmt->execute();
         $stmt->closeCursor();
     } catch (PDOException $e) {
@@ -469,15 +470,16 @@ function AddIngredientInventory($pIdAccount, $pIdIngredient, $pQty){
 }
 
 //Modification d'ingrédient dans l'inventaire
-function ModifyIngredientInventory($pIdAccount, $pIdIngredient, $pQty){
+function ModifyIngredientInventory($pIdAccount, $pIdIngredient, $pQty, $pIdEmplacement){
     Connexion();
     global $PDO;
     try{
-        $sqlProcedure = "CALL ModifierIngredientInventaire(:pIdAccount, :pIdIngredient, :pQty)";
+        $sqlProcedure = "CALL ModifierIngredientInventaire(:pIdAccount, :pIdIngredient, :pQty, :pIdEmplacement)";
         $stmt = $PDO->prepare($sqlProcedure);
         $stmt->bindParam(':pIdAccount', $pIdAccount, PDO::PARAM_INT);
         $stmt->bindParam(':pTypIdIngredientpeNom', $pIdIngredient, PDO::PARAM_INT);
         $stmt->bindParam(':pQty', $pQty, PDO::PARAM_INT);
+        $stmt->bindParam(':pIdEmplacement', $pIdEmplacement, PDO::PARAM_INT);
         $stmt->execute();
         $stmt->closeCursor();
     } catch (PDOException $e) {
@@ -486,15 +488,16 @@ function ModifyIngredientInventory($pIdAccount, $pIdIngredient, $pQty){
 }
 
 //Ajouter quantiter ingredient inventaire
-function AddQteIngredientInventory($pIdAccount, $pIdIngredient, $pQty){
+function AddQteIngredientInventory($pIdAccount, $pIdIngredient, $pQty, $pIdEmplacement){
     Connexion();
     global $PDO;
     try{
-        $sqlProcedure = "CALL AjouterQteIngredientInventaire(:pIdAccount, :pIdIngredient, :pQty)";
+        $sqlProcedure = "CALL AjouterQteIngredientInventaire(:pIdAccount, :pIdIngredient, :pQty, :pIdEmplacement)";
         $stmt = $PDO->prepare($sqlProcedure);
         $stmt->bindParam(':pIdAccount', $pIdAccount, PDO::PARAM_INT);
         $stmt->bindParam(':pTypIdIngredientpeNom', $pIdIngredient, PDO::PARAM_INT);
         $stmt->bindParam(':pQty', $pQty, PDO::PARAM_INT);
+        $stmt->bindParam(':pIdEmplacement', $pQty, PDO::PARAM_INT);
         $stmt->execute();
         $stmt->closeCursor();
     } catch (PDOException $e) {
@@ -534,6 +537,7 @@ function UserInventoryInfo($idCompte)
         array_push($rangee, $donnee[1]); // nom Ingredient
         array_push($rangee, $donnee[2]); // Description
         array_push($rangee, $donnee[3]); // Id Type Ingredient
+        array_push($rangee, $donnee[4]); // ID Emplacement
         array_push($info, $rangee);
     }
     $stmt->closeCursor();
@@ -553,5 +557,73 @@ function DeleteIngredientInventory($idCompte,$idIngredient)
     } catch (PDOException $e) {
         return $e->getMessage();
     }
+}
+
+//Ajouter Emplacement
+function AddPlace($pIdEmplacement, $pNomEmplacement, $pSvg){
+    Connexion();
+    global $PDO;
+    try{
+        $sqlProcedure = "CALL AjouterEmplacement(:pIdEmplacement, :pNomEmplacement, :pSvg)";
+        $stmt = $PDO->prepare($sqlProcedure);
+        $stmt->bindParam(':pIdEmplacement', $pIdEmplacement, PDO::PARAM_INT);
+        $stmt->bindParam(':pNomEmplacement', $pNomEmplacement, PDO::PARAM_STR);
+        $stmt->bindParam(':pSvg', $pSvg, PDO::PARAM_STR);
+        $stmt->execute();
+        $stmt->closeCursor();
+    } catch (PDOException $e) {
+        return $e->getMessage();
+    }    
+}
+
+//Modifier Emplacement
+function ModifyPlace($pIdEmplacement, $pNomEmplacement, $pSvg){
+    Connexion();
+    global $PDO;
+    try{
+        $sqlProcedure = "CALL ModifierEmplacement(:pIdEmplacement, :pNomEmplacement, :pSvg)";
+        $stmt = $PDO->prepare($sqlProcedure);
+        $stmt->bindParam(':pIdEmplacement', $pIdEmplacement, PDO::PARAM_INT);
+        $stmt->bindParam(':pNomEmplacement', $pNomEmplacement, PDO::PARAM_STR);
+        $stmt->bindParam(':pSvg', $pSvg, PDO::PARAM_STR);
+        $stmt->execute();
+        $stmt->closeCursor();
+    } catch (PDOException $e) {
+        return $e->getMessage();
+    }    
+}
+
+//Supprimer Emplacement
+function DeletePlace($pIdEmplacement, $pNomEmplacement ){
+    try {
+        Connexion();
+        global $PDO;
+        mysqli_set_charset($PDO, "utf8mb4");
+        $stmt = $PDO->prepare("DELETE FROM Emplacement WHERE idEmplacement = :pIdEmplacement AND nomEmplacement = :pNomEmplacement", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+        $stmt->bindParam(':idEmplacement', $pIdEmplacement, PDO::PARAM_INT);
+        $stmt->bindParam(':nomEmplacement', $pNomEmplacement, PDO::PARAM_INT);
+        $stmt->execute();
+    } catch (PDOException $e) {
+        return $e->getMessage();
+    }
+}
+
+function InfoPlace(){
+    Connexion();
+    global $PDO;
+    mysqli_set_charset($PDO, "utf8mb4");
+
+    $stmt = $PDO->prepare("SELECT * FROM Emplacement", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+    $stmt->execute();
+    $info = [];
+    while ($donnee = $stmt->fetch(PDO::FETCH_NUM)) {
+        $rangee = [];
+        array_push($rangee, $donnee[0]); // idEmplacement
+        array_push($rangee, $donnee[1]); // nom Emplacement
+        array_push($rangee, $donnee[2]); // Svg
+        array_push($info, $rangee);
+    }
+    $stmt->closeCursor();
+    return $info;
 }
 ?>
