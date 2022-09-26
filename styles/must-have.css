@@ -35,6 +35,11 @@ a, a:hover, a:focus, a:active {
     text-decoration: none;
 }
 
+button {
+    all: unset;
+    cursor: pointer;
+  }
+
 input:focus {
     outline: none;
 }
@@ -173,7 +178,7 @@ input {
 }
 
 .svg-button {
-    position: absolute;
+    position: relative;
 }
 
 .svg-button > * {
@@ -185,16 +190,12 @@ input {
     height: 2rem;
 }
 
-.account-button {
+.svg-wrapper {
+    display: flex;
+    flex-wrap: nowrap;
+    position: absolute;
     right: 4rem;
-}
-
-.list-button {
-    right: 8rem;
-}
-
-.inventory-button {
-    right: 12rem;
+    gap: 2rem;
 }
 
 .hidden-cursor {

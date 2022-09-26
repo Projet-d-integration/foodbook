@@ -199,3 +199,17 @@ CREATE TABLE IF NOT EXISTS CodeBare(
 	FOREIGN KEY (`Ingredient_idIngredient`)
     REFERENCES `FoodBook`.`Ingredient` (`idIngredient`)
   );
+
+DROP TABLE IF EXISTS Emplacement;
+CREATE TABLE IF NOT EXISTS Emplacement(
+  `idEmplacement` INT NOT NULL AUTO_INCREMENT,
+  `nomEmplacement` VARCHAR(30) NOT NULL,
+  PRIMARY KEY (`idEmplacement`));
+
+ALTER TABLE Inventaire ADD `inventaire_emplacement` INT NOT NULL;
+ALTER TABLE Inventaire
+ADD CONSTRAINT fk_inventaire_emplacement
+FOREIGN KEY (`inventaire_emplacement`)
+REFERENCES Emplacement (idEmplacement);
+
+ALTER TABLE Emplacement ADD `Svg` VARCHAR(40);
