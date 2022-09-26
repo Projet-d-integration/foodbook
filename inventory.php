@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     
     <style>
-        <?php require 'styles/index.css'; ?>
+        <?php require 'styles/inventory.css'; ?>
 
         <?php require 'styles/must-have.css'; ?>
         <?php require 'scripts/body-scripts.php'; ?>
@@ -14,6 +14,17 @@
     
     <?php RenderFavicon(); ?>
 </head>
+
+<?php
+
+    // If qte-emplacements == 0
+    if (true){
+        echo '
+        <script>
+            window.onload = () => { document.getElementById("error_no_location").style.display = "block"; }
+        </script>';
+    }
+    ?>
 
 <body> 
     <div class="header-banner">
@@ -30,24 +41,26 @@
         <a href="login.php" class="svg-button account-button"> <?php echo file_get_contents("utilities/account.svg"); ?> </a>
     </div>
 
-    <div class="separators">
-        <a href="recipes-list.php" class="separator">
-           <div class="separator-text">Poulet</div>
-           <div class="arrow">></div>
-        </a>
-        <a href="recipes-list.php" class="separator">
-           <div class="separator-text">Boeuf</div>
-           <div class="arrow">></div>
-        </a>
-        <a href="recipes-list.php" class="separator">
-           <div class="separator-text">Végé</div>
-           <div class="arrow">></div>
-        </a>
-        <a href="recipes-list.php" class="separator">
-           <div class="separator-text">Pâtes</div>
-           <div class="arrow">></div>
-        </a>
-    </div>  
+    <div class="wrapper">
+        <div class="inventory-wrapper">
+            <div class="neutral_message" id="error_no_location">Pour visionner et classer vos items, veuillez créer un emplacement.</div>
+
+            <form class="inventory-location-form" id="inventory-location-form">
+                <div class="transparent-background"></div>
+                <div class="location-form-content">
+                    test
+                </div>
+            </form>
+
+            <div class="button button-primary" onclick="ShowForm()">Créer nouvel emplacement</div>
+        </div>
+    </div>
 
     <?php GenerateFooter(); ?>
 </body>
+
+<script>
+    function ShowForm(){
+        document.getElementById("inventory-location-form").style.display = "block";
+    }
+</script>

@@ -1,0 +1,31 @@
+.wrapper {
+    margin: 5rem auto;
+    width: fit-content;
+}
+
+.inventory-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+}
+
+.inventory-location-form  {
+    display: none;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+}
+
+.transparent-background {
+    opacity: 0.3;
+    z-index: 2;
+    background: #a6a6a6;
+
+}
+
+.location-form-content {
+    z-index: 3;
+    margin: auto auto;
+}

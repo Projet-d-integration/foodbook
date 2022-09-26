@@ -95,6 +95,11 @@ input {
     color: green;
 }
 
+.neutral_message {
+    display: none;
+    color: var(--color-accent);
+}
+
 .button {
     transition: var(--transition);
     color: var(--color-primary);
@@ -180,7 +185,7 @@ input {
     height: 2rem;
 }
 
-.login-button {
+.account-button {
     right: 4rem;
 }
 
