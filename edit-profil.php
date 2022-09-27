@@ -47,7 +47,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
 
     if(isset($_POST['edit-confirm-profil']))
     {
-        if(empty($name_profil) || empty($last_name_profil) || empty($email_profil))
+        if(empty($name_profil) || empty($last_name_profil))
         {
             echo '<script>window.onload = () => { document.getElementById("error_entries").style.display = "block"; }</script>';
         }
@@ -87,22 +87,33 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
             echo'<script>window.onload = () => { document.getElementById("success_modified").style.display = "block"; } </script>';
         }
 
-        if($_POST["email-edit-profil"] != $info_user[3])
+        if(empty($email_profil))
+        {
+            echo '<script>window.onload = () => { document.getElementById("error_entries").style.display = "block"; }</script>';
+        }
+
+
+        else if($_POST["email-edit-profil"] != $info_user[3])
         {
             if(UserExist($_POST["email-edit-profil"]))
             {
                 echo '<script>window.onload = () => { document.getElementById("error_email_used").style.display = "block"; }</script>';
             }
+            
+            else if(ValidateEmailInput($_POST["email-edit-profil"]))
+            {
+                echo '<script>window.onload = () => { document.getElementById("error_email").style.display = "block"; }</script>';
+            }
+            else{
+                ModifyEmail($info_user[0],$_POST["email-edit-profil"]);
+                $info_user[3] = $_POST["email-edit-profil"];
+                echo '<script>window.onload = () => { document.getElementById("success_modified_email").style.display = "block"; }</script>';
+            }
         }
-        else if(ValidateEmailInput($_POST["email-edit-profil"]))
-        {
-            echo '<script>window.onload = () => { document.getElementById("error_email").style.display = "block"; }</script>';
-        }
-        else{
-            ModifyEmail($info_user[0],$_POST["confirm-email-edit-profil"]);
-            $info_user[3] = $_POST["email-edit-profil"];
-            echo '<script>window.onload = () => { document.getElementById("success_modified").style.display = "block"; }</script>';
-        } 
+       
+        
+        
+        
     }
 }
 ?>
@@ -130,6 +141,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
         <div class="error_message" id="error_name">Nom ou nom de famille invalide : ne doivent que contenir des lettres</div>
         <div class="error_message" id="error_mdp">Mot de passe invalide, il doit contenir minumum 5 caractères, dont au moins 1 lettre et 1 chiffre</div>
         <div class="success_message" id="success_modified">Vos informations ont été correctement modifiées.</div>
+        <div class="success_message" id="success_modified_email">Votre email a été correctement modifié.</div>
         <div class="error_message" id="error_email_used">Courriel déjà utilisé</div>
         <div class="error_message" id="error_email">Courriel invalide</div>
         <div class="error_message" id="error_email_different">Les courriels ne correspondent pas.</div>
