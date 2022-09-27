@@ -28,13 +28,30 @@ $info_user = UserInfo($_SESSION['email']);
 
 if($_SERVER['REQUEST_METHOD'] === 'POST')
 {
+
+        if(!isset($_POST["name-profil-input"])) {$name_profil = "";}
+        else {$name_profil = $_POST["name-profil-input"];}
+        
+        if(!isset($_POST["last-name-profil-input"])) {$last_name_profil = "";}
+        else {$last_name_profil = $_POST["last-name-profil-input"];}
+        
+        if(!isset($_POST["email-edit-profil"])) {$email_profil = "";}
+        else {$email_profil = $_POST["email-edit-profil"];}
+
+        if(!isset($_POST["pwd-profil-input"])) {$pwd_profil = "";}
+        else {$pwd_profil = $_POST["pwd-profil-input"];}
+
+        if(!isset($_POST["confirm-pwd-profil-input"])) {$pwd_confirm_profil = "";}
+        else {$pwd_confirm_profil = $_POST["confirm-pwd-profil-input"];}
+
+
     if(isset($_POST['edit-confirm-profil']))
     {
-        if(empty($_POST["name-profil-input"]) || empty($_POST["last-name-profil-input"]))
+        if(empty($name_profil) || empty($last_name_profil) || empty($email_profil))
         {
             echo '<script>window.onload = () => { document.getElementById("error_entries").style.display = "block"; }</script>';
         }
-        else if($_POST["pwd-profil-input"] != $_POST["confirm-pwd-profil-input"])
+        else if($pwd_profil != $pwd_confirm_profil )
         {
             echo '<script>window.onload = () => { document.getElementById("error_mdp_confirm").style.display = "block"; }</script>';
         }
@@ -70,11 +87,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
             echo'<script>window.onload = () => { document.getElementById("success_modified").style.display = "block"; } </script>';
         }
 
-        if(empty($_POST["email-edit-profil"]))
-        {
-            echo '<script>window.onload = () => { document.getElementById("error_entries").style.display = "block"; }</script>';
-        }
-        else if($_POST["email-edit-profil"] != $info_user[3])
+        if($_POST["email-edit-profil"] != $info_user[3])
         {
             if(UserExist($_POST["email-edit-profil"]))
             {
@@ -106,7 +119,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
 
         <input type="text" name="last-name-profil-input" placeholder="New last name..." class="text-input-profil" value="<?= $info_user[2] ?>">
 
-        <input type="text" name="email-edit-profil" class="text-input-profil" placeholder="New email..." value="<?= $info_user[3] ?>">
+        <input type="text" name="email-edit-profil" placeholder="New email..." class="text-input-profil" value="<?= $info_user[3] ?>">
 
         <input type="password" name="pwd-profil-input" placeholder="New password..." class="text-input-profil">
 
