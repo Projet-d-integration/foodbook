@@ -55,7 +55,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
         {
             echo '<script>window.onload = () => { document.getElementById("error_mdp_confirm").style.display = "block"; }</script>';
         }
-        else if(!ValidateNameInput($_POST["name-profil-input"]) || !ValidateNameInput($_POST["last-name-profil-input"]))
+        else if(!ValidateNameInput($name_profil) || !ValidateNameInput($last_name_profil))
         {
             echo '
                 <script>
@@ -64,7 +64,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
         }
         else if($_POST["pwd-profil-input"] != "")
         {
-            if(!ValidatePasswordInput($_POST["pwd-profil-input"]))
+            if(!ValidatePasswordInput($pwd_profil))
             {
             echo '  
                 <script>
@@ -75,7 +75,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
                 ModifyUser($_POST["name-profil-input"], $_POST["last-name-profil-input"],$info_user[3],hash("sha512",$_POST["pwd-profil-input"]));
                 $info_user[1] = $_POST["name-profil-input"];
                 $info_user[2] = $_POST["last-name-profil-input"];
-                $info_user[3] = $_POST["email-edit-profil"];
                 echo'<script>window.onload = () => { document.getElementById("success_modified").style.display = "block"; } </script>';
             }
         }
@@ -83,7 +82,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
             ModifyUser($_POST["name-profil-input"], $_POST["last-name-profil-input"],$info_user[3],$info_user[4]);
             $info_user[1] = $_POST["name-profil-input"];
             $info_user[2] = $_POST["last-name-profil-input"];
-            $info_user[3] = $_POST["email-edit-profil"];
             echo'<script>window.onload = () => { document.getElementById("success_modified").style.display = "block"; } </script>';
         }
 
@@ -93,14 +91,14 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
         }
 
 
-        else if($_POST["email-edit-profil"] != $info_user[3])
+        else if($email_profil != $info_user[3])
         {
             if(UserExist($_POST["email-edit-profil"]))
             {
                 echo '<script>window.onload = () => { document.getElementById("error_email_used").style.display = "block"; }</script>';
             }
             
-            else if(ValidateEmailInput($_POST["email-edit-profil"]))
+            else if(ValidateEmailInput($email_profil))
             {
                 echo '<script>window.onload = () => { document.getElementById("error_email").style.display = "block"; }</script>';
             }
