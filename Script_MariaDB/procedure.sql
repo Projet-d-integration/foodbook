@@ -137,7 +137,7 @@ BEGIN
 	IF(TRIM(pIdCompte) != '' AND TRIM(pIdIngredient) != '' AND TRIM(pQte) != '' ) THEN
 		start TRANSACTION;
 			SET @qte = pQte + 1;
-			UPDATE Inventaire SET qteIngredient = pQte WHERE  Utilisateur_idCompte = pIdCompte AND pIdIngredient = pIdTypeIngredient;
+			UPDATE Inventaire SET qteIngredient = pQte  WHERE  Utilisateur_idCompte = pIdCompte AND pIdIngredient = pIdTypeIngredient;
 		COMMIT;
 	ELSE
 		SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'There is missing or wrong parameters';

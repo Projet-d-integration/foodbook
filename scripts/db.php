@@ -365,14 +365,15 @@ function DeleteTypeIngredient($idTypeIngredient)
 
 
 //Ajout d'ingredient a la table
-function AddIngredient($pTypeName, $pIdMetrique){
+function AddIngredient($pNomIngredient, $pDescriptionIngredient, $pIdTypeIngredient){
     Connexion();
     global $PDO;
     try{
-        $sqlProcedure = "CALL AjouterTypeIngredient(:pTypeNom, :pIdMetrique)";
+        $sqlProcedure = "CALL AjouterIngredient(:pNomIngredient, :pDescriptionIngredient, :pIdTypeIngredient)";
         $stmt = $PDO->prepare($sqlProcedure);
-        $stmt->bindParam(':pTypeNom', $pTypeName, PDO::PARAM_STR);
-        $stmt->bindParam(':pIdMetrique', $pIdMetrique, PDO::PARAM_INT);
+        $stmt->bindParam(':pNomIngredient', $pNomIngredient, PDO::PARAM_STR);
+        $stmt->bindParam(':pDescriptionIngredient', $pDescriptionIngredient, PDO::PARAM_STR);
+        $stmt->bindParam(':pIdTypeIngredient', $pIdTypeIngredient, PDO::PARAM_INT);
         $stmt->execute();
         $stmt->closeCursor();
     } catch (PDOException $e) {
@@ -451,16 +452,40 @@ function SingleIngredientInfo($idIngredient)
     $stmt->closeCursor();
     return $rangee;
 }
+function IngredientExist($nomIngredient)
+{
+    // 0 -> false
+    // 1 -> true
+
+    Connexion();
+    global $PDO;
+
+    $stmt = $PDO->prepare("SELECT EXISTS (SELECT idIngredient FROM Ingredient WHERE nomIngredient = :pNomIngredient);", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+    $stmt->bindParam(':pNomIngredient', $nomIngredient, PDO::PARAM_STR);
+    $stmt->execute();
+
+    $exist = false;
+
+    if ($donnee = $stmt->fetch(PDO::FETCH_NUM)) {
+        $etat = $donnee[0];
+    }
+
+    if ($etat == 1) {
+        $exist = true;
+    }
+    $stmt->closeCursor();
+    return $exist;
+}
 //Ajouter Ingredient Inventaire
 function AddIngredientInventory($pIdAccount, $pIdIngredient, $pQty, $pIdEmplacement){
     Connexion();
     global $PDO;
     try{
-        $sqlProcedure = "CALL AjouterIngredientInventaire(:pIdAccount, :pIdIngredient, :pQty, :pIdEmplacement)";
+        $sqlProcedure = "CALL AjouterIngredientInventaire(:pIdCompte, :pIdIngredient, :pQte, :pIdEmplacement)";
         $stmt = $PDO->prepare($sqlProcedure);
-        $stmt->bindParam(':pIdAccount', $pIdAccount, PDO::PARAM_INT);
-        $stmt->bindParam(':pTypIdIngredientpeNom', $pIdIngredient, PDO::PARAM_INT);
-        $stmt->bindParam(':pQty', $pQty, PDO::PARAM_INT);
+        $stmt->bindParam(':pIdCompte', $pIdAccount, PDO::PARAM_INT);
+        $stmt->bindParam(':pIdIngredient', $pIdIngredient, PDO::PARAM_INT);
+        $stmt->bindParam(':pQte', $pQty, PDO::PARAM_INT);
         $stmt->bindParam(':pIdEmplacement', $pIdEmplacement, PDO::PARAM_INT);
         $stmt->execute();
         $stmt->closeCursor();
@@ -488,16 +513,15 @@ function ModifyIngredientInventory($pIdAccount, $pIdIngredient, $pQty, $pIdEmpla
 }
 
 //Ajouter quantiter ingredient inventaire
-function AddQteIngredientInventory($pIdAccount, $pIdIngredient, $pQty, $pIdEmplacement){
+function AddQteIngredientInventory($pIdAccount, $pIdIngredient, $pQty){
     Connexion();
     global $PDO;
     try{
-        $sqlProcedure = "CALL AjouterQteIngredientInventaire(:pIdAccount, :pIdIngredient, :pQty, :pIdEmplacement)";
+        $sqlProcedure = "CALL AjouterQteIngredientInventaire(:pIdAccount, :pIdIngredient, :pQty)";
         $stmt = $PDO->prepare($sqlProcedure);
         $stmt->bindParam(':pIdAccount', $pIdAccount, PDO::PARAM_INT);
         $stmt->bindParam(':pTypIdIngredientpeNom', $pIdIngredient, PDO::PARAM_INT);
         $stmt->bindParam(':pQty', $pQty, PDO::PARAM_INT);
-        $stmt->bindParam(':pIdEmplacement', $pQty, PDO::PARAM_INT);
         $stmt->execute();
         $stmt->closeCursor();
     } catch (PDOException $e) {
@@ -527,17 +551,16 @@ function UserInventoryInfo($idCompte)
     global $PDO;
     mysqli_set_charset($PDO, "utf8mb4");
 
-    $stmt = $PDO->prepare("SELECT * FROM Inventaire WHERE Utilisateur_idCompte = idCompte", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+    $stmt = $PDO->prepare("SELECT * FROM Inventaire WHERE Utilisateur_idCompte = :idCompte", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
     $stmt->bindParam(':idCompte', $idCompte, PDO::PARAM_INT);
     $stmt->execute();
     $info = [];
     while ($donnee = $stmt->fetch(PDO::FETCH_NUM)) {
         $rangee = [];
-        array_push($rangee, $donnee[0]); // idIngredient
-        array_push($rangee, $donnee[1]); // nom Ingredient
-        array_push($rangee, $donnee[2]); // Description
-        array_push($rangee, $donnee[3]); // Id Type Ingredient
-        array_push($rangee, $donnee[4]); // ID Emplacement
+        array_push($rangee, $donnee[0]); // qteIngredient
+        array_push($rangee, $donnee[1]); // id user
+        array_push($rangee, $donnee[2]); // id Ingredient
+        array_push($rangee, $donnee[3]); // Id emplacement
         array_push($info, $rangee);
     }
     $stmt->closeCursor();
