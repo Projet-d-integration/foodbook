@@ -4,6 +4,11 @@
         session_destroy();
         header('Location: index.php');
     }
+
+    if(empty($_SESSION['idUser']))
+    {
+        echo '<script>window.location.href = "login.php";</script>';
+    }
 ?>
 
 <head>
