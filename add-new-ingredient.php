@@ -86,7 +86,7 @@
         ?>
         <form method="post" class="create-ingredient-form">
             <input class="text-input" name="name-input" type="text" placeholder="Nom ingredient" value="<?= $name ?>">
-            <input class="text-input" name="description-input" type="text" placeholder="Prénom" value="<?= $last_name?>">
+            <input class="text-input" name="description-input" type="text" placeholder="Description" value="<?= $last_name?>">
             <select name="type-input">
                 <?php 
                     foreach($tabTypeIngredient as $typeIngredient){
