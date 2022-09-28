@@ -38,3 +38,14 @@ INSERT INTO Metrique(nomMetrique) VALUES('Kilogramme');
 INSERT INTO Metrique(nomMetrique) VALUES('Millilitre');
 INSERT INTO Metrique(nomMetrique) VALUES('Litre');
 INSERT INTO Metrique(nomMetrique) VALUES('Livre');
+
+/*Insert: Frigidaire Principale,Congelateur Principale,Frigidaire secondaire,Congelateur Secondaire,Garde-Manger,Contoir,Cellier, Bar, Armoire a Pain*/
+INSERT INTO Emplacement(idEmplacement, nomEmplacement, Svg) VALUES(1,'Frigdaire Principale','PrimaryFridge');
+INSERT INTO Emplacement(idEmplacement, nomEmplacement, Svg) VALUES(2,'Frigdaire Secondaire','SecondaryFridge');
+INSERT INTO Emplacement(idEmplacement, nomEmplacement, Svg) VALUES(3,'Congélateur Principale','PrimaryFreezer');
+INSERT INTO Emplacement(idEmplacement, nomEmplacement, Svg) VALUES(4,'Congélateur Secondaire','SecondaryFreezer');
+INSERT INTO Emplacement(idEmplacement, nomEmplacement, Svg) VALUES(5,'Garde-Manger','Pentry');
+INSERT INTO Emplacement(idEmplacement, nomEmplacement, Svg) VALUES(6,'Cellier','Larder');
+INSERT INTO Emplacement(idEmplacement, nomEmplacement, Svg) VALUES(7,'Bar','Bar');
+INSERT INTO Emplacement(idEmplacement, nomEmplacement, Svg) VALUES(8,'Comptoir','Counter');
+INSERT INTO Emplacement(idEmplacement, nomEmplacement, Svg) VALUES(9,'Armoire à pain','BreadCabinet');

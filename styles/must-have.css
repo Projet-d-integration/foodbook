@@ -100,6 +100,11 @@ input {
     color: green;
 }
 
+.neutral_message {
+    display: none;
+    color: var(--color-accent);
+}
+
 .button {
     transition: var(--transition);
     color: var(--color-primary);

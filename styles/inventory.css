@@ -1,0 +1,61 @@
+.wrapper {
+    margin: 5rem auto;
+    width: fit-content;
+}
+
+.inventory-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+}
+
+.inventory-location-form  {
+    background-color: rgba(51, 51, 51,0.8);
+    align-self: center;
+    display: none;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0%;
+}
+
+.transparent-background {
+    background-color: var(--color-tertiary);
+    z-index: 3;
+    margin: auto auto;
+    position: relative;
+    width: 75%;
+    height: 75%;
+    top: 10%;
+    display: flex;
+}
+
+.location-form-content {
+    background-color: var(--color-tertiary-hover);
+    z-index: 3;
+    width: 75%;
+    overflow: auto;
+    margin: 0 auto;
+    padding: 10px;
+    position: relative;
+    align-self: center;
+    display: flex;
+}
+
+.space-grid{
+    display: grid;
+    grid-template-rows: 200px 200px 200px;
+    grid-template-columns: 200px 200px 200px;
+}
+
+.space-div{
+    border: 1px solid var(--color-primary);
+    background: var(--color-accent);
+    color: var(--color-secondary);
+    max-width: 10rem;
+    min-width: 10rem;
+    max-height: 10rem;
+    min-height: 5rem;
+    text-align: center;
+}

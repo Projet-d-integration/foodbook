@@ -1,0 +1,35 @@
+.wrapper {
+    margin: 5rem auto;
+    width: fit-content;
+}
+.create-ingredient-form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    width: fit-content;
+}
+
+.text-input {
+    background: var(--color-accent);
+    color: var(--color-secondary);
+    padding: 0.6rem 1.2rem 0.6rem 0.6rem;
+    border-radius: 0.5rem;
+    width: 30rem;
+    font-size: 1rem;
+}
+
+.text-input::placeholder {
+    color: var(--color-secondary);
+    font-style: italic
+}
+
+.buttons-wrapper {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.buttons-wrapper .button-tertiary {
+    padding-left: 0;
+}
