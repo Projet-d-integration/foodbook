@@ -28,17 +28,34 @@ $info_user = UserInfo($_SESSION['email']);
 
 if($_SERVER['REQUEST_METHOD'] === 'POST')
 {
+
+        if(!isset($_POST["name-profil-input"])) {$name_profil = "";}
+        else {$name_profil = $_POST["name-profil-input"];}
+        
+        if(!isset($_POST["last-name-profil-input"])) {$last_name_profil = "";}
+        else {$last_name_profil = $_POST["last-name-profil-input"];}
+        
+        if(!isset($_POST["email-edit-profil"])) {$email_profil = "";}
+        else {$email_profil = $_POST["email-edit-profil"];}
+
+        if(!isset($_POST["pwd-profil-input"])) {$pwd_profil = "";}
+        else {$pwd_profil = $_POST["pwd-profil-input"];}
+
+        if(!isset($_POST["confirm-pwd-profil-input"])) {$pwd_confirm_profil = "";}
+        else {$pwd_confirm_profil = $_POST["confirm-pwd-profil-input"];}
+
+
     if(isset($_POST['edit-confirm-profil']))
     {
-        if(empty($_POST["name-profil-input"]) || empty($_POST["last-name-profil-input"]))
+        if(empty($name_profil) || empty($last_name_profil))
         {
             echo '<script>window.onload = () => { document.getElementById("error_entries").style.display = "block"; }</script>';
         }
-        else if($_POST["pwd-profil-input"] != $_POST["confirm-pwd-profil-input"])
+        else if($pwd_profil != $pwd_confirm_profil )
         {
             echo '<script>window.onload = () => { document.getElementById("error_mdp_confirm").style.display = "block"; }</script>';
         }
-        else if(!ValidateNameInput($_POST["name-profil-input"]) || !ValidateNameInput($_POST["last-name-profil-input"]))
+        else if(!ValidateNameInput($name_profil) || !ValidateNameInput($last_name_profil))
         {
             echo '
                 <script>
@@ -47,7 +64,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
         }
         else if($_POST["pwd-profil-input"] != "")
         {
-            if(!ValidatePasswordInput($_POST["pwd-profil-input"]))
+            if(!ValidatePasswordInput($pwd_profil))
             {
             echo '  
                 <script>
@@ -67,6 +84,34 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
             $info_user[2] = $_POST["last-name-profil-input"];
             echo'<script>window.onload = () => { document.getElementById("success_modified").style.display = "block"; } </script>';
         }
+
+        if(empty($email_profil))
+        {
+            echo '<script>window.onload = () => { document.getElementById("error_entries").style.display = "block"; }</script>';
+        }
+
+
+        else if($email_profil != $info_user[3])
+        {
+            if(UserExist($_POST["email-edit-profil"]))
+            {
+                echo '<script>window.onload = () => { document.getElementById("error_email_used").style.display = "block"; }</script>';
+            }
+            
+            else if(ValidateEmailInput($email_profil))
+            {
+                echo '<script>window.onload = () => { document.getElementById("error_email").style.display = "block"; }</script>';
+            }
+            else{
+                ModifyEmail($info_user[0],$_POST["email-edit-profil"]);
+                $info_user[3] = $_POST["email-edit-profil"];
+                echo '<script>window.onload = () => { document.getElementById("success_modified_email").style.display = "block"; }</script>';
+            }
+        }
+       
+        
+        
+        
     }
 }
 ?>
@@ -74,6 +119,12 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
     <div class="header-banner">
         <a href="index.php"><?php echo file_get_contents("utilities/foodbook-logo.svg"); ?></a>
         <div class="banner-title"> Modifier mon profil </div>
+
+
+        <div class="svg-wrapper">
+            <a href="login.php" class="svg-button list-button"> <?php echo file_get_contents("utilities/food.svg"); ?> </a>
+            <a href="login.php" class="svg-button inventory-button"> <?php echo file_get_contents("utilities/list.svg"); ?> </a>
+        </div>
     </div>
 
 
@@ -83,7 +134,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
 
         <input type="text" name="last-name-profil-input" placeholder="New last name..." class="text-input-profil" value="<?= $info_user[2] ?>">
 
-        <input type="hidden" name="email-profil-input" placeholder="New email..." class="text-input-profil" value="<?= $info_user[3] ?>">
+        <input type="text" name="email-edit-profil" placeholder="New email..." class="text-input-profil" value="<?= $info_user[3] ?>">
 
         <input type="password" name="pwd-profil-input" placeholder="New password..." class="text-input-profil">
 
@@ -94,10 +145,12 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
         <div class="error_message" id="error_name">Nom ou nom de famille invalide : ne doivent que contenir des lettres</div>
         <div class="error_message" id="error_mdp">Mot de passe invalide, il doit contenir minumum 5 caractères, dont au moins 1 lettre et 1 chiffre</div>
         <div class="success_message" id="success_modified">Vos informations ont été correctement modifiées.</div>
+        <div class="success_message" id="success_modified_email">Votre email a été correctement modifié.</div>
+        <div class="error_message" id="error_email_used">Courriel déjà utilisé</div>
+        <div class="error_message" id="error_email">Courriel invalide</div>
+        <div class="error_message" id="error_email_different">Les courriels ne correspondent pas.</div>
 
         <input type="submit" value="Modifier" class="button button-primary" name="edit-confirm-profil">
-
-        <a class="button button-primary" href="edit-email-profil.php">Modifier votre courriel?</a>
     </form>
 
 
