@@ -25,11 +25,12 @@
 </head>
 
 <?php
-    // Message d'erreur pour le form
-    if (1 == 2){
+     //Vérfie la quantité d'emplacements de l'utilisateur, et affiche un message
+    // lorsque ce nombre est <= 0
+    if (count($tabInfoSpace) <= 0){
         echo '
         <script>
-            window.onload = () => { document.getElementById("error_no_location").style.display = "block"; }
+            window.onload = () => { document.getElementById("error_no_space").style.display = "block"; }
         </script>';
     }
 ?>
@@ -83,6 +84,7 @@
                 }
             ?>
             <div class="neutral_message" id="error_no_location">Pour visionner et classer vos items, veuillez créer un emplacement.</div>
+            <div class="error_message" id="error_no_space">Vous n'avez pas d'emplacement pour le moment.</div>
             <div class="inventory-location-form" id="inventory-location-form">
                 <div class="transparent-background">
                     <div class="location-form-content">
