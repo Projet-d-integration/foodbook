@@ -119,6 +119,12 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
     <div class="header-banner">
         <a href="index.php"><?php echo file_get_contents("utilities/foodbook-logo.svg"); ?></a>
         <div class="banner-title"> Modifier mon profil </div>
+
+
+        <div class="svg-wrapper">
+            <a href="login.php" class="svg-button list-button"> <?php echo file_get_contents("utilities/food.svg"); ?> </a>
+            <a href="login.php" class="svg-button inventory-button"> <?php echo file_get_contents("utilities/list.svg"); ?> </a>
+        </div>
     </div>
 
 
