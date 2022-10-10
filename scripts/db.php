@@ -499,18 +499,18 @@ function ModifyIngredientInventory($pIdAccount, $pIdIngredient, $pQty, $pIdEmpla
     Connexion();
     global $PDO;
     try{
-        $sqlProcedure = "CALL ModifierIngredientInventaire(:pIdAccount, :pIdIngredient, :pQty, :pIdEmplacement)";
+        $sqlProcedure = "CALL ModifierIngredientInventaire(:pIdCompte, :pIdIngredient, :pQte, :pInventaireEmplacement)";
         $stmt = $PDO->prepare($sqlProcedure);
-        $stmt->bindParam(':pIdAccount', $pIdAccount, PDO::PARAM_INT);
-        $stmt->bindParam(':pTypIdIngredientpeNom', $pIdIngredient, PDO::PARAM_INT);
-        $stmt->bindParam(':pQty', $pQty, PDO::PARAM_INT);
-        $stmt->bindParam(':pIdEmplacement', $pIdEmplacement, PDO::PARAM_INT);
+        $stmt->bindParam(':pIdCompte', $pIdAccount, PDO::PARAM_INT);
+        $stmt->bindParam(':pIdIngredient', $pIdIngredient, PDO::PARAM_INT);
+        $stmt->bindParam(':pQte', $pQty, PDO::PARAM_INT);
+        $stmt->bindParam(':pInventaireEmplacement', $pIdEmplacement, PDO::PARAM_INT);
         $stmt->execute();
         $stmt->closeCursor();
     } catch (PDOException $e) {
         return $e->getMessage();
     }    
-}
+}   
 
 //Ajouter quantiter ingredient inventaire
 function AddQteIngredientInventory($pIdAccount, $pIdIngredient, $pQty){
