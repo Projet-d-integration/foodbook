@@ -65,6 +65,9 @@
                     }
                     echo '</div>';
                     echo '</form>';
+                }else if(!empty($_POST['qteChosen'])){
+                    echo ModifyIngredientInventory(intval($_SESSION['idUser']),intval($_POST['idIngredient']),intval($_POST['qteChosen']),intval($_POST['idEmplacement']));
+                    echo "<script>window.location.href = window.location.href;</script>";
                 }else if(!empty($_POST['ingredient-input'])){
                     AddIngredientInventory(intval($_SESSION['idUser']),intval($_POST['ingredient-input']),intval($_POST['number-input']),intval($_POST['place-input']));
                     echo "<script>window.location.href = window.location.href;</script>";
@@ -77,7 +80,7 @@
                     foreach($tabInventaire as $ingredientInventaire){
                         $ingredientInfo = SingleIngredientInfo($ingredientInventaire[2]);
                         if($ingredientInventaire[3] == $_POST['buttonSpace']){
-                            echo "<li>$ingredientInfo[1]</li>";
+                            echo "<li>$ingredientInfo[1] <form  method='post'> <input type='number' name='qteChosen' min='1' value='$ingredientInventaire[0]'><input type='hidden' name='idIngredient' value='$ingredientInventaire[2]'><input type='hidden' name='idEmplacement' value='$spaceChosen'><button type='submit'>Modifier</button></form></li>";
                         }
                     }
                     echo '</ul>';

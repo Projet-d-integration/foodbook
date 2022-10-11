@@ -92,13 +92,17 @@ CREATE TABLE IF NOT EXISTS Inventaire(
   `qteIngredient` INT NOT NULL,
   `Utilisateur_idCompte` INT NOT NULL,
   `Ingredient_idIngredient` INT NOT NULL,
-  PRIMARY KEY (`Utilisateur_idCompte`, `Ingredient_idIngredient`),
+  `inventaire_emplacement` INT NOT NULL,
+  PRIMARY KEY (`Utilisateur_idCompte`, `Ingredient_idIngredient`,`inventaire_emplacement`),
   CONSTRAINT `fk_Inventaire_Utilisateur1`
     FOREIGN KEY (`Utilisateur_idCompte`)
     REFERENCES `FoodBook`.`Utilisateur` (`idCompte`),
   CONSTRAINT `fk_Inventaire_Ingredient1`
     FOREIGN KEY (`Ingredient_idIngredient`)
-    REFERENCES `FoodBook`.`Ingredient` (`idIngredient`));
+    REFERENCES `FoodBook`.`Ingredient` (`idIngredient`),
+   CONSTRAINT `fk_inventaire_emplacement`
+    FOREIGN KEY (`inventaire_emplacement`)
+    REFERENCES `Emplacement`(`idEmplacement`));
     
     
 DROP TABLE IF EXISTS HistoriqueRecetteVisioné;
@@ -205,11 +209,5 @@ CREATE TABLE IF NOT EXISTS Emplacement(
   `idEmplacement` INT NOT NULL AUTO_INCREMENT,
   `nomEmplacement` VARCHAR(30) NOT NULL,
   PRIMARY KEY (`idEmplacement`));
-
-ALTER TABLE Inventaire ADD `inventaire_emplacement` INT NOT NULL;
-ALTER TABLE Inventaire
-ADD CONSTRAINT fk_inventaire_emplacement
-FOREIGN KEY (`inventaire_emplacement`)
-REFERENCES Emplacement (idEmplacement);
 
 ALTER TABLE Emplacement ADD `Svg` VARCHAR(40);
