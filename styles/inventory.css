@@ -44,18 +44,18 @@
 }
 
 .space-grid{
-    display: grid;
-    grid-template-rows: 200px 200px 200px;
-    grid-template-columns: 200px 200px 200px;
+    display: flex;
+    flex-wrap: wrap;
+    width: 25rem;
+    gap: 4rem 1rem;
+    height: 25rem;
 }
 
 .space-div{
     border: 1px solid var(--color-primary);
     background: var(--color-accent);
     color: var(--color-secondary);
-    max-width: 10rem;
-    min-width: 10rem;
-    max-height: 10rem;
-    min-height: 5rem;
+    width: fit-content;
+    height: 2rem;
     text-align: center;
 }

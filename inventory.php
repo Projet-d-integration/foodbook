@@ -20,7 +20,8 @@
 </head>
 
 <?php
-    // Message d'erreur pour le form
+    // Vérfie la quantité d'emplacements de l'utilisateur, et affiche un message
+    // lorsque ce nombre est <= 0
     if (1 == 2){
         echo '
         <script>
@@ -35,6 +36,7 @@
         <div class="banner-title"> Inventaire </div>
         <div class="svg-wrapper">
             <a href="login.php" class="svg-button list-button"> <?php echo file_get_contents("utilities/list.svg"); ?> </a>
+            <a href="inventory.php" class="svg-button inventory-button"> <?php echo file_get_contents("utilities/food.svg"); ?> </a>
             <?php 
                 if(!empty($_SESSION['idUser'])){
                     echo '<a href="edit-profil.php" class="svg-button login-button"> '.file_get_contents("utilities/account.svg").'</a>';
@@ -51,7 +53,7 @@
         <div class="inventory-wrapper">
             <?php 
                 if(!($_SERVER['REQUEST_METHOD'] === 'POST')){
-                    $tabInfoSpace = InfoPlace();
+                    $tabInfoSpace = InfoPlace();                
                     echo '<form method="post">';
                     echo '<div class="space-grid">';
                     foreach($tabInfoSpace as $space){
