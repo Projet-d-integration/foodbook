@@ -1,6 +1,6 @@
-.wrapper {
-    margin: 5rem auto;
-    width: fit-content;
+body {
+    width: 100%;
+    height: 100%;
 }
 
 .inventory-wrapper {
@@ -8,54 +8,98 @@
     flex-direction: column;
     align-items: center;
     gap: 2rem;
+    margin: 5rem auto;
+    width: fit-content;
 }
 
 .inventory-location-form  {
     background-color: rgba(51, 51, 51,0.8);
-    align-self: center;
+    position: fixed;
     display: none;
-    position: absolute;
     width: 100%;
     height: 100%;
-    top: 0%;
+    top: 0;
 }
 
 .transparent-background {
-    background-color: var(--color-tertiary);
+    height: 100%;
+    width: 100%;
     z-index: 3;
-    margin: auto auto;
-    position: relative;
-    width: 75%;
-    height: 75%;
-    top: 10%;
-    display: flex;
 }
 
 .location-form-content {
-    background-color: var(--color-tertiary-hover);
+    background: var(--color-tertiary);
+    border: 0.1rem solid var(--color-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border-radius: 2rem;
+    gap: 2rem;
+    margin: 5rem;
+    height: 75%;
     z-index: 3;
-    width: 75%;
-    overflow: auto;
-    margin: 0 auto;
-    padding: 10px;
-    position: relative;
-    align-self: center;
-    display: flex;
 }
 
-.space-grid{
+.space-grid {
     display: flex;
+    flex-direction: row;
     flex-wrap: wrap;
-    width: 25rem;
-    gap: 4rem 1rem;
-    height: 25rem;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    width: 40%;
+    gap: 2rem;
 }
 
-.space-div{
+.space-div {
+    background: var(--color-accent);
+    color: var(--color-secondary);
+    border-radius: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+    padding: 2rem;
+}
+
+.space-div:hover {
+    background: var(--color-accent-hover);
+    transition: var(--transition);
+}
+
+.location-form-exit {
+    position: absolute;
+    right: 7rem;
+    top: 7rem;
+}
+
+.location-form-exit svg {
+    fill: var(--color-primary);
+    height: 1.5rem;
+    width: 1.5rem;
+}
+
+.location-form-exit:hover {
+    cursor: pointer;
+}
+
+.add-new-location {
+    display: none;
     border: 1px solid var(--color-primary);
     background: var(--color-accent);
     color: var(--color-secondary);
-    width: fit-content;
-    height: 2rem;
+    transition: var(--transition);
+    font-size: 1rem;
+    padding: 0.5rem 2rem;
+    border-radius: 0.5rem;
+    justify-content: center;
+    align-items: center;
     text-align: center;
+    width: fit-content;
+}
+
+.add-new-location:hover {
+    background: var(--color-accent-hover);
+    cursor: pointer;
 }

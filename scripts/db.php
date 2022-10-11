@@ -583,13 +583,12 @@ function DeleteIngredientInventory($idCompte,$idIngredient)
 }
 
 //Ajouter Emplacement
-function AddPlace($pIdEmplacement, $pNomEmplacement, $pSvg){
+function AddLocation($pNomEmplacement, $pSvg){
     Connexion();
     global $PDO;
     try{
         $sqlProcedure = "CALL AjouterEmplacement(:pIdEmplacement, :pNomEmplacement, :pSvg)";
         $stmt = $PDO->prepare($sqlProcedure);
-        $stmt->bindParam(':pIdEmplacement', $pIdEmplacement, PDO::PARAM_INT);
         $stmt->bindParam(':pNomEmplacement', $pNomEmplacement, PDO::PARAM_STR);
         $stmt->bindParam(':pSvg', $pSvg, PDO::PARAM_STR);
         $stmt->execute();
@@ -600,7 +599,7 @@ function AddPlace($pIdEmplacement, $pNomEmplacement, $pSvg){
 }
 
 //Modifier Emplacement
-function ModifyPlace($pIdEmplacement, $pNomEmplacement, $pSvg){
+function ModifyLocation($pIdEmplacement, $pNomEmplacement, $pSvg){
     Connexion();
     global $PDO;
     try{
@@ -617,7 +616,7 @@ function ModifyPlace($pIdEmplacement, $pNomEmplacement, $pSvg){
 }
 
 //Supprimer Emplacement
-function DeletePlace($pIdEmplacement, $pNomEmplacement ){
+function DeleteLocation($pIdEmplacement, $pNomEmplacement ){
     try {
         Connexion();
         global $PDO;
@@ -631,7 +630,7 @@ function DeletePlace($pIdEmplacement, $pNomEmplacement ){
     }
 }
 
-function InfoPlace(){
+function InfoLocation(){
     Connexion();
     global $PDO;
     mysqli_set_charset($PDO, "utf8mb4");
