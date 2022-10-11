@@ -120,16 +120,16 @@ BEGIN
 END $$
 /*Modifie la qte d'un ingredient dans l'inventaire*/
 DELIMITER $$
-CREATE PROCEDURE ModifierIngredientInventaire (pIdCompte INT, pIdIngredient INT, pQte INT, pInventaireEmplacement INT)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ModifierIngredientInventaire`(pIdCompte INT, pIdIngredient INT, pQte INT, pInventaireEmplacement INT)
 BEGIN 
-	IF(TRIM(pIdCompte) != '' AND TRIM(pIdIngredient) != '' AND TRIM(pQte) != '' ) THEN
+	IF(TRIM(pIdCompte) != '' AND TRIM(pIdIngredient) != '' AND TRIM(pQte) != '' AND TRIM(pInventaireEmplacement) != '' ) THEN
 		start TRANSACTION;
-			UPDATE Inventaire SET qteIngredient = pQte, inventaire_emplacement = pInventaireEmplacement WHERE  Utilisateur_idCompte = pIdCompte AND pIdIngredient = pIdTypeIngredient   
-		COMMIT; 
+			UPDATE Inventaire SET qteIngredient = pQte WHERE  Utilisateur_idCompte = pIdCompte AND Ingredient_idIngredient = pIdIngredient AND inventaire_emplacement = pInventaireEmplacement;
+		COMMIT;
 	ELSE
 		SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'There is missing or wrong parameters';
 	END IF;
-END$$
+END
 /*Augmenter de 1 la qte de l'ingredient*/
 DELIMITER $$
 CREATE PROCEDURE AjouterQteIngredientInventaire (pIdCompte INT, pIdIngredient INT, pQte INT)

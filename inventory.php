@@ -4,6 +4,11 @@
         session_destroy();
         header('Location: index.php');
     }
+
+    if(empty($_SESSION['idUser']))
+    {
+        echo '<script>window.location.href = "login.php";</script>';
+    }
 ?>
 
 <head>
@@ -20,12 +25,12 @@
 </head>
 
 <?php
-    // Vérfie la quantité d'emplacements de l'utilisateur, et affiche un message
+     //Vérfie la quantité d'emplacements de l'utilisateur, et affiche un message
     // lorsque ce nombre est <= 0
-    if (1 == 2){
+    if (count($tabInfoSpace) <= 0){
         echo '
         <script>
-            window.onload = () => { document.getElementById("error_no_location").style.display = "block"; }
+            window.onload = () => { document.getElementById("error_no_space").style.display = "block"; }
         </script>';
     }
 ?>
@@ -61,6 +66,9 @@
                     }
                     echo '</div>';
                     echo '</form>';
+                }else if(!empty($_POST['qteChosen'])){
+                    echo ModifyIngredientInventory(intval($_SESSION['idUser']),intval($_POST['idIngredient']),intval($_POST['qteChosen']),intval($_POST['idEmplacement']));
+                    echo "<script>window.location.href = window.location.href;</script>";
                 }else if(!empty($_POST['ingredient-input'])){
                     AddIngredientInventory(intval($_SESSION['idUser']),intval($_POST['ingredient-input']),intval($_POST['number-input']),intval($_POST['place-input']));
                     echo "<script>window.location.href = window.location.href;</script>";
@@ -73,13 +81,14 @@
                     foreach($tabInventaire as $ingredientInventaire){
                         $ingredientInfo = SingleIngredientInfo($ingredientInventaire[2]);
                         if($ingredientInventaire[3] == $_POST['buttonSpace']){
-                            echo "<li>$ingredientInfo[1]</li>";
+                            echo "<li>$ingredientInfo[1] <form  method='post'> <input type='number' name='qteChosen' min='1' value='$ingredientInventaire[0]'><input type='hidden' name='idIngredient' value='$ingredientInventaire[2]'><input type='hidden' name='idEmplacement' value='$spaceChosen'><button type='submit'>Modifier</button></form></li>";
                         }
                     }
                     echo '</ul>';
                 }
             ?>
             <div class="neutral_message" id="error_no_location">Pour visionner et classer vos items, veuillez créer un emplacement.</div>
+            <div class="error_message" id="error_no_space">Vous n'avez pas d'emplacement pour le moment.</div>
             <div class="inventory-location-form" id="inventory-location-form">
                 <div class="transparent-background">
                     <div class="location-form-content">
