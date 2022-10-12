@@ -65,7 +65,9 @@ body {
     gap: 2rem;
     width: 75%;
 }
-
+.form-ingredient-option{
+    display: inline;
+}
 .space-grid {
     display: flex;
     flex-direction: row;

@@ -567,15 +567,16 @@ function UserInventoryInfo($idCompte)
     return $info;
 }
 //Suppression d'ingrédient a l'inventaire
-function DeleteIngredientInventory($idCompte,$idIngredient)
+function DeleteIngredientInventory($idCompte,$idIngredient,$idPlace)
 {
     try {
         Connexion();
         global $PDO;
         mysqli_set_charset($PDO, "utf8mb4");
-        $stmt = $PDO->prepare("DELETE FROM Inventaire WHERE Utilisateur_idCompte = :idCompte AND Ingredient_idIngredient = :pIdIngredient", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+        $stmt = $PDO->prepare("DELETE FROM Inventaire WHERE Utilisateur_idCompte = :idCompte AND Ingredient_idIngredient = :pIdIngredient AND inventaire_emplacement = :pIdPlace ", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
         $stmt->bindParam(':idCompte', $idCompte, PDO::PARAM_INT);
         $stmt->bindParam(':pIdIngredient', $idIngredient, PDO::PARAM_INT);
+        $stmt->bindParam(':pIdPlace', $idPlace, PDO::PARAM_INT);
         $stmt->execute();
     } catch (PDOException $e) {
         return $e->getMessage();
@@ -583,14 +584,15 @@ function DeleteIngredientInventory($idCompte,$idIngredient)
 }
 
 //Ajouter Emplacement
-function AddLocation($pNomEmplacement, $pSvg){
+function AddLocation($pNomEmplacement, $pSvg, $pIdCompte){
     Connexion();
     global $PDO;
     try{
-        $sqlProcedure = "CALL AjouterEmplacement(:pIdEmplacement, :pNomEmplacement, :pSvg)";
+        $sqlProcedure = "CALL AjouterEmplacement(:pNomEmplacement, :pSvg, :pIdCompte)";
         $stmt = $PDO->prepare($sqlProcedure);
         $stmt->bindParam(':pNomEmplacement', $pNomEmplacement, PDO::PARAM_STR);
         $stmt->bindParam(':pSvg', $pSvg, PDO::PARAM_STR);
+        $stmt->bindParam(':pIdCompte', $pIdCompte, PDO::PARAM_INT);
         $stmt->execute();
         $stmt->closeCursor();
     } catch (PDOException $e) {
@@ -616,26 +618,26 @@ function ModifyLocation($pIdEmplacement, $pNomEmplacement, $pSvg){
 }
 
 //Supprimer Emplacement
-function DeleteLocation($pIdEmplacement, $pNomEmplacement ){
+function DeleteLocation($pIdEmplacement){
     try {
         Connexion();
         global $PDO;
         mysqli_set_charset($PDO, "utf8mb4");
-        $stmt = $PDO->prepare("DELETE FROM Emplacement WHERE idEmplacement = :pIdEmplacement AND nomEmplacement = :pNomEmplacement", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
-        $stmt->bindParam(':idEmplacement', $pIdEmplacement, PDO::PARAM_INT);
-        $stmt->bindParam(':nomEmplacement', $pNomEmplacement, PDO::PARAM_INT);
+        $stmt = $PDO->prepare("DELETE FROM Emplacement WHERE idEmplacement = :pIdEmplacement", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+        $stmt->bindParam(':pIdEmplacement', $pIdEmplacement, PDO::PARAM_INT);
         $stmt->execute();
     } catch (PDOException $e) {
         return $e->getMessage();
     }
 }
 
-function InfoLocation(){
+function InfoLocation($pIdCompte){
     Connexion();
     global $PDO;
     mysqli_set_charset($PDO, "utf8mb4");
 
-    $stmt = $PDO->prepare("SELECT * FROM Emplacement", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+    $stmt = $PDO->prepare("SELECT * FROM Emplacement where idCompte = :pIdCompte", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+    $stmt->bindParam(':pIdCompte', $pIdCompte, PDO::PARAM_INT);
     $stmt->execute();
     $info = [];
     while ($donnee = $stmt->fetch(PDO::FETCH_NUM)) {
@@ -643,6 +645,7 @@ function InfoLocation(){
         array_push($rangee, $donnee[0]); // idEmplacement
         array_push($rangee, $donnee[1]); // nom Emplacement
         array_push($rangee, $donnee[2]); // Svg
+        array_push($rangee, $donnee[3]); // Id compte
         array_push($info, $rangee);
     }
     $stmt->closeCursor();
