@@ -48,7 +48,7 @@
     <div class="wrapper-list">
 
         <div class="box-container">
-            <div id="list-box" class="box-list" onclick="testFunction('testDiv')">test
+            <div id="list-box" class="box-list" onclick="ShowListGroceries('testDiv')">test
                 <div class="caret-svg"> <?php echo file_get_contents("utilities/caret-right.svg"); ?></div>
             </div>
             <div class="div-test"  id="testDiv">élément dans liste</div>
@@ -75,7 +75,7 @@
 
 <script defer> 
 
-    function testFunction(divName) {
+    function ShowListGroceries(divName) {
         if(document.getElementById("testDiv").classList.contains("active"))
         {
             document.getElementById("testDiv").classList.remove("active");
