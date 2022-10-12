@@ -190,7 +190,7 @@
                                 }
                             ?>
                             <div class="items-form">
-                                <form> <?php GenerateButtonPrimary("Ajouter un nouvel ingredient", "add-new-ingredient.php") ?></form>
+                                <form> <?php GenerateButtonPrimary("Ajouter un nouvel ingredient inexistant", "add-new-ingredient.php") ?></form>
                             </div>
                         </div>
                     </div>
