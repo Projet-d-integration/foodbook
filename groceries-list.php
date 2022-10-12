@@ -47,30 +47,19 @@
 
     <div class="wrapper-list">
 
-        <div class="box-ingredient">un ingrédient</div>
-        <div class="box-ingredient">un ingrédient</div>
-        <div class="box-ingredient">un ingrédient</div>
-        <div class="box-ingredient">un ingrédient</div>
-        <div class="box-ingredient">un ingrédient</div>
-        <div class="box-ingredient">un ingrédient</div>
-        <div class="box-ingredient">un ingrédient</div>
-        <div class="box-ingredient">un ingrédient</div>
-        <div class="box-ingredient">un ingrédient</div>
-        <div class="box-ingredient">un ingrédient</div>
-        <div class="box-ingredient">un ingrédient</div>
-        <div class="box-ingredient">un ingrédient</div>
-        <div class="box-ingredient">un ingrédient</div>
-        <div class="box-ingredient">un ingrédient</div>
-        <div class="box-ingredient">un ingrédient</div>
-        <div class="box-ingredient">un ingrédient</div>
-        <div class="box-ingredient">un ingrédient</div>
-        <div class="box-ingredient">un ingrédient</div>
-        <div class="box-ingredient">un ingrédient</div>
-        <div class="box-ingredient">un ingrédient</div>
-        <div class="box-ingredient">un ingrédient</div>
-        <div class="box-ingredient">un ingrédient</div>
-        <div class="box-ingredient">un ingrédient</div>
-        <div class="box-ingredient">un ingrédient</div>
+        <div class="box-list">une liste d'épicerie</div>
+        <div class="box-list">une liste d'épicerie</div>
+        <div class="box-list">une liste d'épicerie</div>
+        <div class="box-list">une liste d'épicerie</div>
+        <div class="box-list">une liste d'épicerie</div>
+        <div class="box-list">une liste d'épicerie</div>
+        <div class="box-list">une liste d'épicerie</div>
+        <div class="box-list">une liste d'épicerie</div>
+        <div class="box-list">une liste d'épicerie</div>
+        <div class="box-list">une liste d'épicerie</div>
+        <div class="box-list">une liste d'épicerie</div>
+        <div class="box-list">une liste d'épicerie</div>
+        <div class="box-list">une liste d'épicerie</div>
     </div>
 
 
