@@ -52,14 +52,6 @@
         <div class="box-list">une liste d'épicerie</div>
         <div class="box-list">une liste d'épicerie</div>
         <div class="box-list">une liste d'épicerie</div>
-        <div class="box-list">une liste d'épicerie</div>
-        <div class="box-list">une liste d'épicerie</div>
-        <div class="box-list">une liste d'épicerie</div>
-        <div class="box-list">une liste d'épicerie</div>
-        <div class="box-list">une liste d'épicerie</div>
-        <div class="box-list">une liste d'épicerie</div>
-        <div class="box-list">une liste d'épicerie</div>
-        <div class="box-list">une liste d'épicerie</div>
     </div>
 
 

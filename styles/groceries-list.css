@@ -1,11 +1,13 @@
 .wrapper-list{
     display: flex;
     align-items: center;
+    flex-direction: column;
     gap: 3rem;
     flex-wrap: wrap;
     background: lightblue;
     align-content: center;
-    top: 10%;
+    padding: 5rem;
+    margin: auto;
 
 }
 
@@ -14,6 +16,7 @@
     padding: 3rem;
     border-radius: 0.5rem 1rem 0.5rem 1rem;
     background: grey;
+    width: 40%;
     color: white;
 }
 
