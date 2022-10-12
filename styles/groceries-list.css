@@ -24,3 +24,6 @@
     cursor: pointer;
     opacity: 0.7;
 }
+.caret-svg:hover{
+   transform: rotate(-90); 
+}

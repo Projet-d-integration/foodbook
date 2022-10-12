@@ -47,7 +47,10 @@
 
     <div class="wrapper-list">
 
-        <div class="box-list">une liste d'épicerie</div>
+        <div class="box-list">une liste d'épicerie
+            <div class="caret-svg"> <?php echo file_get_contents("utilities/caret-right.svg"); ?></div>
+        </div>
+
         <div class="box-list">une liste d'épicerie </div>
         <div class="box-list">une liste d'épicerie</div>
         <div class="box-list">une liste d'épicerie </div>
