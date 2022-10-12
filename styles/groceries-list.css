@@ -14,20 +14,34 @@
 .box-list{
     border: solid 2px black;
     padding: 3rem;
-    border-radius: 0.5rem 1rem 0.5rem 1rem;
+    border-radius: 0.5rem 1rem;
     background: grey;
     width: 40%;
     color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 .box-list:hover{
     cursor: pointer;
 }
 
-.box-list:hover .caret-svg{
+.box-list:hover svg{
     transform: rotate(90deg);
+    transition: var(--transition);
 }
 .caret-svg{
    display: flex;
    flex-direction: column;
    align-items:  flex-end;
+}
+svg{
+    transition: var(--transition);
+}
+.div-test{
+   visibility: hidden;
+
+}
+.box-list:hover .div-test{
+    visibility: visible;
 }

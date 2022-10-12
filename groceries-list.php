@@ -49,6 +49,7 @@
 
         <div class="box-list">une liste d'épicerie
             <div class="caret-svg"> <?php echo file_get_contents("utilities/caret-right.svg"); ?></div>
+            <div class="div-test"> test</div>
         </div>
 
         <div class="box-list">une liste d'épicerie 
@@ -64,6 +65,7 @@
             <div class="caret-svg"> <?php echo file_get_contents("utilities/caret-right.svg"); ?></div>
         </div>
     </div>
+
 
 
 
