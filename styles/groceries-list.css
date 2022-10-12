@@ -19,9 +19,11 @@
     width: 40%;
     color: white;
 }
+.box-list:hover{
+    cursor: pointer;
+}
 
 .box-list:hover .caret-svg{
-    cursor: pointer;
     transform: rotate(90deg);
 }
 .caret-svg{
