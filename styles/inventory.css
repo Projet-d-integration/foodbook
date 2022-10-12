@@ -63,9 +63,24 @@ body {
     padding: 2rem;
 }
 
+.space-div-arrow {
+    transition: var(--transition);
+    transform: rotate(-90deg);
+}
+
+.space-div-arrow svg {
+    fill: var(--color-secondary);
+    height: 1.5rem;
+    width: 1.5rem;
+}
+
 .space-div:hover {
     background: var(--color-accent-hover);
     transition: var(--transition);
+}
+
+.space-div:hover .space-div-arrow {
+    transform: rotate(0deg);
 }
 
 .location-form-exit {
