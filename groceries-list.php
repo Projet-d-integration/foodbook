@@ -12,7 +12,7 @@
 ?>
 
 <head>
-    <title>Login Foodbook</title>
+    <title>Liste d'épicerie Foodbook</title>
     
     <meta charset="utf-8">
     
@@ -51,10 +51,18 @@
             <div class="caret-svg"> <?php echo file_get_contents("utilities/caret-right.svg"); ?></div>
         </div>
 
-        <div class="box-list">une liste d'épicerie </div>
-        <div class="box-list">une liste d'épicerie</div>
-        <div class="box-list">une liste d'épicerie </div>
-        <div class="box-list">une liste d'épicerie</div>
+        <div class="box-list">une liste d'épicerie 
+            <div class="caret-svg"> <?php echo file_get_contents("utilities/caret-right.svg"); ?></div>
+        </div>
+        <div class="box-list">une liste d'épicerie
+            <div class="caret-svg"> <?php echo file_get_contents("utilities/caret-right.svg"); ?></div>
+        </div>
+        <div class="box-list">une liste d'épicerie 
+            <div class="caret-svg"> <?php echo file_get_contents("utilities/caret-right.svg"); ?></div>
+        </div>
+        <div class="box-list">une liste d'épicerie
+            <div class="caret-svg"> <?php echo file_get_contents("utilities/caret-right.svg"); ?></div>
+        </div>
     </div>
 
 

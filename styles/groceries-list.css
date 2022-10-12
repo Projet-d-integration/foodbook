@@ -20,10 +20,12 @@
     color: white;
 }
 
-.box-list:hover{
+.box-list:hover .caret-svg{
     cursor: pointer;
-    opacity: 0.7;
+    transform: rotate(90deg);
 }
-.caret-svg:hover{
-   transform: rotate(-90); 
+.caret-svg{
+   display: flex;
+   flex-direction: column;
+   align-items:  flex-end;
 }
