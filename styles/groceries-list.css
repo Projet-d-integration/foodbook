@@ -2,14 +2,14 @@
     display: flex;
     align-items: center;
     gap: 3rem;
-    background: lightblue;
     flex-wrap: wrap;
+    background: lightblue;
     align-content: center;
     top: 10%;
 
 }
 
-.box-ingredient{
+.box-list{
     border: solid 2px black;
     padding: 3rem;
     border-radius: 0.5rem 1rem 0.5rem 1rem;
@@ -17,7 +17,7 @@
     color: white;
 }
 
-.box-ingredient:hover{
+.box-list:hover{
     cursor: pointer;
     opacity: 0.7;
 }
