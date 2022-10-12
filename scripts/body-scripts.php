@@ -39,4 +39,8 @@
     function ValidatePasswordInput($input) {
         return preg_match("/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{5,}$/", $input);
     }
+
+    function ChangePage($goTo){
+        echo "<script> window.location.href='". $goTo ."'; </script>";
+    }
 ?>

@@ -170,11 +170,11 @@ BEGIN
 END$$
 
 DELIMITER $$
-CREATE PROCEDURE AjouterEmplacement (pIdEmplacement INT,pNomEmplacement varchar(45), pSvg VARCHAR(40))
+CREATE  PROCEDURE `AjouterEmplacement`(pNomEmplacement varchar(45), pSvg VARCHAR(40))
 BEGIN
-    INSERT INTO Emplacement(idEmplacement, nomEmplacement, Svg)
-		VALUES(pIdEmplacement, pNomEmplacement, pSvg);
-END $$
+    INSERT INTO Emplacement(nomEmplacement, Svg)
+		VALUES(pNomEmplacement, pSvg);
+END$$
 
 DELIMITER $$
 CREATE PROCEDURE ModifierPlacement (pIdEmplacement INT,pNomEmplacement varchar(45), pSvg VARCHAR(40))
