@@ -12,7 +12,7 @@ body {
     width: fit-content;
 }
 
-.inventory-location-form  {
+.inventory-form {
     background-color: rgba(51, 51, 51,0.8);
     position: fixed;
     display: none;
@@ -27,13 +27,30 @@ body {
     z-index: 3;
 }
 
-.location-form-content {
+.form-content{
     background: var(--color-tertiary);
     border: 0.1rem solid var(--color-primary);
+    overflow: auto;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    border-radius: 2rem;
+    gap: 2rem;
+    margin: 5rem;
+    height: 75%;
+    z-index: 3;
+}
+
+.items-form-content {
+    background: var(--color-tertiary);
+    border: 0.1rem solid var(--color-primary);
+    overflow: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    padding: 2rem;
     border-radius: 2rem;
     gap: 2rem;
     margin: 5rem;
@@ -83,19 +100,23 @@ body {
     transform: rotate(0deg);
 }
 
-.location-form-exit {
+.form-exit {
     position: absolute;
     right: 7rem;
     top: 7rem;
 }
 
-.location-form-exit svg {
+.inventory-form {
+    display: none;
+}
+
+.form-exit svg {
     fill: var(--color-primary);
     height: 1.5rem;
     width: 1.5rem;
 }
 
-.location-form-exit:hover {
+.form-exit:hover {
     cursor: pointer;
 }
 

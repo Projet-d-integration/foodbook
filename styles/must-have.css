@@ -15,6 +15,27 @@ body {
     height: 100%;
 }
 
+input:-webkit-autofill{
+    -webkit-text-fill-color: var(--color-accent);
+    transition: var(--color-primary) var(--transition);
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--color-accent); 
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--color-accent-hover); 
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--color-accent-hover);
+}
+
 .header-banner {
     background: var(--color-primary);
     color: var(--color-secondary);
