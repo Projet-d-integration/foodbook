@@ -45,17 +45,25 @@ body {
 .items-form-content {
     background: var(--color-tertiary);
     border: 0.1rem solid var(--color-primary);
-    overflow: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow-y: auto;
+    border-radius: 2rem;
+    margin: 5rem;
+    height: 75%;
+    z-index: 3;
+}
+
+.items-form {
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: row;
+    flex-wrap: wrap;
     padding: 2rem;
-    border-radius: 2rem;
     gap: 2rem;
-    margin: 5rem;
-    height: 75%;
-    z-index: 3;
+    width: 75%;
 }
 
 .space-grid {

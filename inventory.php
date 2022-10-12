@@ -33,7 +33,7 @@
         <a href="index.php"><?php echo file_get_contents("utilities/foodbook-logo.svg"); ?></a>
         <div class="banner-title"> Inventaire </div>
         <div class="svg-wrapper">
-            <a href="login.php" class="svg-button list-button"> <?php echo file_get_contents("utilities/list.svg"); ?> </a>
+            <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" class="svg-button list-button"> <?php echo file_get_contents("utilities/list.svg"); ?> </a>
             <a href="inventory.php" class="svg-button inventory-button"> <?php echo file_get_contents("utilities/food.svg"); ?> </a>
             <?php 
                 if(!empty($_SESSION['idUser'])){
@@ -57,12 +57,16 @@
                     </script>';
                     $tabInfoSpace = InfoLocation(); 
                     $numInfoSpace = count($tabInfoSpace);
-                    //Vérfie la quantité d'emplacements de l'utilisateur, et affiche un message
+                    // Vérfie la quantité d'emplacements de l'utilisateur, et affiche un message
                     // lorsque ce nombre est <= 0
+                    // $numInfoSpace <= 0
                     if ($numInfoSpace <= 0){
                         echo '
                         <script>
-                            window.onload = () => { document.getElementById("error_no_space").style.display = "block"; }
+                            window.onload = () => { 
+                                document.getElementById("error_no_space").style.display = "block";
+                                document.getElementById("add_new_location").style.display = "block";
+                            }
                         </script>';
                     }
                     else {
@@ -78,6 +82,25 @@
                         echo '</div>
                         </form>';
                     }
+                }else if(!empty($_POST['qteChosen'])){
+                    echo ModifyIngredientInventory(intval($_SESSION['idUser']),intval($_POST['idIngredient']),intval($_POST['qteChosen']),intval($_POST['idEmplacement']));
+                    echo "<script>window.location.href = window.location.href;</script>";
+                }else if(!empty($_POST['ingredient-input'])){
+                    AddIngredientInventory(intval($_SESSION['idUser']),intval($_POST['ingredient-input']),intval($_POST['number-input']),intval($_POST['place-input']));
+                    echo "<script>window.location.href = window.location.href;</script>";
+                }else if(!empty($_POST['buttonSpace'])){
+                    $spaceChosen = $_POST['buttonSpace'];
+                    $tabInventaire = UserInventoryInfo($_SESSION['idUser']);
+                    echo '<form><div class="item-wrapper"><div class="return-button">'.GenerateButtonTertiary("Retour", "inventory.php").'</div></form>';
+                    echo "<div class='button button-primary' onclick='ShowFormItems()'>Ajouter un ingredient</div>";
+                    echo '<ul>';
+                    foreach($tabInventaire as $ingredientInventaire){
+                        $ingredientInfo = SingleIngredientInfo($ingredientInventaire[2]);
+                        if($ingredientInventaire[3] == $_POST['buttonSpace']){
+                            echo "<li>$ingredientInfo[1] <form  method='post'> <input type='number' name='qteChosen' min='1' value='$ingredientInventaire[0]'><input type='hidden' name='idIngredient' value='$ingredientInventaire[2]'><input type='hidden' name='idEmplacement' value='$spaceChosen'><button type='submit'>Modifier</button></form></li>";
+                        }
+                    }
+                    echo '</ul>';
                 }else if(!empty($_POST['addLocation'])) {
                     $tabInfoSpace = InfoLocation(); 
                     $newLocation = $_POST['location-name'];
@@ -100,25 +123,6 @@
                         echo "Vous avez déjà un emplacement nommé ainsi, il n'a donc pas été ajouté.";
                         echo '<form><div class="item-wrapper"><div class="return-button">'.GenerateButtonTertiary("Retour", "inventory.php").'</div></form>';
                     }
-                }else if(!empty($_POST['qteChosen'])){
-                    echo ModifyIngredientInventory(intval($_SESSION['idUser']),intval($_POST['idIngredient']),intval($_POST['qteChosen']),intval($_POST['idEmplacement']));
-                    echo "<script>window.location.href = window.location.href;</script>";
-                }else if(!empty($_POST['ingredient-input'])){
-                    AddIngredientInventory(intval($_SESSION['idUser']),intval($_POST['ingredient-input']),intval($_POST['number-input']),intval($_POST['place-input']));
-                    echo "<script>window.location.href = window.location.href;</script>";
-                }else if(!empty($_POST['buttonSpace'])){
-                    $spaceChosen = $_POST['buttonSpace'];
-                    $tabInventaire = UserInventoryInfo($_SESSION['idUser']);
-                    echo '<form><div class="item-wrapper"><div class="return-button">'.GenerateButtonTertiary("Retour", "inventory.php").'</div></form>';
-                    echo "<div class='button button-primary' onclick='ShowFormItems()'>Ajouter un ingredient</div>";
-                    echo '<ul>';
-                    foreach($tabInventaire as $ingredientInventaire){
-                        $ingredientInfo = SingleIngredientInfo($ingredientInventaire[2]);
-                        if($ingredientInventaire[3] == $_POST['buttonSpace']){
-                            echo "<li>$ingredientInfo[1] <form  method='post'> <input type='number' name='qteChosen' min='1' value='$ingredientInventaire[0]'><input type='hidden' name='idIngredient' value='$ingredientInventaire[2]'><input type='hidden' name='idEmplacement' value='$spaceChosen'><button type='submit'>Modifier</button></form></li>";
-                        }
-                    }
-                    echo '</ul>';
                 }
             ?>
             <div class="neutral_message" id="error_no_location">Pour visionner et classer vos items, veuillez créer un emplacement.</div>
@@ -139,32 +143,27 @@
                 <div class="transparent-background">
                     <div class="items-form-content">
                         <div class="form-exit" onclick='HideFormItems()'> <?php echo file_get_contents("utilities/x-symbol.svg"); ?> </div>
+                           <div class="items-form">
+                                <?php
+                                    $tabIngredient = AllIngredientInfo(); // [1] == nom
+                                    $idEmplacement = $_POST['buttonSpace'];
+                                    foreach($tabIngredient as $singleIngredient){
+                                        echo "
+                                        <form method='post'>
+                                            <button type='submit' name='ingredient-input' value='$singleIngredient[0]'>$singleIngredient[1]</button><br>
+                                            <input type='number' name='number-input' min='1' max='100' placeholder='Cb' value = 0> 
+                                            <input type='hidden' name='place-input' value='$idEmplacement'>
+                                        </form>";
+                                    }
+                                ?>
 
-                        <?php
-                            $tabIngredient = AllIngredientInfo(); // [1] == nom
-                            echo '<div>';
-                            foreach($tabIngredient as $singleIngredient){
-                                echo "<div>";
-                                echo '<form method="post">';
-                                echo "<button type='submit' name='ingredient-input' value=$singleIngredient[0]>$singleIngredient[1]</button><br>";
-                                echo '<input type="number" name="number-input" min="1" max="100" placeholder="Cb" value = 0>';
-                                echo "<input type='hidden' name='place-input' value=$idEmplacement>";
-                                echo '</form>';
-                                echo '</div>';
-                            }
-                            echo '</div>';
-                        ?>
-                        <!-- <form>
-                            <div class="item-wrapper dark-background">
-                                <a href="add-new-ingredient.php" class='button button-secondary'>Ajouter un nouvel ingredient</a>
-                            </div>
-                        </form> -->
-
-                    </div>    
+                           </div>
+                           <form>
+                                <?php GenerateButtonPrimary("Ajouter un nouvel ingredient", "add-new-ingredient.php") ?>
+                            </form>
+                    </div>
                 </div>
             </div>
-
-
         </div>
     </div>
 
