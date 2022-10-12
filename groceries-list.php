@@ -47,11 +47,12 @@
 
     <div class="wrapper-list">
 
-        <div class="box-list">une liste d'épicerie
-            <div class="caret-svg"> <?php echo file_get_contents("utilities/caret-right.svg"); ?></div>
-            <div class="div-test"> test</div>
+        <div class="box-container">
+            <div id="list-box" class="box-list" onclick="testFunction('testDiv')">test
+                <div class="caret-svg"> <?php echo file_get_contents("utilities/caret-right.svg"); ?></div>
+            </div>
+            <div class="div-test"  id="testDiv">élément dans liste</div>
         </div>
-
         <div class="box-list">une liste d'épicerie 
             <div class="caret-svg"> <?php echo file_get_contents("utilities/caret-right.svg"); ?></div>
         </div>
@@ -71,3 +72,16 @@
 
     <?php GenerateFooter(); ?>
 </body>
+
+<script defer> 
+
+    function testFunction(divName) {
+        if(document.getElementById("testDiv").classList.contains("active"))
+        {
+            document.getElementById("testDiv").classList.remove("active");
+        }
+        else{
+            document.getElementById("testDiv").classList.add('active');
+        }
+    }
+</script>

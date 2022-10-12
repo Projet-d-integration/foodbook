@@ -11,7 +11,7 @@
 
 }
 
-.box-list{
+.box-list {
     border: solid 2px black;
     padding: 3rem;
     border-radius: 0.5rem 1rem;
@@ -21,12 +21,14 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    transition: var(--transition);
+
 }
 .box-list:hover{
     cursor: pointer;
 }
 
-.box-list:hover svg{
+.box-list:active svg{
     transform: rotate(90deg);
     transition: var(--transition);
 }
@@ -35,13 +37,14 @@
    flex-direction: column;
    align-items:  flex-end;
 }
-svg{
-    transition: var(--transition);
-}
-.div-test{
-   visibility: hidden;
 
+.div-test {
+    transition: var(--transition);
+    opacity: 0;
+    height: 0;
 }
-.box-list:hover .div-test{
-    visibility: visible;
+
+.box-container .active {
+    opacity: 1;
+    height: 100%;
 }
