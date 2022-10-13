@@ -55,6 +55,10 @@ body {
     z-index: 3;
 }
 
+.danger-option {
+    color: red;
+}
+
 .items-form {
     display: flex;
     align-items: center;
@@ -65,6 +69,70 @@ body {
     gap: 2rem;
     width: 75%;
 }
+
+.items-form svg {
+    fill: var(--color-primary);
+    height: 1.5rem;
+    width: 1.5rem;
+}
+
+.inventory-item {
+    background: var(--color-accent);
+    color: var(--color-secondary);
+    transition: var(--transition);
+    border: 0.1rem solid var(--color-primary);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.3rem;
+    min-width: fit-content;
+    width: 10rem;
+    height: 3rem;
+}
+
+.inventory-item:hover {
+    background: var(--color-accent-hover);
+    cursor: pointer;
+}
+
+.inventory-item-form {
+    background: var(--color-accent-hover);
+    color: var(--color-secondary);
+    background-color: rgba(51, 51, 51,0.8);
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    justify-content: center;
+    align-items: center;
+    display: none;
+}
+
+.items-form-overlay {
+    background: var(--color-accent);
+    border-radius: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 40%;
+    width: 40%;
+}
+
+.inventory-items-form-title {
+    margin-bottom: 2rem;
+}
+
+.form-exit-item {
+    position: relative;
+    right: -45%;
+    top: -8%;
+}
+
+.form-exit-item:hover {
+    cursor: pointer;
+}
+
 .form-ingredient-option{
     display: inline;
 }
@@ -75,7 +143,6 @@ body {
     align-items: center;
     justify-content: center;
     margin: auto;
-    width: 40%;
     gap: 2rem;
 }
 

@@ -94,7 +94,7 @@
                 }else if(!empty($_POST['buttonSpace'])){
                     $spaceChosen = $_POST['buttonSpace'];
                     $tabInventaire = UserInventoryInfo($_SESSION['idUser']);
-                    echo '<form><div class="item-wrapper"><div class="return-button">'.GenerateButtonTertiary("Retour", "inventory.php").'</div></form>';
+                    echo '<form><div class="item-wrapper"><div class="return-button">'.GenerateButtonTertiary("Retourner aux emplacements", "inventory.php").'</div></form>';
                     echo "<div class='button button-primary' onclick='ShowFormItems()'>Ajouter un ingredient</div>";
                     echo '<ul>';
                     $nbIngredient = 0;
@@ -121,7 +121,7 @@
                     if($nbIngredient == 0){
                         echo "
                             <form method='post'>
-                                <button type='submit' name='option-delete-place' value='1'>Retirer cet emplacement</button>
+                                <button type='submit' class='danger-option' name='option-delete-place' value='1'>Retirer cet emplacement</button>
                                 <input type='hidden' name='idEmplacementDelete' value='$spaceChosen'>
                             </form>";
                     }
@@ -181,11 +181,17 @@
                                 $idEmplacement = $_POST['buttonSpace'];
                                 foreach($tabIngredient as $singleIngredient){
                                     echo "
-                                    <form method='post'>
-                                        <p>$singleIngredient[1]</p>
-                                        <input type='number' name='number-input' min='1' max='100' placeholder='Cb' value = 0> <br>
-                                        <button type='submit' name='ingredient-input' value='$singleIngredient[0]'>Ajouter</button><br>
-                                        <input type='hidden' name='place-input' value='$idEmplacement'>
+                                    <div class='inventory-item' onclick='ShowFormItemQuantity($singleIngredient[0])'> $singleIngredient[1] </div>
+                                    <form method='post' class='inventory-item-form' id='inventory-item-form-$singleIngredient[0]'>
+                                        <div class='items-form-overlay'>
+                                            <div class='form-exit-item' onclick='HideFormItemQuantity($singleIngredient[0])'>";
+                                            echo file_get_contents('utilities/x-symbol.svg');
+                                            echo " </div>
+                                            <span class='inventory-items-form-title'>Combien voulez vous ajouter de cet item : $singleIngredient[1] </span>
+                                            <input type='number' name='number-input' min='1' max='100' placeholder='Cb' value = 0> <br>
+                                            <input type='hidden' name='place-input' value='$idEmplacement'>
+                                            <button type='submit' class='button button-secondary' name='ingredient-input' value='$singleIngredient[0]'>Ajouter</button><br>
+                                        </div>
                                     </form>";
                                 }
                             ?>
@@ -218,4 +224,13 @@
     function HideFormItems() {
         document.getElementById("inventory-items-form").style.display = "none";
     }
+
+    function ShowFormItemQuantity(id) {
+        document.getElementById("inventory-item-form-" + id).style.display = "flex";
+    }
+
+    function HideFormItemQuantity(id) {
+        document.getElementById("inventory-item-form-" + id).style.display = "none";
+    }
+
 </script>
