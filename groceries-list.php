@@ -52,6 +52,8 @@
                 <div class="caret-svg"> <?php echo file_get_contents("utilities/caret-right.svg"); ?></div>
             </div>
             <div class="div-test"  id="testDiv">
+                <br></br>
+                <button onclick="showForm('form-ingred')" class="button button-primary">Ajouter un ingrédient dans ma liste</button>
                 <br>
                 <input id="i1" type="checkbox" value="Ingrédien1">  <label onclick="addDashed('label-check1')" id="label-check1" for="i1">Ingrédient 1</label>
                 <br>
@@ -78,6 +80,16 @@
             <div class="caret-svg"> <?php echo file_get_contents("utilities/caret-right.svg"); ?></div>
         </div>
     </div>
+
+    <div id="form-ingred" class="hide-form-ingredient">
+        <h1>Ajout d'un nouvel ingrédient</h1>
+            <input name="ingredient-name" type="text" class="add-ingredient-input" placeholder="Nom de l'ingrédient...">
+            <br>
+            <input type="submit" class="button button-primary" value="Ajouter">
+    </div> 
+ 
+    </div>
+    
 
 
 
@@ -106,5 +118,12 @@
         else{
             document.getElementById(idname).classList.add('text-barrer');
         }
+    }
+
+    function showForm(idname)
+    {
+        document.getElementById(idname).classList.remove('hide-form-ingredient');
+
+        document.getElementById(idname).classList.add('form-add-ingredient');
     }
 </script>

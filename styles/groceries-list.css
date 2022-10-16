@@ -59,3 +59,25 @@ input[type="checkbox"]:hover{
 label:hover{
     cursor: pointer;
 }
+.form-add-ingredient{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: lightcoral;
+    border: 2px solid black;
+    border-radius: 0.5rem 1rem;
+    width: 40rem;
+    height: 30rem;
+    opacity: 1;
+}
+.hide-form-ingredient{
+    opacity: 0;
+    height: 0;
+}
+.add-ingredient-input{
+    background: var(--color-primary);
+    border-radius: 0.5rem 1rem;
+    width: 20rem;
+    border: 2px solid black;
+
+}
