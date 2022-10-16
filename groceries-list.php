@@ -51,7 +51,9 @@
             <div id="list-box" class="box-list" onclick="ShowListGroceries('testDiv')">test
                 <div class="caret-svg"> <?php echo file_get_contents("utilities/caret-right.svg"); ?></div>
             </div>
-            <div class="div-test"  id="testDiv">élément dans liste</div>
+            <div class="div-test"  id="testDiv">
+                <label for="i1">Ingrédient 1</label> <input id="i1" type="checkbox" value="Ingrédien1">
+            </div>
         </div>
         <div class="box-list">une liste d'épicerie 
             <div class="caret-svg"> <?php echo file_get_contents("utilities/caret-right.svg"); ?></div>

@@ -50,3 +50,12 @@
     opacity: 1;
     height: 100%;
 }
+input[type='checkbox']:checked{
+   
+} 
+input[type="checkbox"]:hover{
+    cursor: pointer;
+}
+label:hover{
+    cursor: pointer;
+}
