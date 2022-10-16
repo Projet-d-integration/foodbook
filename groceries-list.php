@@ -52,7 +52,17 @@
                 <div class="caret-svg"> <?php echo file_get_contents("utilities/caret-right.svg"); ?></div>
             </div>
             <div class="div-test"  id="testDiv">
-                <label for="i1">Ingrédient 1</label> <input id="i1" type="checkbox" value="Ingrédien1">
+                <br>
+                <input id="i1" type="checkbox" value="Ingrédien1">  <label onclick="addDashed('label-check1')" id="label-check1" for="i1">Ingrédient 1</label>
+                <br>
+                <input id="i2" type="checkbox" value="Ingrédien2">  <label onclick="addDashed('label-check2')" id="label-check2" for="i2">Ingrédient 2</label>
+                <br>
+                <input id="i3" type="checkbox" value="Ingrédien3">  <label onclick="addDashed('label-check3')" id="label-check3" for="i3">Ingrédient 3</label>
+                <br>
+                <input id="i4" type="checkbox" value="Ingrédien4">  <label onclick="addDashed('label-check4')" id="label-check4" for="i4">Ingrédient 4</label>
+                <br>
+                <input id="i5" type="checkbox" value="Ingrédien5">  <label onclick="addDashed('label-check5')" id="label-check5" for="i5">Ingrédient 5</label>
+                <br>
             </div>
         </div>
         <div class="box-list">une liste d'épicerie 
@@ -84,6 +94,17 @@
         }
         else{
             document.getElementById("testDiv").classList.add('active');
+        }
+    }
+
+    function addDashed(idname)
+    {
+        if(document.getElementById(idname).classList.contains("text-barrer"))
+        {
+            document.getElementById(idname).classList.remove("text-barrer");
+        }
+        else{
+            document.getElementById(idname).classList.add('text-barrer');
         }
     }
 </script>

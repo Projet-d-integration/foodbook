@@ -50,9 +50,9 @@
     opacity: 1;
     height: 100%;
 }
-input[type='checkbox']:checked{
-   
-} 
+.text-barrer{
+    text-decoration: line-through;
+}
 input[type="checkbox"]:hover{
     cursor: pointer;
 }
