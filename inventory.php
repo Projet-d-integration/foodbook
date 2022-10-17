@@ -195,7 +195,7 @@
                                     </form>";
                                 }
                             ?>
-                            <div class="items-form">
+                            <div class="items-form-submit">
                                 <form> <?php GenerateButtonPrimary("Ajouter un nouvel ingredient inexistant", "add-new-ingredient.php") ?></form>
                             </div>
                         </div>

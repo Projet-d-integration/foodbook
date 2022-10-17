@@ -53,6 +53,7 @@ body {
     margin: 5rem;
     height: 75%;
     z-index: 3;
+    padding: 2rem;
 }
 
 .danger-option {
@@ -65,8 +66,14 @@ body {
     justify-content: center;
     flex-direction: row;
     flex-wrap: wrap;
-    padding: 2rem;
     gap: 2rem;
+    width: 75%;
+}
+
+.items-form-submit {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 75%;
 }
 
