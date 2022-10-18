@@ -9,6 +9,8 @@
     {
         echo '<script>window.location.href = "login.php";</script>';
     }
+
+    $nb_liste = 0;
 ?>
 
 <head>
@@ -32,7 +34,7 @@
         <a href="index.php"><?php echo file_get_contents("utilities/foodbook-logo.svg"); ?></a>
         <div class="banner-title"> Liste d'épicerie </div>
         <div class="svg-wrapper">
-            <a href="login.php" class="svg-button list-button"> <?php echo file_get_contents("utilities/list.svg"); ?> </a>
+            <a href="groceries-list.php" class="svg-button list-button"> <?php echo file_get_contents("utilities/list.svg"); ?> </a>
             <?php 
                 if(!empty($_SESSION['idUser'])){
                     echo '<a href="edit-profil.php" class="svg-button login-button"> '.file_get_contents("utilities/account.svg").'</a>';
@@ -47,10 +49,23 @@
 
     <div class="wrapper-list">
 
+        <form method="POST">
+            <button type="submit" id="add-new-grocery-list" name="btnAddGroceryList" class="button button-primary">Ajouter une liste d'épicerie</button>
+        </form>
+        
         <div class="box-container">
-            <div id="list-box" class="box-list" onclick="ShowListGroceries('testDiv')">test
+            <!--<div id="list-box" class="box-list" onclick="ShowListGroceries('testDiv')">test
                 <div class="caret-svg"> <?php echo file_get_contents("utilities/caret-right.svg"); ?></div>
-            </div>
+            </div>-->
+            <?php 
+
+            if(isset($_POST["btnAddGroceryList"]))
+            {
+                GenerateFormGroceryList();
+                $nb_liste++;
+            }
+
+            ?>
             <div class="div-test"  id="testDiv">
                 <br></br>
                 <button onclick="showForm('form-ingred')" class="button button-primary">Ajouter un ingrédient dans ma liste</button>
@@ -67,7 +82,7 @@
                 <br>
             </div>
         </div>
-        <div class="box-list">une liste d'épicerie 
+        <!--<div class="box-list">une liste d'épicerie 
             <div class="caret-svg"> <?php echo file_get_contents("utilities/caret-right.svg"); ?></div>
         </div>
         <div class="box-list">une liste d'épicerie
@@ -78,6 +93,10 @@
         </div>
         <div class="box-list">une liste d'épicerie
             <div class="caret-svg"> <?php echo file_get_contents("utilities/caret-right.svg"); ?></div>
+        </div>-->
+
+        <div id="message-nb-liste" class="message-liste">
+            Vous avez actuellement <?php echo $nb_liste;?> liste d'épicerie.
         </div>
     </div>
 
@@ -90,16 +109,20 @@
  
     </div>
     
-
-
+    
 
 
     <?php GenerateFooter(); ?>
 </body>
 
+
+
+
+
 <script defer> 
 
-    function ShowListGroceries(divName) {
+
+    function ShowListGroceries() {
         if(document.getElementById("testDiv").classList.contains("active"))
         {
             document.getElementById("testDiv").classList.remove("active");
