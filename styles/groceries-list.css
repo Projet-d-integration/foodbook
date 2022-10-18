@@ -63,6 +63,7 @@ label:hover{
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
     background-color: lightcoral;
     border: 2px solid black;
     border-radius: 0.5rem 1rem;
