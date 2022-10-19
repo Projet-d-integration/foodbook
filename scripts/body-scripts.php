@@ -48,9 +48,4 @@
         </div>';
     }
 
-    function GenerateFormGroceryList()
-    {
-        
-    }
-
 ?>

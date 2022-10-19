@@ -16,7 +16,7 @@
     padding: 3rem;
     border-radius: 0.5rem 1rem;
     background: grey;
-    width: 40%;
+    width: fit-content;
     color: white;
     display: flex;
     align-items: center;
@@ -60,21 +60,14 @@ label:hover{
     cursor: pointer;
 }
 .form-add-ingredient{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    background-color: lightcoral;
-    border: 2px solid black;
-    border-radius: 0.5rem 1rem;
-    width: 40rem;
-    height: 30rem;
-    opacity: 1;
+    background-color: rgba(55, 60, 51,0.8);
+    position: fixed;
+    display: none;
+    width: 100%;
+    height: 100%;
+    top: 0;
 }
-.hide-form-ingredient{
-    opacity: 0;
-    height: 0;
-}
+
 .add-ingredient-input{
     background: var(--color-primary);
     border-radius: 0.5rem 1rem;
@@ -85,4 +78,71 @@ label:hover{
 .message-liste{
     font-weight: bold;
     font-family: 'Courier New', Courier, monospace;
+}
+
+.grocery-list-form{
+    background-color: rgba(55, 60, 51,0.8);
+    position: fixed;
+    display: none;
+    width: 100%;
+    height: 100%;
+    top: 0;
+}
+.transparent-background{
+    height: 100%;
+    width: 100%;
+    z-index: 3;
+}
+.form-content{
+    background: var(--color-tertiary);
+    border: 0.1rem solid var(--color-primary);
+    overflow: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border-radius: 2rem;
+    gap: 2rem;
+    margin: 5rem;
+    height: 75%;
+    z-index: 3;
+}
+.input-form-name{
+    background: var(--color-accent);
+    border-radius: 1.5rem;
+    padding: 0.5rem 2rem;
+}
+.input-form-name::placeholder{
+    color: white;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+.list-div{
+    background: var(--color-accent);
+    color: var(--color-secondary);
+    border-radius: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+    padding: 2rem;
+}
+.list-div-arrow{
+    transition: var(--transition);
+    transform: rotate(-90deg);
+}
+.list-div-arrow svg{
+    fill: var(--color-secondary);
+    height: 1.5rem;
+    width: 1.5rem;
+}
+.list-div:hover{
+    background: var(--color-accent-hover);
+    transition: var(--transition);
+}
+
+.list-div:hover .list-div-arrow{
+   transform: rotate(0deg);
+}
+.form-exit{
+    cursor: pointer;
 }

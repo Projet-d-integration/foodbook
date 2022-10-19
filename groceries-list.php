@@ -10,7 +10,9 @@
         echo '<script>window.location.href = "login.php";</script>';
     }
 
-    $nb_liste = 0;
+    $tabInfoList = []; //méthode pour aller get toute les liste du user
+    $nb_liste = count($tabInfoList);
+    
 ?>
 
 <head>
@@ -49,38 +51,73 @@
 
     <div class="wrapper-list">
 
-        <form method="POST">
-            <button type="submit" id="add-new-grocery-list" name="btnAddGroceryList" class="button button-primary">Ajouter une liste d'épicerie</button>
-        </form>
+
+        <?php
+
+            if($nb_liste > 0)
+            {
+                echo '<form method="POST">
+                    <div class="list-grid">';
+
+                   //Afficher toutes les listes
+                   echo "<button class='list-div' type='submit' name='buttonList' value=''> <div class='list-div-arrow'>".file_get_contents("utilities/caret.svg")."</div>";
+                echo '</div>
+                </form>';
+            }
+            
+         ?>
         
+        <button onclick="ShowFormAddList()" id="add-new-grocery-list" name="btnAddGroceryList" class="button button-primary">Ajouter une liste d'épicerie</button>
+    
+        <div class="grocery-list-form" id="grocery-list-form">
+            <div class="transparent-background">
+                <form method="POST" class="form-content">
+                    <div class="form-exit" onclick="HideFormAddList()"><?php echo file_get_contents("utilities/x-symbol.svg"); ?></div>
+                    <?php
+                        //Init tabInfoList = InfoList($id_user);
+                        if(count($tabInfoList) < 10)
+                        {
+                            echo '<input type="text" class="input-form-name" name="list-grocery-name" placeholder="Nom de la liste..." maxlength="20">
+                                  <input type="submit" class="button button-primary" name="addGroceryList" value="Ajouter la liste">';
+                        }
+
+                    ?>
+
+                    <div id="message-nb-liste" class="message-liste">
+                        Vous avez actuellement <?php echo $nb_liste;?>/10 liste d'épicerie.
+                    </div>
+                </form>
+            </div>
+
+        </div>
+        <?php
+            if(!empty($_POST["addGroceryList"]))
+            {
+                //Appeler méthode InfoList pour get toutes les listes
+                $newList = $_POST["list-grocery-name"];
+                $listAlreadyExists = false;
+
+                foreach($tabInfoList as $liste)
+                {
+                    if (strtolower($liste[1]) == strtolower($newList)) {
+                        $listAlreadyExists = true;
+                        break;
+                    }
+                }
+            }
+
+            if(!$listAlreadyExists)
+            {
+                //AddList
+                header("Location: groceries-list.php");
+            }
+        ?>
         <div class="box-container">
             <!--<div id="list-box" class="box-list" onclick="ShowListGroceries('testDiv')">test
                 <div class="caret-svg"> <?php echo file_get_contents("utilities/caret-right.svg"); ?></div>
             </div>-->
-            <?php 
-
-            if(isset($_POST["btnAddGroceryList"]))
-            {
-                GenerateFormGroceryList();
-                $nb_liste++;
-            }
-
-            ?>
-            <div class="div-test"  id="testDiv">
-                <br></br>
-                <button onclick="showForm('form-ingred')" class="button button-primary">Ajouter un ingrédient dans ma liste</button>
-                <br>
-                <input id="i1" type="checkbox" value="Ingrédien1">  <label onclick="addDashed('label-check1')" id="label-check1" for="i1">Ingrédient 1</label>
-                <br>
-                <input id="i2" type="checkbox" value="Ingrédien2">  <label onclick="addDashed('label-check2')" id="label-check2" for="i2">Ingrédient 2</label>
-                <br>
-                <input id="i3" type="checkbox" value="Ingrédien3">  <label onclick="addDashed('label-check3')" id="label-check3" for="i3">Ingrédient 3</label>
-                <br>
-                <input id="i4" type="checkbox" value="Ingrédien4">  <label onclick="addDashed('label-check4')" id="label-check4" for="i4">Ingrédient 4</label>
-                <br>
-                <input id="i5" type="checkbox" value="Ingrédien5">  <label onclick="addDashed('label-check5')" id="label-check5" for="i5">Ingrédient 5</label>
-                <br>
-            </div>
+            
+           
         </div>
         <!--<div class="box-list">une liste d'épicerie 
             <div class="caret-svg"> <?php echo file_get_contents("utilities/caret-right.svg"); ?></div>
@@ -95,17 +132,29 @@
             <div class="caret-svg"> <?php echo file_get_contents("utilities/caret-right.svg"); ?></div>
         </div>-->
 
-        <div id="message-nb-liste" class="message-liste">
-            Vous avez actuellement <?php echo $nb_liste;?> liste d'épicerie.
-        </div>
     </div>
 
-    <div id="form-ingred" class="hide-form-ingredient">
-        <h1>Ajout d'un nouvel ingrédient</h1>
-            <input name="ingredient-name" type="text" class="add-ingredient-input" placeholder="Nom de l'ingrédient...">
-            <br>
-            <input type="submit" class="button button-primary" value="Ajouter">
-    </div> 
+        <div id="form-ingred" class="form-add-ingredient">
+            <div class="transparent-background">
+            <h1>Ajout d'un nouvel ingrédient</h1>
+                <input name="ingredient-name" type="text" class="add-ingredient-input" placeholder="Nom de l'ingrédient...">
+                <br>
+                <input type="submit" class="button button-primary" value="Ajouter">
+            </div>
+            
+        </div> 
+
+        <div class="form-add-ingredient" id="form-add-ingred">
+            <div class="transparent-background">
+                <form class="form-content">
+                <div class="form-exit" onclick="HideFormAddIngredient"><?php echo file_get_contents("utilities/x-symbol.svg"); ?></div>
+                    <legend>Ajout d'un nouvel ingrédient</legend>
+                    <input type="text" name="ingred-name" class="input-form-name" placeholder="Nom de l'ingrédient">
+                    <input type="submit" class="button button-primary" value="Ajouter l'ingrédient" name="addIngred">
+                </form>
+            </div>
+           
+        </div>
  
     </div>
     
@@ -121,6 +170,15 @@
 
 <script defer> 
 
+    function ShowFormAddList()
+    {
+        document.getElementById("grocery-list-form").style.display = "block";
+    }
+
+    function HideFormAddList()
+    {
+        document.getElementById("grocery-list-form").style.display = "none";
+    }
 
     function ShowListGroceries() {
         if(document.getElementById("testDiv").classList.contains("active"))
@@ -143,10 +201,13 @@
         }
     }
 
-    function showForm(idname)
+    function ShowFormAddIngredient()
     {
-        document.getElementById(idname).classList.remove('hide-form-ingredient');
+        document.getElementById("form-add-ingred").style.display = "block";
+    }
 
-        document.getElementById(idname).classList.add('form-add-ingredient');
+    function HideFormAddIngredient()
+    {
+        document.getElementById("form-add-ingred").style.display = "none";
     }
 </script>
