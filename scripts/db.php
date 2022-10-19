@@ -364,7 +364,6 @@ function DeleteTypeIngredient($idTypeIngredient)
     }
 }
 
-
 //Ajout d'ingredient a la table
 function AddIngredient($pNomIngredient, $pDescriptionIngredient, $pIdTypeIngredient){
     Connexion();
@@ -827,13 +826,46 @@ function DeleteRecipe($idRecette){
         return $e->getMessage();
     }
 }
-//Show information of a Recipe
-function ShowRecipe($idRecette){
+//Show information of a Recipe, 
+//Faire un autre SHowRecipe avec Le ID User
+//Faire un filtre Ascending descending de Date et de NbVus
+function ShowRecipe($idRecette = '', $pNbVus = '', $pDateCreation = ''){
     Connexion();
     global $PDO;
     mysqli_set_charset($PDO, "utf8mb4");
+    if($pNbVus == '' && $pDateCreation =='' && $idRecette == ''){
 
-    $stmt = $PDO->prepare("SELECT * FROM Recette WHERE idRecette = :idRecette", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+        $stmt = $PDO->prepare("SELECT * FROM Recette", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+    }
+    else if($pNbVus == 'ASC' && $idRecette == ''){
+        $stmt = $PDO->prepare("SELECT * FROM Recette ORDER BY nbVus ASC", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+    }
+    else if($pNbVus == 'DESC' && $idRecette == ''){
+        $stmt = $PDO->prepare("SELECT * FROM Recette ORDER BY nbVus DESC", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+    }
+    else if($pDateCreation == 'ASC' && $idRecette == ''){
+        $stmt = $PDO->prepare("SELECT * FROM Recette ORDER BY dateCreation ASC", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+    }
+    else if($pDateCreation == 'DESC' && $idRecette == ''){
+        $stmt = $PDO->prepare("SELECT * FROM Recette ORDER BY dateCreation DESC", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+    }
+    else if($pNbVus == '' && $pDateCreation == ''){
+
+        $stmt = $PDO->prepare("SELECT * FROM Recette WHERE idRecette = :idRecette", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+    }
+    else if($pNbVus == 'ASC'){
+        $stmt = $PDO->prepare("SELECT * FROM Recette WHERE idRecette = :idRecette ORDER BY nbVus ASC", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+    }
+    else if($pNbVus == 'DESC'){
+        $stmt = $PDO->prepare("SELECT * FROM Recette WHERE idRecette = :idRecette ORDER BY nbVus DESC", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+    }
+    else if($pDateCreation == 'ASC'){
+        $stmt = $PDO->prepare("SELECT * FROM Recette WHERE idRecette = :idRecette ORDER BY dateCreation ASC", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+    }
+    else if($pDateCreation == 'DESC'){
+        $stmt = $PDO->prepare("SELECT * FROM Recette WHERE idRecette = :idRecette ORDER BY dateCreation DESC", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+    }
+    
     $stmt->bindParam(':idRecette', $idRecette, PDO::PARAM_INT);
     $stmt->execute();
     $info = [];
@@ -843,26 +875,28 @@ function ShowRecipe($idRecette){
         array_push($rangee, $donnee[1]); // idCompte
         array_push($rangee, $donnee[2]); // nomRecette
         array_push($rangee, $donnee[3]); // publique
-        array_push($rangee, $donnee[4]); //nbVus
-        array_push($rangee, $donnee[5]); //DateCreation
-        array_push($rangee, $donnee[6]); //idTypeRecette
+        array_push($rangee, $donnee[4]); // nbVus
+        array_push($rangee, $donnee[5]); // DateCreation
+        array_push($rangee, $donnee[6]); // idTypeRecette
         array_push($info, $rangee);
-    }
-    $stmt->closeCursor();
-    return $info;
+        }
+        $stmt->closeCursor();
+        return $info;
 }
 //Add Information on a Recipe
-function AddInfoRecipe($pTempsPreparation, $pNbPortions, $pDescription, $pInstruction, $pRecette_idRecette){
+function AddInfoRecipe($pTempsPreparation, $pNbPortions, $pDescription, $pInstruction, $pRecette_idRecette, $pImage, $pVideo){
     Connexion();
     global $PDO;
     try{
-        $sqlProcedure = "CALL AjouterInfoRecette(:pTempsPreparation, :pNbPortions, :pDescription, :pInstruction, :pRecette_idRecette)";
+        $sqlProcedure = "CALL AjouterInfoRecette(:pTempsPreparation, :pNbPortions, :pDescription, :pInstruction, :pRecette_idRecette, :pImage, :pVideo)";
         $stmt = $PDO->prepare($sqlProcedure);
         $stmt->bindParam(':pTempsPreparation', $pTempsPreparation, PDO::PARAM_INT);
         $stmt->bindParam(':pNbPortions', $pNbPortions, PDO::PARAM_INT);
         $stmt->bindParam(':pDescription', $pDescription, PDO::PARAM_STR);
         $stmt->bindParam(':pInstruction', $pInstruction, PDO::PARAM_STR);
         $stmt->bindParam(':pRecette_idRecette', $pRecette_idRecette, PDO::PARAM_INT);
+        $stmt->bindParam(':pImage', $pImage, PDO::PARAM_STR);
+        $stmt->bindParam(':pVideo', $pVideo, PDO::PARAM_STR);
         $stmt->execute();
         $stmt->closeCursor();
     } catch (PDOException $e) {
@@ -870,17 +904,19 @@ function AddInfoRecipe($pTempsPreparation, $pNbPortions, $pDescription, $pInstru
     }   
 }
 //Modify an inforamtion about a recipe
-function ModifyInfoRecipe($pTempsPreparation, $pNbPortions, $pDescription, $pInstruction, $pRecette_idRecette){
+function ModifyInfoRecipe($pTempsPreparation, $pNbPortions, $pDescription, $pInstruction, $pRecette_idRecette ,$pImage, $pVideo){
     Connexion();
     global $PDO;
     try{
-        $sqlProcedure = "CALL ModifierInfoRecette(:pTempsPreparation, :pNbPortions, :pDescription, :pInstruction, :pRecette_idRecette)";
+        $sqlProcedure = "CALL ModifierInfoRecette(:pTempsPreparation, :pNbPortions, :pDescription, :pInstruction, :pRecette_idRecette, :pImage, :pVideo)";
         $stmt = $PDO->prepare($sqlProcedure);
         $stmt->bindParam(':pTempsPreparation', $pTempsPreparation, PDO::PARAM_INT);
         $stmt->bindParam(':pNbPortions', $pNbPortions, PDO::PARAM_INT);
         $stmt->bindParam(':pDescription', $pDescription, PDO::PARAM_STR);
         $stmt->bindParam(':pInstruction', $pInstruction, PDO::PARAM_STR);
         $stmt->bindParam(':pRecette_idRecette', $pRecette_idRecette, PDO::PARAM_INT);
+        $stmt->bindParam(':pImage', $pImage, PDO::PARAM_STR);
+        $stmt->bindParam(':pVideo', $pVideo, PDO::PARAM_STR);
         $stmt->execute();
         $stmt->closeCursor();
     } catch (PDOException $e) {
@@ -902,25 +938,27 @@ function DeleteInfoRecipe($pRecette_idRecette){
 }
 //Show info about a recipe
 function InfoRecipe($Recette_idRecette){
-    Connexion();
-    global $PDO;
-    mysqli_set_charset($PDO, "utf8mb4");
-
-    $stmt = $PDO->prepare("SELECT * FROM InfoRecette WHERE Recette_idRecette = :Recette_idRecette", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
-    $stmt->bindParam(':Recette_idRecette', $Recette_idRecette, PDO::PARAM_INT);
-    $stmt->execute();
-    $info = [];
-    while ($donnee = $stmt->fetch(PDO::FETCH_NUM)) {
-        $rangee = [];
-        array_push($rangee, $donnee[0]); // TempsPreparation
-        array_push($rangee, $donnee[1]); // nbPortions
-        array_push($rangee, $donnee[2]); // descsription
-        array_push($rangee, $donnee[3]); // instruction
-        array_push($rangee, $donnee[4]); // Recette_idRecette
-        array_push($info, $rangee);
-    }
-    $stmt->closeCursor();
-    return $info;
+        Connexion();
+        global $PDO;
+        mysqli_set_charset($PDO, "utf8mb4");
+    
+        $stmt = $PDO->prepare("SELECT * FROM InfoRecette WHERE Recette_idRecette = :Recette_idRecette ", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+        $stmt->bindParam(':Recette_idRecette', $Recette_idRecette, PDO::PARAM_INT);
+        $stmt->execute();
+        $info = [];
+        while ($donnee = $stmt->fetch(PDO::FETCH_NUM)) {
+            $rangee = [];
+            array_push($rangee, $donnee[0]); // TempsPreparation
+            array_push($rangee, $donnee[1]); // nbPortions
+            array_push($rangee, $donnee[2]); // descsription
+            array_push($rangee, $donnee[3]); // instruction
+            array_push($rangee, $donnee[4]); // Recette_idRecette
+            array_push($rangee, $donnee[5]); // Image
+            array_push($rangee, $donnee[6]); // Video
+            array_push($info, $rangee);
+        }
+        $stmt->closeCursor();
+        return $info;
 }
 //Add Type Recipe
 function AddTypeRecipe($pNomTypeRecette){
@@ -1034,5 +1072,3 @@ function InfoFavorites($pUtilisateur_idCompte,$pRecette_idRecette){
     $stmt->closeCursor();
     return $info;
 }
-
-?>

@@ -235,17 +235,17 @@ END$$
 
 /* Ajouter InfoRecette */
 DELIMITER $$
-CREATE PROCEDURE AjouterInfoRecette (pTempsPreparation varchar(45), pNbPortions int, pDescription varchar(200), pInstruction varchar(450), pRecette_IdRecette int)
+CREATE PROCEDURE AjouterInfoRecette (pTempsPreparation varchar(45), pNbPortions int, pDescription varchar(200), pInstruction varchar(450), pRecette_IdRecette int, pImage VARCHAR(650), pVideo VARCHAR(650))
 BEGIN
-    INSERT INTO InfoRecette(tempsPreparation, nbPortions, description, instruction, Recette_idRecette)
-		VALUES(pTempsPreparation, pNbPortions, pDescription, pInstruction, pRecette_IdRecette);
-END$$
+    INSERT INTO InfoRecette(tempsPreparation, nbPortions, description, instruction, Recette_idRecette, image, video)
+		VALUES(pTempsPreparation, pNbPortions, pDescription, pInstruction, pRecette_IdRecette, pImage, pVideo);
+END$$ 
 
 /* Modifier InfoRecette */
 DELIMITER $$
-CREATE PROCEDURE ModifierInfoRecette (pTempsPreparation varchar(45), pNbPortions int, pDescription varchar(200), pInstruction varchar(450), pRecette_IdRecette int)
+CREATE PROCEDURE ModifierInfoRecette (pTempsPreparation varchar(45), pNbPortions int, pDescription varchar(200), pInstruction varchar(450), pRecette_IdRecette int, pImage VARCHAR(650), pVideo VARCHAR(650))
 BEGIN
-    UPDATE InfoRecette SET tempsPreparation = pTempsPreparation, nbPortions = pNbPortions, description = pDescription, instruction = pInstruction WHERE Recette_idRecette = pRecette_IdRecette;
+    UPDATE InfoRecette SET tempsPreparation = pTempsPreparation, nbPortions = pNbPortions, description = pDescription, instruction = pInstruction, image = pImage, video = pVideo WHERE Recette_idRecette = pRecette_IdRecette;
 END$$ 
 
 /* Ajouter Recette Favoris */
