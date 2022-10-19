@@ -49,7 +49,7 @@
     <div class="wrapper-list">
 
     <?php
-        $tabInfoList = []; //méthode pour aller get toute les liste du user
+        $tabInfoList = InfoGroceriesList($_SESSION["idUser"]);
         $nb_liste = count($tabInfoList);
 
         if(!($_SERVER['REQUEST_METHOD'] === 'POST'))
@@ -97,10 +97,11 @@
                 <form method="POST" class="form-content">
                     <div class="form-exit" onclick="HideFormAddList()"><?php echo file_get_contents("utilities/x-symbol.svg"); ?></div>
                     <?php
-                        //Init tabInfoList = InfoList($id_user);
+                        $tabInfoList = InfoGroceriesList($_SESSION['idUser']);
                         if(count($tabInfoList) < 10)
                         {
                             echo '<input type="text" class="input-form-name" name="list-grocery-name" placeholder="Nom de la liste..." maxlength="20">
+                                  <input type="text" class="input-form-name" name="description-grocery-list" placeholder="Courte description de la liste"> 
                                   <input type="submit" class="button button-primary" name="addGroceryList" value="Ajouter la liste">';
                         }
 
@@ -114,10 +115,13 @@
 
         </div>
         <?php
+        if($_SERVER['REQUEST_METHOD'] === 'POST')
+        {
             if(!empty($_POST["addGroceryList"]))
             {
-                //Appeler méthode InfoList pour get toutes les listes
+                $tabInfoList = InfoGroceriesList($_SESSION['idUser']);
                 $newList = $_POST["list-grocery-name"];
+                $new_list_descrip = $_POST["description-grocery-list"];
                 $listAlreadyExists = false;
 
                 foreach($tabInfoList as $liste)
@@ -131,9 +135,19 @@
 
             if(!$listAlreadyExists)
             {
-                //AddList
-                //ChangePage("groceries-list.php");
+                if(count($tabInfoList) > 0)
+                {
+                    AddGroceriesList($newList,$new_list_descrip,false,$_SESSION["idUser"]);
+                    ChangePage("groceries-list.php");
+                }
+                else{
+                    AddGroceriesList($newList,$new_list_descrip,true,$_SESSION["idUser"]);
+                    ChangePage("groceries-list.php");
+                }
+               
             }
+        }
+            
         ?>
       
     </div>
