@@ -4,6 +4,7 @@
 
 /* La function connexion vas être appeler à chaque function pour se connecter*/
 /* Après l'appel de connexion il faut global $PDO; */
+
 function Connexion()
 {
     session_start();
