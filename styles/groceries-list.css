@@ -64,7 +64,8 @@
 .input-form-name{
     background: var(--color-accent);
     border-radius: 1.5rem;
-    padding: 0.5rem 2rem;
+    padding: 0.6rem 1.2rem 0.6rem 0.6rem;
+    width: 20rem;
 }
 .input-form-name::placeholder{
     color: white;

@@ -9,9 +9,6 @@
     {
         echo '<script>window.location.href = "login.php";</script>';
     }
-
-    $tabInfoList = []; //méthode pour aller get toute les liste du user
-    $nb_liste = count($tabInfoList);
     
 ?>
 
@@ -51,7 +48,19 @@
 
     <div class="wrapper-list">
 
+    <?php
+        $tabInfoList = []; //méthode pour aller get toute les liste du user
+        $nb_liste = count($tabInfoList);
 
+        if(!($_SERVER['REQUEST_METHOD'] === 'POST'))
+        {
+            echo '
+         <script>
+             window.onload = () => { document.getElementById("add-new-grocery-list").style.display = "block"; }
+         </script>';
+        }
+         
+    ?>
         <?php
 
             if($nb_liste <= 0)
@@ -68,15 +77,20 @@
                     <div class="list-grid">';
 
                    //Afficher toutes les listes
-                   echo "<button class='list-div' type='submit' name='buttonList' value=''> <div class='list-div-arrow'>".file_get_contents("utilities/caret.svg")."</div>";
+                   foreach($tabInfoList as $listeEpicerie)
+                   {
+                    echo "<button class='list-div' type='submit' name='buttonList' value='$listeEpicerie[0]'> $listeEpicerie[1] <div class='list-div-arrow'>".file_get_contents("utilities/caret.svg")."</div>";
+                   }
+                   
                 echo '</div>
                 </form>';
             }
             
          ?>
         
-        <button onclick="ShowFormAddList()" id="add-new-grocery-list" name="btnAddGroceryList" class="show-list-form-btn">Ajouter une liste d'épicerie</button>
         <div class="neutral_message" id="no-list-message">Vous n'avez pas de liste présentement.</div>
+        <button onclick="ShowFormAddList()" id="add-new-grocery-list" name="btnAddGroceryList" class="show-list-form-btn">Ajouter une liste d'épicerie</button>
+        
     
         <div class="grocery-list-form" id="grocery-list-form">
             <div class="transparent-background">
