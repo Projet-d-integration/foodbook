@@ -213,9 +213,9 @@ END$$
 
 /* Modifier une recette*/
 DELIMITER $$
-CREATE PROCEDURE ModifierRecette (pIdRecette int, pNomRecette varchar(45), pPublique bit(1), pNbVus int, pDateCreation date, pIdTypeRecette int)
+CREATE PROCEDURE ModifierRecette (pIdCompte int,pIdRecette int, pNomRecette varchar(45), pPublique bit(1), pNbVus int, pDateCreation date, pIdTypeRecette int)
 BEGIN
-    UPDATE ListeEpicerie SET idCompte = pIdCompte, nomRecette = pNomRecette, publique = pPublique, nbVus = pNbVus, dateCreation = pDateCreation, idTypeRecette = pIdTypeRecette WHERE idRecette = pIdRecette;
+    UPDATE Recette SET idCompte = pIdCompte, nomRecette = pNomRecette, publique = pPublique, nbVus = pNbVus, dateCreation = pDateCreation, idTypeRecette = pIdTypeRecette WHERE idRecette = pIdRecette;
 END$$ 
 
 /* Ajouter Conetenue Liste Epicerie */
