@@ -54,8 +54,16 @@
 
         <?php
 
-            if($nb_liste > 0)
+            if($nb_liste <= 0)
             {
+                echo '<script>
+                window.onload = () => { 
+                    document.getElementById("no-list-message").style.display = "block";
+                    document.getElementById("add-new-grocery-list").style.display = "block";
+                }
+            </script>';
+            }
+            else{
                 echo '<form method="POST">
                     <div class="list-grid">';
 
@@ -64,13 +72,11 @@
                 echo '</div>
                 </form>';
             }
-            else{
-
-            }
             
          ?>
         
-        <button onclick="ShowFormAddList()" id="add-new-grocery-list" name="btnAddGroceryList" class="button button-primary">Ajouter une liste d'épicerie</button>
+        <button onclick="ShowFormAddList()" id="add-new-grocery-list" name="btnAddGroceryList" class="show-list-form-btn">Ajouter une liste d'épicerie</button>
+        <div class="neutral_message" id="no-list-message">Vous n'avez pas de liste présentement.</div>
     
         <div class="grocery-list-form" id="grocery-list-form">
             <div class="transparent-background">
@@ -112,7 +118,7 @@
             if(!$listAlreadyExists)
             {
                 //AddList
-                header("Location: groceries-list.php");
+                //ChangePage("groceries-list.php");
             }
         ?>
       
@@ -145,7 +151,7 @@
         if(!empty($_POST["addIngred"]))
         {
             //AddIngred();
-            header("Location: groceries-list.php");
+            //ChangePage("groceries-list.php");
         }
         ?>
  
@@ -153,7 +159,7 @@
     
     
 
-    <div id="no-list-message" class="">Vous n'avez pas de liste pour le moment.</div>
+    
 
     <?php GenerateFooter(); ?>
 </body>
@@ -181,17 +187,6 @@
         }
         else{
             document.getElementById("testDiv").classList.add('active');
-        }
-    }
-
-    function addDashed(idname)
-    {
-        if(document.getElementById(idname).classList.contains("text-barrer"))
-        {
-            document.getElementById(idname).classList.remove("text-barrer");
-        }
-        else{
-            document.getElementById(idname).classList.add('text-barrer');
         }
     }
 
