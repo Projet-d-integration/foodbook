@@ -12,6 +12,7 @@
 }
 
 
+
 .form-add-ingredient{
     background-color: rgba(55, 60, 51,0.8);
     position: fixed;
@@ -96,9 +97,7 @@
 .list-div:hover .list-div-arrow{
    transform: rotate(0deg);
 }
-.form-exit{
-    cursor: pointer;
-}
+
 .show-list-form-btn{
     display: none;
     border: 1px solid var(--color-primary);
@@ -112,4 +111,19 @@
     align-items: center;
     text-align: center;
     width: fit-content;
+}
+
+.form-exit {
+    position: absolute;
+    right: 7rem;
+    top: 7rem;
+}
+.form-exit svg {
+    fill: var(--color-primary);
+    height: 1.5rem;
+    width: 1.5rem;
+}
+
+.form-exit:hover {
+    cursor: pointer;
 }
