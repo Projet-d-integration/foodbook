@@ -40,12 +40,7 @@
         return preg_match("/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{5,}$/", $input);
     }
 
-    function GenerateGroceryList()
-    {
-        echo 
-        '<div id="list-box" class="box-list" onclick="ShowListGroceries()">test
-        <div class="caret-svg">'.file_get_contents("utilities/caret-right.svg").'</div>
-        </div>';
+    function ChangePage($goTo){
+        echo "<script> window.location.href='". $goTo ."'; </script>";
     }
-
 ?>

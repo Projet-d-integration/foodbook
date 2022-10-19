@@ -120,16 +120,16 @@ BEGIN
 END $$
 /*Modifie la qte d'un ingredient dans l'inventaire*/
 DELIMITER $$
-CREATE PROCEDURE ModifierIngredientInventaire (pIdCompte INT, pIdIngredient INT, pQte INT, pInventaireEmplacement INT)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ModifierIngredientInventaire`(pIdCompte INT, pIdIngredient INT, pQte INT, pInventaireEmplacement INT)
 BEGIN 
-	IF(TRIM(pIdCompte) != '' AND TRIM(pIdIngredient) != '' AND TRIM(pQte) != '' ) THEN
+	IF(TRIM(pIdCompte) != '' AND TRIM(pIdIngredient) != '' AND TRIM(pQte) != '' AND TRIM(pInventaireEmplacement) != '' ) THEN
 		start TRANSACTION;
-			UPDATE Inventaire SET qteIngredient = pQte, inventaire_emplacement = pInventaireEmplacement WHERE  Utilisateur_idCompte = pIdCompte AND pIdIngredient = pIdTypeIngredient   
-		COMMIT; 
+			UPDATE Inventaire SET qteIngredient = pQte WHERE  Utilisateur_idCompte = pIdCompte AND Ingredient_idIngredient = pIdIngredient AND inventaire_emplacement = pInventaireEmplacement;
+		COMMIT;
 	ELSE
 		SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'There is missing or wrong parameters';
 	END IF;
-END$$
+END
 /*Augmenter de 1 la qte de l'ingredient*/
 DELIMITER $$
 CREATE PROCEDURE AjouterQteIngredientInventaire (pIdCompte INT, pIdIngredient INT, pQte INT)
@@ -170,11 +170,11 @@ BEGIN
 END$$
 
 DELIMITER $$
-CREATE PROCEDURE AjouterEmplacement (pIdEmplacement INT,pNomEmplacement varchar(45), pSvg VARCHAR(40))
+CREATE DEFINER=`root`@`localhost` PROCEDURE `AjouterEmplacement`(pNomEmplacement varchar(45), pSvg VARCHAR(40), pIdCompte INT)
 BEGIN
-    INSERT INTO Emplacement(idEmplacement, nomEmplacement, Svg)
-		VALUES(pIdEmplacement, pNomEmplacement, pSvg);
-END $$
+    INSERT INTO Emplacement(nomEmplacement, Svg, idCompte)
+		VALUES(pNomEmplacement, pSvg, pIdCompte);
+END
 
 DELIMITER $$
 CREATE PROCEDURE ModifierPlacement (pIdEmplacement INT,pNomEmplacement varchar(45), pSvg VARCHAR(40))
@@ -187,3 +187,110 @@ BEGIN
 		SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'There is missing or wrong parameters';
 	END IF;
 END$$
+
+/* Ajouter une liste Epicerie */
+DELIMITER $$
+CREATE PROCEDURE AjouterListeEpicerie (pNomListeEpicerie varchar(45), pDescriptionListeEpicerie varchar(40), pEstListeBase bit(1), pUtilisateur_IdCompte INT)
+BEGIN
+    INSERT INTO ListeEpicerie(nomListe, descriptionListe, estListeBase, Utilisateur_idCompte)
+		VALUES(pNomListeEpicerie, pDescriptionListeEpicerie, pEstListeBase, pUtilisateur_IdCompte);
+END$$ 
+
+/* Modifier une liste Epicerie */
+DELIMITER $$
+CREATE PROCEDURE ModifierListeEpicerie (pIdListeEpicerie INT, pNomListeEpicerie varchar(45), pDescriptionListeEpicerie varchar(40), pEstListeBase bit(1), pUtilisateur_IdCompte INT)
+BEGIN
+    UPDATE ListeEpicerie SET nomListe = pNomListeEpicerie, descriptionListe = pDescriptionListeEpicerie, estListeBase = pListeBase, Utilisateur_idCompte = pUtilisateur_IdCompte WHERE idListeEpicerie = pIdListeEpicerie;
+END$$ 
+
+/* Ajouter une recette*/
+DELIMITER $$
+CREATE PROCEDURE AjouterRecette (pIdCompte int, pNomRecette varchar(45), pPublique bit(1), pNbVus int, pDateCreation date, pIdTypeRecette int)
+BEGIN
+    INSERT INTO Recette(idCompte, nomRecette, publique, nbVus, dateCreation, idTypeRecette)
+		VALUES(pIdCompte, pNomRecette, pPublique, pNbVus, pDateCreation, pIdTypeRecette);
+END$$
+
+/* Modifier une recette*/
+DELIMITER $$
+CREATE PROCEDURE ModifierRecette (pIdRecette int, pNomRecette varchar(45), pPublique bit(1), pNbVus int, pDateCreation date, pIdTypeRecette int)
+BEGIN
+    UPDATE ListeEpicerie SET idCompte = pIdCompte, nomRecette = pNomRecette, publique = pPublique, nbVus = pNbVus, dateCreation = pDateCreation, idTypeRecette = pIdTypeRecette WHERE idRecette = pIdRecette;
+END$$ 
+
+/* Ajouter Conetenue Liste Epicerie */
+DELIMITER $$
+CREATE PROCEDURE AjouterContenueListeEpicerie (pQteIngredient int, pEstChecked bit(1), pListeEpicerie_idListeEpicerie int, pIngredient_idIngredient int)
+BEGIN
+    INSERT INTO ContenueListeEpicerie(qteIngredient,estChecked,ListeEpicerie_idListeEpicerie,Ingredient_idIngredient)
+		VALUES(pQteIngredient, pEstChecked, pListeEpicerie_idListeEpicerie, pIngredient_idIngredient);
+END$$ 
+
+/* Modifier Contenue Liste Epicerie */
+DELIMITER $$
+CREATE PROCEDURE ModifierContenueListeEpicerie (pQteIngredient int, pEstChecked bit(1), pListeEpicerie_idListeEpicerie int, pIngredient_idIngredient int)
+BEGIN
+    UPDATE ContenueListeEpicerie SET qteIngredient = pQteIngredient, estChecked = pEstChecked, Ingredient_idIngredient = pIngredient_idIngredient WHERE ListeEpicerie_idListeEpicerie = pListeEpicerie_idListeEpicerie;
+END$$ 
+
+/* Ajouter InfoRecette */
+DELIMITER $$
+CREATE PROCEDURE AjouterInfoRecette (pTempsPreparation varchar(45), pNbPortions int, pDescription varchar(200), pInstruction varchar(450), pRecette_IdRecette int)
+BEGIN
+    INSERT INTO InfoRecette(tempsPreparation, nbPortions, description, instruction, Recette_idRecette)
+		VALUES(pTempsPreparation, pNbPortions, pDescription, pInstruction, pRecette_IdRecette);
+END$$
+
+/* Modifier InfoRecette */
+DELIMITER $$
+CREATE PROCEDURE ModifierInfoRecette (pTempsPreparation varchar(45), pNbPortions int, pDescription varchar(200), pInstruction varchar(450), pRecette_IdRecette int)
+BEGIN
+    UPDATE InfoRecette SET tempsPreparation = pTempsPreparation, nbPortions = pNbPortions, description = pDescription, instruction = pInstruction WHERE Recette_idRecette = pRecette_IdRecette;
+END$$ 
+
+/* Ajouter Recette Favoris */
+DELIMITER $$
+CREATE PROCEDURE AjouterRecetteFavoris (pUtilisateur_idCompte int, pRecette_idRecette int)
+BEGIN
+    INSERT INTO RecetteFavoris(Utilisateur_idCompte,Recette_idRecette)
+		VALUES(pUtilisateur_idCompte, pRecette_idRecette);
+END$$ 
+
+/* Modifier Recette Favoris */
+DELIMITER $$
+CREATE PROCEDURE ModifierRecetteFavoris (pUtilisateur_idCompte int, pRecette_idRecette int)
+BEGIN
+    UPDATE RecetteFavoris SET Recette_idRecette = pRecette_IdRecette WHERE Utilisateur_idCompte = pUtilisateur_idCompte;
+END$$
+
+/* Ajouter TypeRecette */
+DELIMITER $$
+CREATE PROCEDURE AjouterTypeRecette (pNomTypeRecette varchar(45))
+BEGIN
+    INSERT INTO TypeRecette(nomTypeRecette)
+		VALUES(pNomTypeRecette);
+END$$
+
+/* MOdifier TypeRecette */
+DELIMITER $$
+CREATE PROCEDURE ModifierTypeRecette(pIdTypeRecette int, pNomTypeRecette varchar(45))
+BEGIN
+    UPDATE TypeRecette SET nomTypeRecette = pNomTypeRecette WHERE idTypeRecette = pIdTypeRecette;
+END$$ 
+
+/* Ajouter CodeBare */
+DELIMITER $$
+CREATE PROCEDURE AjouterTypeRecette (pNomTypeRecette varchar(45))
+BEGIN
+    INSERT INTO TypeRecette(nomTypeRecette)
+		VALUES(pNomTypeRecette);
+END$$
+
+/* Modifier Code Bare */
+DELIMITER $$
+CREATE PROCEDURE ModifierCodeBare(pIdCodeBare int, pCodeBarre int, pIngredient_idIngredient int)
+BEGIN
+    UPDATE CodeBare SET codeBarre = pCodeBarre, Ingredient_idIngredient = pIngredient_idIngredient WHERE idCodeBare = pIdCodeBare;
+END$$ 
+
+/*Ajouter evaluation commentaire */
