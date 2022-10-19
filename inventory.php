@@ -24,16 +24,13 @@
     <?php RenderFavicon(); ?>
 </head>
 
-<?php
-
-?>
-
 <body> 
     <div class="header-banner">
         <a href="index.php"><?php echo file_get_contents("utilities/foodbook-logo.svg"); ?></a>
         <div class="banner-title"> Inventaire </div>
         <div class="svg-wrapper">
-            <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" class="svg-button list-button"> <?php echo file_get_contents("utilities/list.svg"); ?> </a>
+            <a href="personal-recipes.php" class="svg-button list-button"> <?php echo file_get_contents("utilities/book.svg"); ?> </a>
+            <a href="login.php" class="svg-button list-button"> <?php echo file_get_contents("utilities/list.svg"); ?> </a>
             <a href="inventory.php" class="svg-button inventory-button"> <?php echo file_get_contents("utilities/food.svg"); ?> </a>
             <?php 
                 if(!empty($_SESSION['idUser'])){
@@ -59,14 +56,10 @@
                     $numInfoSpace = count($tabInfoSpace);
                     // Vérfie la quantité d'emplacements de l'utilisateur, et affiche un message
                     // lorsque ce nombre est <= 0
-                    // $numInfoSpace <= 0
                     if ($numInfoSpace <= 0){
                         echo '
                         <script>
-                            window.onload = () => { 
-                                document.getElementById("error_no_space").style.display = "block";
-                                document.getElementById("add_new_location").style.display = "block";
-                            }
+                            window.onload = () => { document.getElementById("error_no_space").style.display = "block"; }
                         </script>';
                     }
                     else {
@@ -140,7 +133,6 @@
                     if (!$locationAlreadyExists) {
                         echo "emplacement ajouté!";
                         // Pour le deuxième paramètre de la méthode AddLocation, laisser vide pour l'instant (pas de svg encore)
-                        //AddLocation($newLocation, "");
                         AddLocation($newLocation,'',$_SESSION['idUser']);
                         ChangePage("inventory.php");
                     }
