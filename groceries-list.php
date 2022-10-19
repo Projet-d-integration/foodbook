@@ -64,6 +64,9 @@
                 echo '</div>
                 </form>';
             }
+            else{
+
+            }
             
          ?>
         
@@ -112,26 +115,7 @@
                 header("Location: groceries-list.php");
             }
         ?>
-        <div class="box-container">
-            <!--<div id="list-box" class="box-list" onclick="ShowListGroceries('testDiv')">test
-                <div class="caret-svg"> <?php echo file_get_contents("utilities/caret-right.svg"); ?></div>
-            </div>-->
-            
-           
-        </div>
-        <!--<div class="box-list">une liste d'épicerie 
-            <div class="caret-svg"> <?php echo file_get_contents("utilities/caret-right.svg"); ?></div>
-        </div>
-        <div class="box-list">une liste d'épicerie
-            <div class="caret-svg"> <?php echo file_get_contents("utilities/caret-right.svg"); ?></div>
-        </div>
-        <div class="box-list">une liste d'épicerie 
-            <div class="caret-svg"> <?php echo file_get_contents("utilities/caret-right.svg"); ?></div>
-        </div>
-        <div class="box-list">une liste d'épicerie
-            <div class="caret-svg"> <?php echo file_get_contents("utilities/caret-right.svg"); ?></div>
-        </div>-->
-
+      
     </div>
 
         <div id="form-ingred" class="form-add-ingredient">
@@ -150,16 +134,26 @@
                 <div class="form-exit" onclick="HideFormAddIngredient"><?php echo file_get_contents("utilities/x-symbol.svg"); ?></div>
                     <legend>Ajout d'un nouvel ingrédient</legend>
                     <input type="text" name="ingred-name" class="input-form-name" placeholder="Nom de l'ingrédient">
+                    <input type="number" name="qteIngred" min="0" max="20">
                     <input type="submit" class="button button-primary" value="Ajouter l'ingrédient" name="addIngred">
                 </form>
             </div>
            
         </div>
+
+        <?php
+        if(!empty($_POST["addIngred"]))
+        {
+            //AddIngred();
+            header("Location: groceries-list.php");
+        }
+        ?>
  
     </div>
     
     
 
+    <div id="no-list-message" class="">Vous n'avez pas de liste pour le moment.</div>
 
     <?php GenerateFooter(); ?>
 </body>
