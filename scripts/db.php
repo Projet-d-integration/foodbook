@@ -829,44 +829,44 @@ function DeleteRecipe($idRecette){
 //Show information of a Recipe, 
 //Faire un autre SHowRecipe avec Le ID User
 //Faire un filtre Ascending descending de Date et de NbVus
-function ShowRecipe($idRecette = '', $pNbVus = '', $pDateCreation = ''){
+function ShowRecipe($idCompte = '', $pNbVus = '', $pDateCreation = ''){
     Connexion();
     global $PDO;
     mysqli_set_charset($PDO, "utf8mb4");
-    if($pNbVus == '' && $pDateCreation =='' && $idRecette == ''){
+    if($pNbVus == '' && $pDateCreation == '' && $idCompte == ''){
 
         $stmt = $PDO->prepare("SELECT * FROM Recette", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
     }
-    else if($pNbVus == 'ASC' && $idRecette == ''){
+    else if($pNbVus == 'ASC' && $idCompte == ''){
         $stmt = $PDO->prepare("SELECT * FROM Recette ORDER BY nbVus ASC", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
     }
-    else if($pNbVus == 'DESC' && $idRecette == ''){
+    else if($pNbVus == 'DESC' && $idCompte == ''){
         $stmt = $PDO->prepare("SELECT * FROM Recette ORDER BY nbVus DESC", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
     }
-    else if($pDateCreation == 'ASC' && $idRecette == ''){
+    else if($pDateCreation == 'ASC' && $idCompte == ''){
         $stmt = $PDO->prepare("SELECT * FROM Recette ORDER BY dateCreation ASC", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
     }
-    else if($pDateCreation == 'DESC' && $idRecette == ''){
+    else if($pDateCreation == 'DESC' && $idCompte == ''){
         $stmt = $PDO->prepare("SELECT * FROM Recette ORDER BY dateCreation DESC", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
     }
     else if($pNbVus == '' && $pDateCreation == ''){
 
-        $stmt = $PDO->prepare("SELECT * FROM Recette WHERE idRecette = :idRecette", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+        $stmt = $PDO->prepare("SELECT * FROM Recette WHERE idCompte = :idCompte", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
     }
     else if($pNbVus == 'ASC'){
-        $stmt = $PDO->prepare("SELECT * FROM Recette WHERE idRecette = :idRecette ORDER BY nbVus ASC", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+        $stmt = $PDO->prepare("SELECT * FROM Recette WHERE idCompte = :idCompte ORDER BY nbVus ASC", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
     }
     else if($pNbVus == 'DESC'){
-        $stmt = $PDO->prepare("SELECT * FROM Recette WHERE idRecette = :idRecette ORDER BY nbVus DESC", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+        $stmt = $PDO->prepare("SELECT * FROM Recette WHERE idCompte = :idCompte ORDER BY nbVus DESC", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
     }
     else if($pDateCreation == 'ASC'){
-        $stmt = $PDO->prepare("SELECT * FROM Recette WHERE idRecette = :idRecette ORDER BY dateCreation ASC", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+        $stmt = $PDO->prepare("SELECT * FROM Recette WHERE idCompte = :idCompte ORDER BY dateCreation ASC", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
     }
     else if($pDateCreation == 'DESC'){
-        $stmt = $PDO->prepare("SELECT * FROM Recette WHERE idRecette = :idRecette ORDER BY dateCreation DESC", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+        $stmt = $PDO->prepare("SELECT * FROM Recette WHERE idCompte = :idCompte ORDER BY dateCreation DESC", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
     }
     
-    $stmt->bindParam(':idRecette', $idRecette, PDO::PARAM_INT);
+    $stmt->bindParam(':idCompte', $idCompte, PDO::PARAM_INT);
     $stmt->execute();
     $info = [];
     while ($donnee = $stmt->fetch(PDO::FETCH_NUM)) {
@@ -936,8 +936,29 @@ function DeleteInfoRecipe($pRecette_idRecette){
         return $e->getMessage();
     }
 }
-//Show info about a recipe
-function InfoRecipe($Recette_idRecette){
+function InfoRecipe(){
+    Connexion();
+    global $PDO;
+    mysqli_set_charset($PDO, "utf8mb4");
+    $stmt = $PDO->prepare("SELECT * FROM InfoRecette", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+    $stmt->execute();
+    $info = [];
+    while ($donnee = $stmt->fetch(PDO::FETCH_NUM)) {
+        $rangee = [];
+        array_push($rangee, $donnee[0]); // TempsPreparation
+        array_push($rangee, $donnee[1]); // nbPortions
+        array_push($rangee, $donnee[2]); // descsription
+        array_push($rangee, $donnee[3]); // instruction
+        array_push($rangee, $donnee[4]); // Recette_idRecette
+        array_push($rangee, $donnee[5]); // Image
+        array_push($rangee, $donnee[6]); // Video
+        array_push($info, $rangee);
+    }
+    $stmt->closeCursor();
+    return $info;
+}
+//Show info about a recipe with a user id
+function InfoRecipeByUser($Recette_idRecette){
         Connexion();
         global $PDO;
         mysqli_set_charset($PDO, "utf8mb4");
