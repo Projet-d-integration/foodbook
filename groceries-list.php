@@ -58,10 +58,6 @@
          <script>
              window.onload = () => { document.getElementById("add-new-grocery-list").style.display = "block"; }
          </script>';
-        }
-         
-    ?>
-        <?php
 
             if($nb_liste <= 0)
             {
@@ -72,52 +68,24 @@
                 }
             </script>';
             }
-            else{
+            else if($nb_liste > 0){
                 echo '<form method="POST">
                     <div class="list-grid">';
 
-                   //Afficher toutes les listes
-                   foreach($tabInfoList as $listeEpicerie)
-                   {
+                //Afficher toutes les listes
+                foreach($tabInfoList as $listeEpicerie)
+                {
                     echo "<button class='list-div' type='submit' name='buttonList' value='$listeEpicerie[0]'> $listeEpicerie[1] <div class='list-div-arrow'>".file_get_contents("utilities/caret.svg")."</div>";
-                   }
-                   
+                }
+                
                 echo '</div>
                 </form>';
             }
-            
-         ?>
-        
-        <div class="neutral_message" id="no-list-message">Vous n'avez pas de liste présentement.</div>
-        <button onclick="ShowFormAddList()" id="add-new-grocery-list" name="btnAddGroceryList" class="show-list-form-btn">Ajouter une liste d'épicerie</button>
-        
-    
-        <div class="grocery-list-form" id="grocery-list-form">
-            <div class="transparent-background">
-                <form method="POST" class="form-content">
-                    <div class="form-exit" onclick="HideFormAddList()"><?php echo file_get_contents("utilities/x-symbol.svg"); ?></div>
-                    <?php
-                        $tabInfoList = InfoGroceriesList($_SESSION['idUser']);
-                        if(count($tabInfoList) < 10)
-                        {
-                            echo '<input type="text" class="input-form-name" name="list-grocery-name" placeholder="Nom de la liste..." maxlength="20">
-                                  <input type="text" class="input-form-name" name="description-grocery-list" placeholder="Courte description de la liste"> 
-                                  <input type="submit" class="button button-primary" name="addGroceryList" value="Ajouter la liste">';
-                        }
+        }
 
-                    ?>
-
-                    <div id="message-nb-liste" class="message-liste">
-                        Vous avez actuellement <?php echo $nb_liste;?>/10 liste d'épicerie.
-                    </div>
-                </form>
-            </div>
-
-        </div>
-        <?php
         if($_SERVER['REQUEST_METHOD'] === 'POST')
         {
-            if(!empty($_POST["addGroceryList"]))
+            if(isset($_POST["addGroceryList"]) && !empty($_POST["list-grocery-name"]) && !empty($_POST["description-grocery-list"]))
             {
                 $tabInfoList = InfoGroceriesList($_SESSION['idUser']);
                 $newList = $_POST["list-grocery-name"];
@@ -135,20 +103,51 @@
 
             if(!$listAlreadyExists)
             {
-                if(count($tabInfoList) > 0)
+                if($nb_liste == 0)
                 {
-                    AddGroceriesList($newList,$new_list_descrip,false,$_SESSION["idUser"]);
+                    AddGroceriesList($newList,$new_list_descrip,true,$_SESSION["idUser"]);
+                    echo "<script>alert('".$newList."')</script>";
                     ChangePage("groceries-list.php");
                 }
                 else{
-                    AddGroceriesList($newList,$new_list_descrip,true,$_SESSION["idUser"]);
+                    AddGroceriesList($newList,$new_list_descrip,false,$_SESSION["idUser"]);
                     ChangePage("groceries-list.php");
                 }
                
             }
+            else{
+                echo "Vous avez déjà une liste nommée ainsi, elle n'a donc pas été ajouté.";
+                echo '<form><div class="item-wrapper"><div class="return-button">'.GenerateButtonTertiary("Retour", "groceries-list.php").'</div></form>';
+            }
         }
-            
-        ?>
+         
+    ?>
+        <div class="neutral_message" id="no-list-message">Vous n'avez pas de liste présentement.</div>
+        <button onclick="ShowFormAddList()" id="add-new-grocery-list" name="btnAddGroceryList" class="show-list-form-btn">Ajouter une liste d'épicerie</button>
+        
+    
+        <div class="grocery-list-form" id="grocery-list-form">
+            <div class="transparent-background">
+                <form method="POST" class="form-content">
+                    <div class="form-exit" onclick="HideFormAddList()"><?php echo file_get_contents("utilities/x-symbol.svg"); ?></div>
+                    <div id="message-nb-liste" class="message-liste">  Vous avez actuellement <?php echo $nb_liste;?>/10 liste d'épicerie.</div>
+                    <?php
+                        $tabInfoList = InfoGroceriesList($_SESSION['idUser']);
+                        if(count($tabInfoList) < 10)
+                        {
+                           
+                            echo '
+                            <input type="text" class="input-form-name" name="list-grocery-name" placeholder="Nom de la liste..." maxlength="20">
+                            <input type="text" class="input-form-name" name="description-grocery-list" placeholder="Courte description de la liste"> 
+                            <input type="submit" class="button button-primary" name="addGroceryList" value="Ajouter la liste">
+                            ';
+                        }
+
+                    ?>
+                </form>
+            </div>
+
+        </div>
       
     </div>
 
