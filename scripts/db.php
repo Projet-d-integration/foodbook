@@ -412,13 +412,19 @@ function DeleteIngredient($idIngredient)
     }
 }
 //Affichage de tous les ingredients
-function AllIngredientInfo()
+function AllIngredientInfo($nomIngredient = '')
 {
     Connexion();
     global $PDO;
     mysqli_set_charset($PDO, "utf8mb4");
 
-    $stmt = $PDO->prepare("SELECT * FROM Ingredient", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+    if($nomIngredient == '')
+        $stmt = $PDO->prepare("SELECT * FROM Ingredient", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+    else if ($nomIngredient == 'ASC')
+        $stmt = $PDO->prepare("SELECT * FROM Ingredient ORDER BY nomIngredient ASC", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+    else if ($nomIngredient == 'DESC')
+        $stmt = $PDO->prepare("SELECT * FROM Ingredient ORDER BY nomIngredient DESC", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));    
+ 
     $stmt->execute();
     $info = [];
     while ($donnee = $stmt->fetch(PDO::FETCH_NUM)) {
