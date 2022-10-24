@@ -53,20 +53,6 @@
 
     <div class="wrapper">
         <div class="personal-recipes-wrapper">
-            <?php
-                if(!($_SERVER['REQUEST_METHOD'] === 'POST')){
-                    echo '<script> Show_add_new_recipe(); </script>';
-
-                    // Vérfie la quantité de recettes de l'utilisateur, et affiche un message
-                    // $tabRecettes = ShowRecipe($_SESSION['idUser']);
-                    // $numTabRecette = count($tabRecettes);
-                    // $tabRecettes <= 0
-                    if(-1 <= 0) {
-                        echo '<script> Show_error_no_recipes(); </script>';
-                    }
-                }
-            ?>
-
             <div class="add-new-recipe" id="add_new_recipe" onclick='ShowFormRecipeCreation()'>Ajouter un emplacement</div>
             <div class="neutral_message" id="error_no_recipes">Vous n'avez pas de recettes pour l'instant.</div>
 
@@ -81,13 +67,20 @@
 
 <script> 
 window.onload = () => {
-    function Show_add_new_recipe() {
-        document.getElementById("add_new_recipe").style.display = "block";
-    }
 
-    function Show_error_no_recipes() {
-        document.getElementById("error_no_recipes").style.display = "block";
-    }
+    <?php
+        if(!($_SERVER['REQUEST_METHOD'] === 'POST')){
+            echo 'document.getElementById("add_new_recipe").style.display = "block";';
+
+            // Vérfie la quantité de recettes de l'utilisateur, et affiche un message
+            // $tabRecettes = ShowRecipe($_SESSION['idUser']);
+            // $numTabRecette = count($tabRecettes);
+            // $tabRecettes <= 0
+            if(-1 <= 0) {
+                echo 'document.getElementById("error_no_recipes").style.display = "block";';
+            }
+        }
+    ?>
 
     function ShowFormRecipeCreation() {
         document.getElementById("recipe-creation-form").style.display = "block";
