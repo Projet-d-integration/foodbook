@@ -76,9 +76,23 @@
                 //Afficher toutes les listes
                 foreach($tabInfoList as $listeEpicerie)
                 {
-                    echo "<button id='liste-ep-btn' onclick='ShowButtonAddIngred($listeEpicerie[0])' class='list-div' value='$listeEpicerie[0]'> $listeEpicerie[1] <div class='list-div-arrow'>".file_get_contents("utilities/caret.svg")."</div>";
+                    echo "<button id='liste-ep-btn' onclick='ShowElementOfList($listeEpicerie[0])' class='list-div' value='$listeEpicerie[0]'> $listeEpicerie[1] <div class='list-div-arrow'>".file_get_contents("utilities/caret.svg")."</div>";
                 
-                    echo "<div class='btnAddIngredToList' id='btnAddIngredToList-$listeEpicerie[0]' onclick='ShowFormAddIngredient()'>Ajouter un ingrédient</div>";
+                    echo 
+                    "<div class='showElementList' id='elementList-$listeEpicerie[0]'>
+                    <div>Description: $listeEpicerie[2]</div>
+                    <div class='btnAddIngredToList' onclick='ShowFormAddIngredient()'>Ajouter un ingrédient</div>
+                    <div>Retrier cette liste</div>
+                    </div>";
+                    // <button type='submit' class='btnSupListEp' name='delListEp'>Retirer cette liste</button>
+                    
+
+                    if(isset($_POST["delListEp"]))
+                    {
+                        DeleteGroceriesList($listeEpicerie[0]);
+                        ChangePage("groceries-list.php");
+                    }
+    
                 }
                 
                 echo '</div>';
@@ -203,17 +217,8 @@
     {
         document.getElementById("form-add-ingred").style.display = "none";
     }
-    function ShowButtonAddIngred(idListe)
+    function ShowElementOfList(idListe)
     {
-        if(document.getElementById("btnAddIngredToList-" + idListe).style.display == "none")
-        {
-            document.getElementById("btnAddIngredToList-" + idListe).style.display = "block";
-        }
-
-        else if(document.getElementById("btnAddIngredToList-" + idListe).style.display == "block")
-        {
-            document.getElementById("btnAddIngredToList-" + idListe).style.display = "none";
-        }
-        
+        document.getElementById("elementList-" + idListe).style.display = "flex";
     }
 </script>
