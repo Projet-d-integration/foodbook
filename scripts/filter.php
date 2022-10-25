@@ -45,22 +45,23 @@
     }
     
     //Filter by name or type ingredient //AllIngredientInfo
-    function FilterIngredient($tabIngredient, $nameIngredient = '', $idTypeIngredient = '', ){
-        $tabIngredient = [];
-
+    function FilterIngredient($tabIngredient, $nameIngredient = '', $idTypeIngredient = ''){
         if($nameIngredient != ''){
             foreach($tabIngredient as $singleIngredient){
-                if(!preg_match("/{}"))
+                if(!preg_match("/{$nameIngredient}/i",$singleIngredient[1]))
                 {
-                    null
+                    unset($tabIngredient[array_search($singleIngredient,$tabIngredient)]);
                 }
             }
         }
-    }
 
-    include 'db.php';
-    $tab = AllIngredientInfo('ASC');
-    foreach($tab as $info){
-        echo "<p>$info[0],$info[1],$info[2],$info[3]</p>";
+        if($idTypeIngredient != ''){
+            foreach($tabIngredient as $singleIngredient){
+                if($singleIngredient[3] != $idTypeIngredient)
+                    unset($tabIngredient[array_search($singleIngredient,$tabIngredient)]);
+            }
+        }
+
+        return $tabIngredient;
     }
 ?>
