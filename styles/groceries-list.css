@@ -126,3 +126,44 @@
 .form-exit:hover {
     cursor: pointer;
 }
+.list-grid{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    width: 40%;
+    gap: 2rem;
+}
+.add-new-grocery-list{
+    display: none;
+    border: 1px solid var(--color-primary);
+    background: var(--color-accent);
+    color: var(--color-secondary);
+    transition: var(--transition);
+    font-size: 1rem;
+    padding: 0.5rem 2rem;
+    border-radius: 0.5rem;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: fit-content;
+}
+.btnAddIngredToList{
+    display: none;
+    border: 1px solid var(--color-primary);
+    background: var(--color-accent);
+    color: var(--color-secondary);
+    transition: var(--transition);
+    font-size: 1rem;
+    padding: 0.5rem 2rem;
+    border-radius: 0.5rem;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: fit-content;
+}
+.btnAddIngredToList:hover{
+    cursor: pointer;
+}
