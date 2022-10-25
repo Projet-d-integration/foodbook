@@ -52,13 +52,14 @@
         $tabInfoList = InfoGroceriesList($_SESSION["idUser"]);
         $nb_liste = count($tabInfoList);
 
+
         if(!($_SERVER['REQUEST_METHOD'] === 'POST'))
         {
-            echo '
-         <script>
-             window.onload = () => { document.getElementById("add-new-grocery-list").style.display = "block"; }
-         </script>';
-
+            echo"
+        <script>
+            window.onload = () => { document.getElementById('add-new-grocery-list').style.display = 'block'; }
+        </script>";
+        
             if($nb_liste <= 0)
             {
                 echo '<script>
@@ -68,19 +69,20 @@
                 }
             </script>';
             }
-            else if($nb_liste > 0){
-                echo '<form method="POST">
-                    <div class="list-grid">';
+            else{
+                echo '
+                <div class="list-grid">';
 
                 //Afficher toutes les listes
                 foreach($tabInfoList as $listeEpicerie)
                 {
-                    echo "<button class='list-div' type='submit' name='buttonList' value='$listeEpicerie[0]'> $listeEpicerie[1] <div class='list-div-arrow'>".file_get_contents("utilities/caret.svg")."</div>";
-                    echo "<br>";
+                    echo "<button id='liste-ep-btn' onclick='ShowButtonAddIngred($listeEpicerie[0])' class='list-div' value='$listeEpicerie[0]'> $listeEpicerie[1] <div class='list-div-arrow'>".file_get_contents("utilities/caret.svg")."</div>";
+                
+                    echo "<div class='btnAddIngredToList' id='btnAddIngredToList-$listeEpicerie[0]' onclick='ShowFormAddIngredient()'>Ajouter un ingrédient</div>";
                 }
                 
-                echo '</div>
-                </form>';
+                echo '</div>';
+                
             }
         }
 
@@ -118,16 +120,11 @@
                 echo '<form><div class="item-wrapper"><div class="return-button">'.GenerateButtonTertiary("Retour", "groceries-list.php").'</div></form>';
             }
         }
-        if(isset($_POST["buttonList"]))
-        {
-           echo '<button onclick="ShowFormAddIngredient()" class="button button-primary" id="button-show-form-ingred">Ajouter un ingrédient dans la liste</button>';
-        }
          
     ?>
         <div class="neutral_message" id="no-list-message">Vous n'avez pas de liste présentement.</div>
+        <div class="add-new-grocery-list" id="add-new-grocery-list" onclick="ShowFormAddList()">Ajouter une liste</div>
         
-        
-    
         <div class="grocery-list-form" id="grocery-list-form">
             <div class="transparent-background">
                 <form method="POST" class="form-content">
@@ -151,13 +148,10 @@
         </div>
       
     </div>
-
-       
-        
         <div class="form-add-ingredient" id="form-add-ingred">
             <div class="transparent-background">
                 <form class="form-content">
-                <div class="form-exit" onclick="HideFormAddIngredient"><?php echo file_get_contents("utilities/x-symbol.svg"); ?></div>
+                <div class="form-exit" onclick="HideFormAddIngredient()"><?php echo file_get_contents("utilities/x-symbol.svg"); ?></div>
                     <legend>Ajout d'un nouvel ingrédient</legend>
                     <input type="text" name="ingred-name" class="input-form-name" placeholder="Nom de l'ingrédient">
                     <input type="number" name="qteIngred" min="0" max="20">
@@ -200,16 +194,6 @@
         document.getElementById("grocery-list-form").style.display = "none";
     }
 
-    function ShowListGroceries() {
-        if(document.getElementById("testDiv").classList.contains("active"))
-        {
-            document.getElementById("testDiv").classList.remove("active");
-        }
-        else{
-            document.getElementById("testDiv").classList.add('active');
-        }
-    }
-
     function ShowFormAddIngredient()
     {
         document.getElementById("form-add-ingred").style.display = "block";
@@ -218,5 +202,18 @@
     function HideFormAddIngredient()
     {
         document.getElementById("form-add-ingred").style.display = "none";
+    }
+    function ShowButtonAddIngred(idListe)
+    {
+        if(document.getElementById("btnAddIngredToList-" + idListe).style.display == "none")
+        {
+            document.getElementById("btnAddIngredToList-" + idListe).style.display = "block";
+        }
+
+        else if(document.getElementById("btnAddIngredToList-" + idListe).style.display == "block")
+        {
+            document.getElementById("btnAddIngredToList-" + idListe).style.display = "none";
+        }
+        
     }
 </script>
