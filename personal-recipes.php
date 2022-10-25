@@ -40,11 +40,11 @@
             <a href="login.php" class="svg-button list-button"> <?php echo file_get_contents("utilities/list.svg"); ?> </a>
             <a href="inventory.php" class="svg-button inventory-button"> <?php echo file_get_contents("utilities/food.svg"); ?> </a>
             <?php 
-                if(!empty($_SESSION['idUser'])){
+                if(!empty($_SESSION['idUser'])) {
                     echo '<a href="edit-profil.php" class="svg-button login-button"> '.file_get_contents("utilities/account.svg").'</a>';
                     echo '<form method="post"><button type="submit" name="buttonDeconnecter" class="svg-button login-button" value="buttonDeconnecter" />'.file_get_contents("utilities/logout.svg").'</form>';
                 }
-                else{
+                else {
                     echo '<a href="login.php" class="svg-button login-button"> '.file_get_contents("utilities/account.svg").'</a>';
                 }
             ?>
@@ -60,16 +60,14 @@
         </div>
     </div>
 
-
     <?php GenerateFooter(); ?>
 </body>
 
 
-<script> 
+<script>
 window.onload = () => {
-
     <?php
-        if(!($_SERVER['REQUEST_METHOD'] === 'POST')){
+        if(!($_SERVER['REQUEST_METHOD'] === 'POST')) {
             echo 'document.getElementById("add_new_recipe").style.display = "block";';
 
             // Vérfie la quantité de recettes de l'utilisateur, et affiche un message

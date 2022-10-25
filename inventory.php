@@ -171,6 +171,7 @@
                                 foreach($tabIngredient as $singleIngredient){
                                     echo "
                                     <div class='inventory-item' onclick='ShowFormItemQuantity($singleIngredient[0])'> $singleIngredient[1] </div>
+                                    
                                     <form method='post' class='inventory-item-form' id='inventory-item-form-$singleIngredient[0]'>
                                         <div class='items-form-overlay'>
                                             <div class='form-exit-item' onclick='HideFormItemQuantity($singleIngredient[0])'>";
@@ -198,7 +199,7 @@
 </body>
 
 <script>
-    document.onload = () => { 
+    window.onload = () => {
         function ShowAddNewLocation(){
             document.getElementById("add_new_location").style.display = "block"
         }
@@ -226,5 +227,4 @@
             document.getElementById("inventory-item-form-" + id).style.display = "none";
         }
     }  
-
 </script>
