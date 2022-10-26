@@ -51,25 +51,23 @@
         <div class="inventory-wrapper">
             <?php 
                 if(!($_SERVER['REQUEST_METHOD'] === 'POST')){
-                    echo '
-                    <script>
-                        window.onload = () => { document.getElementById("add_new_location").style.display = "block"; }
-                    </script>';
                     $tabInfoSpace = InfoLocation($_SESSION['idUser']); 
                     $numInfoSpace = count($tabInfoSpace);
-                    // Vérfie la quantité d'emplacements de l'utilisateur, et affiche un message
-                    // lorsque ce nombre est <= 0
-                    // $numInfoSpace <= 0
                     if ($numInfoSpace <= 0){
                         echo '
                         <script>
                             window.onload = () => { 
+                                document.getElementById("add_new_location").style.display = "block"; 
                                 document.getElementById("error_no_space").style.display = "block";
                                 document.getElementById("add_new_location").style.display = "block";
                             }
                         </script>';
                     }
                     else {
+                        echo '
+                            <script>
+                                window.onload = () => { document.getElementById("add_new_location").style.display = "block"; }
+                            </script>';
                         echo '
                         <form method="post">
                             <div class="space-grid">';
@@ -140,7 +138,6 @@
                     if (!$locationAlreadyExists) {
                         echo "emplacement ajouté!";
                         // Pour le deuxième paramètre de la méthode AddLocation, laisser vide pour l'instant (pas de svg encore)
-                        //AddLocation($newLocation, "");
                         AddLocation($newLocation,'',$_SESSION['idUser']);
                         ChangePage("inventory.php");
                     }
@@ -177,6 +174,8 @@
                         <div class="form-exit" onclick='HideFormItems()'> <?php echo file_get_contents("utilities/x-symbol.svg"); ?> </div>
                         <div class="items-form">
                             <?php
+                                // c ici que on call la fonction allIngredientInfo, so jsute apres on vas call les deux fonction de tri 
+                                // Voici le probleme: La page fonctionne heavely par post so nos input de tri vas etre des post, mais faut pas que cela nous casse la page
                                 $tabIngredient = AllIngredientInfo(); // [1] == nom
                                 $idEmplacement = $_POST['buttonSpace'];
                                 foreach($tabIngredient as $singleIngredient){
