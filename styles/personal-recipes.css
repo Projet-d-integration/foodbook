@@ -26,3 +26,87 @@
     background: var(--color-accent-hover);
     cursor: pointer;
 }
+
+.form-exit {
+    position: absolute;
+    right: 7rem;
+    top: 7rem;
+}
+
+.form-exit svg {
+    fill: var(--color-primary);
+    height: 1.5rem;
+    width: 1.5rem;
+}
+
+.form-exit:hover {
+    cursor: pointer;
+}
+
+.transparent-background {
+    height: 100%;
+    width: 100%;
+    z-index: 3;
+}
+
+.personal-recipes-add-recipe-form {
+    background-color: rgba(51, 51, 51,0.8);
+    position: fixed;
+    display: none;
+    width: 100%;
+    height: 100%;
+    top: 0;
+}
+
+.form-content{
+    background: var(--color-tertiary);
+    border: 0.1rem solid var(--color-primary);
+    overflow: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border-radius: 2rem;
+    margin: 5rem;
+    height: 75%;
+    z-index: 3;
+}
+
+.form-content-wrapper {
+    width: 25%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.text-input {
+    width: 20rem;
+    height: 2rem;
+    padding: 0 0.5rem;
+    border-radius: 0.5rem;
+}
+
+.recipe-form-image-input,
+.recipe-form-title-input {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.recipe-form-ingredients {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.recipe-form-ingredients .neutral_message {
+    text-align: center;
+}
+
+.add-new-ingredient {
+
+}
