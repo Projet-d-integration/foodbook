@@ -20,6 +20,7 @@
         <?php require 'styles/ui-kit.css'; ?>
         <?php require 'scripts/body-scripts.php'; ?>
         <?php require 'scripts/db.php'; ?>
+        <?php require 'scripts/filter.php'; ?>
     </style>
     <?php RenderFavicon(); ?>
 </head>
@@ -174,10 +175,31 @@
                         <div class="form-exit" onclick='HideFormItems()'> <?php echo file_get_contents("utilities/x-symbol.svg"); ?> </div>
                         <div class="items-form">
                             <?php
-                                // c ici que on call la fonction allIngredientInfo, so jsute apres on vas call les deux fonction de tri 
-                                // Voici le probleme: La page fonctionne heavely par post so nos input de tri vas etre des post, mais faut pas que cela nous casse la page
-                                $tabIngredient = AllIngredientInfo(); // [1] == nom
+                            // Formulaire de tri
+                                if($_POST['filter'])
+                                    echo '<script>document.getElementById("inventory-items-form").style.display = "block";</script>';
                                 $idEmplacement = $_POST['buttonSpace'];
+                                $tabTypeIngredient = TypeIngredientInfo();
+                                $nameSearched = $_POST['name-input'];
+                                echo"<form method='post'>";
+                                echo "<input class='text-input' name='name-input' type='text' placeholder='Nom ingredient' value=$nameSearched >";
+                                echo '<select name="type-input">';
+                                echo '<option value="">Tout les types</option>';
+                                foreach($tabTypeIngredient as $typeIngredient)
+                                    echo "<option value=$typeIngredient[0]>$typeIngredient[1]</option>";
+                                echo '</select>';
+                                echo '<select name="order-input">';
+                                echo '<option value="ASC">Croissant</option>';
+                                echo '<option value="DESC">Décroissant</option>';
+                                echo '</select>';
+                                echo '<input type="hidden" value="set" name="filter">';
+                                echo "<input type='hidden' value='$idEmplacement' name='buttonSpace'>";
+                                echo '<div class="buttons-wrapper"><input class="button button-primary" type="submit" value="Chercher"></div>';
+                                echo "</form>";
+                                // Trier les informations
+                                $tabIngredient = AllIngredientInfo($_POST['order-input']); // [1] == nom
+                                $tabIngredient = FilterIngredient($tabIngredient,$_POST['name-input'],$_POST['type-input']);
+                                //Aficher les informations
                                 foreach($tabIngredient as $singleIngredient){
                                     echo "
                                     <div class='inventory-item' onclick='ShowFormItemQuantity($singleIngredient[0])'> $singleIngredient[1] </div>
@@ -203,7 +225,6 @@
             </div>
         </div>
     </div>
-
     <?php GenerateFooter(); ?>
 </body>
 
