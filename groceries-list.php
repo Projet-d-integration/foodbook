@@ -52,7 +52,7 @@
         $tabInfoList = InfoGroceriesList($_SESSION["idUser"]);
         $nb_liste = count($tabInfoList);
 
-
+        
         if(!($_SERVER['REQUEST_METHOD'] === 'POST'))
         {
             echo"
@@ -76,25 +76,21 @@
                 //Afficher toutes les listes
                 foreach($tabInfoList as $listeEpicerie)
                 {
-                    echo "<button id='liste-ep-btn' onclick='ShowElementOfList($listeEpicerie[0])' class='list-div' value='$listeEpicerie[0]'> $listeEpicerie[1] <div class='list-div-arrow'>".file_get_contents("utilities/caret.svg")."</div>";
+                    echo "<button type='submit' id='liste-ep-btn' name='btnList' onclick='ShowElementOfList($listeEpicerie[0])' class='list-div' value='$listeEpicerie[0]'> $listeEpicerie[1] <div class='list-div-arrow'>".file_get_contents("utilities/caret.svg")."</div>";
                 
                     echo 
-                    "<div class='showElementList' id='elementList-$listeEpicerie[0]'>
+                    "<div class='showElementListNone' id='elementList-$listeEpicerie[0]'>
                     <div>Description: $listeEpicerie[2]</div>
                     <div class='btnAddIngredToList' onclick='ShowFormAddIngredient()'>Ajouter un ingrédient</div>
-                    <div>Retrier cette liste</div>
+                    <div>Liste des ingrédients dans cette liste: </div>
+                    <form method='POST'>
+                        <input name='listeEpiDel' type='submit' id='listToDelete-$listeEpicerie[0]' value='Supprimer cette liste' class='btnSupListEp' title='Supprimer la liste ".$listeEpicerie[1]."'>
+                        <input type='hidden' name='bruno' value='$listeEpicerie[0]'>
+                    </form>
+                   
                     </div>";
-                    // <button type='submit' class='btnSupListEp' name='delListEp'>Retirer cette liste</button>
                     
-
-                    if(isset($_POST["delListEp"]))
-                    {
-                        DeleteGroceriesList($listeEpicerie[0]);
-                        ChangePage("groceries-list.php");
-                    }
-    
                 }
-                
                 echo '</div>';
                 
             }
@@ -102,6 +98,12 @@
 
         if($_SERVER['REQUEST_METHOD'] === 'POST')
         {
+            if(isset($_POST["listeEpiDel"]))
+            {
+                DeleteGroceriesList($_POST["bruno"]);
+                ChangePage("groceries-list.php");
+            }
+
             if(isset($_POST["addGroceryList"]) && !empty($_POST["list-grocery-name"]) && !empty($_POST["description-grocery-list"]))
             {
                 $tabInfoList = InfoGroceriesList($_SESSION['idUser']);
@@ -132,7 +134,7 @@
             else{
                 echo "Vous avez déjà une liste nommée ainsi, elle n'a donc pas été ajouté.";
                 echo '<form><div class="item-wrapper"><div class="return-button">'.GenerateButtonTertiary("Retour", "groceries-list.php").'</div></form>';
-            }
+            }       
         }
          
     ?>
@@ -219,6 +221,16 @@
     }
     function ShowElementOfList(idListe)
     {
-        document.getElementById("elementList-" + idListe).style.display = "flex";
+        if(document.getElementById("elementList-" + idListe).classList.contains("showElementListNone"))
+        {
+            document.getElementById("elementList-" + idListe).classList.remove("showElementListNone");
+            document.getElementById("elementList-" + idListe).classList.add("showElementListFlex");
+        }
+        else if(document.getElementById("elementList-" + idListe).classList.contains("showElementListFlex"))
+        {
+            document.getElementById("elementList-" + idListe).classList.remove("showElementListFlex");
+            document.getElementById("elementList-" + idListe).classList.add("showElementListNone");
+        }
+        
     }
 </script>
