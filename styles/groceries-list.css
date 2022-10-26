@@ -199,5 +199,17 @@ legend{
     border-radius: 1rem 2rem;
     justify-content: center;
     padding: 1rem 3rem;
+    background: var(--color-tertiary-hover);
     gap: 2rem;
+}
+.svg-delete-ingred{
+    fill: var(--color-primary);
+    height: 1.5rem;
+    width: 1.5rem;
+}
+.input-form-qte{
+    background: var(--color-tertiary-hover);
+    border-radius: 1.5rem;
+    padding: 0.6rem 1.2rem 0.6rem 0.6rem;
+    width: 20rem;
 }

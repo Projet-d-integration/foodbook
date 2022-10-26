@@ -78,15 +78,25 @@
                 foreach($tabInfoList as $listeEpicerie)
                 {
                     $tabIngredList = InfoItemGroceriesList($listeEpicerie[0]);
-                    echo "<button type='submit' id='liste-ep-btn' name='btnList' onclick='ShowElementOfList($listeEpicerie[0])' class='list-div' value='$listeEpicerie[0]'> $listeEpicerie[1] <div class='list-div-arrow'>".file_get_contents("utilities/caret.svg")."</div>";
+                    $numIngredListe = count($tabIngredList);
+                    echo "<button type='submit' id='liste-ep-btn' name='btnList' onclick='ShowElementOfList($listeEpicerie[0])' class='list-div' value='$listeEpicerie[0]'> $listeEpicerie[1] <div class='list-div-arrow'>".file_get_contents("utilities/caret.svg")."</div> </button>";
                 
                     echo 
                     "<div class='showElementListNone' id='elementList-$listeEpicerie[0]'>
                     <div>Description: $listeEpicerie[2]</div>
-                    <div class='btnAddIngredToList' onclick='ShowFormAddIngredient()'>Ajouter un ingrédient</div>";
+                    <div class='btnAddIngredToList' onclick='ShowFormAddIngredient()'>Ajouter un ingrédient</div>
+                    <div>Ingrédients:</div>";
                     foreach($tabIngredList as $ingredient)
                     {
                         $infoIngredient = SingleIngredientInfo($infoIngredient[3]);
+
+                        echo "<input type='checkbox' name='ingredCheckBox' id='idIngred-$infoIngredient[0]'> <label for='ingredCheckBox'>$infoIngredient[1]</label>
+                            <form method='POST'>
+                                <input type='submit' class='svg-delete-ingred' value='".file_get_contents("utilities/x-symbol.svg")."'>
+                                <input type='hidden' name='idIngredToDelete' value='$infoIngredient[0]'>
+                                <input type='hidden' name='idListeEpDel' value='$listeEpicerie[0]'>
+                            </form>
+                            <div id='ingredToDelete' class='svg-delete-ingred'>"."</div>";
                     }
                     echo"<form method='POST'>
                         <input name='listeEpiDel' type='submit' id='listToDelete-$listeEpicerie[0]' value='Supprimer cette liste' class='btnSupListEp' title='Supprimer la liste ".$listeEpicerie[1]."'>
@@ -106,6 +116,12 @@
             if(isset($_POST["listeEpiDel"]))
             {
                 DeleteGroceriesList($_POST["bruno"]);
+                ChangePage("groceries-list.php");
+            }
+
+            if(isset($_POST["addIngred"]))
+            {
+                //AddItemToGroceries($_POST["qteIngred"],false,);
                 ChangePage("groceries-list.php");
             }
 
@@ -175,20 +191,12 @@
                 <div class="form-exit" onclick="HideFormAddIngredient()"><?php echo file_get_contents("utilities/x-symbol.svg"); ?></div>
                     <legend>Ajout d'un nouvel ingrédient</legend>
                     <input type="text" name="ingred-name" class="input-form-name" placeholder="Nom de l'ingrédient">
-                    <input type="number" name="qteIngred" min="0" max="20">
+                    <label for="qteIngred">Quantité désiré: </label><input class="input-form-qte" type="number" name="qteIngred" min="0" max="20">
                     <input type="submit" class="button button-primary" value="Ajouter l'ingrédient" name="addIngred">
                 </form>
             </div>
            
         </div>
-
-        <?php
-        if(!empty($_POST["addIngred"]))
-        {
-            //AddIngred();
-            //ChangePage("groceries-list.php");
-        }
-        ?>
  
     </div>
     
