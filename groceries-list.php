@@ -74,16 +74,21 @@
                 <div class="list-grid">';
 
                 //Afficher toutes les listes
+                
                 foreach($tabInfoList as $listeEpicerie)
                 {
+                    $tabIngredList = InfoItemGroceriesList($listeEpicerie[0]);
                     echo "<button type='submit' id='liste-ep-btn' name='btnList' onclick='ShowElementOfList($listeEpicerie[0])' class='list-div' value='$listeEpicerie[0]'> $listeEpicerie[1] <div class='list-div-arrow'>".file_get_contents("utilities/caret.svg")."</div>";
                 
                     echo 
                     "<div class='showElementListNone' id='elementList-$listeEpicerie[0]'>
                     <div>Description: $listeEpicerie[2]</div>
-                    <div class='btnAddIngredToList' onclick='ShowFormAddIngredient()'>Ajouter un ingrédient</div>
-                    <div>Liste des ingrédients dans cette liste: </div>
-                    <form method='POST'>
+                    <div class='btnAddIngredToList' onclick='ShowFormAddIngredient()'>Ajouter un ingrédient</div>";
+                    foreach($tabIngredList as $ingredient)
+                    {
+                        $infoIngredient = SingleIngredientInfo($infoIngredient[3]);
+                    }
+                    echo"<form method='POST'>
                         <input name='listeEpiDel' type='submit' id='listToDelete-$listeEpicerie[0]' value='Supprimer cette liste' class='btnSupListEp' title='Supprimer la liste ".$listeEpicerie[1]."'>
                         <input type='hidden' name='bruno' value='$listeEpicerie[0]'>
                     </form>

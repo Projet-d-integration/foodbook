@@ -754,14 +754,13 @@ function DeleteItemFromGroceriesList($ListeEpicerie_idListeEpicerie,$Ingredient_
     }
 }
 //Info item from groceries list
-function InfoItemGroceriesList($ListeEpicerie_idListeEpicerie,$Ingredient_idIngredient){
+function InfoItemGroceriesList($ListeEpicerie_idListeEpicerie){
     Connexion();
     global $PDO;
     mysqli_set_charset($PDO, "utf8mb4");
 
-    $stmt = $PDO->prepare("SELECT * FROM ContenueListeEpicerie WHERE ListeEpicerie_idListeEpicerie = :ListeEpicerie_idListeEpicerie AND Ingredient_idIngredient = :Ingredient_idIngredient", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+    $stmt = $PDO->prepare("SELECT * FROM ContenueListeEpicerie WHERE ListeEpicerie_idListeEpicerie = :ListeEpicerie_idListeEpicerie", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
     $stmt->bindParam(':ListeEpicerie_idListeEpicerie', $ListeEpicerie_idListeEpicerie, PDO::PARAM_INT);
-    $stmt->bindParam(':Ingredient_idIngredient', $Ingredient_idIngredient, PDO::PARAM_INT);
     $stmt->execute();
     $info = [];
     while ($donnee = $stmt->fetch(PDO::FETCH_NUM)) {
@@ -769,7 +768,7 @@ function InfoItemGroceriesList($ListeEpicerie_idListeEpicerie,$Ingredient_idIngr
         array_push($rangee, $donnee[0]); // qteIngredient
         array_push($rangee, $donnee[1]); // bool estChecked
         array_push($rangee, $donnee[2]); // id liste epicerie
-        array_push($rangee, $donnee[3]); // id Compte
+        array_push($rangee, $donnee[3]); // id Ingrédient
         array_push($info, $rangee);
     }
     $stmt->closeCursor();
