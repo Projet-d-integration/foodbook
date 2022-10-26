@@ -92,11 +92,17 @@
 
                         echo "<input type='checkbox' name='ingredCheckBox' id='idIngred-$infoIngredient[0]'> <label for='ingredCheckBox'>$infoIngredient[1]</label>
                             <form method='POST'>
-                                <input type='submit' class='svg-delete-ingred' value='".file_get_contents("utilities/x-symbol.svg")."'>
+                                <label>$infoIngredient[1]</label><input type='number' value='$ingredient[0]'>
+                                <input type='submit' class='button button-primary' name='editIngred' value='Modifier'>
+                                <input type='hidden' name='idIngredToEdit' value='$infoIngredient[0]'>
+                                <input type='hidden' name='idListToEditIngred' value='$listeEpicerie[0]'>
+                            </form>
+                            <form method='POST'>
+
                                 <input type='hidden' name='idIngredToDelete' value='$infoIngredient[0]'>
                                 <input type='hidden' name='idListeEpDel' value='$listeEpicerie[0]'>
-                            </form>
-                            <div id='ingredToDelete' class='svg-delete-ingred'>"."</div>";
+                                <input type='submit' class='svg-delete-ingred' value='".file_get_contents("utilities/x-symbol.svg")."'>
+                            </form>";
                     }
                     echo"<form method='POST'>
                         <input name='listeEpiDel' type='submit' id='listToDelete-$listeEpicerie[0]' value='Supprimer cette liste' class='btnSupListEp' title='Supprimer la liste ".$listeEpicerie[1]."'>
