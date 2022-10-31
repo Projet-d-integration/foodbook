@@ -715,10 +715,10 @@ function AddItemToGroceries($pQteIngredient,$pEstChecked,$pListeEpicerie_idListe
     Connexion();
     global $PDO;
     try{
-        $sqlProcedure = "CALL AjouterListeEpicerie(:pQteIngredient, :pEstChecked, :pListeEpicerie_idListeEpicerie, :pIngredient_idIngredient)";
+        $sqlProcedure = "CALL AjouterContenueListeEpicerie(:pQteIngredient, :pEstChecked, :pListeEpicerie_idListeEpicerie, :pIngredient_idIngredient)";
         $stmt = $PDO->prepare($sqlProcedure);
         $stmt->bindParam(':pQteIngredient', $pQteIngredient, PDO::PARAM_INT);
-        $stmt->bindParam(':pEstChecked', $pEstChecked, PDO::PARAM_BOOL);
+        $stmt->bindParam(':pEstChecked', $pEstChecked, PDO::PARAM_INT);
         $stmt->bindParam(':pListeEpicerie_idListeEpicerie', $pListeEpicerie_idListeEpicerie, PDO::PARAM_INT);
         $stmt->bindParam(':pIngredient_idIngredient', $pIngredient_idIngredient, PDO::PARAM_INT);
         $stmt->execute();
@@ -735,7 +735,7 @@ function ModifyItemsGroceries($pQteIngredient,$pEstChecked,$pListeEpicerie_idLis
         $sqlProcedure = "CALL ModifierContenueListeEpicerie(:pQteIngredient, :pEstChecked, :pListeEpicerie_idListeEpicerie, :pIngredient_idIngredient)";
         $stmt = $PDO->prepare($sqlProcedure);
         $stmt->bindParam(':pQteIngredient', $pQteIngredient, PDO::PARAM_INT);
-        $stmt->bindParam(':pEstChecked', $pEstChecked, PDO::PARAM_BOOL);
+        $stmt->bindParam(':pEstChecked', $pEstChecked, PDO::PARAM_INT);
         $stmt->bindParam(':pListeEpicerie_idListeEpicerie', $pListeEpicerie_idListeEpicerie, PDO::PARAM_INT);
         $stmt->bindParam(':pIngredient_idIngredient', $pIngredient_idIngredient, PDO::PARAM_INT);
         $stmt->execute();
@@ -759,14 +759,13 @@ function DeleteItemFromGroceriesList($ListeEpicerie_idListeEpicerie,$Ingredient_
     }
 }
 //Info item from groceries list
-function InfoItemGroceriesList($ListeEpicerie_idListeEpicerie,$Ingredient_idIngredient){
+function InfoItemGroceriesList($ListeEpicerie_idListeEpicerie){
     Connexion();
     global $PDO;
     mysqli_set_charset($PDO, "utf8mb4");
 
-    $stmt = $PDO->prepare("SELECT * FROM ContenueListeEpicerie WHERE ListeEpicerie_idListeEpicerie = :ListeEpicerie_idListeEpicerie AND Ingredient_idIngredient = :Ingredient_idIngredient", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+    $stmt = $PDO->prepare("SELECT * FROM ContenueListeEpicerie WHERE ListeEpicerie_idListeEpicerie = :ListeEpicerie_idListeEpicerie", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
     $stmt->bindParam(':ListeEpicerie_idListeEpicerie', $ListeEpicerie_idListeEpicerie, PDO::PARAM_INT);
-    $stmt->bindParam(':Ingredient_idIngredient', $Ingredient_idIngredient, PDO::PARAM_INT);
     $stmt->execute();
     $info = [];
     while ($donnee = $stmt->fetch(PDO::FETCH_NUM)) {
@@ -774,7 +773,7 @@ function InfoItemGroceriesList($ListeEpicerie_idListeEpicerie,$Ingredient_idIngr
         array_push($rangee, $donnee[0]); // qteIngredient
         array_push($rangee, $donnee[1]); // bool estChecked
         array_push($rangee, $donnee[2]); // id liste epicerie
-        array_push($rangee, $donnee[3]); // id Compte
+        array_push($rangee, $donnee[3]); // id ingredient
         array_push($info, $rangee);
     }
     $stmt->closeCursor();
