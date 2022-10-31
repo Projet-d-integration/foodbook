@@ -49,3 +49,11 @@ INSERT INTO Emplacement(idEmplacement, nomEmplacement, Svg) VALUES(6,'Cellier','
 INSERT INTO Emplacement(idEmplacement, nomEmplacement, Svg) VALUES(7,'Bar','Bar');
 INSERT INTO Emplacement(idEmplacement, nomEmplacement, Svg) VALUES(8,'Comptoir','Counter');
 INSERT INTO Emplacement(idEmplacement, nomEmplacement, Svg) VALUES(9,'Armoire à pain','BreadCabinet');
+
+
+/* Cool liltre insert in table Recipe to test the filters */
+INSERT INTO Recette (idCompte, nomRecette, publique, nbVus,dateCreation,idTypeRecette) VALUES (3, 'Moms Spaghetti', 1, 650, '2022/10/19',3);
+INSERT INTO Recette (idCompte, nomRecette, publique, nbVus,dateCreation,idTypeRecette) VALUES (3, 'Pizza', 1, 150, '2022/10/18',3);
+INSERT INTO Recette (idCompte, nomRecette, publique, nbVus,dateCreation,idTypeRecette) VALUES (3, 'Creme de Brocolli', 1, 150, '2022/10/15',2);
+INSERT INTO Recette (idCompte, nomRecette, publique, nbVus,dateCreation,idTypeRecette) VALUES (3, 'Steak Frite', 1, 1000, '2022/10/10',3);
+INSERT INTO Recette (idCompte, nomRecette, publique, nbVus,dateCreation,idTypeRecette) VALUES (3, 'Lasagne', 1, 300, '2022/10/17',3);
