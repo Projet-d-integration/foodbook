@@ -14,15 +14,14 @@
 
 <head>
     <title>Liste d'épicerie Foodbook</title>
-    
     <meta charset="utf-8">
-    
     <style>
         <?php require 'styles/groceries-list.css'; ?>
-
+        <?php require 'styles/ui-kit.css'; ?>
         <?php require 'styles/must-have.css'; ?>
         <?php require 'scripts/body-scripts.php'; ?>
         <?php require 'scripts/db.php'; ?>
+        <?php require 'scripts/filter.php'; ?>
     </style>
     
     <?php RenderFavicon(); ?>
@@ -31,7 +30,7 @@
 <body>
     <div class="header-banner">
         <a href="index.php"><?php echo file_get_contents("utilities/foodbook-logo.svg"); ?></a>
-        <div class="banner-title"> Liste d'épicerie </div>
+        <div class="banner-title"> Liste d'épicerie</div>
         <div class="svg-wrapper">
             <a href="groceries-list.php" class="svg-button list-button"> <?php echo file_get_contents("utilities/list.svg"); ?> </a>
             <?php 
@@ -51,15 +50,9 @@
     <?php
         $tabInfoList = InfoGroceriesList($_SESSION["idUser"]);
         $nb_liste = count($tabInfoList);
-
         
         if(!($_SERVER['REQUEST_METHOD'] === 'POST'))
-        {
-            echo"
-        <script>
-            window.onload = () => { document.getElementById('add-new-grocery-list').style.display = 'block'; }
-        </script>";
-        
+        { 
             if($nb_liste <= 0)
             {
                 echo '<script>
@@ -70,9 +63,12 @@
             </script>';
             }
             else{
+                echo"
+                    <script>
+                        window.onload = () => { document.getElementById('add-new-grocery-list').style.display = 'block'; }
+                    </script>";
                 echo '
                 <div class="list-grid">';
-
                 //Afficher toutes les listes
                 
                 foreach($tabInfoList as $listeEpicerie)
@@ -80,12 +76,13 @@
                     $tabIngredList = InfoItemGroceriesList($listeEpicerie[0]);
                     $numIngredListe = count($tabIngredList);
                     echo "<button type='submit' id='liste-ep-btn' name='btnList' onclick='ShowElementOfList($listeEpicerie[0])' class='list-div' value='$listeEpicerie[0]'> $listeEpicerie[1] <div class='list-div-arrow'>".file_get_contents("utilities/caret.svg")."</div> </button>";
-                
+                    
                     echo 
                     "<div class='showElementListNone' id='elementList-$listeEpicerie[0]'>
                     <div>Description: $listeEpicerie[2]</div>
                     <div class='btnAddIngredToList' onclick='ShowFormAddIngredient()'>Ajouter un ingrédient</div>
                     <div>Ingrédients:</div>";
+                    
                     foreach($tabIngredList as $ingredient)
                     {
                         $infoIngredient = SingleIngredientInfo($infoIngredient[3]);
@@ -108,15 +105,14 @@
                         <input name='listeEpiDel' type='submit' id='listToDelete-$listeEpicerie[0]' value='Supprimer cette liste' class='btnSupListEp' title='Supprimer la liste ".$listeEpicerie[1]."'>
                         <input type='hidden' name='bruno' value='$listeEpicerie[0]'>
                     </form>
-                   
+                
                     </div>";
                     
                 }
                 echo '</div>';
-                
             }
         }
-
+        
         if($_SERVER['REQUEST_METHOD'] === 'POST')
         {
             if(isset($_POST["listeEpiDel"]))
@@ -128,6 +124,7 @@
             if(isset($_POST["addIngred"]))
             {
                 //AddItemToGroceries($_POST["qteIngred"],false,);
+                //AddItemToGroceries();
                 ChangePage("groceries-list.php");
             }
 
@@ -156,14 +153,14 @@
                     AddGroceriesList($_POST["list-grocery-name"],$_POST["description-grocery-list"],false,$_SESSION["idUser"]);
                     ChangePage("groceries-list.php");
                 }
-               
+            
             }
             else{
                 echo "Vous avez déjà une liste nommée ainsi, elle n'a donc pas été ajouté.";
                 echo '<form><div class="item-wrapper"><div class="return-button">'.GenerateButtonTertiary("Retour", "groceries-list.php").'</div></form>';
             }       
         }
-         
+        
     ?>
         <div class="neutral_message" id="no-list-message">Vous n'avez pas de liste présentement.</div>
         <div class="add-new-grocery-list" id="add-new-grocery-list" onclick="ShowFormAddList()">Ajouter une liste</div>
@@ -189,25 +186,63 @@
             </div>
 
         </div>
-      
+    
     </div>
         <div class="form-add-ingredient" id="form-add-ingred">
             <div class="transparent-background">
-                <form class="form-content">
-                <div class="form-exit" onclick="HideFormAddIngredient()"><?php echo file_get_contents("utilities/x-symbol.svg"); ?></div>
-                    <legend>Ajout d'un nouvel ingrédient</legend>
-                    <input type="text" name="ingred-name" class="input-form-name" placeholder="Nom de l'ingrédient">
-                    <label for="qteIngred">Quantité désiré: </label><input class="input-form-qte" type="number" name="qteIngred" min="0" max="20">
-                    <input type="submit" class="button button-primary" value="Ajouter l'ingrédient" name="addIngred">
-                </form>
+                <div class="form-content">
+                    <div class="form-exit" onclick="HideFormAddIngredient()"><?php echo file_get_contents("utilities/x-symbol.svg"); ?></div>
+                    <?php
+                            // Formulaire de tri
+                                if($_POST['filter'])
+                                    echo '<script>document.getElementById("form-add-ingred").style.display = "block";</script>';
+                                $idEmplacement = $_POST['buttonSpace'];
+                                $tabTypeIngredient = TypeIngredientInfo();
+                                $nameSearched = $_POST['name-input'];
+                                echo"<form method='post'>";
+                                echo "<input class='text-input' name='name-input' type='text' placeholder='Nom ingredient' value=$nameSearched >";
+                                echo '<select name="type-input">';
+                                echo '<option value="">Tout les types</option>';
+                                foreach($tabTypeIngredient as $typeIngredient)
+                                    echo "<option value=$typeIngredient[0]>$typeIngredient[1]</option>";
+                                echo '</select>';
+                                echo '<select name="order-input">';
+                                echo '<option value="ASC">Croissant</option>';
+                                echo '<option value="DESC">Décroissant</option>';
+                                echo '</select>';
+                                echo '<input type="hidden" value="set" name="filter">';
+                                echo "<input type='hidden' value='$idEmplacement' name='buttonSpace'>";
+                                echo '<div class="buttons-wrapper"><input class="button button-primary" type="submit" value="Chercher"></div>';
+                                echo "</form>";
+                                    
+                                    // Trier les informations
+                                $tabIngredient = AllIngredientInfo($_POST['order-input']); // [1] == nom
+                                $tabIngredient = FilterIngredient($tabIngredient,$_POST['name-input'],$_POST['type-input']);
+                                echo count($tabIngredient);
+                                    //Aficher les informations
+                                foreach($tabIngredient as $singleIngredient){
+                                    echo "
+                                    <div class='inventory-item' onclick='ShowFormItemQuantity($singleIngredient[0])'> $singleIngredient[1] </div>
+                                    <form method='post' class='inventory-item-form' id='inventory-item-form-$singleIngredient[0]'>
+                                        <div class='items-form-overlay'>
+                                            <div class='form-exit-item' onclick='HideFormItemQuantity($singleIngredient[0])'>X</div>
+                                            <span class='inventory-items-form-title'>Combien voulez vous ajouter de cet item : $singleIngredient[1] </span>
+                                            <input type='number' name='number-input' min='1' max='100' placeholder='Cb' value = 0> <br>
+                                            <input type='hidden' name='place-input' value='$idEmplacement'>
+                                            <button type='submit' class='button button-secondary' name='ingredient-input' value='$singleIngredient[0]'>Ajouter</button><br>
+                                        </div>
+                                    </form>";
+                                    }       
+                        ?>
+                        <div class="items-form-submit">
+                            <form> <?php GenerateButtonPrimary("Ajouter un nouvel ingredient inexistant", "add-new-ingredient.php") ?></form>
+                        </div>
+                </div>
             </div>
-           
+        
         </div>
- 
-    </div>
-    
-    
 
+    </div>
     
 
     <?php GenerateFooter(); ?>
@@ -251,5 +286,12 @@
             document.getElementById("elementList-" + idListe).classList.add("showElementListNone");
         }
         
+    }
+    function ShowFormItemQuantity(id) {
+        document.getElementById("inventory-item-form-" + id).style.display = "flex";
+    }
+
+    function HideFormItemQuantity(id) {
+        document.getElementById("inventory-item-form-" + id).style.display = "none";
     }
 </script>
