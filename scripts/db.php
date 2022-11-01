@@ -1029,13 +1029,12 @@ function DeleteTypeRecipe($pIdTypeRecette){
     }
 }
 //Show type recipe
-function InfoTypeRecipe($idTypeRecette){
+function InfoTypeRecipe(){
     Connexion();
     global $PDO;
     mysqli_set_charset($PDO, "utf8mb4");
 
-    $stmt = $PDO->prepare("SELECT * FROM TypeRecette WHERE idTypeRecette = :idTypeRecette", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
-    $stmt->bindParam(':idTypeRecette', $idTypeRecette, PDO::PARAM_INT);
+    $stmt = $PDO->prepare("SELECT * FROM TypeRecette", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
     $stmt->execute();
     $info = [];
     while ($donnee = $stmt->fetch(PDO::FETCH_NUM)) {

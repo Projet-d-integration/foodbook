@@ -25,15 +25,13 @@
     <?php RenderFavicon(); ?>
 </head>
 
-<?php
-
-?>
-
 <body> 
     <div class="header-banner">
         <a href="index.php"><?php echo file_get_contents("utilities/foodbook-logo.svg"); ?></a>
         <div class="banner-title"> Inventaire </div>
         <div class="svg-wrapper">
+            <a href="personal-recipes.php" class="svg-button list-button"> <?php echo file_get_contents("utilities/book.svg"); ?> </a>
+            <a href="login.php" class="svg-button list-button"> <?php echo file_get_contents("utilities/list.svg"); ?> </a>
             <a href="groceries-list.php" class="svg-button list-button"> <?php echo file_get_contents("utilities/list.svg"); ?> </a>
             <a href="inventory.php" class="svg-button inventory-button"> <?php echo file_get_contents("utilities/food.svg"); ?> </a>
             <?php 
@@ -203,6 +201,7 @@
                                 foreach($tabIngredient as $singleIngredient){
                                     echo "
                                     <div class='inventory-item' onclick='ShowFormItemQuantity($singleIngredient[0])'> $singleIngredient[1] </div>
+                                    
                                     <form method='post' class='inventory-item-form' id='inventory-item-form-$singleIngredient[0]'>
                                         <div class='items-form-overlay'>
                                             <div class='form-exit-item' onclick='HideFormItemQuantity($singleIngredient[0])'>";
@@ -229,28 +228,32 @@
 </body>
 
 <script>
-    function ShowFormEmplacement() {
-        document.getElementById("inventory-location-form").style.display = "block";
-    }
+    window.onload = () => {
+        function ShowAddNewLocation(){
+            document.getElementById("add_new_location").style.display = "block"
+        }
+        function ShowFormEmplacement() {
+            document.getElementById("inventory-location-form").style.display = "block";
+        }
 
-    function HideFormEmplacement() {
-        document.getElementById("inventory-location-form").style.display = "none";
-    }
+        function HideFormEmplacement() {
+            document.getElementById("inventory-location-form").style.display = "none";
+        }
 
-    function ShowFormItems() {
-        document.getElementById("inventory-items-form").style.display = "block";
-    }
+        function ShowFormItems() {
+            document.getElementById("inventory-items-form").style.display = "block";
+        }
 
-    function HideFormItems() {
-        document.getElementById("inventory-items-form").style.display = "none";
-    }
+        function HideFormItems() {
+            document.getElementById("inventory-items-form").style.display = "none";
+        }
 
-    function ShowFormItemQuantity(id) {
-        document.getElementById("inventory-item-form-" + id).style.display = "flex";
-    }
+        function ShowFormItemQuantity(id) {
+            document.getElementById("inventory-item-form-" + id).style.display = "flex";
+        }
 
-    function HideFormItemQuantity(id) {
-        document.getElementById("inventory-item-form-" + id).style.display = "none";
-    }
-
+        function HideFormItemQuantity(id) {
+            document.getElementById("inventory-item-form-" + id).style.display = "none";
+        }
+    }  
 </script>
