@@ -149,19 +149,6 @@
     gap: 2rem;
 }
 
-.recipe-ingredient,
-.recipe-step {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-}
-
-.recipe-remove-item svg {
-    fill: var(--color-primary);
-    height: 0.9rem;
-    width: 0.9rem;
-}
-
 .recipe-remove-item {
     display: flex;
     align-items: flex-end;

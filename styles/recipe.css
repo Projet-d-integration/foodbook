@@ -102,3 +102,20 @@
     width: 100%;
     height: 15rem;
 }
+
+.recipe-remove-item svg {
+    fill: var(--color-primary); 
+    height: 0.9rem;
+    width: 0.9rem;
+}
+
+.recipe-ingredient,
+.recipe-step {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.neutral-message {
+    color: var(--color-primary);
+}

@@ -17,9 +17,9 @@
     
     <style>
         <?php require 'styles/personal-recipes.css'; ?>
-
         <?php require 'styles/must-have.css'; ?>
         <?php require 'scripts/body-scripts.php'; ?>
+        <?php require 'scripts/db.php'; ?>
     </style>
     
     <?php RenderFavicon(); ?>
@@ -76,45 +76,15 @@
                             <input type="text" name="title-input" class="text-input">
                         </div>
 
-                        <div class="recipe-form-ingredients">
-                            <?php
-                                // $nbIngredients <= 0
-                                if (true) {
-                                    echo '<div class="neutral_message" style="display: flex"> Vous n\'avez présentement aucun ingrédient dans votre recette </div>';
-                                }
-                                else {
-                                    // add all ingredients already added here
+                        <div>Veuillez choisir un type pour votre recette</div>
+                        <select name="type-input">
+                            <?php  
+                                $tabTypeRecette = InfoTypeRecipe();
+                                foreach($tabTypeRecette as $typeIngredient){
+                                    echo "<option value=$typeIngredient[0]>$typeIngredient[1]</option>";
                                 }
                             ?>
-
-                            <!-- template pour un ingrédient -->
-                            <div class="recipe-ingredient">
-                                <div class="recipe-remove-item"> <?php echo file_get_contents("utilities/x-symbol.svg"); ?> </div>
-                                <div>1/2 tasse</div>
-                                <div>Ingrédient</div>
-                            </div>
-
-                            <div class="button button-primary add-new-ingredient" id="add_new_ingredient" onclick='ShowFormAddNewIngredient()'>Ajouter un ingrédient</div>
-                        </div>
-                        
-                        <div class="recipe-form-steps">
-                            <?php 
-                                // $nbSteps <= 0
-                                if (true) {
-                                    echo '<div class="neutral_message" style="display: flex"> Vous n\'avez présentement aucune étape dans votre recette </div>';
-                                }
-                                else {
-                                    // add all steps already added here
-                                }
-                            ?>
-
-                            <!-- template pour une étape -->
-                            <div class="recipe-step">
-                                <div class="recipe-remove-item"> <?php echo file_get_contents("utilities/x-symbol.svg"); ?> </div>
-                                <div>Étape</div>
-                            </div>
-                            <div class="button button-primary add-new-step" id="add_new_step" onclick='ShowFormAddNewStep()'>Ajouter une étape</div>
-                        </div>
+                        </select>
 
                         <div class="recipe-form-video-input">
                             <label for="video-input">Ajouter un vidéo</label>
@@ -125,6 +95,8 @@
                             <div>Rendre la recette publique</div>
                             <input type="checkbox">
                         </div>
+
+                        <input type="submit">
                     </div>
                 </form>
             </div>
