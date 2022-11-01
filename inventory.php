@@ -20,6 +20,7 @@
         <?php require 'styles/ui-kit.css'; ?>
         <?php require 'scripts/body-scripts.php'; ?>
         <?php require 'scripts/db.php'; ?>
+        <?php require 'scripts/filter.php'; ?>
     </style>
     <?php RenderFavicon(); ?>
 </head>
@@ -48,18 +49,23 @@
         <div class="inventory-wrapper">
             <?php 
                 if(!($_SERVER['REQUEST_METHOD'] === 'POST')){
-                    echo "<script> ShowAddNewLocation(); </script>";
                     $tabInfoSpace = InfoLocation($_SESSION['idUser']); 
                     $numInfoSpace = count($tabInfoSpace);
-                    // Vérfie la quantité d'emplacements de l'utilisateur, et affiche un message
-                    // lorsque ce nombre est <= 0
                     if ($numInfoSpace <= 0){
                         echo '
                         <script>
-                            window.onload = () => { document.getElementById("error_no_space").style.display = "block"; }
+                            window.onload = () => { 
+                                document.getElementById("add_new_location").style.display = "block"; 
+                                document.getElementById("error_no_space").style.display = "block";
+                                document.getElementById("add_new_location").style.display = "block";
+                            }
                         </script>';
                     }
                     else {
+                        echo '
+                            <script>
+                                window.onload = () => { document.getElementById("add_new_location").style.display = "block"; }
+                            </script>';
                         echo '
                         <form method="post">
                             <div class="space-grid">';
@@ -166,8 +172,31 @@
                         <div class="form-exit" onclick='HideFormItems()'> <?php echo file_get_contents("utilities/x-symbol.svg"); ?> </div>
                         <div class="items-form">
                             <?php
-                                $tabIngredient = AllIngredientInfo(); // [1] == nom
+                            // Formulaire de tri
+                                if($_POST['filter'])
+                                    echo '<script>document.getElementById("inventory-items-form").style.display = "block";</script>';
                                 $idEmplacement = $_POST['buttonSpace'];
+                                $tabTypeIngredient = TypeIngredientInfo();
+                                $nameSearched = $_POST['name-input'];
+                                echo"<form method='post'>";
+                                echo "<input class='text-input' name='name-input' type='text' placeholder='Nom ingredient' value=$nameSearched >";
+                                echo '<select name="type-input">';
+                                echo '<option value="">Tout les types</option>';
+                                foreach($tabTypeIngredient as $typeIngredient)
+                                    echo "<option value=$typeIngredient[0]>$typeIngredient[1]</option>";
+                                echo '</select>';
+                                echo '<select name="order-input">';
+                                echo '<option value="ASC">Croissant</option>';
+                                echo '<option value="DESC">Décroissant</option>';
+                                echo '</select>';
+                                echo '<input type="hidden" value="set" name="filter">';
+                                echo "<input type='hidden' value='$idEmplacement' name='buttonSpace'>";
+                                echo '<div class="buttons-wrapper"><input class="button button-primary" type="submit" value="Chercher"></div>';
+                                echo "</form>";
+                                // Trier les informations
+                                $tabIngredient = AllIngredientInfo($_POST['order-input']); // [1] == nom
+                                $tabIngredient = FilterIngredient($tabIngredient,$_POST['name-input'],$_POST['type-input']);
+                                //Aficher les informations
                                 foreach($tabIngredient as $singleIngredient){
                                     echo "
                                     <div class='inventory-item' onclick='ShowFormItemQuantity($singleIngredient[0])'> $singleIngredient[1] </div>
@@ -194,7 +223,6 @@
             </div>
         </div>
     </div>
-
     <?php GenerateFooter(); ?>
 </body>
 
