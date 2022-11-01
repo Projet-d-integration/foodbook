@@ -34,7 +34,7 @@
         <a href="index.php"><?php echo file_get_contents("utilities/foodbook-logo.svg"); ?></a>
         <div class="banner-title"> Inventaire </div>
         <div class="svg-wrapper">
-            <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" class="svg-button list-button"> <?php echo file_get_contents("utilities/list.svg"); ?> </a>
+            <a href="groceries-list.php" class="svg-button list-button"> <?php echo file_get_contents("utilities/list.svg"); ?> </a>
             <a href="inventory.php" class="svg-button inventory-button"> <?php echo file_get_contents("utilities/food.svg"); ?> </a>
             <?php 
                 if(!empty($_SESSION['idUser'])){
