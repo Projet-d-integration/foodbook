@@ -70,6 +70,8 @@ body {
     top: 18rem;
     gap: 2rem;
     width: 75%;
+    max-height: 50%;
+    overflow-y: scroll;
 }
 
 .items-form-submit {
@@ -243,4 +245,6 @@ ul{
     position: fixed;
     top: 12rem;
     padding: 0.5rem 1rem;
+    width: 75%;
+    flex-wrap: wrap;
 }
