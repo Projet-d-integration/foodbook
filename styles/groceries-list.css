@@ -231,3 +231,6 @@ body {
     flex-direction: column;
     gap: 1rem;
 }
+ul{
+    list-style-type: none;
+}
