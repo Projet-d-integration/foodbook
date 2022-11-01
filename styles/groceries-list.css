@@ -66,6 +66,8 @@ body {
     justify-content: center;
     flex-direction: row;
     flex-wrap: wrap;
+    position: fixed;
+    top: 18rem;
     gap: 2rem;
     width: 75%;
 }
