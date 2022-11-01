@@ -218,11 +218,18 @@
                                 $tabIngredient = FilterIngredient($tabIngredient,$_POST['name-input'],$_POST['type-input']);
                                 //Aficher les informations
                                 foreach($tabIngredient as $singleIngredient){
+                                    // Empeche un ingredient d'apparaitre dans la liste de choix si il existe deja dans la liste
+                                    $isAlreadyInList = false;
                                     foreach($tabInventaire as $infoInventaire)
                                     {
                                         if($infoInventaire[3] == $singleIngredient[0])
                                         {
-                                            echo "
+                                            $isAlreadyInList = true;
+                                        }
+
+                                    }
+                                    if(!$isAlreadyInList){
+                                        echo "
                                             <div class='inventory-item' onclick='ShowFormItemQuantity($singleIngredient[0])'> $singleIngredient[1] </div>
                                             <form method='post' class='inventory-item-form' id='inventory-item-form-$singleIngredient[0]'>
                                                 <div class='items-form-overlay'>
@@ -236,11 +243,7 @@
                                                     <button type='submit' class='button button-secondary' name='ingredient-input' value='$singleIngredient[0]'>Ajouter</button><br>
                                                 </div>
                                             </form>";
-                                            break;
-                                        }
-                                       
                                     }
-                                   
                                 }
                             ?>
                             <div class="items-form-submit">
