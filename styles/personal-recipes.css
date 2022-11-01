@@ -107,6 +107,24 @@
     text-align: center;
 }
 
-.add-new-ingredient {
+.items-form-content {
+    background: var(--color-tertiary);
+    border: 0.1rem solid var(--color-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow-y: auto;
+    border-radius: 2rem;
+    margin: 5rem;
+    height: 75%;
+    z-index: 3;
+    padding: 2rem;
+}
 
+.recipe-form-ingredients {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
 }
