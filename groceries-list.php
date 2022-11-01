@@ -196,7 +196,7 @@
                                 $idEmplacement = $_POST['buttonSpace'];
                                 $tabTypeIngredient = TypeIngredientInfo();
                                 $nameSearched = $_POST['name-input'];
-                                echo"<form method='post'>";
+                                echo"<form class='display-filter-section' method='post'>";
                                 echo "<input class='text-input' name='name-input' type='text' placeholder='Nom ingredient' value=$nameSearched >";
                                 echo '<select name="type-input">';
                                 echo '<option value="">Tout les types</option>';
