@@ -102,13 +102,15 @@
                         $ingredientInfo = SingleIngredientInfo($ingredientInventaire[3]);
                         if($ingredientInventaire[2] == $_POST['buttonSpace']){
                             $nbIngredient = $nbIngredient + 1;
-                            echo "<li>";
                             if($ingredientInventaire[1])
                                 echo    "<form  method='post' class='form-ingredient-option'><input type='checkbox' value='$ingredientInventaire[1]' name='isChecked' checked/>";
                             else
                                 echo    "<form  method='post' class='form-ingredient-option'><input type='checkbox' value='$ingredientInventaire[1]' name='isChecked'/>";
-                            if($ingredientInventaire[1])           
+                            //echo "<li>";    
+                            if($ingredientInventaire[1])
+                            {    
                                 echo "<span style='text-decoration:line-through'>$ingredientInfo[1]</span";
+                            }
                             else          
                                 echo "<span title='$ingredientInfo[2]'>$ingredientInfo[1]</span>";
                             echo        "<input type='number' name='qteChosen' min='1' value='$ingredientInventaire[0]'>
@@ -118,12 +120,12 @@
                                         <button type='submit'>Modifier</button>
                                     </form>
                                     <form method='post' class='form-ingredient-option'>
-                                        <button type='submit' name='option-delete' value='1'>X</button>
+                                        <button type='submit' name='option-delete' value='1'>Supprimer cet ingrédient</button>
                                         <input type='hidden' name='idIngredientDelete' value='$ingredientInventaire[3]'>
                                         <input type='hidden' value='$spaceChosen' name='buttonSpace'>
                                         <input type='hidden' name='idEmplacementDelete' value='$spaceChosen'>
                                     </form>
-                                    </li>";
+                                    ";
                         }
                     }
                     echo '</ul>';
