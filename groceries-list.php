@@ -90,7 +90,7 @@
                         DeleteItemFromGroceriesList(intval($_POST['idEmplacementDelete']),intval($_POST['idIngredientDelete']));
                     }
                     if(!empty($_POST['ingredient-input'])){
-                        echo AddItemToGroceries($_POST['number-input'],0,$_POST['place-input'],$_POST['ingredient-input']);
+                        AddItemToGroceries($_POST['number-input'],0,$_POST['place-input'],$_POST['ingredient-input']);
                     }
                     $spaceChosen = $_POST['buttonSpace'];
                     $tabInventaire = InfoItemGroceriesList($spaceChosen);
@@ -102,14 +102,14 @@
                         $ingredientInfo = SingleIngredientInfo($ingredientInventaire[3]);
                         if($ingredientInventaire[2] == $_POST['buttonSpace']){
                             $nbIngredient = $nbIngredient + 1;
+                            echo "<li>";   
                             if($ingredientInventaire[1])
-                                echo    "<form  method='post' class='form-ingredient-option'><input type='checkbox' value='$ingredientInventaire[1]' name='isChecked' checked/>";
+                                echo "<form  method='post' class='form-ingredient-option'><input type='checkbox' value='$ingredientInventaire[1]' name='isChecked' checked/>";
                             else
-                                echo    "<form  method='post' class='form-ingredient-option'><input type='checkbox' value='$ingredientInventaire[1]' name='isChecked'/>";
-                            //echo "<li>";    
+                                echo "<form  method='post' class='form-ingredient-option'><input type='checkbox' value='$ingredientInventaire[1]' name='isChecked'/>";
                             if($ingredientInventaire[1])
                             {    
-                                echo "<span style='text-decoration:line-through'>$ingredientInfo[1]</span";
+                                echo "<span style='text-decoration:line-through'>$ingredientInfo[1]</span>";
                             }
                             else          
                                 echo "<span title='$ingredientInfo[2]'>$ingredientInfo[1]</span>";
@@ -120,12 +120,12 @@
                                         <button type='submit'>Modifier</button>
                                     </form>
                                     <form method='post' class='form-ingredient-option'>
-                                        <button type='submit' name='option-delete' value='1'>Supprimer cet ingrédient</button>
+                                        <button type='submit' name='option-delete' value='1'>Supprimer</button>
                                         <input type='hidden' name='idIngredientDelete' value='$ingredientInventaire[3]'>
                                         <input type='hidden' value='$spaceChosen' name='buttonSpace'>
                                         <input type='hidden' name='idEmplacementDelete' value='$spaceChosen'>
                                     </form>
-                                    ";
+                                    </li>";
                         }
                     }
                     echo '</ul>';
@@ -218,20 +218,29 @@
                                 $tabIngredient = FilterIngredient($tabIngredient,$_POST['name-input'],$_POST['type-input']);
                                 //Aficher les informations
                                 foreach($tabIngredient as $singleIngredient){
-                                    echo "
-                                    <div class='inventory-item' onclick='ShowFormItemQuantity($singleIngredient[0])'> $singleIngredient[1] </div>
-                                    <form method='post' class='inventory-item-form' id='inventory-item-form-$singleIngredient[0]'>
-                                        <div class='items-form-overlay'>
-                                            <div class='form-exit-item' onclick='HideFormItemQuantity($singleIngredient[0])'>";
-                                            echo file_get_contents('utilities/x-symbol.svg');
-                                            echo " </div>
-                                            <span class='inventory-items-form-title'>Combien voulez vous ajouter de cet item : $singleIngredient[1] </span>
-                                            <input type='number' name='number-input' min='1' max='100' placeholder='Cb' value = 0> <br>
-                                            <input type='hidden' name='place-input' value='$idEmplacement'>
-                                            <input type='hidden' value='$spaceChosen' name='buttonSpace'>
-                                            <button type='submit' class='button button-secondary' name='ingredient-input' value='$singleIngredient[0]'>Ajouter</button><br>
-                                        </div>
-                                    </form>";
+                                    foreach($tabInventaire as $infoInventaire)
+                                    {
+                                        if($infoInventaire[3] == $singleIngredient[0])
+                                        {
+                                            echo "
+                                            <div class='inventory-item' onclick='ShowFormItemQuantity($singleIngredient[0])'> $singleIngredient[1] </div>
+                                            <form method='post' class='inventory-item-form' id='inventory-item-form-$singleIngredient[0]'>
+                                                <div class='items-form-overlay'>
+                                                    <div class='form-exit-item' onclick='HideFormItemQuantity($singleIngredient[0])'>";
+                                                    echo file_get_contents('utilities/x-symbol.svg');
+                                                    echo " </div>
+                                                    <span class='inventory-items-form-title'>Combien voulez vous ajouter de cet item : $singleIngredient[1] </span>
+                                                    <input type='number' name='number-input' min='1' max='100' placeholder='Cb' value = 0> <br>
+                                                    <input type='hidden' name='place-input' value='$idEmplacement'>
+                                                    <input type='hidden' value='$spaceChosen' name='buttonSpace'>
+                                                    <button type='submit' class='button button-secondary' name='ingredient-input' value='$singleIngredient[0]'>Ajouter</button><br>
+                                                </div>
+                                            </form>";
+                                            break;
+                                        }
+                                       
+                                    }
+                                   
                                 }
                             ?>
                             <div class="items-form-submit">
