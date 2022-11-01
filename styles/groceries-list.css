@@ -71,6 +71,7 @@ body {
     gap: 2rem;
     width: 75%;
     max-height: 50%;
+    min-width: 20rem;
     overflow-y: scroll;
 }
 

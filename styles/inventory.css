@@ -66,8 +66,13 @@ body {
     justify-content: center;
     flex-direction: row;
     flex-wrap: wrap;
+    position: fixed;
+    top: 18rem;
     gap: 2rem;
     width: 75%;
+    max-height: 50%;
+    min-width: 20rem;
+    overflow-y: scroll;
 }
 
 .items-form-submit {
@@ -223,4 +228,14 @@ body {
 .add-new-location:hover {
     background: var(--color-accent-hover);
     cursor: pointer;
+}
+.display-filter-section{
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    position: fixed;
+    top: 12rem;
+    padding: 0.5rem 1rem;
+    width: 75%;
+    flex-wrap: wrap;
 }
