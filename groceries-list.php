@@ -12,7 +12,7 @@
 ?>
 
 <head>
-    <title>Liste d'épicerie youpie</title>
+    <title>Liste d'épicerie</title>
     <meta charset="utf-8">
     <style>
         <?php require 'styles/groceries-list.css'; ?>
