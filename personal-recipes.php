@@ -53,7 +53,7 @@
 
     <div class="wrapper">
         <div class="personal-recipes-wrapper">
-            <div class="add-new-recipe" id="add_new_recipe" onclick='ShowFormRecipeCreation()'>Ajouter un emplacement</div>
+            <div class="add-new-recipe" id="add_new_recipe" onclick='ShowFormRecipeCreation()'>Ajouter une recette</div>
             <div class="neutral_message" id="error_no_recipes">Vous n'avez pas de recettes pour l'instant.</div>
 
             <div class="recipe-creation-form"></div>
@@ -64,7 +64,7 @@
                 <form method="post" class="form-content">
                     <div class="form-content-wrapper">
                         <div class="form-exit" onclick='HideFormRecipeCreation()'> <?php echo file_get_contents("utilities/x-symbol.svg"); ?> </div>
-                        <div class="recipe-form-info"></div>
+                        <div class="recipe-form-title">Ajouter Une recette</div>
     
                         <div class="recipe-form-image-input">
                             <label for="image-input">Url de l'image</label>
@@ -82,9 +82,18 @@
                                 if (true) {
                                     echo '<div class="neutral_message" style="display: flex"> Vous n\'avez présentement aucun ingrédient dans votre recette </div>';
                                 }
-                                
-                                // add all ingredients already added here
+                                else {
+                                    // add all ingredients already added here
+                                }
                             ?>
+
+                            <!-- template pour un ingrédient -->
+                            <div class="recipe-ingredient">
+                                <div class="recipe-remove-item"> <?php echo file_get_contents("utilities/x-symbol.svg"); ?> </div>
+                                <div>1/2 tasse</div>
+                                <div>Ingrédient</div>
+                            </div>
+
                             <div class="button button-primary add-new-ingredient" id="add_new_ingredient" onclick='ShowFormAddNewIngredient()'>Ajouter un ingrédient</div>
                         </div>
                         
@@ -92,25 +101,60 @@
                             <?php 
                                 // $nbSteps <= 0
                                 if (true) {
-                                    echo '<div class="neutral_message" style="display: flex"> Vous n\'avez présentement aucun ingrédient dans votre recette </div>';
+                                    echo '<div class="neutral_message" style="display: flex"> Vous n\'avez présentement aucune étape dans votre recette </div>';
                                 }
-                                
-                                // add all ingredients already added here
+                                else {
+                                    // add all steps already added here
+                                }
                             ?>
+
+                            <!-- template pour une étape -->
+                            <div class="recipe-step">
+                                <div class="recipe-remove-item"> <?php echo file_get_contents("utilities/x-symbol.svg"); ?> </div>
+                                <div>Étape</div>
+                            </div>
                             <div class="button button-primary add-new-step" id="add_new_step" onclick='ShowFormAddNewStep()'>Ajouter une étape</div>
                         </div>
-                    </div>
 
+                        <div class="recipe-form-video-input">
+                            <label for="video-input">Ajouter un vidéo</label>
+                            <input type="text" name="video-input" class="text-input">
+                        </div>
+                        
+                        <div class="recipe-form-private-input">
+                            <div>Rendre la recette publique</div>
+                            <input type="checkbox">
+                        </div>
+                    </div>
                 </form>
             </div>
         </div>
 
+        <!-- Form pour ajouter un ingrédient à la recette -->
         <div class="personal-recipes-add-recipe-form" id="personal-recipes-add-ingredient-form">
             <div class="transparent-background">
                 <form method="post" class="items-form-content">
                     <div class="form-content-wrapper">
                         <div class="form-exit" onclick='HideFormAddNewIngredient()'> <?php echo file_get_contents("utilities/x-symbol.svg"); ?> </div>
                         <!-- add items form here -->
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Form pour ajouter une étape à la recette -->
+        <div class="personal-recipes-add-recipe-form" id="personal-recipes-add-step-form">
+            <div class="transparent-background">
+                <form method="post" class="items-form-content">
+                    <div class="form-content-wrapper">
+                        <div class="form-exit" onclick='HideFormAddNewStep()'> <?php echo file_get_contents("utilities/x-symbol.svg"); ?> </div>
+                        <!-- add items form here -->
+
+                        <div class="recipe-form-step-input">
+                            <label for="image-input">Ajouter une étape</label>
+                            <input type="text" name="step-input" class="text-input step-input">
+                            <input type="submit" class="button button-primary add-new-step" id="add_new_step" value="Ajouter l'étape">
+                        </div>
                     </div>
                 </form>
             </div>
