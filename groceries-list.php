@@ -25,9 +25,6 @@
     <?php RenderFavicon(); ?>
 </head>
 
-<?php
-
-?>
 
 <body> 
     <div class="header-banner">
