@@ -42,25 +42,55 @@
         </div>
         <div class="recipe-ingredients">
             <div class="checkboxes-container">
-                <div>Ingrédients : </div>
+                <!-- <div>Ingrédients : </div>
                 <input class="checkbox" type="checkbox" id="ingrédient1" name="ingrédient1" value="ingrédient1">
                 <label for="ingrédient1"> ingrédient 1</label><br>
                 <input class="checkbox" type="checkbox" id="ingrédient2" name="ingrédient2" value="ingrédient2">
                 <label for="ingrédient2">ingrédient 2</label><br>
                 <input class="checkbox" type="checkbox" id="ingrédient3" name="ingrédient3" value="ingrédient3">
-                <label for="ingrédient3" class="strike-through"> ingrédient 3</label><br>
+                <label for="ingrédient3" class="strike-through"> ingrédient 3</label><br> -->
+
+                <?php
+                    // $nbIngredients <= 0
+                    if (true) {
+                        echo '<div class="neutral-message" style="display: flex"> Vous n\'avez présentement aucun ingrédient dans votre recette </div>';
+                    }
+                    else {
+                        // add all ingredients already added here
+                    }
+                ?>
+
+                <!-- template pour un ingrédient -->
+                <div class="recipe-ingredient">
+                    <div class="recipe-remove-item"> <?php echo file_get_contents("utilities/x-symbol.svg"); ?> </div>
+                    <div>1/2 tasse</div>
+                    <div>Ingrédient</div>
+                </div>
+
+                <div class="button button-primary add-new-ingredient" id="add_new_ingredient" onclick='ShowFormAddNewIngredient()'>Ajouter un ingrédient</div>
             </div>
         </div>
 
         <div class="recipe-steps">
             <div class="checkboxes-container">
-                <div>Étapes : </div>
-                <input class="checkbox" type="checkbox"  id="étape1" name="étapes1" value="étapes1"></input> <label class="strike-through" for="étape1">Étape 1</label><br>
-                <input class="checkbox" type="checkbox"  id="étape2" name="étapes2" value="étapes2"></input> <label class="strike-through" for="étape2">Étape 2</label><br> 
-                <input class="checkbox" type="checkbox"  id="étape3" name="étapes3" value="étapes3"></input> <label class="strike-through" for="étape3">Étape 3</label><br> 
-                        
+                <?php 
+                    // $nbSteps <= 0
+                    if (true) {
+                        echo '<div class="neutral-message" style="display: flex"> Vous n\'avez présentement aucune étape dans votre recette </div>';
+                    }
+                    else {
+                        // add all steps already added here
+                    }
+                ?>
+
+                <!-- template pour une étape -->
+                <div class="recipe-step">
+                    <div class="recipe-remove-item"> <?php echo file_get_contents("utilities/x-symbol.svg"); ?> </div>
+                    <div>Étape</div>
+                </div>
+                <div class="button button-primary add-new-step" id="add_new_step" onclick='ShowFormAddNewStep()'>Ajouter une étape</div>
             </div>
-        </div>
+        </div>   
 
         <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" class="recipe-video">
             Vidéo tutoriel (facultatif)

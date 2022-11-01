@@ -32,7 +32,7 @@
             else{
                 echo'
                 <script>
-                    window.onload = () => { document.getElementBerror_connexion").style.display = "block"; }
+                    window.onload = () => { document.getElementById("error_connexion").style.display = "block"; }
                 </script>';
             }
         }
