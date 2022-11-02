@@ -146,7 +146,7 @@ body {
 }
 
 .form-ingredient-option{
-    display: inline;
+    display: inline-block;
 }
 
 .space-grid {
@@ -238,6 +238,9 @@ body {
 }
 ul{
     list-style-type: none;
+}
+ul > *{
+    width: 50%;
 }
 .display-filter-section{
     display: flex;

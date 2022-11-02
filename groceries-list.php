@@ -104,28 +104,30 @@
                             $nbIngredient = $nbIngredient + 1;
                             echo "<li>";   
                             if($ingredientInventaire[1])
-                                echo "<form  method='post' class='form-ingredient-option'><input type='checkbox' value='$ingredientInventaire[1]' name='isChecked' checked/>";
+                                echo "<form method='post' class='form-ingredient-option'><input type='checkbox' value='$ingredientInventaire[1]' name='isChecked' checked/>";
                             else
-                                echo "<form  method='post' class='form-ingredient-option'><input type='checkbox' value='$ingredientInventaire[1]' name='isChecked'/>";
+                                echo "<form method='post' class='form-ingredient-option'><input type='checkbox' onChange='this.form.submit()' value='$ingredientInventaire[1]' name='isChecked'/>";
                             if($ingredientInventaire[1])
                             {    
                                 echo "<span style='text-decoration:line-through'>$ingredientInfo[1]</span>";
                             }
-                            else          
+                            else
+                            {
                                 echo "<span title='$ingredientInfo[2]'>$ingredientInfo[1]</span>";
-                            echo        "<input type='number' name='qteChosen' min='1' value='$ingredientInventaire[0]'>
-                                        <input type='hidden' name='idIngredient' value='$ingredientInventaire[3]'>
-                                        <input type='hidden' name='idEmplacement' value='$spaceChosen'>
-                                        <input type='hidden' value='$spaceChosen' name='buttonSpace'>
-                                        <button type='submit'>Modifier</button>
-                                    </form>
-                                    <form method='post' class='form-ingredient-option'>
-                                        <button type='submit' name='option-delete' value='1'>Supprimer</button>
-                                        <input type='hidden' name='idIngredientDelete' value='$ingredientInventaire[3]'>
-                                        <input type='hidden' value='$spaceChosen' name='buttonSpace'>
-                                        <input type='hidden' name='idEmplacementDelete' value='$spaceChosen'>
-                                    </form>
-                                    </li>";
+                            }
+                            echo "<input type='number' name='qteChosen' min='1' value='$ingredientInventaire[0]'>
+                                    <input type='hidden' name='idIngredient' value='$ingredientInventaire[3]'>
+                                    <input type='hidden' name='idEmplacement' value='$spaceChosen'>
+                                    <input type='hidden' value='$spaceChosen' name='buttonSpace'>
+                                    <button type='submit'>Modifier</button>
+                                </form>
+                                <form method='post' class='form-ingredient-option'>
+                                    <button type='submit' name='option-delete' value='1'>Supprimer</button>
+                                    <input type='hidden' name='idIngredientDelete' value='$ingredientInventaire[3]'>
+                                    <input type='hidden' value='$spaceChosen' name='buttonSpace'>
+                                    <input type='hidden' name='idEmplacementDelete' value='$spaceChosen'>
+                                </form>
+                                </li>";
                         }
                     }
                     echo '</ul>';
