@@ -49,7 +49,7 @@
     <div class="wrapper">
         <div class="inventory-wrapper">
             <?php 
-                if(!($_SERVER['REQUEST_METHOD'] === 'POST')){
+                if(!($_SERVER['REQUEST_METHOD'] == 'POST')){
                     $tabInfoSpace = InfoLocation($_SESSION['idUser']); 
                     $numInfoSpace = count($tabInfoSpace);
                     if ($numInfoSpace <= 0){
@@ -228,7 +228,7 @@
 </body>
 
 <script>
-    window.onload = () => {
+    
         function ShowAddNewLocation(){
             document.getElementById("add_new_location").style.display = "block"
         }
@@ -255,5 +255,5 @@
         function HideFormItemQuantity(id) {
             document.getElementById("inventory-item-form-" + id).style.display = "none";
         }
-    }  
+    
 </script>
