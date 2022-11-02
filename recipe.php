@@ -1,4 +1,11 @@
-<?php session_start(); ?>
+<?php 
+    session_start(); 
+    if(array_key_exists('buttonDeconnecter', $_POST)) {
+        session_destroy();
+        header('Location: index.php');
+    }
+
+?>
 
 <head>
     <title> Recette Foodbook</title>
@@ -7,37 +14,57 @@
     
     <style>
         <?php require 'styles/recipe.css'; ?>
-
+        <?php require 'scripts/db.php'; ?>
         <?php require 'styles/must-have.css'; ?>
         <?php require 'scripts/body-scripts.php'; ?>
     </style>
-    
+    <?php 
+        if(!($_SERVER['REQUEST_METHOD'] === 'POST')){
+            $recette =  ShowSingleRecipe($_GET['id'])[0];
+            $infoRecette = InfoRecipeByID($recette[0])[0];
+        } 
+        else{
+            $recette = ShowSingleRecipe($_POST['id'])[0];
+            $infoRecette = InfoRecipeByID($recette[0])[0];
+        } 
+    ?>
     <?php RenderFavicon(); ?>
 </head>
 
 <bod>
     <div class="header-banner">
         <a href="index.php"><?php echo file_get_contents("utilities/foodbook-logo.svg"); ?></a>
-        <div class="banner-title"> Recette </div>
+        <div class="banner-title"> <?php echo $recette[2];?> </div>
 
         <div class="searchbar">
             <input type="text" class="searchbar-input" placeholder="type something"></input>
             <div class="search-icon"><?php echo file_get_contents("utilities/search.svg"); ?></div>
         </div>
 
-        <a href="login.php" class="svg-button list-button"> <?php echo file_get_contents("utilities/list.svg"); ?> </a>
-        <a href="inventory.php" class="svg-button inventory-button"> <?php echo file_get_contents("utilities/food.svg"); ?> </a>
-        <a href="login.php" class="svg-button account-button"> <?php echo file_get_contents("utilities/account.svg"); ?> </a>
+        <div class="svg-wrapper">
+            <a href="personal-recipes.php" class="svg-button list-button"> <?php echo file_get_contents("utilities/book.svg"); ?> </a>
+            <a href="groceries-list.php" class="svg-button list-button"> <?php echo file_get_contents("utilities/list.svg"); ?> </a>
+            <a href="inventory.php" class="svg-button inventory-button"> <?php echo file_get_contents("utilities/food.svg"); ?> </a>
+            <?php 
+                if(!empty($_SESSION['idUser'])){
+                    echo '<a href="edit-profil.php" class="svg-button login-button"> '.file_get_contents("utilities/account.svg").'</a>';
+                    echo '<form method="post"><button type="submit" name="buttonDeconnecter" class="svg-button login-button" value="buttonDeconnecter" />'.file_get_contents("utilities/logout.svg").'</form>';
+                }
+                else{
+                    echo '<a href="login.php" class="svg-button login-button"> '.file_get_contents("utilities/account.svg").'</a>';
+                }
+            ?>
+        </div>
     </div>
 
     <div class="recipe-container">
         <div class="recipe-header">
             <div class="recipe-image">
-                image
+                <img src='<?=$infoRecette[5]?>' title='<?=$recette[2]?>'>
             </div>
     
             <div class="recipe-title">
-                titre
+                <?= $recette[2] ?>
             </div>
         </div>
         <div class="recipe-ingredients">
@@ -66,8 +93,10 @@
                     <div>1/2 tasse</div>
                     <div>Ingrédient</div>
                 </div>
-
-                <div class="button button-primary add-new-ingredient" id="add_new_ingredient" onclick='ShowFormAddNewIngredient()'>Ajouter un ingrédient</div>
+                <?php 
+                    if($_SESSION['idUser'] == $recette[1])
+                        echo "<div class='button button-primary add-new-ingredient' id='add_new_ingredient' onclick='ShowFormAddNewIngredient()'>Ajouter un ingrédient</div>";
+                ?>
             </div>
         </div>
 
@@ -82,18 +111,26 @@
                         // add all steps already added here
                     }
                 ?>
-
+                <?php 
+                    foreach($tabEtape as $etape){
+                        echo "<div class='recipe-step'>";
+                        if($_SESSION['idUser'] == $recette[1])
+                        {
+                            echo "<div class='recipe-remove-item'>file_get_contents('utilities/x-symbol.svg')</div>";
+                        }
+                        echo "<div>Étape</div></div>";
+                    }
+                ?>
                 <!-- template pour une étape -->
-                <div class="recipe-step">
-                    <div class="recipe-remove-item"> <?php echo file_get_contents("utilities/x-symbol.svg"); ?> </div>
-                    <div>Étape</div>
-                </div>
-                <div class="button button-primary add-new-step" id="add_new_step" onclick='ShowFormAddNewStep()'>Ajouter une étape</div>
+                <?php 
+                    if($_SESSION['idUser'] == $recette[1])
+                        echo "<div class='button button-primary add-new-step' id='add_new_step' onclick='ShowFormAddNewStep()'>Ajouter une étape</div>";
+                ?>
             </div>
         </div>   
 
-        <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" class="recipe-video">
-            Vidéo tutoriel (facultatif)
+        <a href="<?= $infoRecette[6] ?>" class="recipe-video">
+            Vidéo tutoriel
         </a>
 
         <div class="recipe-save-like">
@@ -107,7 +144,7 @@
         </div>
 
         <div class="publisher-info">
-            Informations sur l'utilisateur qui a publié la recette
+            <?= $infoRecette[2] ?>
         </div>
 
         <div class="recipe-comments">

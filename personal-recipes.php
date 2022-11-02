@@ -40,13 +40,23 @@
             <a href="login.php" class="svg-button list-button"> <?php echo file_get_contents("utilities/list.svg"); ?> </a>
             <a href="inventory.php" class="svg-button inventory-button"> <?php echo file_get_contents("utilities/food.svg"); ?> </a>
             <?php 
-                if(!empty($_SESSION['idUser'])) {
                     echo '<a href="edit-profil.php" class="svg-button login-button"> '.file_get_contents("utilities/account.svg").'</a>';
                     echo '<form method="post"><button type="submit" name="buttonDeconnecter" class="svg-button login-button" value="buttonDeconnecter" />'.file_get_contents("utilities/logout.svg").'</form>';
-                }
-                else {
-                    echo '<a href="login.php" class="svg-button login-button"> '.file_get_contents("utilities/account.svg").'</a>';
-                }
+                    if($_SERVER['REQUEST_METHOD'] == 'POST'){
+                        if(!empty($_POST['title-input'])){
+                            if(isset($_POST['isPublic'])){
+                                echo AddRecipe($_SESSION['idUser'],$_POST['title-input'],1,0,date('Y-m-d H:i:s'),$_POST['type-input']);
+                                $idRecette = LastInsertedRecipe();
+                                AddInfoRecipe($idRecette,$_POST['image-input'],$_POST['video-input']) ;
+                                ChangePage("personal-recipes.php");
+                            }else{
+                                echo AddRecipe($_SESSION['idUser'],$_POST['title-input'],0,0,date('Y-m-d H:i:s'),$_POST['type-input']);
+                                $idRecette = LastInsertedRecipe();
+                                AddInfoRecipe($idRecette,$_POST['image-input'],$_POST['video-input']) ;
+                                ChangePage("personal-recipes.php");
+                            }
+                        }
+                    }
             ?>
         </div>
     </div>
@@ -54,8 +64,19 @@
     <div class="wrapper">
         <div class="personal-recipes-wrapper">
             <div class="add-new-recipe" id="add_new_recipe" onclick='ShowFormRecipeCreation()'>Ajouter une recette</div>
+            <?php 
+                $tabRecette = ShowRecipe($_SESSION['idUser']);
+                echo '
+                    <form method="post">
+                    <div class="space-grid">';
+                    foreach($tabRecette as $recette){
+                        echo "<a class='space-div' href='recipe.php?recette=$recette[0]' type='submit' name='buttonSpace' value='$recette[0]'> $recette[2] <div class='space-div-arrow'>". file_get_contents("utilities/caret.svg") ."</div> </a>";
+                    }
+                echo '</div>
+            </form>';
+            
+            ?>
             <div class="neutral_message" id="error_no_recipes">Vous n'avez pas de recettes pour l'instant.</div>
-
             <div class="recipe-creation-form"></div>
         </div>
 
@@ -93,7 +114,7 @@
                         
                         <div class="recipe-form-private-input">
                             <div>Rendre la recette publique</div>
-                            <input type="checkbox">
+                            <input type="checkbox" name="isPublic">
                         </div>
 
                         <input type="submit">
@@ -101,7 +122,6 @@
                 </form>
             </div>
         </div>
-
         <!-- Form pour ajouter un ingrédient à la recette -->
         <div class="personal-recipes-add-recipe-form" id="personal-recipes-add-ingredient-form">
             <div class="transparent-background">
@@ -138,21 +158,19 @@
 
 
 <script>
-window.onload = () => {
-    <?php
-        if(!($_SERVER['REQUEST_METHOD'] === 'POST')) {
-            echo 'document.getElementById("add_new_recipe").style.display = "block";';
+    window.onload = () => {
+        <?php
+            if(!($_SERVER['REQUEST_METHOD'] === 'POST')) {
+                echo 'document.getElementById("add_new_recipe").style.display = "block";';
 
-            // Vérfie la quantité de recettes de l'utilisateur, et affiche un message
-            // $tabRecettes = ShowRecipe($_SESSION['idUser']);
-            // $numTabRecette = count($tabRecettes);
-            // $tabRecettes <= 0
-            if(true) {
-                echo 'document.getElementById("error_no_recipes").style.display = "block";';
+                $tabRecette = ShowRecipe($_SESSION['idUser']);
+                
+                if(!(count($tabRecette) > 0)) {
+                    echo 'document.getElementById("error_no_recipes").style.display = "block";';
+                }
             }
-        }
-    ?>
-}
+        ?>
+    }
 
     function ShowFormRecipeCreation() {
         document.getElementById("personal-recipes-add-recipe-form").style.display = "block";

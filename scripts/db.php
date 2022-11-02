@@ -788,7 +788,7 @@ function AddRecipe($pIdCompte, $pNomRecette, $pPublique, $pNbVus, $pDateCreation
         $stmt = $PDO->prepare($sqlProcedure);
         $stmt->bindParam(':pIdCompte', $pIdCompte, PDO::PARAM_INT);
         $stmt->bindParam(':pNomRecette', $pNomRecette, PDO::PARAM_STR);
-        $stmt->bindParam(':pPublique', $pPublique, PDO::PARAM_BOOL);
+        $stmt->bindParam(':pPublique', $pPublique, PDO::PARAM_INT);
         $stmt->bindParam(':pNbVus', $pNbVus, PDO::PARAM_INT);
         $stmt->bindParam(':pDateCreation', $pDateCreation, PDO::PARAM_STR);
         $stmt->bindParam(':pIdTypeRecette', $pIdTypeRecette, PDO::PARAM_INT);
@@ -797,6 +797,19 @@ function AddRecipe($pIdCompte, $pNomRecette, $pPublique, $pNbVus, $pDateCreation
     } catch (PDOException $e) {
         return $e->getMessage();
     }   
+}
+function LastInsertedRecipe(){
+    Connexion();
+    global $PDO;
+    mysqli_set_charset($PDO, "utf8mb4");
+
+    $stmt = $PDO->prepare("SELECT max(idRecette)FROM Recette", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+    $stmt->execute();
+    while ($donnee = $stmt->fetch(PDO::FETCH_NUM)) {
+        $lastID = $donnee[0];
+    }
+    $stmt->closeCursor();
+    return $lastID;
 }
 //Modify a Recipe
 function ModifyRecipe($pIdCompte, $pIdRecette,$pNomRecette, $pPublique, $pNbVus, $pDateCreation, $pIdTypeRecette){
@@ -888,17 +901,35 @@ function ShowRecipe($idCompte = '', $pNbVus = '', $pDateCreation = ''){
         $stmt->closeCursor();
         return $info;
 }
+function ShowSingleRecipe($idRecipe){
+    Connexion();
+    global $PDO;
+    mysqli_set_charset($PDO, "utf8mb4");
+    $stmt = $PDO->prepare("SELECT * FROM Recette WHERE idRecette = :idRecipe", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+    $stmt->bindParam(':idRecipe', $idRecipe, PDO::PARAM_INT);
+    $stmt->execute();
+    $info = [];
+    while ($donnee = $stmt->fetch(PDO::FETCH_NUM)) {
+        $rangee = [];
+        array_push($rangee, $donnee[0]); // idRecette
+        array_push($rangee, $donnee[1]); // idCompte
+        array_push($rangee, $donnee[2]); // nomRecette
+        array_push($rangee, $donnee[3]); // publique
+        array_push($rangee, $donnee[4]); // nbVus
+        array_push($rangee, $donnee[5]); // DateCreation
+        array_push($rangee, $donnee[6]); // idTypeRecette
+        array_push($info, $rangee);
+        }
+        $stmt->closeCursor();
+        return $info;
+}
 //Add Information on a Recipe
-function AddInfoRecipe($pTempsPreparation, $pNbPortions, $pDescription, $pInstruction, $pRecette_idRecette, $pImage, $pVideo){
+function AddInfoRecipe($pRecette_idRecette, $pImage, $pVideo){
     Connexion();
     global $PDO;
     try{
-        $sqlProcedure = "CALL AjouterInfoRecette(:pTempsPreparation, :pNbPortions, :pDescription, :pInstruction, :pRecette_idRecette, :pImage, :pVideo)";
+        $sqlProcedure = "CALL AjouterInfoRecette(:pRecette_idRecette, :pImage, :pVideo)";
         $stmt = $PDO->prepare($sqlProcedure);
-        $stmt->bindParam(':pTempsPreparation', $pTempsPreparation, PDO::PARAM_INT);
-        $stmt->bindParam(':pNbPortions', $pNbPortions, PDO::PARAM_INT);
-        $stmt->bindParam(':pDescription', $pDescription, PDO::PARAM_STR);
-        $stmt->bindParam(':pInstruction', $pInstruction, PDO::PARAM_STR);
         $stmt->bindParam(':pRecette_idRecette', $pRecette_idRecette, PDO::PARAM_INT);
         $stmt->bindParam(':pImage', $pImage, PDO::PARAM_STR);
         $stmt->bindParam(':pVideo', $pVideo, PDO::PARAM_STR);
@@ -963,7 +994,7 @@ function InfoRecipe(){
     return $info;
 }
 //Show info about a recipe with a user id
-function InfoRecipeByUser($Recette_idRecette){
+function InfoRecipeByID($Recette_idRecette){
         Connexion();
         global $PDO;
         mysqli_set_charset($PDO, "utf8mb4");
@@ -1035,6 +1066,24 @@ function InfoTypeRecipe(){
     mysqli_set_charset($PDO, "utf8mb4");
 
     $stmt = $PDO->prepare("SELECT * FROM TypeRecette", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+    $stmt->execute();
+    $info = [];
+    while ($donnee = $stmt->fetch(PDO::FETCH_NUM)) {
+        $rangee = [];
+        array_push($rangee, $donnee[0]); // IdTypeRecette
+        array_push($rangee, $donnee[1]); // nomTypeRecette
+        array_push($info, $rangee);
+    }
+    $stmt->closeCursor();
+    return $info;
+}
+function InfoSingleTypeRecipe($idTypeRecette){
+    Connexion();
+    global $PDO;
+    mysqli_set_charset($PDO, "utf8mb4");
+
+    $stmt = $PDO->prepare("SELECT * FROM TypeRecette WHERE idTypeRecette = :pIdTypeRecette", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+    $stmt->bindParam(':pIdTypeRecette', $idTypeRecette, PDO::PARAM_STR);
     $stmt->execute();
     $info = [];
     while ($donnee = $stmt->fetch(PDO::FETCH_NUM)) {
