@@ -7,7 +7,7 @@
 ?>
 
 <head>
-    <title>À propos de nous</title>
+    <title>À propos de Foodbook</title>
     <meta charset="utf-8">
     <style>
         <?php require 'styles/about-page.css'; ?>
@@ -40,8 +40,17 @@
         </div>
 
 
-        <div class="wrapper-main-message">
-
+        <div class="main-wrapper">
+            <div class="container-main-display">
+                <div class="container-for-message">
+                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aliquam enim eligendi blanditiis molestias, soluta numquam quibusdam vitae aliquid tenetur, 
+                    quo sapiente iste illum eius neque fugit dolores corrupti voluptatum sit!
+                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nobis amet, impedit consequuntur at repellat repudiandae 
+                    cum incidunt iste distinctio placeat ut nesciunt possimus officiis vel perspiciatis, inventore quod in doloribus.
+                </div>
+            </div>
+            
+    
         </div>
 
 
