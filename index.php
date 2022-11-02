@@ -25,7 +25,7 @@
     <div class="header-banner">
         <a href="index.php"><?php echo file_get_contents("utilities/foodbook-logo.svg"); ?></a>
         <div class="banner-title"> Accueil </div>
-
+ 
         <div class="searchbar">
             <input type="text" class="searchbar-input" placeholder="type something"></input>
             <div class="search-icon"><?php echo file_get_contents("utilities/search.svg"); ?></div>
