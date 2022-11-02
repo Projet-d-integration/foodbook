@@ -63,6 +63,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
     </div>
 
     <form method="POST" class="edit-profil-form">
+        <a href="personal-recipes.php" class="svg-button list-button"> <?php echo file_get_contents("utilities/book.svg"); ?> </a>
         <input type="text" name="email-edit-profil" class="text-input-profil" placeholder="New email..." value="<?= $info_user[3] ?>">
         <input type="text" name ="confirm-email-edit-profil"class="text-input-profil" placeholder="Confirm new email...">
         <input name="edit-email-but-profil" type="submit" value="Modifier" class="button button-primary">
