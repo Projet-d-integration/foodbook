@@ -3,7 +3,8 @@
         echo '    
         <div class="footer">
             Une création du Collège Lionel-Groulx, fait par Anthony Lamothe, Gabriel Lesard, Guillaume Légaré et Samy Tétrault<a href="./ui-kit.php" class="hidden-cursor">.</a>
-        </div>';
+        </div>
+        <div class="display-icon-about"> <a href="about-foodbook.php" class="svg-button">'.file_get_contents("utilities/about-symbol.svg").'</a> </div>';
     }
 
     function RenderFavicon() {
