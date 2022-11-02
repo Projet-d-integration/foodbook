@@ -94,7 +94,7 @@
                     <div>Ingrédient</div>
                 </div>
                 <?php 
-                    if($_SESSION['idUser'] == $recette[1])
+                    if($_SESSION['idUser'] == $recette[1]) // || $_SESSION['idUser'] == table Admin
                         echo "<div class='button button-primary add-new-ingredient' id='add_new_ingredient' onclick='ShowFormAddNewIngredient()'>Ajouter un ingrédient</div>";
                 ?>
             </div>
