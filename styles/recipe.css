@@ -4,7 +4,6 @@
     align-items: center;
     margin: 5rem 20rem;
     gap: 2rem;
-
 }
 
 .recipe-header {
@@ -13,14 +12,18 @@
 }
 
 .recipe-image{
-    background: var(--color-accent);
+    color: var(--color-secondary);
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--color-secondary);
-    border-radius: 0.5rem;
     width: 20rem;
     height: 20rem;
+}
+
+.recipe-image img {
+    object-fit: contain;
+    max-width: 20rem;
+    max-height: 20rem;
 }
 
 .recipe-title {

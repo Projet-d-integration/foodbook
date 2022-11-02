@@ -235,11 +235,11 @@ END$$
 
 /* Ajouter InfoRecette */
 DELIMITER $$
-CREATE PROCEDURE AjouterInfoRecette (pTempsPreparation varchar(45), pNbPortions int, pDescription varchar(200), pInstruction varchar(450), pRecette_IdRecette int, pImage VARCHAR(650), pVideo VARCHAR(650))
+CREATE DEFINER=`root`@`localhost` PROCEDURE `AjouterInfoRecette`(pRecette_IdRecette int, pImage VARCHAR(650), pVideo VARCHAR(650))
 BEGIN
-    INSERT INTO InfoRecette(tempsPreparation, nbPortions, description, instruction, Recette_idRecette, image, video)
-		VALUES(pTempsPreparation, pNbPortions, pDescription, pInstruction, pRecette_IdRecette, pImage, pVideo);
-END$$ 
+    INSERT INTO InfoRecette(Recette_idRecette, image, video)
+		VALUES(pRecette_IdRecette, pImage, pVideo);
+END
 
 /* Modifier InfoRecette */
 DELIMITER $$

@@ -211,3 +211,13 @@ CREATE TABLE IF NOT EXISTS Emplacement(
   PRIMARY KEY (`idEmplacement`));
 
 ALTER TABLE Emplacement ADD `Svg` VARCHAR(40);
+
+DROP TABLE IF EXISTS IngredientRecette;
+CREATE TABLE IF NOT EXISTS InstructionRecette(
+  `Recette_idRecette` INT NOT NULL,
+  `Instruction` VARCHAR(350) NOT NULL,
+  `indice` INT NOT NULL,
+  PRIMARY KEY (`Recette_idRecette`,`indice`),
+  CONSTRAINT `fk_IngredientRecette_Instruction`
+    FOREIGN KEY (`Recette_idRecette`)
+    REFERENCES `FoodBook`.`Recette` (`idRecette`));

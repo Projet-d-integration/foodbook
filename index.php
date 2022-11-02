@@ -4,6 +4,7 @@
         session_destroy();
         header('Location: index.php');
     }
+
 ?>
 
 <head>
@@ -13,7 +14,7 @@
     
     <style>
         <?php require 'styles/index.css'; ?>
-
+        <?php require 'scripts/db.php'; ?>
         <?php require 'styles/must-have.css'; ?>
         <?php require 'scripts/body-scripts.php'; ?>
     </style>
@@ -46,24 +47,18 @@
             ?>
         </div>
     </div>
-
     <div class="separators">
-        <a href="recipes-list.php" class="separator">
-           <div class="separator-text">Poulet</div>
-           <div class="arrow">></div>
-        </a>
-        <a href="recipes-list.php" class="separator">
-           <div class="separator-text">Boeuf</div>
-           <div class="arrow">></div>
-        </a>
-        <a href="recipes-list.php" class="separator">
-           <div class="separator-text">Végé</div>
-           <div class="arrow">></div>
-        </a>
-        <a href="recipes-list.php" class="separator">
-           <div class="separator-text">Pâtes</div>
-           <div class="arrow">></div>
-        </a>
+        <?php 
+            $tabTypeRecette = InfoTypeRecipe();
+            foreach($tabTypeRecette as $typeIngredient){
+                echo "
+                    <a href='recipes-list.php?type=$typeIngredient[0]' class='separator'>
+                        <div class='separator-text'>$typeIngredient[1]</div>
+                        <div class='arrow'>></div>
+                    </a>
+                ";
+            }
+        ?>
     </div>  
 
     <?php GenerateFooter(); ?>
