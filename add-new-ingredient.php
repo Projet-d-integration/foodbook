@@ -67,7 +67,7 @@
         <a href="index.php"><?php echo file_get_contents("utilities/foodbook-logo.svg"); ?></a>
         <div class="banner-title"> Ajouter Ingredient </div>
         <div class="svg-wrapper">
-            <a href="login.php" class="svg-button list-button"> <?php echo file_get_contents("utilities/list.svg"); ?> </a>
+            <a href="groceries-list.php" class="svg-button list-button"> <?php echo file_get_contents("utilities/list.svg"); ?> </a>
             <?php 
                 if(!empty($_SESSION['idUser'])){
                     echo '<a href="edit-profil.php" class="svg-button login-button"> '.file_get_contents("utilities/account.svg").'</a>';
