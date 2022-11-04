@@ -293,4 +293,14 @@ BEGIN
     UPDATE CodeBare SET codeBarre = pCodeBarre, Ingredient_idIngredient = pIngredient_idIngredient WHERE idCodeBare = pIdCodeBare;
 END$$ 
 
+/* Contenue Recette*/
+CREATE DEFINER=`root`@`localhost` PROCEDURE `AjouterIngredientRecette`(pQteIngredient INT, Recette_idRecette INT, Ingredient_idIngredient INT)
+INSERT INTO IngredientRecette(qteIngredient,Recette_idRecette,Ingredient_idIngredient)
+		VALUES(pQteIngredient,Recette_idRecette,Ingredient_idIngredient)
+
+DELIMITER $$
+CREATE PROCEDURE ModifierIngredientRecette(pQteIngredient INT, Recette_idRecette INT, Ingredient_idIngredient INT)
+BEGIN
+    UPDATE IngredientRecette SET qteIngredient = pQteIngredient WHERE Recette_idRecette = Recette_idRecette AND Ingredient_idIngredient = Ingredient_idIngredient;
+END$$ 
 /*Ajouter evaluation commentaire */

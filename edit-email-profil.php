@@ -16,48 +16,48 @@
         <?php require 'scripts/body-scripts.php'; ?>
         <?php require 'scripts/db.php'; ?>
     </style>
-    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <?php RenderFavicon(); ?>
 </head>
 
-
-<?php 
-
-$info_user = UserInfo($_SESSION['email']);
-$email = $_POST["email-edit-profil"];
-
-
-
-if($_SERVER['REQUEST_METHOD'] === 'POST')
-{
-    if(isset($_POST['edit-email-but-profil']))
-    {
-        if(empty($_POST["email-edit-profil"]) || empty($_POST["confirm-email-edit-profil"]))
-        {
-            echo '<script>window.onload = () => { document.getElementById("error_entries").style.display = "block"; }</script>';
-        }
-        else if(UserExist($_POST["email-edit-profil"]))
-        {
-            echo '<script>window.onload = () => { document.getElementById("error_email_used").style.display = "block"; }</script>';
-        }
-        else if(ValidateEmailInput($_POST["email-edit-profil"]) || ValidateEmailInput($_POST["confirm-email-edit-profil"]))
-        {
-            echo '<script>window.onload = () => { document.getElementById("error_email").style.display = "block"; }</script>';
-        }
-        else if($_POST["confirm-email-edit-profil"] != $_POST["email-edit-profil"])
-        {
-            echo '<script>window.onload = () => { document.getElementById("error_email_different").style.display = "block"; }</script>';
-        }
-        else{
-            ModifyEmail($info_user[0],$_POST["confirm-email-edit-profil"]);
-            $info_user[3] = $_POST["confirm-email-edit-profil"];
-            echo '<script>window.onload = () => { document.getElementById("success_modified_email").style.display = "block"; }</script>';
-        }          
-    }
-}
-?>
 <body>
-<div class="header-banner">
+    <?php 
+        if($_SERVER['REQUEST_METHOD'] == 'POST')
+            AddAnimation();
+    ?>
+    
+    <?php 
+        $info_user = UserInfo($_SESSION['email']);
+        $email = $_POST["email-edit-profil"];
+        if($_SERVER['REQUEST_METHOD'] === 'POST')
+        {
+            if(isset($_POST['edit-email-but-profil']))
+            {
+                if(empty($_POST["email-edit-profil"]) || empty($_POST["confirm-email-edit-profil"]))
+                {
+                    echo '<script>window.onload = () => { document.getElementById("error_entries").style.display = "block"; }</script>';
+                }
+                else if(UserExist($_POST["email-edit-profil"]))
+                {
+                    echo '<script>window.onload = () => { document.getElementById("error_email_used").style.display = "block"; }</script>';
+                }
+                else if(ValidateEmailInput($_POST["email-edit-profil"]) || ValidateEmailInput($_POST["confirm-email-edit-profil"]))
+                {
+                    echo '<script>window.onload = () => { document.getElementById("error_email").style.display = "block"; }</script>';
+                }
+                else if($_POST["confirm-email-edit-profil"] != $_POST["email-edit-profil"])
+                {
+                    echo '<script>window.onload = () => { document.getElementById("error_email_different").style.display = "block"; }</script>';
+                }
+                else{
+                    ModifyEmail($info_user[0],$_POST["confirm-email-edit-profil"]);
+                    $info_user[3] = $_POST["confirm-email-edit-profil"];
+                    echo '<script>window.onload = () => { document.getElementById("success_modified_email").style.display = "block"; }</script>';
+                }          
+            }
+        }
+    ?>
+    <div class="header-banner">
         <a href="index.php"><?php echo file_get_contents("utilities/foodbook-logo.svg"); ?></a>
         <div class="banner-title"> Modifier mon courriel</div>
     </div>

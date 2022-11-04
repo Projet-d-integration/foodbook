@@ -16,12 +16,14 @@
         <?php require 'scripts/body-scripts.php'; ?>
         <?php require 'scripts/filter.php'; ?>
     </style>
-    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <?php RenderFavicon(); ?>
 </head>
 
 <body>
-
+    <?php 
+        AddAnimation();
+    ?>
     <div class="header-banner">
         <a href="index.php"><?php echo file_get_contents("utilities/foodbook-logo.svg"); ?></a>
         <div class="banner-title"> <?php if(!($_SERVER['REQUEST_METHOD'] === 'POST')){echo InfoSingleTypeRecipe($_GET['type'])[0][1];} else{echo InfoSingleTypeRecipe($_POST['type'])[0][1];} ?></div>

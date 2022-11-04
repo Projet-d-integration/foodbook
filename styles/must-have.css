@@ -237,3 +237,157 @@ input {
     font-size: 0.8rem;
     padding: 0.5rem 2rem;
 }
+
+
+.loader {
+    bottom: 0;
+    height: 25%;
+    position: fixed;
+    right: 0;
+    width: 25%;
+    z-index: 1111;
+    overflow: visible;
+}
+
+.loader-inner {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+#restLoader {
+    margin: 0 auto;
+    padding: 100px 0;
+    position: relative;
+    transform: scale(0.8);
+    width: 165px;
+    height: 100px;
+}
+
+#cook div {
+    position: absolute;
+    left: 6px;
+    transform: rotate(10deg) ;
+    width: 20px;
+    height: 20px;
+    opacity: 0;
+    background: var(--color-accent);
+    border-radius: 50%;
+    animation-name: cooking;
+    animation-duration: 2.5s;
+    transform-origin: 81px 0%;
+    animation-iteration-count: infinite;
+    animation-direction: normal;
+}
+
+#cook div:nth-child(1) {
+    animation-delay: 0;
+}
+
+#cook div:nth-child(2) {
+    animation-delay: 0.05s;
+}
+
+#cook div:nth-child(3) {
+    animation-delay: 0.10s;
+}
+
+#cook div:nth-child(4) {
+    animation-delay: 0.15s;
+}
+
+
+
+@keyframes cooking {
+    18% {
+        opacity: 0;
+    }
+    19% {
+        opacity: 1;
+        transform: rotate(10deg) ;
+    }
+    41% {
+        transform: rotate(105deg) ;
+    }
+    62% {
+        opacity: 1;
+        transform: rotate(222deg);
+    }
+    100% {
+        opacity: 0;
+        transform: rotate(222deg);
+    }
+}
+
+#panShadow {
+    background-color: #000;
+    position: absolute;
+    width: 130px;
+    height: 15px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    border-radius: 10px;
+    opacity: 0.4;
+    animation-name: shadowAction;
+    animation-duration: 2.5s;
+    transform-origin: 80% 0%;
+    animation-iteration-count: infinite;
+    animation-direction: normal;
+}
+
+@keyframes shadowAction {
+    0% {
+    }
+    15% {
+        width: 100px;
+    }
+    22% {
+        width: 130px;
+    }
+    55% {
+        opacity: 0.3;
+        width: 125px;
+    }
+    60% {
+        opacity: 0.5;
+        width: 110px;
+    }
+}
+
+#panMan {
+    top: 130px;
+    left: 0;
+    z-index: 1;
+    position: absolute;
+    animation-name: shake;
+    animation-duration: 2.5s;
+    transform-origin: 80% 0%;
+    animation-iteration-count: infinite;
+    animation-direction: normal;
+}
+
+@keyframes shake {
+    0% {
+        transform: rotate(0deg) translateY(0) ;
+    }
+    15% {
+        transform: rotate(-25deg) translateX(-30px);
+    }
+    22% {
+        transform: rotate(12deg);
+    }
+    55% {
+        transform: translateY(0) rotate(0) translateX(0);
+    }
+    60% {
+        transform: translateY(15px);
+    }
+}
+

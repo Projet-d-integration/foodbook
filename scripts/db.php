@@ -155,6 +155,26 @@ function UserInfo($email)
     $stmt->closeCursor();
     return $rangee;
 }
+function User($idCompte)
+{
+    Connexion();
+    global $PDO;
+    mysqli_set_charset($PDO, "utf8mb4");
+
+    $stmt = $PDO->prepare("SELECT * FROM Utilisateur WHERE idCompte = :idCompte", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+    $stmt->bindParam(':idCompte', $idCompte, PDO::PARAM_STR);
+    $stmt->execute();
+    while ($donnee = $stmt->fetch(PDO::FETCH_NUM)) {
+        $rangee = [];
+        array_push($rangee, $donnee[0]); // Id compte
+        array_push($rangee, $donnee[1]); // nom
+        array_push($rangee, $donnee[2]); // prenom
+        array_push($rangee, $donnee[3]); // email
+        array_push($rangee, $donnee[4]); // mot de passe chiffrer (hash("sha512",$psswd))
+    }
+    $stmt->closeCursor();
+    return $rangee;
+}
 /*Retire un Utilisateur de la bd */
 function DeleteUser($idCompte)
 {
@@ -1127,7 +1147,7 @@ function DeleteFavorites($pUtilisateur_idCompte,$pRecette_idRecette){
     }
 }
 //Show information of a Recipe
-function InfoFavorites($pUtilisateur_idCompte,$pRecette_idRecette){
+function InfoContentRecipe($pUtilisateur_idCompte,$pRecette_idRecette){
     Connexion();
     global $PDO;
     mysqli_set_charset($PDO, "utf8mb4");
@@ -1146,3 +1166,73 @@ function InfoFavorites($pUtilisateur_idCompte,$pRecette_idRecette){
     $stmt->closeCursor();
     return $info;
 }
+
+// Info contenue recette
+function AddItemToRecipe($pQteIngredient,$Recette_idRecette,$Ingredient_idIngredient){
+    Connexion();
+    global $PDO;
+    try{
+        $sqlProcedure = "CALL AjouterIngredientRecette(:pQteIngredient, :Recette_idRecette, :Ingredient_idIngredient)";
+        $stmt = $PDO->prepare($sqlProcedure);
+        $stmt->bindParam(':pQteIngredient', $pQteIngredient, PDO::PARAM_INT);
+        $stmt->bindParam(':Recette_idRecette', $Recette_idRecette, PDO::PARAM_INT);
+        $stmt->bindParam(':Ingredient_idIngredient', $Ingredient_idIngredient, PDO::PARAM_INT);
+        $stmt->execute();
+        $stmt->closeCursor();
+    } catch (PDOException $e) {
+        return $e->getMessage();
+    }   
+}
+
+function ModifyItemsRecipe($pQteIngredient,$Recette_idRecette,$Ingredient_idIngredient){
+    Connexion();
+    global $PDO;
+    try{
+        $sqlProcedure = "CALL ModifierIngredientRecette(:pQteIngredient, :Recette_idRecette, :Ingredient_idIngredient)";
+        $stmt = $PDO->prepare($sqlProcedure);
+        $stmt->bindParam(':pQteIngredient', $pQteIngredient, PDO::PARAM_INT);
+        $stmt->bindParam(':Recette_idRecette', $Recette_idRecette, PDO::PARAM_INT);
+        $stmt->bindParam(':Ingredient_idIngredient', $Ingredient_idIngredient, PDO::PARAM_INT);
+        $stmt->execute();
+        $stmt->closeCursor();
+    } catch (PDOException $e) {
+        return $e->getMessage();
+    }   
+}
+
+function DeleteItemFromRecipe($Recette_idRecette,$Ingredient_idIngredient){
+    try {
+        Connexion();
+        global $PDO;
+        mysqli_set_charset($PDO, "utf8mb4");
+        $stmt = $PDO->prepare("DELETE FROM IngredientRecette WHERE Recette_idRecette = :Recette_idRecette AND Ingredient_idIngredient = :Ingredient_idIngredient", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+        $stmt->bindParam(':Recette_idRecette', $Recette_idRecette, PDO::PARAM_INT);
+        $stmt->bindParam(':Ingredient_idIngredient', $Ingredient_idIngredient, PDO::PARAM_INT);
+        $stmt->execute();
+    } catch (PDOException $e) {
+        return $e->getMessage();
+    }
+}
+
+function InfoItemRecipe($Recette_idRecette){
+    Connexion();
+    global $PDO;
+    mysqli_set_charset($PDO, "utf8mb4");
+
+    $stmt = $PDO->prepare("SELECT * FROM IngredientRecette WHERE Recette_idRecette = :Recette_idRecette", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+    $stmt->bindParam(':Recette_idRecette', $Recette_idRecette, PDO::PARAM_INT);
+    $stmt->execute();
+    $info = [];
+    while ($donnee = $stmt->fetch(PDO::FETCH_NUM)) {
+        $rangee = [];
+        array_push($rangee, $donnee[0]); // qteIngredient
+        array_push($rangee, $donnee[1]); // id Recette
+        array_push($rangee, $donnee[2]); // id Ingredient
+        array_push($info, $rangee);
+    }
+    $stmt->closeCursor();
+    return $info;
+}
+
+
+?>

@@ -12,81 +12,84 @@
         <?php require 'scripts/body-scripts.php'; ?>
         <?php require 'scripts/db.php'; ?>
     </style>
-    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <?php RenderFavicon(); ?>
 </head>
 
-<?php
-    if($_SERVER['REQUEST_METHOD'] === 'POST'){
+<body>
+    <?php 
+        if($_SERVER['REQUEST_METHOD'] == 'POST')
+            AddAnimation();
+    ?>
+    <?php
+        if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
-        if(!isset($_POST['name-input'])){ $name = ""; } 
-        else { $name = $_POST['name-input']; } 
-        
-        if(!isset($_POST['last-name-input'])){ $last_name = ""; } 
-        else { $last_name = $_POST['last-name-input']; } 
+            if(!isset($_POST['name-input'])){ $name = ""; } 
+            else { $name = $_POST['name-input']; } 
+            
+            if(!isset($_POST['last-name-input'])){ $last_name = ""; } 
+            else { $last_name = $_POST['last-name-input']; } 
 
-        if(!isset($_POST['email-input'])){ $email = ""; } 
-        else { $email = $_POST['email-input']; } 
+            if(!isset($_POST['email-input'])){ $email = ""; } 
+            else { $email = $_POST['email-input']; } 
 
-        if(!isset($_POST['password-input'])){ $pwd = ""; } 
-        else { $pwd = $_POST['password-input']; } 
-        
-        if(!isset($_POST['password-input-confirm'])){ $pwdconfirm = ""; } 
-        else { $pwdconfirm = $_POST['password-input-confirm']; } 
+            if(!isset($_POST['password-input'])){ $pwd = ""; } 
+            else { $pwd = $_POST['password-input']; } 
+            
+            if(!isset($_POST['password-input-confirm'])){ $pwdconfirm = ""; } 
+            else { $pwdconfirm = $_POST['password-input-confirm']; } 
 
-        // Vérifie si tous les champs ont été entrés.
-        if(!empty($name)
-        && !empty($last_name)
-        && !empty($email)
-        && !empty($pwd)
-        && !empty($pwdconfirm))
-        {
-            // Affiche un message d'erreur si le courriel est déjà utilisé
-            if (UserExist($_POST['email-input'])){
-                echo '
-                <script>
-                    window.onload = () => { document.getElementById("error_email_used").style.display = "block"; }
-                </script>';
-            }
-            else if ($pwd != $pwdconfirm){
-                echo '
-                <script>
-                    window.onload = () => { document.getElementById("error_mdp_confirm").style.display = "block"; }
-                </script>';
-            }
-            else if(ValidateEmailInput($email)) {
-                echo '
-                <script>
-                    window.onload = () => { document.getElementById("error_email").style.display = "block"; }
-                </script>';
-            }
-            else if(!ValidateNameInput($name) || 
-                    !ValidateNameInput($last_name)) {
-                echo '
-                <script>
-                    window.onload = () => { document.getElementById("error_name").style.display = "block"; }
-                </script>';
-            }
-            else if (!ValidatePasswordInput($pwd)){
-                echo '  
-                <script>
-                    window.onload = () => { document.getElementById("error_mdp").style.display = "block"; }
-                </script>';
+            // Vérifie si tous les champs ont été entrés.
+            if(!empty($name)
+            && !empty($last_name)
+            && !empty($email)
+            && !empty($pwd)
+            && !empty($pwdconfirm))
+            {
+                // Affiche un message d'erreur si le courriel est déjà utilisé
+                if (UserExist($_POST['email-input'])){
+                    echo '
+                    <script>
+                        window.onload = () => { document.getElementById("error_email_used").style.display = "block"; }
+                    </script>';
+                }
+                else if ($pwd != $pwdconfirm){
+                    echo '
+                    <script>
+                        window.onload = () => { document.getElementById("error_mdp_confirm").style.display = "block"; }
+                    </script>';
+                }
+                else if(ValidateEmailInput($email)) {
+                    echo '
+                    <script>
+                        window.onload = () => { document.getElementById("error_email").style.display = "block"; }
+                    </script>';
+                }
+                else if(!ValidateNameInput($name) || 
+                        !ValidateNameInput($last_name)) {
+                    echo '
+                    <script>
+                        window.onload = () => { document.getElementById("error_name").style.display = "block"; }
+                    </script>';
+                }
+                else if (!ValidatePasswordInput($pwd)){
+                    echo '  
+                    <script>
+                        window.onload = () => { document.getElementById("error_mdp").style.display = "block"; }
+                    </script>';
+                }
+                else {
+                    AddUser($_POST['last-name-input'], $_POST['name-input'], $_POST['email-input'], $_POST['password-input']);
+                }
             }
             else {
-                AddUser($_POST['last-name-input'], $_POST['name-input'], $_POST['email-input'], $_POST['password-input']);
+                echo '
+                <script>
+                    window.onload = () => { document.getElementById("error_entries").style.display = "block"; }
+                </script>';
             }
         }
-        else {
-            echo '
-            <script>
-                window.onload = () => { document.getElementById("error_entries").style.display = "block"; }
-            </script>';
-        }
-    }
-?>
-
-<body>
+    ?>
     <div class="header-banner">
         <a href="index.php"><?php echo file_get_contents("utilities/foodbook-logo.svg"); ?></a>
         <div class="banner-title"> Créer un compte </div>
