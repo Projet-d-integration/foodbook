@@ -46,7 +46,13 @@ if (array_key_exists('buttonDeconnecter', $_POST)) {
                 DeleteItemFromRecipe($_POST['id'],$_POST['ingredient']);
             }
             else if(!empty($_POST['instruction-input'])){
-                // Add Instruction
+                AddInstruction($_POST['id'],$_POST['instruction-input']);
+            }
+            else if(!empty($_POST['edit-instruction'])){
+                ModifyInstruction($_POST['edit-instruction'],$_POST['id-instruction']);
+            }
+            else if(!empty($_POST['del-instruction'])){
+                DeleteInstruction($_POST['instruction']);
             }
         }
     ?>
@@ -86,18 +92,13 @@ if (array_key_exists('buttonDeconnecter', $_POST)) {
         </div>
         <div class="recipe-ingredients">
             <div class="checkboxes-container">
-                <!-- <div>Ingrédients : </div>
-                <input class="checkbox" type="checkbox" id="ingrédient1" name="ingrédient1" value="ingrédient1">
-                <label for="ingrédient1"> ingrédient 1</label><br>
-
-                <!-- template pour un ingrédient -->
                 <?php
+                
                     $tabIngredientRecipe = InfoItemRecipe($recette[0]);
+                    
                     if (count($tabIngredientRecipe) == 0) {
                         echo '<div class="neutral-message" style="display: flex"> Il n\'y a aucun ingrédient dans cette recette présentement</div>';
-                    } else {
-                        // add all ingredients already added here
-                    }
+                    } 
                     foreach ($tabIngredientRecipe as $ingredient) {
                         $infoIngredient = SingleIngredientInfo($ingredient[2]);
                         echo "<div class='recipe-ingredient'>";
@@ -109,7 +110,7 @@ if (array_key_exists('buttonDeconnecter', $_POST)) {
                         else
                             echo "<input style='width:5%' type='number' name='qteChosen' min='1' value='$ingredient[0]' class='recipe-ingredient-content' readonly>";
                         echo "<div class='recipe-ingredient-content'>$infoIngredient[1]</div>";
-                        if ($_SESSION['idUser'] == $recette[1]){ // || $_SESSION['idUser'] == table Admin
+                        if ($_SESSION['idUser'] == $recette[1]){ 
                             echo "<input type='hidden' name='id' value='$recette[0]'>";
                             echo "<input type='hidden' name='ingredient' value='$infoIngredient[0]'>";
                             echo "<button type='submit' name='edit-ingredient' value='true' class='recipe-ingredient-content'>Modifier</button></form>";
@@ -125,6 +126,7 @@ if (array_key_exists('buttonDeconnecter', $_POST)) {
                     {
                         echo "<div class='button button-primary add-new-ingredient' id='add_new_ingredient' onclick='ShowFormItems()'>Ajouter un ingrédient</div>";
                     }
+                    
                 ?>
             </div>
         </div>
@@ -132,13 +134,33 @@ if (array_key_exists('buttonDeconnecter', $_POST)) {
         <div class="recipe-steps">
             <div class="checkboxes-container">
                 <?php
+                $tabInstruction = InfoInstruction($recette[0]);
                 // $nbSteps <= 0
-                if (true) {
+                if (count($tabInstruction) == 0) {
                     echo '<div class="neutral-message" style="display: flex"> Il n\'y a aucune étape dans cette recette présentement </div>';
-                } else {
-                    // add all steps already added here
+                } 
+                $cptInstruction = 1;
+                foreach ($tabInstruction as $instruction) {
+                    echo "<div class='recipe-ingredient'>";
+                    if ($_SESSION['idUser'] == $recette[1]){ // || $_SESSION['idUser'] == table Admin
+                        echo "<form method='post'><span>$cptInstruction - </span>";
+                        echo "<input type='text' name='edit-instruction' value='$instruction[2]'>";
+                        echo "<input type='hidden' name='id' value='$recette[0]'>";
+                        echo "<input type='hidden' name='id-instruction' value='$instruction[0]'>";
+                        echo "<button type='submit' class='recipe-ingredient-content'>Modifier</button></form>";
+                        echo "<form method='post'>
+                            <button type='submit' name='del-instruction' value='1'>Supprimer</button>
+                            <input type='hidden' name='id' value='$recette[0]'>
+                            <input type='hidden' name='instruction' value='$instruction[0]'>
+                        </form>";
+                    }else{
+                        echo "<input type='checkbox' class='recipe-ingredient-content'/>";
+                        echo "<span>$cptInstruction - </span>";
+                        echo "<span>$instruction[2]</span>";
+                    }
+                    echo "</div>";
+                    $cptInstruction++;
                 }
-
                 foreach ($tabEtape as $etape) {
                     echo "<div class='recipe-step'>";
                     if ($_SESSION['idUser'] == $recette[1]) {

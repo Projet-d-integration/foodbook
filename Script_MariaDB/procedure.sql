@@ -303,4 +303,14 @@ CREATE PROCEDURE ModifierIngredientRecette(pQteIngredient INT, Recette_idRecette
 BEGIN
     UPDATE IngredientRecette SET qteIngredient = pQteIngredient WHERE Recette_idRecette = Recette_idRecette AND Ingredient_idIngredient = Ingredient_idIngredient;
 END$$ 
-/*Ajouter evaluation commentaire */
+
+/*Ajouter Instruction*/
+CREATE DEFINER=`root`@`localhost` PROCEDURE `AjouterInstruction`(Recette_idRecette INT, instruction varchar(350))
+INSERT INTO InstructionRecette(Recette_idRecette,Instruction)
+		VALUES(Recette_idRecette,instruction)
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ModifierInstruction`(instruction varchar(350), idInstruction INT)
+BEGIN
+    UPDATE InstructionRecette SET Instruction = instruction WHERE idInstruction = idInstruction;
+END
+/*Ajouter evaluation commentaire *

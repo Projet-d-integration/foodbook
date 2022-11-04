@@ -1147,7 +1147,7 @@ function DeleteFavorites($pUtilisateur_idCompte,$pRecette_idRecette){
     }
 }
 //Show information of a Recipe
-function InfoContentRecipe($pUtilisateur_idCompte,$pRecette_idRecette){
+function InfoFavoriteRecipe($pUtilisateur_idCompte,$pRecette_idRecette){
     Connexion();
     global $PDO;
     mysqli_set_charset($PDO, "utf8mb4");
@@ -1234,5 +1234,67 @@ function InfoItemRecipe($Recette_idRecette){
     return $info;
 }
 
+// Instruction
+function AddInstruction($Recette_idRecette,$instruction){
+    Connexion();
+    global $PDO;
+    try{
+        $sqlProcedure = "CALL AjouterInstruction(:Recette_idRecette, :instruction)";
+        $stmt = $PDO->prepare($sqlProcedure);
+        $stmt->bindParam(':Recette_idRecette', $Recette_idRecette, PDO::PARAM_INT);
+        $stmt->bindParam(':instruction', $instruction, PDO::PARAM_STR);
+        $stmt->execute();
+        $stmt->closeCursor();
+    } catch (PDOException $e) {
+        return $e->getMessage();
+    }   
+}
 
+function ModifyInstruction($instruction,$idInstruction){
+    Connexion();
+    global $PDO;
+    try{
+        $sqlProcedure = "CALL ModifierInstruction(:instruction, :idInstruction)";
+        $stmt = $PDO->prepare($sqlProcedure);
+        $stmt->bindParam(':instruction', $instruction, PDO::PARAM_STR);
+        $stmt->bindParam(':idInstruction', $idInstruction, PDO::PARAM_INT);
+        $stmt->execute();
+        $stmt->closeCursor();
+    } catch (PDOException $e) {
+        return $e->getMessage();
+    }   
+}
+
+function DeleteInstruction($idInstruction){
+    try {
+        Connexion();
+        global $PDO;
+        mysqli_set_charset($PDO, "utf8mb4");
+        $stmt = $PDO->prepare("DELETE FROM InstructionRecette WHERE idInstruction = :idInstruction", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+        $stmt->bindParam(':idInstruction', $idInstruction, PDO::PARAM_INT);
+        $stmt->execute();
+    } catch (PDOException $e) {
+        return $e->getMessage();
+    }
+}
+
+function InfoInstruction($Recette_idRecette){
+    Connexion();
+    global $PDO;
+    mysqli_set_charset($PDO, "utf8mb4");
+
+    $stmt = $PDO->prepare("SELECT * FROM InstructionRecette WHERE Recette_idRecette = :Recette_idRecette", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+    $stmt->bindParam(':Recette_idRecette', $Recette_idRecette, PDO::PARAM_INT);
+    $stmt->execute();
+    $info = [];
+    while ($donnee = $stmt->fetch(PDO::FETCH_NUM)) {
+        $rangee = [];
+        array_push($rangee, $donnee[0]); // idInstruction
+        array_push($rangee, $donnee[1]); // id recette
+        array_push($rangee, $donnee[2]); // instruction
+        array_push($info, $rangee);
+    }
+    $stmt->closeCursor();
+    return $info;
+}
 ?>
