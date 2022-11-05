@@ -43,7 +43,9 @@
         <div class="main-wrapper">
             <div class="container-main-display">
                 
-                    <img class="image-about-page" src="https://img.freepik.com/vecteurs-libre/equipe-commerciale-mettant-ensemble-jigsaw-puzzle-isole-illustration-vectorielle-plane-partenaires-dessin-anime-travaillant-connexion-concept-travail-equipe-partenariat-cooperation_74855-9814.jpg">
+            <div class="image-about-page">
+            <img src="https://img.freepik.com/vecteurs-libre/equipe-commerciale-mettant-ensemble-jigsaw-puzzle-isole-illustration-vectorielle-plane-partenaires-dessin-anime-travaillant-connexion-concept-travail-equipe-partenariat-cooperation_74855-9814.jpg">
+            </div>
                     <div class="message-about-us">
                         <h2>Qui sommes-nous ?</h2>
                         <p>

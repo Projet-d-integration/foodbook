@@ -20,8 +20,8 @@
     font-family: 'Times New Roman', Times, serif;
     padding: 10rem;
     text-align: justify;
+    overflow: auto;
 }
 .image-about-page{
-    height: 100%;
     width: 45%;
 }
