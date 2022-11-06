@@ -8,7 +8,7 @@
 
 <head>
     <title>Ajouter Ingredient</title>
-    <meta charset="utf-8">
+    <meta charset="utf-8" name="viewport" content="width=device-width" />
     <style>
         <?php require 'styles/add-new-ingredient.css'; ?>
         <?php require 'styles/must-have.css'; ?>

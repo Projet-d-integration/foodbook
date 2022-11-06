@@ -8,7 +8,7 @@
 
 <head>
     <title>Recettes Foodbook</title>
-    <meta charset="utf-8">
+    <meta charset="utf-8" name="viewport" content="width=device-width" />
     <style>
         <?php require 'styles/recipes-list.css'; ?>
         <?php require 'scripts/db.php'; ?>

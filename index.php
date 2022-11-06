@@ -10,7 +10,7 @@
 <head>
     <title>Accueil Foodbook</title>
     
-    <meta charset="utf-8">
+    <meta charset="utf-8" name="viewport" content="width=device-width" />
     
     <style>
         <?php require 'styles/index.css'; ?>
@@ -22,8 +22,7 @@
     <?php RenderFavicon(); ?>
 </head>
 
-<body> 
-    <div class="header-banner">
+<div class="header-banner">
         <a href="index.php"><?php echo file_get_contents("utilities/foodbook-logo.svg"); ?></a>
         <div class="banner-title"> Accueil </div>
  
@@ -47,19 +46,24 @@
             ?>
         </div>
     </div>
-    <div class="separators">
-        <?php 
-            $tabTypeRecette = InfoTypeRecipe();
-            foreach($tabTypeRecette as $typeIngredient){
-                echo "
-                    <a href='recipes-list.php?type=$typeIngredient[0]' class='separator'>
-                        <div class='separator-text'>$typeIngredient[1]</div>
-                        <div class='arrow'>></div>
-                    </a>
-                ";
-            }
-        ?>
-    </div>  
+
+
+<body> 
+    <div class="wrapper">
+        <div class="separators">
+            <?php 
+                $tabTypeRecette = InfoTypeRecipe();
+                foreach($tabTypeRecette as $typeIngredient){
+                    echo "
+                        <a href='recipes-list.php?type=$typeIngredient[0]' class='separator'>
+                            <div class='separator-text'>$typeIngredient[1]</div>
+                            <div class='separator-arrow'>". file_get_contents("utilities/caret.svg") ."</div>
+                        </a>
+                    ";
+                }
+            ?>
+        </div> 
+    </div> 
 
     <?php GenerateFooter(); ?>
 </body>
