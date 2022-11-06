@@ -16,7 +16,7 @@
     <meta charset="utf-8">
     
     <style>
-        <?php require 'styles/personal-recipes.css'; ?>
+        <?php require 'styles/others-recipes.css'; ?>
         <?php require 'styles/must-have.css'; ?>
         <?php require 'scripts/body-scripts.php'; ?>
         <?php require 'scripts/db.php'; ?>
@@ -62,7 +62,7 @@
     </div>
 
     <div class="wrapper">
-        <div class="personal-recipes-wrapper">
+        <div class="others-recipes-wrapper">
             <?php 
                 $tabRecette = []; //Faire une méthode ShowRecipeOtherUser($id_user) pour afficher les recette de cet usager.
                     echo '

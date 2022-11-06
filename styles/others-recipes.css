@@ -1,0 +1,56 @@
+.others-recipes-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    margin: 5rem auto;
+    width: fit-content;
+}
+
+
+.transparent-background {
+    height: 100%;
+    width: 100%;
+    z-index: 3;
+}
+
+.space-grid {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    gap: 2rem;
+}
+
+.space-div {
+    background: var(--color-accent);
+    color: var(--color-secondary);
+    border-radius: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+    padding: 2rem;
+}
+
+.space-div-arrow {
+    transition: var(--transition);
+    transform: rotate(-90deg);
+}
+
+.space-div-arrow svg {
+    fill: var(--color-secondary);
+    height: 1.5rem;
+    width: 1.5rem;
+}
+
+.space-div:hover {
+    background: var(--color-accent-hover);
+    transition: var(--transition);
+}
+
+.space-div:hover .space-div-arrow {
+    transform: rotate(0deg);
+}
