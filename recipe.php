@@ -57,98 +57,100 @@
         </div>
     </div>
 
-    <div class="recipe-container">
-        <div class="recipe-header">
-            <div class="recipe-image">
-                <img src='<?=$infoRecette[5]?>' title='<?=$recette[2]?>'>
+    <div class="wrapper">
+        <div class="recipe-container">
+            <div class="recipe-header">
+                <div class="recipe-image">
+                    <img src='<?=$infoRecette[5]?>' title='<?=$recette[2]?>'>
+                </div>
+        
+                <div class="recipe-title">
+                    <?= $recette[2] ?>
+                </div>
+            </div>
+            <div class="recipe-ingredients">
+                <div class="checkboxes-container">
+                    <!-- <div>Ingrédients : </div>
+                    <input class="checkbox" type="checkbox" id="ingrédient1" name="ingrédient1" value="ingrédient1">
+                    <label for="ingrédient1"> ingrédient 1</label><br>
+                    <input class="checkbox" type="checkbox" id="ingrédient2" name="ingrédient2" value="ingrédient2">
+                    <label for="ingrédient2">ingrédient 2</label><br>
+                    <input class="checkbox" type="checkbox" id="ingrédient3" name="ingrédient3" value="ingrédient3">
+                    <label for="ingrédient3" class="strike-through"> ingrédient 3</label><br> -->
+    
+                    <?php
+                        // $nbIngredients <= 0
+                        if (true) {
+                            echo '<div class="neutral-message" style="display: flex"> Vous n\'avez présentement aucun ingrédient dans votre recette </div>';
+                        }
+                        else {
+                            // add all ingredients already added here
+                        }
+                    ?>
+    
+                    <!-- template pour un ingrédient -->
+                    <div class="recipe-ingredient">
+                        <div class="recipe-remove-item"> <?php echo file_get_contents("utilities/x-symbol.svg"); ?> </div>
+                        <div>1/2 tasse</div>
+                        <div>Ingrédient</div>
+                    </div>
+                    <?php 
+                        if($_SESSION['idUser'] == $recette[1]) // || $_SESSION['idUser'] == table Admin
+                            echo "<div class='button button-primary add-new-ingredient' id='add_new_ingredient' onclick='ShowFormAddNewIngredient()'>Ajouter un ingrédient</div>";
+                    ?>
+                </div>
             </div>
     
-            <div class="recipe-title">
-                <?= $recette[2] ?>
-            </div>
-        </div>
-        <div class="recipe-ingredients">
-            <div class="checkboxes-container">
-                <!-- <div>Ingrédients : </div>
-                <input class="checkbox" type="checkbox" id="ingrédient1" name="ingrédient1" value="ingrédient1">
-                <label for="ingrédient1"> ingrédient 1</label><br>
-                <input class="checkbox" type="checkbox" id="ingrédient2" name="ingrédient2" value="ingrédient2">
-                <label for="ingrédient2">ingrédient 2</label><br>
-                <input class="checkbox" type="checkbox" id="ingrédient3" name="ingrédient3" value="ingrédient3">
-                <label for="ingrédient3" class="strike-through"> ingrédient 3</label><br> -->
-
-                <?php
-                    // $nbIngredients <= 0
-                    if (true) {
-                        echo '<div class="neutral-message" style="display: flex"> Vous n\'avez présentement aucun ingrédient dans votre recette </div>';
-                    }
-                    else {
-                        // add all ingredients already added here
-                    }
-                ?>
-
-                <!-- template pour un ingrédient -->
-                <div class="recipe-ingredient">
-                    <div class="recipe-remove-item"> <?php echo file_get_contents("utilities/x-symbol.svg"); ?> </div>
-                    <div>1/2 tasse</div>
-                    <div>Ingrédient</div>
-                </div>
-                <?php 
-                    if($_SESSION['idUser'] == $recette[1]) // || $_SESSION['idUser'] == table Admin
-                        echo "<div class='button button-primary add-new-ingredient' id='add_new_ingredient' onclick='ShowFormAddNewIngredient()'>Ajouter un ingrédient</div>";
-                ?>
-            </div>
-        </div>
-
-        <div class="recipe-steps">
-            <div class="checkboxes-container">
-                <?php 
-                    // $nbSteps <= 0
-                    if (true) {
-                        echo '<div class="neutral-message" style="display: flex"> Vous n\'avez présentement aucune étape dans votre recette </div>';
-                    }
-                    else {
-                        // add all steps already added here
-                    }
-                ?>
-                <?php 
-                    foreach($tabEtape as $etape){
-                        echo "<div class='recipe-step'>";
-                        if($_SESSION['idUser'] == $recette[1])
-                        {
-                            echo "<div class='recipe-remove-item'>file_get_contents('utilities/x-symbol.svg')</div>";
+            <div class="recipe-steps">
+                <div class="checkboxes-container">
+                    <?php 
+                        // $nbSteps <= 0
+                        if (true) {
+                            echo '<div class="neutral-message" style="display: flex"> Vous n\'avez présentement aucune étape dans votre recette </div>';
                         }
-                        echo "<div>Étape</div></div>";
-                    }
-                ?>
-                <!-- template pour une étape -->
-                <?php 
-                    if($_SESSION['idUser'] == $recette[1])
-                        echo "<div class='button button-primary add-new-step' id='add_new_step' onclick='ShowFormAddNewStep()'>Ajouter une étape</div>";
-                ?>
+                        else {
+                            // add all steps already added here
+                        }
+                    ?>
+                    <?php 
+                        foreach($tabEtape as $etape){
+                            echo "<div class='recipe-step'>";
+                            if($_SESSION['idUser'] == $recette[1])
+                            {
+                                echo "<div class='recipe-remove-item'>file_get_contents('utilities/x-symbol.svg')</div>";
+                            }
+                            echo "<div>Étape</div></div>";
+                        }
+                    ?>
+                    <!-- template pour une étape -->
+                    <?php 
+                        if($_SESSION['idUser'] == $recette[1])
+                            echo "<div class='button button-primary add-new-step' id='add_new_step' onclick='ShowFormAddNewStep()'>Ajouter une étape</div>";
+                    ?>
+                </div>
+            </div>   
+    
+            <a href="<?= $infoRecette[6] ?>" class="recipe-video">
+                Vidéo tutoriel
+            </a>
+    
+            <div class="recipe-save-like">
+                <div class="interractible-svg">
+                <?php echo file_get_contents("utilities/like.svg"); ?>
+                </div>
+                    
+                <div class="interractible-svg">
+                <?php echo file_get_contents("utilities/floppy-disk.svg"); ?>
+                </div>
             </div>
-        </div>   
-
-        <a href="<?= $infoRecette[6] ?>" class="recipe-video">
-            Vidéo tutoriel
-        </a>
-
-        <div class="recipe-save-like">
-            <div class="interractible-svg">
-            <?php echo file_get_contents("utilities/like.svg"); ?>
+    
+            <div class="publisher-info">
+                <?= $infoRecette[2] ?>
             </div>
-                
-            <div class="interractible-svg">
-            <?php echo file_get_contents("utilities/floppy-disk.svg"); ?>
+    
+            <div class="recipe-comments">
+                Section commentaires
             </div>
-        </div>
-
-        <div class="publisher-info">
-            <?= $infoRecette[2] ?>
-        </div>
-
-        <div class="recipe-comments">
-            Section commentaires
         </div>
     </div>
     

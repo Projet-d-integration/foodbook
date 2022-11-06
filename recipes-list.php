@@ -46,24 +46,25 @@
             ?>
         </div>
     </div>
-
-    <div class="recipes-container">
-        <?php 
-            if(!($_SERVER['REQUEST_METHOD'] === 'POST')){$typeRecette = $_GET['type'];} else{$typeRecette = $_POST['type'];}
-            $tabRecette = ShowRecipe();
-            //add les filter
-            foreach($tabRecette as $singleRecette){
-                if($singleRecette[6] == $typeRecette && $singleRecette[3] == 1){
-                    $infoRecipe = InfoRecipeByID($singleRecette[0]);
-                    $srcImage =  $infoRecipe[0][5];
-                    echo "
-                    <a href='recipe.php?id=$singleRecette[0]' class='recipe-box'>
-                        <span class='recipe-title'>$singleRecette[2]</span>
-                        <img src='$srcImage' title='$singleRecette[2]' class='recipe-image'>
-                    </a>";
+    <div class="wrapper">
+        <div class="recipes-container">
+            <?php 
+                if(!($_SERVER['REQUEST_METHOD'] === 'POST')){$typeRecette = $_GET['type'];} else{$typeRecette = $_POST['type'];}
+                $tabRecette = ShowRecipe();
+                //add les filter
+                foreach($tabRecette as $singleRecette){
+                    if($singleRecette[6] == $typeRecette && $singleRecette[3] == 1){
+                        $infoRecipe = InfoRecipeByID($singleRecette[0]);
+                        $srcImage =  $infoRecipe[0][5];
+                        echo "
+                        <a href='recipe.php?id=$singleRecette[0]' class='recipe-box'>
+                            <span class='recipe-title'>$singleRecette[2]</span>
+                            <img src='$srcImage' title='$singleRecette[2]' class='recipe-image'>
+                        </a>";
+                    }
                 }
-            }
-        ?>
+            ?>
+        </div>
     </div>
     <?php GenerateFooter(); ?>
 </body>

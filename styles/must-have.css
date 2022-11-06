@@ -15,9 +15,18 @@ body {
     height: 100%;
 
     background-image: url("./utilities/background.jpg");
-    background-repeat: repeat;
+    background-repeat: repeat;  
     background-size: 30rem;
     background-attachment: fixed;
+}
+
+.wrapper {  
+    background: rgba(255, 255, 255, 0.95);
+    border-left: 0.1rem solid var(--color-primary);
+    border-right: 0.1rem solid var(--color-primary);
+    min-height: 40rem;
+    width: fit-content;
+    margin: auto;
 }
 
 input:-webkit-autofill{
@@ -103,7 +112,7 @@ input {
 }
 
 .foodbook-logo > * {
-    fill: var(--color-accent);
+    fill: var(--color-tertiary);
 }
 
 .search-icon {

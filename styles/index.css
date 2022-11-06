@@ -11,9 +11,6 @@
     border-left: 0.1rem solid var(--color-primary);
     border-right: 0.1rem solid var(--color-primary);
 }
-.wrapper {
-    /* background: rgba(255, 102, 0, 0.6); */
-}
 
 .separator {
     background: var(--color-accent);

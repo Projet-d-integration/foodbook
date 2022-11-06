@@ -17,7 +17,6 @@
     <style>
         <?php require 'styles/groceries-list.css'; ?>
         <?php require 'styles/must-have.css'; ?>
-        <?php require 'styles/ui-kit.css'; ?>
         <?php require 'scripts/body-scripts.php'; ?>
         <?php require 'scripts/db.php'; ?>
         <?php require 'scripts/filter.php'; ?>

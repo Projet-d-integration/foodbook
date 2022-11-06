@@ -1,10 +1,14 @@
+.wrapper {
+    padding: 2rem 10rem;
+    width: 40% !important;
+}
+
 .personal-recipes-wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 2rem;
-    margin: 5rem auto;
-    width: fit-content;
+    width: 100%;
 }
 
 .add-new-recipe {
@@ -164,6 +168,11 @@
     font-size: 1.5rem;
     padding-top: 2rem;
 }
+
+.personal-recipes-form {
+    width: 100%;
+}
+
 .space-grid {
     display: flex;
     flex-direction: row;
@@ -172,6 +181,7 @@
     justify-content: center;
     margin: auto;
     gap: 2rem;
+    width: 100%;
 }
 
 .space-div {
