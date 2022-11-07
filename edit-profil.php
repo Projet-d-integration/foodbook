@@ -1,7 +1,8 @@
 <?php 
     session_start(); 
-    if(empty($_SESSION['idUser'])){
-        echo "<script>window.location.href='index.php'</script>";
+    if(array_key_exists('buttonDeconnecter', $_POST)) {
+        session_destroy();
+        header('Location: index.php');
     }
 ?>
 

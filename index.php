@@ -4,7 +4,6 @@
         session_destroy();
         header('Location: index.php');
     }
-
 ?>
 
 <head>
@@ -55,8 +54,12 @@
             foreach($tabTypeRecette as $typeIngredient){
                 echo "
                     <a href='recipes-list.php?type=$typeIngredient[0]' class='separator'>
-                        <div class='separator-text'>$typeIngredient[1]</div>
-                        <div class='separator-arrow'>". file_get_contents("utilities/caret.svg") ."</div>
+                        <img src='./utilities/breakfast-image.jpg' class='index-image'></img>
+                        <div class='image-overlay'></div>
+                        <div class='separator-overlay'>
+                            <div class='separator-text'>$typeIngredient[1]</div>
+                            <div class='separator-arrow'>". file_get_contents("utilities/caret.svg") ."</div>
+                        </div>
                     </a>
                 ";
             }

@@ -58,6 +58,7 @@
                         $srcImage =  $infoRecipe[0][5];
                         echo "
                         <a href='recipe.php?id=$singleRecette[0]' class='recipe-box'>
+                            <div class='recipe-overlay'></div>
                             <span class='recipe-title'>$singleRecette[2]</span>
                             <img src='$srcImage' title='$singleRecette[2]' class='recipe-image'>
                         </a>";
