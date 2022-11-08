@@ -65,6 +65,10 @@
                             la difficulté à gérer leur nourriture ainsi que pouvoir créer des liens d'amitiés sain et affectueux. Nous vous remercions infiniement de faire confiance à notre site web
                             et espèrons que vous allez prendre plaisir à toutes ses fonctionnalités.
                             </p>
+                            <p>
+                                Pour nous signaler quelconque problèmes provenant de notre site, veuillez nous contacter à 
+                                cette adresse: <a class="contact-us" href="mailto: gablessard17@gmail.com">Nous contacter</a>
+                            </p>
                         </div>
                         
                 </div>
