@@ -269,25 +269,12 @@ if (array_key_exists('buttonDeconnecter', $_POST)) {
                         echo "<script> alert('Nb étoiles: $_POST[rating]')</script>";
                     }
                     else {
-                        
-                    }
-
-                    if(empty($_POST["comment-value"]) && empty($_POST["rating"]))
-                    {
                         echo '<script>window.onload = () => { 
                             ShowFormAddComments();
                             document.getElementById("comment-field-empty").style.display = "block";
                              }</script>';
                     }
-                    else if($_POST["rating"] == null)
-                    {
-                        //La fonction AddComment() valeur de evalutation écrire explicitement 0
-                        echo "<script> alert('Nb:étoile 0')</script>";
-                    }
-                    else{
-                        //La fonction AddComment() valeur de evalutation = $_POST["rating"]
-                        echo "<script> alert('Nb étoiles: $_POST[rating]')</script>";
-                    }
+
                 }
                 
             ?>
