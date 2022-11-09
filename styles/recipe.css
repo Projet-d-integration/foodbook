@@ -108,9 +108,12 @@
     border-radius: 0.5rem;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
     display: flex;
     width: 100%;
     height: 15rem;
+    gap: 2rem;
+    overflow: auto;
 }
 
 .recipe-remove-item svg {
@@ -128,4 +131,44 @@
 
 .neutral-message {
     color: var(--color-primary);
+}
+.comments-form{
+    background-color: rgba(51, 51, 51,0.8);
+    position: fixed;
+    display: none;
+    width: 100%;
+    height: 100%;
+    top: 0;
+}
+.transparent-background{
+    height: 100%;
+    width: 100%;
+    z-index: 3;
+}
+.form-content{
+    background: var(--color-tertiary);
+    border: 0.1rem solid var(--color-primary);
+    overflow: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border-radius: 2rem;
+    gap: 2rem;
+    margin: 5rem;
+    height: 75%;
+    z-index: 3;
+}
+.form-exit {
+    position: absolute;
+    right: 7rem;
+    top: 7rem;
+}
+.form-exit svg {
+    fill: var(--color-primary);
+    height: 1.5rem;
+    width: 1.5rem;
+}
+.form-exit:hover {
+    cursor: pointer;
 }

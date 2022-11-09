@@ -150,9 +150,70 @@
     
             <div class="recipe-comments">
                 Section commentaires
+
+                <div>Username: le commentaire</div>
+                <div>Username: le commentaire</div>
+                <div>Username: le commentaire</div>
+               
+
+                <?php
+                    $tabCommentaire = []; //Faire méthode pour aller chercher tous les commentaire d'une recette avec l'id de la recette
+                
+                    foreach($tabCommentaire as $commentaire)
+                    {
+                        //Faire afficher le nom de la personne qui a mis le commentaire et le commentaire lui-même (se fier au div ci-dessus)
+                        
+                    }
+                    if($recette[1] != $_SESSION["idUser"]) //Vérifier que le user n'est pas le propriétaire de la recette visitée
+                    {
+                        echo '<div onclick="ShowFormAddComments()" class="button button-secondary">Ajouter un commentaire</div>';
+                    }
+                 ?>
             </div>
+
+            <div class="neutral_message" id="comment-field-empty">Vous devez remplir le/les champs obligatoires.</div>
+            <div class="comments-form" id="comments-form">
+                <div class="transparent-background">
+                    <form method="post" class="form-content">
+                        <div class="form-exit" onclick='HideFormAddComments()'> <?php echo file_get_contents("utilities/x-symbol.svg"); ?> </div>
+                        <?php 
+                                echo '
+                                    <input type="text" class="searchbar-input" name="comment-value" placeholder="Votre commentaire..." maxlength="100">
+                                    <input type="submit" class="button button-primary" name="addComments" value="Ajouter">
+                                ';
+                        ?>
+                    </form>
+                </div>
+            </div>
+
+            <?php
+                if(isset($_POST["addComments"]))
+                {
+                    if(empty($_POST["comment-value"]))
+                    {
+                        echo '<script>window.onload = () => { document.getElementById("comment-field-empty").style.display = "block"; }</script>';
+                    }
+                    else{
+                        //Appeler méthode AddComments(idRecette, idUser, leCommetnaire);
+                        //Revenir à la page
+                    }
+                }
+            ?>
         </div>
     </div>
     
     <?php GenerateFooter(); ?>
 </body>
+
+<script defer>
+    function ShowFormAddComments()
+    {
+        document.getElementById("comments-form").style.display = "block";
+    }
+
+    function HideFormAddComments()
+    {
+        document.getElementById("comments-form").style.display = "none";
+    }
+
+</script>
