@@ -2,50 +2,49 @@
 
 <head>
     <title>Login Foodbook</title>
-    
-    <meta charset="utf-8" name="viewport" content="width=device-width" />
-    
-    <style>
-        <?php require 'styles/login.css'; ?>
 
-        <?php require 'styles/must-have.css'; ?>
-        <?php require 'scripts/body-scripts.php'; ?>
-        <?php require 'scripts/db.php'; ?>
+    <meta charset="utf-8">
+
+    <style>
+        <?php require 'styles/login.css'; ?><?php require 'styles/must-have.css'; ?><?php require 'scripts/body-scripts.php'; ?><?php require 'scripts/db.php'; ?>
     </style>
-    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <?php RenderFavicon(); ?>
 </head>
 
-<?php 
-    if($_SERVER['REQUEST_METHOD'] === 'POST'){
-        if(!empty($_POST['email-input'])
-        && !empty($_POST['password-input']))
-        {
-            if(VerifyUser($_POST['email-input'], $_POST['password-input'])) {
+<body>
+    <?php
+    if ($_SERVER['REQUEST_METHOD'] == 'POST')
+        AddAnimation();
+    ?>
+
+    <?php
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        if (
+            !empty($_POST['email-input'])
+            && !empty($_POST['password-input'])
+        ) {
+            if (VerifyUser($_POST['email-input'], $_POST['password-input'])) {
                 $UserInfo = UserInfo($_POST['email-input']);
                 $_SESSION['idUser'] = $UserInfo[0];
                 $_SESSION['nom'] = $UserInfo[1];
                 $_SESSION['prenom'] = $UserInfo[2];
                 $_SESSION['email'] = $UserInfo[3];
                 echo "<script>window.location.href='index.php'</script>";
-            }
-            else{
-                echo'
+            } else {
+                echo '
                 <script>
                     window.onload = () => { document.getElementById("error_connexion").style.display = "block"; }
                 </script>';
             }
-        }
-        else {
+        } else {
             echo '  
             <script>
                 window.onload = () => { document.getElementById("error_entries").style.display = "block"; }
             </script>';
         }
     }
-?>
-
-<body> 
+    ?>
     <div class="header-banner">
         <a href="index.php"><?php echo file_get_contents("utilities/foodbook-logo.svg"); ?></a>
         <div class="banner-title"> Login </div>

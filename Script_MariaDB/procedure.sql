@@ -292,6 +292,27 @@ BEGIN
     UPDATE CodeBare SET codeBarre = pCodeBarre, Ingredient_idIngredient = pIngredient_idIngredient WHERE idCodeBare = pIdCodeBare;
 END$$ 
 
+/* Contenue Recette*/
+CREATE DEFINER=`root`@`localhost` PROCEDURE `AjouterIngredientRecette`(pQteIngredient INT, Recette_idRecette INT, Ingredient_idIngredient INT)
+INSERT INTO IngredientRecette(qteIngredient,Recette_idRecette,Ingredient_idIngredient)
+		VALUES(pQteIngredient,Recette_idRecette,Ingredient_idIngredient)
+
+DELIMITER $$
+CREATE PROCEDURE ModifierIngredientRecette(pQteIngredient INT, Recette_idRecette INT, Ingredient_idIngredient INT)
+BEGIN
+    UPDATE IngredientRecette SET qteIngredient = pQteIngredient WHERE Recette_idRecette = Recette_idRecette AND Ingredient_idIngredient = Ingredient_idIngredient;
+END$$ 
+
+/*Ajouter Instruction*/
+CREATE DEFINER=`root`@`localhost` PROCEDURE `AjouterInstruction`(Recette_idRecette INT, instruction varchar(350))
+INSERT INTO InstructionRecette(Recette_idRecette,Instruction)
+		VALUES(Recette_idRecette,instruction)
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ModifierInstruction`(instruction varchar(350), idInstruction INT)
+BEGIN
+    UPDATE InstructionRecette SET Instruction = instruction WHERE idInstruction = idInstruction;
+END
+/*Ajouter evaluation commentaire *
 /*Ajouter evaluation commentaire */
 DELIMITER $$
 CREATE PROCEDURE AjouterEvaluationCommentaire(pEvaluation INT, pCommentaire VARCHAR(75), pRecette_idRecette INT, pUtlisateur_idCompte INT)
