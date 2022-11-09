@@ -213,14 +213,30 @@
             <?php
                 if(isset($_POST["addComments"]))
                 {
-                    if(empty($_POST["comment-value"]))
+
+                    if(empty($_POST["rating"]) && !empty($_POST["comment-value"]))
+                    {
+                        //La fonction AddComment() valeur de evalutation écrire explicitement 0
+                        echo "<script> alert('Nb:étoile 0')</script>";
+                    }
+                    else if(!empty($_POST["rating"]) && !empty($_POST["comment-value"]))
+                    {
+                        //La fonction AddComment() valeur de evalutation = $_POST["rating"]
+                        echo "<script> alert('Nb étoiles: $_POST[rating]')</script>";
+                    }
+                    else {
+                        
+                    }
+
+
+                    if(empty($_POST["comment-value"]) && empty($_POST["rating"]))
                     {
                         echo '<script>window.onload = () => { 
                             ShowFormAddComments();
                             document.getElementById("comment-field-empty").style.display = "block";
                              }</script>';
                     }
-                    if(empty($_POST["rating"]))
+                    else if($_POST["rating"] == null)
                     {
                         //La fonction AddComment() valeur de evalutation écrire explicitement 0
                         echo "<script> alert('Nb:étoile 0')</script>";
