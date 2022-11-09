@@ -80,7 +80,7 @@ if (array_key_exists('buttonDeconnecter', $_POST)) {
         </div>
     </div>
 
-    <div class="recipe-container">
+    <div class="recipe-container wrapper">
         <div class="recipe-header">
             <div class="recipe-image">
                 <img src='<?= $infoRecette[5] ?>' title='<?= $recette[2] ?>'>
@@ -292,6 +292,13 @@ if (array_key_exists('buttonDeconnecter', $_POST)) {
                 }
                 
             ?>
+        </div>
+        <div class="publisher-info">
+            <?= $infoRecette[2] ?>
+        </div>
+
+        <div class="recipe-comments">
+            Section commentaires
         </div>
     </div>
     
