@@ -178,7 +178,6 @@ if (array_key_exists('buttonDeconnecter', $_POST)) {
         <a href="<?= $infoRecette[6] ?>" class="recipe-video">
             Vidéo tutoriel
         </a>
-
         <div class="recipe-save-like">
             <div class="interractible-svg">
                 <?php echo file_get_contents("utilities/like.svg"); ?>
