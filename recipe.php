@@ -178,7 +178,6 @@
             <div class="comments-form" id="comments-form">
                 <div class="transparent-background">
                     <form method="post" class="form-content">
-                        <div class="error_message" id="comment-field-empty">Vous devez remplir le/les champs obligatoires.</div>
                         <div class="comments-form-title">Ajouter un commentaire</div>
                         <div class="form-exit" onclick='HideFormAddComments()'> <?php echo file_get_contents("utilities/x-symbol.svg"); ?> </div>
                         <?php 
@@ -206,6 +205,7 @@
                                     
                                 ';
                         ?>
+                         <div class="error_message" id="comment-field-empty">Vous devez remplir le/les champs obligatoires.</div>
                     </form>
                 </div>
             </div>
@@ -215,14 +215,22 @@
                 {
                     if(empty($_POST["comment-value"]))
                     {
-                        echo '<script>window.onload = () => { document.getElementById("comment-field-empty").style.display = "block"; }</script>';
+                        echo '<script>window.onload = () => { 
+                            ShowFormAddComments();
+                            document.getElementById("comment-field-empty").style.display = "block";
+                             }</script>';
+                    }
+                    if(empty($_POST["rating"]))
+                    {
+                        //La fonction AddComment() valeur de evalutation écrire explicitement 0
+                        echo "<script> alert('Nb:étoile 0')</script>";
                     }
                     else{
-                        //Appeler méthode AddComments(idRecette, idUser, leCommetnaire);
-                        //Revenir à la page
-                        echo "<script>alert('le commentaire serait ajouter')</script>";
+                        //La fonction AddComment() valeur de evalutation = $_POST["rating"]
+                        echo "<script> alert('Nb étoiles: $_POST[rating]')</script>";
                     }
                 }
+                
             ?>
         </div>
     </div>
