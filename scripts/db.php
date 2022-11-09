@@ -1186,14 +1186,12 @@ function ModifyCommentaryEvaluation($pEvaluation, $pCommentaire, $pRecette_idRec
     }   
 }
 /* Supprimer Evaluation commentaire */
-function DeleteCommentaryEvaluation($pEvaluation, $pCommentaire, $pRecette_idRecette, $pUtilisateur_idCompte){
+function DeleteCommentaryEvaluation($pRecette_idRecette, $pUtilisateur_idCompte){
     try {
         Connexion();
         global $PDO;
         mysqli_set_charset($PDO, "utf8mb4");
-        $stmt = $PDO->prepare("DELETE FROM EvaluationCommentaire WHERE evaluation = :pEvaluation, commentaire = :pCommentaire, Utilisateur_idCompte = :pUtilisateur_idCompte, Recette_idRecette = :pRecette_idRecette", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
-        $stmt->bindParam(':evaluation', $pEvaluation, PDO::PARAM_INT);
-        $stmt->bindParam(':commentaire', $pCommentaire, PDO::PARAM_STR);
+        $stmt = $PDO->prepare("DELETE FROM EvaluationCommentaire WHERE Utilisateur_idCompte = :pUtilisateur_idCompte AND Recette_idRecette = :pRecette_idRecette", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
         $stmt->bindParam(':Utilisateur_idCompte', $pUtilisateur_idCompte, PDO::PARAM_INT);
         $stmt->bindParam(':Recette_idRecette', $pRecette_idRecette, PDO::PARAM_INT);
         $stmt->execute();
@@ -1202,15 +1200,12 @@ function DeleteCommentaryEvaluation($pEvaluation, $pCommentaire, $pRecette_idRec
     }
 }
 /*Show all Evaluation commentaire*/
-function ShowCommentaryEvaluation($pEvaluation, $pCommentaire,$pUtilisateur_idCompte,$pRecette_idRecette){
+function ShowCommentaryEvaluation($pRecette_idRecette){
     Connexion();
     global $PDO;
     mysqli_set_charset($PDO, "utf8mb4");
 
-    $stmt = $PDO->prepare("SELECT * FROM EvaluationCommentaire WHERE evaluation = :pEvaluation, commentaire = :pCommentaire, Utilisateur_idCompte = :pUtilisateur_idCompte, Recette_idRecette = :pRecette_idRecette", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
-    $stmt->bindParam(':pEvaluation', $pEvaluation, PDO::PARAM_INT);
-    $stmt->bindParam(':pCommentaire', $pCommentaire, PDO::PARAM_STR);
-    $stmt->bindParam(':pUtilisateur_idCompte', $pUtilisateur_idCompte, PDO::PARAM_INT);
+    $stmt = $PDO->prepare("SELECT * FROM EvaluationCommentaire WHERE Recette_idRecette = :pRecette_idRecette", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
     $stmt->bindParam(':pRecette_idRecette', $pRecette_idRecette, PDO::PARAM_INT);
     $stmt->execute();
     $info = [];
@@ -1256,15 +1251,13 @@ function DeleteFollower($pUtilisateur_idCompte, $pUtilisateur_idCompteSuivis){
     }
 }
 /*Show all follower*/
-function ShowFollower($pNotification, $pUtilisateur_idCompte, $pUtilisateur_idCompteSuivis){
+function ShowFollower($pUtilisateur_idCompte){
     Connexion();
     global $PDO;
     mysqli_set_charset($PDO, "utf8mb4");
 
-    $stmt = $PDO->prepare("SELECT * FROM follower WHERE notification = :pNotification, Utilisateur_idCompte = :pUtilisateur_idCompte, Utilisateur_idCompteSuivis = :pUtilisateur_idCompteSuivis", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
-    $stmt->bindParam(':notification', $pNotification, PDO::PARAM_BOOL);
+    $stmt = $PDO->prepare("SELECT * FROM follower WHERE Utilisateur_idCompte = :pUtilisateur_idCompte", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
     $stmt->bindParam(':Utilisateur_idCompte', $pUtilisateur_idCompte, PDO::PARAM_INT);
-    $stmt->bindParam(':Utilisateur_idCompteSuivis', $pUtilisateur_idCompteSuivis, PDO::PARAM_INT);
     $stmt->execute();
     $info = [];
     while ($donnee = $stmt->fetch(PDO::FETCH_NUM)) {
@@ -1310,15 +1303,13 @@ function DeleteWatchingRecipeHistory($pUtilisateur_idCompte, $pRecette_idRecette
     }
 }
 /*Show all historique visionner*/
-function ShowWatchingRecipeHistory($pDateConsultation, $pUtilisateur_idCompte, $pRecette_idRecette){
+function ShowWatchingRecipeHistory($pUtilisateur_idCompte){
     Connexion();
     global $PDO;
     mysqli_set_charset($PDO, "utf8mb4");
 
-    $stmt = $PDO->prepare("SELECT * FROM HistoriqueRecetteVisioné  WHERE dateConsultation = :pDateConsultation, Utilisateur_idCompte = :pUtilisateur_idCompte, Recette_idRecette = :pRecette_idRecette", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
-    $stmt->bindParam(':dateConsultation', $pDateConsultation, PDO::PARAM_STR);
+    $stmt = $PDO->prepare("SELECT * FROM HistoriqueRecetteVisioné  WHERE Utilisateur_idCompte = :pUtilisateur_idCompte", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
     $stmt->bindParam(':Utilisateur_idCompte', $pUtilisateur_idCompte, PDO::PARAM_INT);
-    $stmt->bindParam(':Recette_idRecette', $pRecette_idRecette, PDO::PARAM_INT);
     $stmt->execute();
     $info = [];
     while ($donnee = $stmt->fetch(PDO::FETCH_NUM)) {
@@ -1379,14 +1370,13 @@ function DeleteAdmin($pidCompte, $pTitre){
 }
 
 /* Show all admin */
-function ShowAdmin($pidCompte, $pTitre){
+function ShowAdmin($pidCompte){
     Connexion();
     global $PDO;
     mysqli_set_charset($PDO, "utf8mb4");
 
-    $stmt = $PDO->prepare("SELECT * FROM Administrateur  WHERE idCompte = :pidCompte AND Titre = :pTitre", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+    $stmt = $PDO->prepare("SELECT * FROM Administrateur  WHERE idCompte = :pidCompte", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
     $stmt->bindParam(':idCompte', $pidCompte, PDO::PARAM_INT);
-    $stmt->bindParam(':Titre', $pTitre, PDO::PARAM_STR);
     $stmt->execute();
     $info = [];
     while ($donnee = $stmt->fetch(PDO::FETCH_NUM)) {
