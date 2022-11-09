@@ -172,3 +172,45 @@
 .form-exit:hover {
     cursor: pointer;
 }
+.comments-form-title{
+    font-size: 1.5rem;
+    padding-top: 2rem;
+    position: absolute;
+    top: 10rem;
+}
+.star-checked{
+    color: orange;
+}
+.rating-wrapper{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+}
+.rating-wrapper label{
+    cursor: pointer;
+}
+.rating-wrapper label::after{
+    transition: all var(--transition) ease-out;
+    -webkit-font-smoothing: antialiased;
+    content: "★";
+    font-size: 2.5rem;
+    -webkit-animation: 1s pulse ease;
+    animation: 1s pulse ease;
+}
+.rating-wrapper:hover::after{
+    text-shadow: 0 0 15px #5e5e5e;
+    opacity: 0.5;
+    color: #5e5e5e;
+}
+.rating-wrapper input{
+    display: none;
+}
+/* .rating-wrapper input:checked + label::after, */
+.rating-wrapper input:checked + label,
+.rating-wrapper .rating-input:checked ~ label {   
+    color: orange;
+    text-shadow: 0  0 20px orange;
+    background: red;
+}
+

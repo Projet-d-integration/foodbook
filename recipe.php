@@ -11,7 +11,7 @@
     <title> Recette Foodbook</title>
     
     <meta charset="utf-8" name="viewport" content="width=device-width" />
-    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
         <?php require 'styles/recipe.css'; ?>
         <?php require 'scripts/db.php'; ?>
@@ -151,35 +151,59 @@
             <div class="recipe-comments">
                 Section commentaires
 
-                <div>Username: le commentaire</div>
-                <div>Username: le commentaire</div>
-                <div>Username: le commentaire</div>
-               
-
                 <?php
-                    $tabCommentaire = []; //Faire méthode pour aller chercher tous les commentaire d'une recette avec l'id de la recette
+                    $tabCommentaire = []; //Faire méthode pour aller chercher tous les commentaire d'une recette en fonction de l'id de la recette
                 
                     foreach($tabCommentaire as $commentaire)
                     {
-                        //Faire afficher le nom de la personne qui a mis le commentaire et le commentaire lui-même (se fier au div ci-dessus)
+                        //Faire afficher le nom de la personne qui a mis le commentaire et le commentaire lui-même
                         
+                        if($_SESSION["idUser"] == $commentaire[1]) //Si le idCompte du commentaire est le même que le idUser
+                        {
+                            echo "<div>Vous: le commentaire</div>";
+                        }
+                        else{
+                            echo "<div>Username: le commentaire</div>
+                              <div>Username: le commentaire</div>";
+                        }
                     }
-                    if($recette[1] != $_SESSION["idUser"]) //Vérifier que le user n'est pas le propriétaire de la recette visitée
-                    {
-                        echo '<div onclick="ShowFormAddComments()" class="button button-secondary">Ajouter un commentaire</div>';
-                    }
+                   
+                    
+                    
                  ?>
+                 <div onclick="ShowFormAddComments()" class="button button-secondary">Ajouter un commentaire</div>
             </div>
 
-            <div class="neutral_message" id="comment-field-empty">Vous devez remplir le/les champs obligatoires.</div>
+          
+            <div class="error_message" id="comment-field-empty">Vous devez remplir le/les champs obligatoires.</div>
             <div class="comments-form" id="comments-form">
                 <div class="transparent-background">
                     <form method="post" class="form-content">
+                        <div class="comments-form-title">Ajouter un commentaire</div>
                         <div class="form-exit" onclick='HideFormAddComments()'> <?php echo file_get_contents("utilities/x-symbol.svg"); ?> </div>
                         <?php 
                                 echo '
                                     <input type="text" class="searchbar-input" name="comment-value" placeholder="Votre commentaire..." maxlength="100">
+                                    Évaluation: 
+                                    <div class="rating-wrapper">
+                                        <input class="rating-input" type="radio" name="rating" id="r1" value="1">
+                                        <label for="r1"></label>
+                                        
+                                        <input class="rating-input" type="radio" name="rating" id="r2" value="2">
+                                        <label for="r2"></label>
+
+                                        <input class="rating-input" type="radio" name="rating" id="r3" value="3">
+                                        <label for="r3"></label>
+
+                                        <input class="rating-input" type="radio" name="rating" id="r4"value="4">
+                                        <label for="r4"></label>
+
+                                        <input class="rating-input" type="radio" name="rating" id="r5" value="5">
+                                        <label for="r5"></label>
+                                    </div>
+                                    
                                     <input type="submit" class="button button-primary" name="addComments" value="Ajouter">
+                                    
                                 ';
                         ?>
                     </form>
@@ -196,6 +220,7 @@
                     else{
                         //Appeler méthode AddComments(idRecette, idUser, leCommetnaire);
                         //Revenir à la page
+                        echo "<script>alert('le commentaire serait ajouter')</script>";
                     }
                 }
             ?>
