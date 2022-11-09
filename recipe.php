@@ -224,6 +224,7 @@ if (array_key_exists('buttonDeconnecter', $_POST)) {
                         <div class="comments-form-title">Ajouter un commentaire</div>
                         <div class="form-exit" onclick='HideFormAddComments()'> <?php echo file_get_contents("utilities/x-symbol.svg"); ?> </div>
                         <?php 
+                                echo  "<input type='hidden' name='id' value='$recette[0]'>";
                                 echo '
                                     <input type="text" class="searchbar-input" name="comment-value" placeholder="Votre commentaire..." maxlength="100">
                                     Évaluation: 
