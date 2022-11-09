@@ -9,6 +9,17 @@
     {
         echo '<script>window.location.href = "login.php";</script>';
     }
+
+    if(!empty($_SESSION['idUser'])){ 
+        $idUser = $_Get['idUser']; 
+        echo '<a href="edit-profil.php" class="svg-button login-button"> '.file_get_contents("utilities/account.svg").'</a>';
+        echo '<form method="post"><button type="submit" name="buttonDeconnecter" class="svg-button login-button" value="buttonDeconnecter" />'.file_get_contents("utilities/logout.svg").'</form>';
+    }
+    else{
+        echo '<a href="login.php" class="svg-button login-button"> '.file_get_contents("utilities/account.svg").'</a>';
+    }
+
+   
 ?>
 <head>
     <title>Recettes des autres usagers</title>
@@ -16,6 +27,7 @@
     <meta charset="utf-8">
     
     <style>
+        <?php require 'styles/recipes-list.css'; ?>
         <?php require 'styles/others-recipes.css'; ?>
         <?php require 'styles/must-have.css'; ?>
         <?php require 'scripts/body-scripts.php'; ?>
@@ -28,21 +40,9 @@
 <body> 
     <div class="header-banner">
         <a href="index.php"><?php echo file_get_contents("utilities/foodbook-logo.svg"); ?></a>
-        <div class="banner-title">Recettes de 
-
-
-            <?php //Nom du user à qui appartient les recettes 
-                $tabRecette = ShowRecipe($_SESSION['idUser']);
-                echo'<form method="post">
-                        <div class="space-grid">';
-                            foreach($tabRecette as $recette){
-                                echo "<a class='space-div' href='recipe.php?id=$recette[0]' type='submit' name='buttonSpace' value='$recette[0]'> $recette[2] <div class='space-div-arrow'>". file_get_contents("utilities/caret.svg") ."</div> </a>"; 
-                            }
-                   echo'</div>
-                    </form>';
-            //Import le style de REcipies LIst(copier le div qui fait laffichage), implementer la logique de personal recipes (le for each)
-            ?> 
+        <div class="banner-title">Recettes de <?= $UserInfo()
         </div>
+
 
         <div class="searchbar">
             <input type="text" class="searchbar-input" placeholder="type something"></input>
@@ -74,11 +74,28 @@
             ?>
         </div>
     </div>
-
+    <div class="recipes-container">
+        <?php 
+            if(!($_SERVER['REQUEST_METHOD'] === 'POST')){$typeRecette = $_GET['type'];} else{$typeRecette = $_POST['type'];}
+            $tabRecette = ShowRecipe($idUser);
+            //add les filter
+            foreach($tabRecette as $singleRecette){
+                if($singleRecette[6] == $typeRecette && $singleRecette[3] == 1){
+                    $infoRecipe = InfoRecipeByID($singleRecette[0]);
+                    $srcImage =  $infoRecipe[0][5];
+                    echo "
+                    <a href='recipe.php?id=$singleRecette[0]' class='recipe-box'>
+                        <span class='recipe-title'>$singleRecette[2]</span>
+                        <img src='$srcImage' title='$singleRecette[2]' class='recipe-image'>
+                    </a>";
+                }
+            }
+        ?>
+    </div>               
     <div class="wrapper">
         <div class="others-recipes-wrapper">
             <?php 
-                $tabRecette = []; //Faire une méthode ShowRecipeOtherUser($id_user) pour afficher les recette de cet usager.
+                $tabRecette = ShowSingleRecipe($_SESSION['idUser']); //Faire une méthode ShowSingleRecipe($id_user) pour afficher les recette de cet usager.
                     echo '
                     <form method="post">
                     <div class="space-grid">';
@@ -103,7 +120,7 @@
     window.onload = () => {
         <?php
             if(!($_SERVER['REQUEST_METHOD'] === 'POST')) {
-                $tabRecette = []; //Appeler la méthode ShowRecipeOtherUser($id_user) pour afficher les recette de cet usager.
+                $tabRecette = ShowSingleRecipe($_SESSION['idUser']); //Appeler la méthode ShowSingleRecipe($id_user) pour afficher les recette de cet usager.
                 
                 if(count($tabRecette) == 0)
                 {
