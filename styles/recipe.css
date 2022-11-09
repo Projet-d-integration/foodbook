@@ -159,6 +159,7 @@
     width: 100%;
     z-index: 3;
 }
+
 .form-content{
     background: var(--color-tertiary);
     border: 0.1rem solid var(--color-primary);
@@ -346,8 +347,13 @@
     position: absolute;
     top: 10rem;
 }
-.star-checked{
-    color: orange;
+.comments-form{
+    display: none;
+    position: absolute;
+    width: 75%;
+    height: 100%;
+    top: 90%;
+    align-self: center;
 }
 .rating-wrapper{
     display: flex;

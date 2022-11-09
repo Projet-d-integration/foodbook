@@ -218,7 +218,6 @@ if (array_key_exists('buttonDeconnecter', $_POST)) {
                  <div onclick="ShowFormAddComments()" class="button button-secondary">Ajouter un commentaire</div>
             </div>
 
-          
             <div class="comments-form" id="comments-form">
                 <div class="transparent-background">
                     <form method="post" class="form-content">
@@ -252,7 +251,7 @@ if (array_key_exists('buttonDeconnecter', $_POST)) {
                          <div class="error_message" id="comment-field-empty">Vous devez remplir le/les champs obligatoires.</div>
                     </form>
                 </div>
-            </div>
+    </div>
 
             <?php
                 if(isset($_POST["addComments"]))
@@ -271,7 +270,6 @@ if (array_key_exists('buttonDeconnecter', $_POST)) {
                     else {
                         
                     }
-
 
                     if(empty($_POST["comment-value"]) && empty($_POST["rating"]))
                     {
@@ -296,11 +294,9 @@ if (array_key_exists('buttonDeconnecter', $_POST)) {
         <div class="publisher-info">
             <?= $infoRecette[2] ?>
         </div>
-
-        <div class="recipe-comments">
-            Section commentaires
-        </div>
     </div>
+
+    
     
     <div class="inventory-form" id="inventory-items-form">
         <div class="transparent-background">
