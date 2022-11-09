@@ -28,7 +28,21 @@
 <body> 
     <div class="header-banner">
         <a href="index.php"><?php echo file_get_contents("utilities/foodbook-logo.svg"); ?></a>
-        <div class="banner-title">Recettes de <?php //Nom du user à qui appartient les recettes ?> </div>
+        <div class="banner-title">Recettes de 
+
+
+            <?php //Nom du user à qui appartient les recettes 
+                $tabRecette = ShowRecipe($_SESSION['idUser']);
+                echo'<form method="post">
+                        <div class="space-grid">';
+                            foreach($tabRecette as $recette){
+                                echo "<a class='space-div' href='recipe.php?id=$recette[0]' type='submit' name='buttonSpace' value='$recette[0]'> $recette[2] <div class='space-div-arrow'>". file_get_contents("utilities/caret.svg") ."</div> </a>"; 
+                            }
+                   echo'</div>
+                    </form>';
+            //Import le style de REcipies LIst(copier le div qui fait laffichage), implementer la logique de personal recipes (le for each)
+            ?> 
+        </div>
 
         <div class="searchbar">
             <input type="text" class="searchbar-input" placeholder="type something"></input>

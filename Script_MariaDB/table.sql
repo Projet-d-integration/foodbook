@@ -17,6 +17,7 @@ CREATE TABLE IF NOT EXISTS TypeRecette (
   `idTypeRecette` INT NOT NULL AUTO_INCREMENT,
   `nomTypeRecette` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`idTypeRecette`));
+  ALTER TABLE TypeRecette ADD `imageRecette` VARCHAR(100);
   
 DROP TABLE IF EXISTS Recette;
 CREATE TABLE IF NOT EXISTS Recette (
@@ -221,3 +222,12 @@ CREATE TABLE IF NOT EXISTS InstructionRecette(
   CONSTRAINT `fk_IngredientRecette_Instruction`
     FOREIGN KEY (`Recette_idRecette`)
     REFERENCES `FoodBook`.`Recette` (`idRecette`));
+
+DROP TABLE IF EXISTS Administrateur;
+CREATE TABLE Administrateur(
+ `idCompte` INT,
+ `Titre` VARCHAR(30) not null,
+ primary key (`idCompte`),
+ foreign key (`idCompte`) 
+ REFERENCES Utilisateur(idCompte)
+ );
