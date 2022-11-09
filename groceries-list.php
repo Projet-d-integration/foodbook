@@ -12,9 +12,13 @@ if (empty($_SESSION['idUser'])) {
 
 <head>
     <title>Liste d'épicerie</title>
-    <meta charset="utf-8">
+    <meta charset="utf-8" name="viewport" content="width=device-width" />
     <style>
-        <?php require 'styles/groceries-list.css'; ?><?php require 'styles/must-have.css'; ?><?php require 'styles/ui-kit.css'; ?><?php require 'scripts/body-scripts.php'; ?><?php require 'scripts/db.php'; ?><?php require 'scripts/filter.php'; ?>
+        <?php require 'styles/groceries-list.css'; ?>
+        <?php require 'styles/must-have.css'; ?>
+        <?php require 'scripts/body-scripts.php'; ?>
+        <?php require 'scripts/db.php'; ?>
+        <?php require 'scripts/filter.php'; ?>
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <?php RenderFavicon(); ?>

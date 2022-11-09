@@ -3,7 +3,7 @@
 <head>
     <title>Ui-kit Foodbook</title>
 
-    <meta charset="utf-8">
+    <meta charset="utf-8" name="viewport" content="width=device-width" />   
 
     <style>
         <?php require 'styles/ui-kit.css'; ?>
@@ -16,13 +16,13 @@
 </head>
 
 <body> 
+
+    <div class="header-banner">
+        <a href="index.php"><?php echo file_get_contents("utilities/foodbook-logo.svg"); ?></a>
+        <div class="banner-title"> Ui-Kit </div>
+    </div>
+
     <div class="wrapper">
-
-        <div class="header-banner">
-            <a href="index.php"><?php echo file_get_contents("utilities/foodbook-logo.svg"); ?></a>
-            <div class="banner-title"> Ui-Kit </div>
-        </div>
-
         <div class="title"> Colors : </div>
         <div class="content-wrapper">
             <div class="item-wrapper">

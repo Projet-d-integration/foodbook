@@ -13,6 +13,20 @@ body {
     font-size: 1rem;
     margin: 0;
     height: 100%;
+
+    background-image: url("./utilities/background.jpg");
+    background-repeat: repeat;  
+    background-size: 30rem;
+    background-attachment: fixed;
+}
+
+.wrapper {  
+    background: rgba(255, 255, 255, 0.95);
+    border-left: 0.1rem solid var(--color-primary);
+    border-right: 0.1rem solid var(--color-primary);
+    min-height: 40rem;
+    width: fit-content;
+    margin: auto;
 }
 
 input:-webkit-autofill{
@@ -98,7 +112,7 @@ input {
 }
 
 .foodbook-logo > * {
-    fill: var(--color-accent);
+    fill: var(--color-tertiary);
 }
 
 .search-icon {
@@ -229,9 +243,14 @@ input {
     width: 2rem;
     height: 1rem;
 }
-
+.svg-about svg{
+   fill: black;
+   width: 1.5rem;
+   height: 1.5rem;
+}
 .footer {
     border-top: 1px solid var(--color-accent-hover);
+    background: var(--color-secondary);
     color: #706C61;
     font-style: italic;
     font-size: 0.8rem;

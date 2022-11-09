@@ -1,10 +1,32 @@
 .wrapper{
-    margin: 5rem auto;
+    margin: 0 auto;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 2rem;
     width: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    justify-content: center;
+    padding: 0 10rem;
+}
+
+.login-wrapper {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+
+.login-image {
+    width: 45%;
+}
+
+.login-image img {
+    height: 100%;
+    width: 100%;
+    max-height: 40rem;
+    object-fit: cover;
 }
 
 .text-input {

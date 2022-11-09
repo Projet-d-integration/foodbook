@@ -9,9 +9,9 @@ if (array_key_exists('buttonDeconnecter', $_POST)) {
 
 <head>
     <title> Recette Foodbook</title>
-
-    <meta charset="utf-8">
-
+    
+    <meta charset="utf-8" name="viewport" content="width=device-width" />
+    
     <style>
         <?php require 'styles/recipe.css'; ?>
         <?php require 'scripts/db.php'; ?>
@@ -186,14 +186,6 @@ if (array_key_exists('buttonDeconnecter', $_POST)) {
             <div class="interractible-svg">
                 <?php echo file_get_contents("utilities/floppy-disk.svg"); ?>
             </div>
-        </div>
-
-        <div class="publisher-info">
-            <?= $infoRecette[2] ?>
-        </div>
-
-        <div class="recipe-comments">
-            Section commentaires
         </div>
     </div>
     

@@ -3,7 +3,7 @@
 <head>
     <title>Create Account Foodbook</title>
     
-    <meta charset="utf-8">
+    <meta charset="utf-8" name="viewport" content="width=device-width" />
     
     <style>
         <?php require 'styles/create-account.css'; ?>

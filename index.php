@@ -4,13 +4,12 @@
         session_destroy();
         header('Location: index.php');
     }
-
 ?>
 
 <head>
     <title>Accueil Foodbook</title>
     
-    <meta charset="utf-8">
+    <meta charset="utf-8" name="viewport" content="width=device-width" />
     
     <style>
         <?php require 'styles/index.css'; ?>
@@ -52,19 +51,42 @@
             ?>
         </div>
     </div>
+
+    <div class="svg-wrapper">
+        <a href="personal-recipes.php" class="svg-button list-button"> <?php echo file_get_contents("utilities/book.svg"); ?> </a>
+        <a href="groceries-list.php" class="svg-button list-button"> <?php echo file_get_contents("utilities/list.svg"); ?> </a>
+        <a href="inventory.php" class="svg-button inventory-button"> <?php echo file_get_contents("utilities/food.svg"); ?> </a>
+        <?php 
+            if(!empty($_SESSION['idUser'])){
+                echo '<a href="edit-profil.php" class="svg-button login-button"> '.file_get_contents("utilities/account.svg").'</a>';
+                echo '<form method="post"><button type="submit" name="buttonDeconnecter" class="svg-button login-button" value="buttonDeconnecter" />'.file_get_contents("utilities/logout.svg").'</form>';
+            }
+            else{
+                echo '<a href="login.php" class="svg-button login-button"> '.file_get_contents("utilities/account.svg").'</a>';
+            }
+        ?>
+    </div>
+</div>
+
+
+<body> 
     <div class="separators">
         <?php 
             $tabTypeRecette = InfoTypeRecipe();
             foreach($tabTypeRecette as $typeIngredient){
                 echo "
                     <a href='recipes-list.php?type=$typeIngredient[0]' class='separator'>
-                        <div class='separator-text'>$typeIngredient[1]</div>
-                        <div class='arrow'>></div>
+                        <img src='./utilities/breakfast-image.jpg' class='index-image'></img>
+                        <div class='image-overlay'></div>
+                        <div class='separator-overlay'>
+                            <div class='separator-text'>$typeIngredient[1]</div>
+                            <div class='separator-arrow'>". file_get_contents("utilities/caret.svg") ."</div>
+                        </div>
                     </a>
                 ";
             }
         ?>
-    </div>  
+    </div> 
 
     <?php GenerateFooter(); ?>
 </body>

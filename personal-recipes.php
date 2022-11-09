@@ -13,7 +13,7 @@
 <head>
     <title>Accueil Foodbook</title>
     
-    <meta charset="utf-8">
+    <meta charset="utf-8" name="viewport" content="width=device-width" />
     
     <style>
         <?php require 'styles/personal-recipes.css'; ?>
@@ -71,7 +71,7 @@
             <?php 
                 $tabRecette = ShowRecipe($_SESSION['idUser']);
                 echo '
-                    <form method="post">
+                    <form method="post" class="personal-recipes-form">
                     <div class="space-grid">';
                     foreach($tabRecette as $recette){
                         echo "<a class='space-div' href='recipe.php?id=$recette[0]' type='submit' name='buttonSpace' value='$recette[0]'> $recette[2] <div class='space-div-arrow'>". file_get_contents("utilities/caret.svg") ."</div> </a>";

@@ -50,27 +50,32 @@
         <div class="banner-title"> Login </div>
     </div>
 
-    <form class="wrapper" method="POST">
-
-        <input class="text-input" name="email-input" type="text" placeholder="Addresse courriel">
-        <input type="password" name="password-input" class="text-input" placeholder="Mot de passe">
-
-        <div class="error_message" id="error_entries">Tous les champs sont obligatoires</div>
-        <div class="error_message" id="error_connexion">Nom d'utilisateur ou mot de passe invalide</div>
-
-        <div class="success_message" id="successful_login">Vous avez été connecté avec succès!</div>
-
-        <div class="buttons-wrapper">
-            <div class="create-account-button">
-                <?php GenerateButtonTertiary("S'inscrire", "create-account.php"); ?>
-            </div>
-
-            <div>
-                <input type="submit" name="validation-login" value="Se connecter" class="button button-primary">
-            </div>
-
+    <div class="login-wrapper">
+        <div class="login-image">
+            <img src="utilities/background-login.jpg"></img>    
         </div>
-    </form>
+    
+        <form class="wrapper" method="POST">
+            <input class="text-input" name="email-input" type="text" placeholder="Addresse courriel">
+            <input type="password" name="password-input" class="text-input" placeholder="Mot de passe">
+
+            <div class="error_message" id="error_entries">Tous les champs sont obligatoires</div>
+            <div class="error_message" id="error_connexion">Nom d'utilisateur ou mot de passe invalide</div>
+
+            <div class="success_message" id="successful_login">Vous avez été connecté avec succès!</div>
+
+            <div class="buttons-wrapper">
+                <div class="create-account-button">
+                    <?php GenerateButtonTertiary("S'inscrire", "create-account.php");?>
+                </div>
+
+                <div>
+                    <input type="submit" name="validation-login" value="Se connecter" class="button button-primary">
+                </div>
+                
+            </div>
+        </form>
+    </div>
 
     <?php GenerateFooter(); ?>
 </body>

@@ -1,32 +1,82 @@
+
 .separators {
-    padding: 2rem;
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 40%;
     margin: auto;
     gap: 2rem;
+    padding: 2rem 10rem;
+    background: rgba(255, 255, 255, 0.95);
+    border-left: 0.1rem solid var(--color-primary);
+    border-right: 0.1rem solid var(--color-primary);
 }
 
 .separator {
-    border: 1px solid var(--color-accent);
-    transition: var(--transition);
     background: var(--color-accent);
-    width: 100%;
-    height: 100%;
-    padding: 2rem;
+    color: var(--color-secondary);
     border-radius: 0.5rem;
     display: flex;
     justify-content: space-between;
-    cursor: pointer;
+    width: 100%;
+    height: 5rem;
+    position: relative  ;
+}
+
+.separator-arrow {
+    transition: var(--transition);
+    transform: rotate(-90deg);
+}
+
+.separator-arrow svg {
+    fill: var(--color-secondary);
+    height: 1.5rem;
+    width: 1.5rem;
 }
 
 .separator:hover {
-    border: 1px solid var(--color-accent-hover);
     background: var(--color-accent-hover);
+    transition: var(--transition);
+}
+
+.separator:hover .separator-arrow {
+    transform: rotate(0deg);
 }
 
 .separator > * {
     color: var(--color-secondary);
     width: fit-content;
+}
+
+.index-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 0.5rem;
+}
+
+.image-overlay {
+    background: linear-gradient(to right,rgba(112, 108, 97, 0),rgba(112, 108, 97, 0), rgba(112, 108, 97, 0.4),rgba(112, 108, 97, 0.8),rgba(112, 108, 97, 0.9),rgb(112, 108, 97), rgb(112, 108, 97));
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 0.5rem;
+}
+
+.separator-overlay {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    justify-content: space-between;
+    width: 88%;
+    height: 100%;
+    padding: 0 2rem;
+}
+
+@media screen and (max-width:800px) {
+    /* insert mobile code here */
+
+    .separators {
+        background: red;
+    }
 }
