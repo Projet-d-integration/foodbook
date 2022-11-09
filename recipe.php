@@ -175,10 +175,10 @@
             </div>
 
           
-            <div class="error_message" id="comment-field-empty">Vous devez remplir le/les champs obligatoires.</div>
             <div class="comments-form" id="comments-form">
                 <div class="transparent-background">
                     <form method="post" class="form-content">
+                        <div class="error_message" id="comment-field-empty">Vous devez remplir le/les champs obligatoires.</div>
                         <div class="comments-form-title">Ajouter un commentaire</div>
                         <div class="form-exit" onclick='HideFormAddComments()'> <?php echo file_get_contents("utilities/x-symbol.svg"); ?> </div>
                         <?php 
@@ -186,19 +186,19 @@
                                     <input type="text" class="searchbar-input" name="comment-value" placeholder="Votre commentaire..." maxlength="100">
                                     Évaluation: 
                                     <div class="rating-wrapper">
-                                        <input class="rating-input" type="radio" name="rating" id="r1" value="1">
+                                        <input class="rating-input" type="radio" name="rating" id="r1" value="5">
                                         <label for="r1"></label>
                                         
-                                        <input class="rating-input" type="radio" name="rating" id="r2" value="2">
+                                        <input class="rating-input" type="radio" name="rating" id="r2" value="4">
                                         <label for="r2"></label>
 
                                         <input class="rating-input" type="radio" name="rating" id="r3" value="3">
                                         <label for="r3"></label>
 
-                                        <input class="rating-input" type="radio" name="rating" id="r4"value="4">
+                                        <input class="rating-input" type="radio" name="rating" id="r4"value="2">
                                         <label for="r4"></label>
 
-                                        <input class="rating-input" type="radio" name="rating" id="r5" value="5">
+                                        <input class="rating-input" type="radio" name="rating" id="r5" value="1">
                                         <label for="r5"></label>
                                     </div>
                                     

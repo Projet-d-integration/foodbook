@@ -183,9 +183,9 @@
 }
 .rating-wrapper{
     display: flex;
-    flex-direction: row;
+    flex-direction: row-reverse;
     align-items: center;
-    gap: 1rem;
+    gap: 0.5rem;
 }
 .rating-wrapper label{
     cursor: pointer;
@@ -208,9 +208,7 @@
 }
 /* .rating-wrapper input:checked + label::after, */
 .rating-wrapper input:checked + label,
-.rating-wrapper .rating-input:checked ~ label {   
+.rating-wrapper .rating-input:checked ~ label::after {   
     color: orange;
-    text-shadow: 0  0 20px orange;
-    background: red;
 }
 
