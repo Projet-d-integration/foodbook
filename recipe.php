@@ -215,6 +215,7 @@ if (array_key_exists('buttonDeconnecter', $_POST)) {
                     
                     
                  ?>
+                 <!--Rajouter un if pour vérifier que le user a ajouter un seul commentaire si oui ne pas afficher le bouton ci-dessous, sinon l'afficher-->
                  <div onclick="ShowFormAddComments()" class="button button-secondary">Ajouter un commentaire</div>
             </div>
 
@@ -260,7 +261,7 @@ if (array_key_exists('buttonDeconnecter', $_POST)) {
 
                     if(empty($_POST["rating"]) && !empty($_POST["comment-value"]))
                     {
-                        //La fonction AddComment() valeur de evalutation écrire explicitement 0
+                        //La fonction AddComment() valeur de evalutation écrire explicitement 0 dans les paramètres
                         echo "<script> alert('Nb:étoile 0')</script>";
                     }
                     else if(!empty($_POST["rating"]) && !empty($_POST["comment-value"]))
