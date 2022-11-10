@@ -11,7 +11,7 @@ if (array_key_exists('buttonDeconnecter', $_POST)) {
     <title> Recette Foodbook</title>
     
     <meta charset="utf-8" name="viewport" content="width=device-width" />
-    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
         <?php require 'styles/recipe.css'; ?>
         <?php require 'scripts/db.php'; ?>
@@ -185,16 +185,107 @@ if (array_key_exists('buttonDeconnecter', $_POST)) {
 
             <div class="interractible-svg">
                 <?php echo file_get_contents("utilities/floppy-disk.svg"); ?>
+                </div>
             </div>
+    
+            <div class="publisher-info">
+                <?= $infoRecette[2] ?>
+            </div>
+    
+            <div class="recipe-comments">
+                Section commentaires
+
+                <?php
+                    $tabCommentaire = []; //Faire méthode pour aller chercher tous les commentaire d'une recette en fonction de l'id de la recette
+                
+                    foreach($tabCommentaire as $commentaire)
+                    {
+                        //Faire afficher le nom de la personne qui a mis le commentaire et le commentaire lui-même
+                        
+                        if($_SESSION["idUser"] == $commentaire[1]) //Si le idCompte du commentaire est le même que le idUser
+                        {
+                            echo "<div>Vous: le commentaire</div>";
+                        }
+                        else{
+                            echo "<div>Username: le commentaire</div>
+                              <div>Username: le commentaire</div>";
+                        }
+                    }
+                   
+                    
+                    
+                 ?>
+                 <!--Rajouter un if pour vérifier que le user a ajouter un seul commentaire si oui ne pas afficher le bouton ci-dessous, sinon l'afficher-->
+                 <div onclick="ShowFormAddComments()" class="button button-secondary">Ajouter un commentaire</div>
+            </div>
+
+            <div class="comments-form" id="comments-form">
+                <div class="transparent-background">
+                    <form method="post" class="form-content">
+                        <div class="comments-form-title">Ajouter un commentaire</div>
+                        <div class="form-exit" onclick='HideFormAddComments()'> <?php echo file_get_contents("utilities/x-symbol.svg"); ?> </div>
+                        <?php 
+                                echo  "<input type='hidden' name='id' value='$recette[0]'>";
+                                echo '
+                                    <input type="text" class="searchbar-input" name="comment-value" placeholder="Votre commentaire..." maxlength="100">
+                                    Évaluation: 
+                                    <div class="rating-wrapper">
+                                        <input class="rating-input" type="radio" name="rating" id="r1" value="5">
+                                        <label for="r1"></label>
+                                        
+                                        <input class="rating-input" type="radio" name="rating" id="r2" value="4">
+                                        <label for="r2"></label>
+
+                                        <input class="rating-input" type="radio" name="rating" id="r3" value="3">
+                                        <label for="r3"></label>
+
+                                        <input class="rating-input" type="radio" name="rating" id="r4"value="2">
+                                        <label for="r4"></label>
+
+                                        <input class="rating-input" type="radio" name="rating" id="r5" value="1">
+                                        <label for="r5"></label>
+                                    </div>
+                                    
+                                    <input type="submit" class="button button-primary" name="addComments" value="Ajouter">
+                                    
+                                ';
+                        ?>
+                         <div class="error_message" id="comment-field-empty">Vous devez remplir le/les champs obligatoires.</div>
+                    </form>
+                </div>
+    </div>
+
+            <?php
+                if(isset($_POST["addComments"]))
+                {
+
+                    if(empty($_POST["rating"]) && !empty($_POST["comment-value"]))
+                    {
+                        //La fonction AddComment() valeur de evalutation écrire explicitement 0 dans les paramètres
+                        echo "<script> alert('Nb:étoile 0')</script>";
+                    }
+                    else if(!empty($_POST["rating"]) && !empty($_POST["comment-value"]))
+                    {
+                        //La fonction AddComment() valeur de evalutation = $_POST["rating"]
+                        echo "<script> alert('Nb étoiles: $_POST[rating]')</script>";
+                    }
+                    else {
+                        echo '<script>window.onload = () => { 
+                            ShowFormAddComments();
+                            document.getElementById("comment-field-empty").style.display = "block";
+                             }</script>';
+                    }
+
+                }
+                
+            ?>
         </div>
         <div class="publisher-info">
             <?= $infoRecette[2] ?>
         </div>
-
-        <div class="recipe-comments">
-            Section commentaires
-        </div>
     </div>
+
+    
     
     <div class="inventory-form" id="inventory-items-form">
         <div class="transparent-background">
@@ -287,7 +378,17 @@ if (array_key_exists('buttonDeconnecter', $_POST)) {
     <?php GenerateFooter(); ?>
 </body>
 
-<script>
+<script defer>
+    function ShowFormAddComments()
+    {
+        document.getElementById("comments-form").style.display = "block";
+    }
+
+    function HideFormAddComments()
+    {
+        document.getElementById("comments-form").style.display = "none";
+    }
+
     function ShowFormInstruction() {
         document.getElementById("instruction-form").style.display = "block";
     }
