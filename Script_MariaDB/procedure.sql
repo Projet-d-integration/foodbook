@@ -265,26 +265,25 @@ END$$
 
 /* Ajouter TypeRecette */
 DELIMITER $$
-CREATE PROCEDURE AjouterTypeRecette (pNomTypeRecette varchar(45))
+CREATE PROCEDURE AjouterTypeRecette (pNomTypeRecette varchar(45), pImageRecette varchar(100))
 BEGIN
-    INSERT INTO TypeRecette(nomTypeRecette)
-		VALUES(pNomTypeRecette);
+    INSERT INTO TypeRecette(nomTypeRecette, imageRecette)
+		VALUES(pNomTypeRecette, pImageRecette);
 END$$
 
 /* MOdifier TypeRecette */
 DELIMITER $$
-CREATE PROCEDURE ModifierTypeRecette(pIdTypeRecette int, pNomTypeRecette varchar(45))
+CREATE PROCEDURE ModifierTypeRecette(pIdTypeRecette int, pNomTypeRecette varchar(45), pImageRecette varchar(100))
 BEGIN
-    UPDATE TypeRecette SET nomTypeRecette = pNomTypeRecette WHERE idTypeRecette = pIdTypeRecette;
+    UPDATE TypeRecette SET nomTypeRecette = pNomTypeRecette, imageRecette = pImageRecette  WHERE idTypeRecette = pIdTypeRecette;
 END$$ 
 
 /* Ajouter CodeBare */
-DELIMITER $$
-CREATE PROCEDURE AjouterTypeRecette (pNomTypeRecette varchar(45))
+CREATE DEFINER=`root`@`localhost` PROCEDURE `AjouterCodeBare`(pCodeBarre int, pIngredient_idIngredient int)
 BEGIN
-    INSERT INTO TypeRecette(nomTypeRecette)
-		VALUES(pNomTypeRecette);
-END$$
+    INSERT INTO CodeBare(codeBarre, Ingredient_idIngredient)
+		VALUES(pCodeBarre, pIngredient_idIngredient);
+END
 
 /* Modifier Code Bare */
 DELIMITER $$
@@ -293,4 +292,65 @@ BEGIN
     UPDATE CodeBare SET codeBarre = pCodeBarre, Ingredient_idIngredient = pIngredient_idIngredient WHERE idCodeBare = pIdCodeBare;
 END$$ 
 
+/* Contenue Recette*/
+CREATE DEFINER=`root`@`localhost` PROCEDURE `AjouterIngredientRecette`(pQteIngredient INT, Recette_idRecette INT, Ingredient_idIngredient INT)
+INSERT INTO IngredientRecette(qteIngredient,Recette_idRecette,Ingredient_idIngredient)
+		VALUES(pQteIngredient,Recette_idRecette,Ingredient_idIngredient)
+
+DELIMITER $$
+CREATE PROCEDURE ModifierIngredientRecette(pQteIngredient INT, Recette_idRecette INT, Ingredient_idIngredient INT)
+BEGIN
+    UPDATE IngredientRecette SET qteIngredient = pQteIngredient WHERE Recette_idRecette = Recette_idRecette AND Ingredient_idIngredient = Ingredient_idIngredient;
+END$$ 
+
+/*Ajouter Instruction*/
+CREATE DEFINER=`root`@`localhost` PROCEDURE `AjouterInstruction`(Recette_idRecette INT, instruction varchar(350))
+INSERT INTO InstructionRecette(Recette_idRecette,Instruction)
+		VALUES(Recette_idRecette,instruction)
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ModifierInstruction`(instruction varchar(350), idInstruction INT)
+BEGIN
+    UPDATE InstructionRecette SET Instruction = instruction WHERE idInstruction = idInstruction;
+END
+/*Ajouter evaluation commentaire *
 /*Ajouter evaluation commentaire */
+DELIMITER $$
+CREATE PROCEDURE AjouterEvaluationCommentaire(pEvaluation INT, pCommentaire VARCHAR(75), pRecette_idRecette INT, pUtlisateur_idCompte INT)
+BEGIN
+	INSERT INTO EvaluationCommentaire(evaluation, commentaire, Recette_idRecette, Utilisateur_idCompte)
+		VALUES(pEvaluation, pCommentaire, pRecette_idRecette, pUtilisateur_idCompte);
+END $$
+/* Modifier Evaluation commentaire */
+DELIMITER $$
+CREATE PROCEDURE ModifierEvaluationCommentaire(pEvaluation INT, pCommentaire VARCHAR(75), pRecette_idRecette INT, pUtlisateur_idCompte INT)
+BEGIN
+	UPDATE EvaluationCommentaire SET evaluation = pEvaluation, commentaire = pCommentaire, Recette_idRecette = pRecette_idRecette WHERE Utilisateur_idCompte = pUtilisateur_idCompte;
+END $$
+
+/* Add follower*/
+DELIMITER $$
+CREATE PROCEDURE AjouterFollower(pNotification BIT(1), pUtilisateur_idCompte INT, pUtilisateur_idCompteSuivis INT)
+BEGIN
+	INSERT INTO follower(notification, Utilisateur_idCompte, Utilisateur_idCompteSuivis)
+		VALUES(pNotification, pUtilisateur_idCompte, pUtilisateur_idCompteSuivis);
+END $$
+
+/* add historique visionner*/
+DELIMITER $$
+CREATE PROCEDURE AjouterHistoriqueRecetteVisioner(pDateConsultation DATE, pUtilisateur_idCompte INT, pRecette_idRecette INT)
+BEGIN
+	INSERT INTO HistoriqueRecetteVisioné(dateConsultation, Utilisateur_idCompte, Recette_idRecette)
+		VALUES(pDateConsultation, pUtilisateur_idCompte, pRecette_idRecette);
+END $$
+/*add Administrateur */
+DELIMITER $$
+CREATE PROCEDURE AjouterAdministrateur(pidCompte INT, pTitre VARCHAR(30))
+BEGIN
+	INSERT INTO Administrateur(idCompte, Titre) VALUES (pidCompte, pTitre);
+END $$
+/* update Administrateur*/
+DELIMITER $$
+CREATE PROCEDURE ModifierAdministrateur(pidCompte INT, pTitre VARCHAR(30))
+BEGIN
+	UPDATE Administrateur SET Titre = pTitre WHERE idCompte = pidCompte;
+END $$

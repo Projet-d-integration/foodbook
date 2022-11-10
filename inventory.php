@@ -21,10 +21,15 @@
         <?php require 'scripts/db.php'; ?>
         <?php require 'scripts/filter.php'; ?>
     </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <?php RenderFavicon(); ?>
 </head>
 
 <body> 
+    <?php 
+        if($_SERVER['REQUEST_METHOD'] == 'POST')
+            AddAnimation();
+    ?>
     <div class="header-banner">
         <a href="index.php"><?php echo file_get_contents("utilities/foodbook-logo.svg"); ?></a>
         <div class="banner-title"> Inventaire </div>
@@ -226,32 +231,30 @@
 </body>
 
 <script>
-    
-        function ShowAddNewLocation(){
-            document.getElementById("add_new_location").style.display = "block"
-        }
-        function ShowFormEmplacement() {
-            document.getElementById("inventory-location-form").style.display = "block";
-        }
+    function ShowAddNewLocation(){
+        document.getElementById("add_new_location").style.display = "block"
+    }
+    function ShowFormEmplacement() {
+        document.getElementById("inventory-location-form").style.display = "block";
+    }
 
-        function HideFormEmplacement() {
-            document.getElementById("inventory-location-form").style.display = "none";
-        }
+    function HideFormEmplacement() {
+        document.getElementById("inventory-location-form").style.display = "none";
+    }
 
-        function ShowFormItems() {
-            document.getElementById("inventory-items-form").style.display = "block";
-        }
+    function ShowFormItems() {
+        document.getElementById("inventory-items-form").style.display = "block";
+    }
 
-        function HideFormItems() {
-            document.getElementById("inventory-items-form").style.display = "none";
-        }
+    function HideFormItems() {
+        document.getElementById("inventory-items-form").style.display = "none";
+    }
 
-        function ShowFormItemQuantity(id) {
-            document.getElementById("inventory-item-form-" + id).style.display = "flex";
-        }
+    function ShowFormItemQuantity(id) {
+        document.getElementById("inventory-item-form-" + id).style.display = "flex";
+    }
 
-        function HideFormItemQuantity(id) {
-            document.getElementById("inventory-item-form-" + id).style.display = "none";
-        }
-    
+    function HideFormItemQuantity(id) {
+        document.getElementById("inventory-item-form-" + id).style.display = "none";
+    }
 </script>
