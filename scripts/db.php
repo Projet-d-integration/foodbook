@@ -1072,6 +1072,7 @@ function InfoTypeRecipe(){
         $rangee = [];
         array_push($rangee, $donnee[0]); // IdTypeRecette
         array_push($rangee, $donnee[1]); // nomTypeRecette
+        array_push($rangee, $donnee[2]); // imageRecette
         array_push($info, $rangee);
     }
     $stmt->closeCursor();

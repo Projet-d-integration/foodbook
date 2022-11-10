@@ -54,7 +54,7 @@
             foreach($tabTypeRecette as $typeIngredient){
                 echo "
                     <a href='recipes-list.php?type=$typeIngredient[0]' class='separator'>
-                        <img src='./utilities/breakfast-image.jpg' class='index-image'></img>
+                        <img src='./utilities/$typeIngredient[2]' class='index-image'></img>
                         <div class='image-overlay'></div>
                         <div class='separator-overlay'>
                             <div class='separator-text'>$typeIngredient[1]</div>
