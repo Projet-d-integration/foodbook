@@ -10,16 +10,14 @@
         echo '<script>window.location.href = "login.php";</script>';
     }
 
-    if(!empty($_SESSION['idUser'])){ 
+   if(!empty($_SESSION['idUser'])){ 
         $idUser = $_Get['idUser']; 
-        echo '<a href="edit-profil.php" class="svg-button login-button"> '.file_get_contents("utilities/account.svg").'</a>';
-        echo '<form method="post"><button type="submit" name="buttonDeconnecter" class="svg-button login-button" value="buttonDeconnecter" />'.file_get_contents("utilities/logout.svg").'</form>';
+       // echo '<a href="edit-profil.php" class="svg-button login-button"> '.file_get_contents("utilities/account.svg").'</a>';
+       // echo '<form method="post"><button type="submit" name="buttonDeconnecter" class="svg-button login-button" value="buttonDeconnecter" />'.file_get_contents("utilities/logout.svg").'</form>';
     }
     else{
-        echo '<a href="login.php" class="svg-button login-button"> '.file_get_contents("utilities/account.svg").'</a>';
-    }
-
-   
+        echo '<a href="index.php""></a>';
+    } 
 ?>
 <head>
     <title>Recettes des autres usagers</title>
@@ -40,7 +38,14 @@
 <body> 
     <div class="header-banner">
         <a href="index.php"><?php echo file_get_contents("utilities/foodbook-logo.svg"); ?></a>
-        <div class="banner-title">Recettes de <?= $UserInfo()
+        <div class="banner-title">Recettes de 
+                            <?php  
+                                $tabRecette = ShowSingleRecipe($idRecipe);
+                                foreach($tabRecette as $idUser){
+                                    echo $idUser;
+                                }
+                            ?>
+                    
         </div>
 
 

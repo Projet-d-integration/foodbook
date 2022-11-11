@@ -1389,7 +1389,7 @@ function ShowAdmin($pidCompte){
     return $info;
 }
 
-/* Show Recipe made by a specific user 
+/*Show Recipe made by a specific user*/ 
 function UserRecipe($pidCompte){
     Connexion();
     global $PDO;
@@ -1409,4 +1409,4 @@ function UserRecipe($pidCompte){
     }
     $stmt->closeCursor();
     return $info;
-} */
+} 
