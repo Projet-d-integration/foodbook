@@ -4,13 +4,14 @@
         session_destroy();
         header('Location: index.php');
     }
+    $wordSearched = $_GET['keyword'];
 ?>
 
 <head>
     <title>Recherche</title>
     <meta charset="utf-8" name="viewport" content="width=device-width" />
     <style>
-        <?php require 'styles/recipes-list.css'; ?>
+        <?php require 'styles/search-list.css'; ?>
         <?php require 'scripts/db.php'; ?>
         <?php require 'styles/must-have.css'; ?>
         <?php require 'scripts/body-scripts.php'; ?>
@@ -46,41 +47,46 @@
             ?>
         </div>
     </div>
-    <div class="wrapper">
-        <div class="recipes-container">
-            <?php 
-                if(true/*!($_SERVER['REQUEST_METHOD'] === 'POST')*/){
+    <div class="wrapper-container">
+        <div class="wrapper-recipes wrapper-background">
+            <div>
+                <p class="recipe-title-wrapper">Recettes</p>
+            </div>
+            <div class="recipes-container">
+                <?php 
                     // add le get pour filter les nom
                     $tabRecette = ShowRecipe();
+                    $tabInfoRecipe = InfoRecipe();
+                    $tabRecette = FilterRecipe($tabRecette,$tabInfoRecipe,$wordSearched);
                     //add les filter
                     foreach($tabRecette as $singleRecette){
-                        if(true/*$singleRecette[6] == $typeRecette && $singleRecette[3] == 1 */){
-                            $infoRecipe = InfoRecipeByID($singleRecette[0]);
-                            $srcImage =  $infoRecipe[0][5];
-                            echo "
+                        $infoRecipe = InfoRecipeByID($singleRecette[0]);
+                        $srcImage =  $infoRecipe[0][5];
+                        echo "
                             <a href='recipe.php?id=$singleRecette[0]' class='recipe-box'>
                                 <div class='recipe-overlay'></div>
                                 <span class='recipe-title'>$singleRecette[2]</span>
                                 <img src='$srcImage' title='$singleRecette[2]' class='recipe-image'>
                             </a>";
-                        }
+                        
                     }
-                }
-                else{
-
-                }
-            ?>
+                ?>
+            </div>
         </div>
-        <div class="users-containers">
-            <?php 
-                if(!($_SERVER['REQUEST_METHOD'] === 'POST')){
-                    // add le get pour filter les nom
-                    
-                }
-                else{
-
-                }
-            ?>
+        <div class="wrapper-users wrapper-background">
+            <div>
+                <p class="user-title-wrapper">Utilisateurs</p>
+            </div>
+            <div class="users-container">
+                <?php 
+                        // add le get pour filter les nom
+                    $tabUser = AllUserInfo();
+                    $tabUser = FilterUsers($tabUser,$wordSearched);
+                    foreach($tabUser as $singleUser){
+                        echo "<a class='link-user button button-Primary' href='others-recipes.php?user=$singleUser[0]'>$singleUser[2] $singleUser[1]</a>";
+                    }
+                ?>
+            </div>
         </div>
     </div>
     <?php GenerateFooter(); ?>

@@ -64,4 +64,15 @@
 
         return $tabIngredient;
     }
+    function FilterUsers($tabUser, $nameUser = ''){
+        if($nameUser != ''){
+            foreach($tabUser as $singleUser){
+                if(!preg_match("/{$nameUser}/i",$singleUser[1]) && !preg_match("/{$nameUser}/i",$singleUser[2]))
+                {
+                    unset($tabUser[array_search($singleUser,$tabUser)]);
+                }
+            }
+        }
+        return $tabUser;
+    }
 ?>
