@@ -45,7 +45,6 @@
                     echo $idUser;
                 }
             ?>
-                    
         </div>
 
 
