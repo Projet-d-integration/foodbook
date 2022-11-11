@@ -72,6 +72,13 @@
                     }
                 ?>
             </div>
+            <?php
+                if(count($tabRecette) == 0){
+                    echo "<div class='recipe-empty'>
+                            <p>Aucune recette trouvé!</p>
+                        </div>";
+                }
+            ?>
         </div>
         <div class="wrapper-users wrapper-background">
             <div>
@@ -87,6 +94,13 @@
                     }
                 ?>
             </div>
+            <?php 
+                if(count($tabUser) == 0){
+                    echo "<div>
+                            <p class='user-empty'>Aucun utilisateur trouvé!</p>
+                        </div>";
+                }
+            ?>
         </div>
     </div>
     <?php GenerateFooter(); ?>

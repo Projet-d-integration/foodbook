@@ -30,10 +30,7 @@
         <a href="index.php"><?php echo file_get_contents("utilities/foodbook-logo.svg"); ?></a>
         <div class="banner-title"> Accueil </div>
  
-        <div class="searchbar">
-            <input type="text" class="searchbar-input" placeholder="type something"></input>
-            <div class="search-icon"><?php echo file_get_contents("utilities/search.svg"); ?></div>
-        </div>
+        <?php AddSearchBar(); ?>
 
         <div class="svg-wrapper">
             <a href="personal-recipes.php" class="svg-button list-button"> <?php echo file_get_contents("utilities/book.svg"); ?> </a>

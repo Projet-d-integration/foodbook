@@ -120,3 +120,13 @@
     font-weight: bolder;
     font-size: larger;
 }
+.recipe-empty{
+    text-align: center;
+    font-weight: bold;
+    font-size: large;
+}
+.user-empty{
+    text-align: center;
+    font-weight: bold;
+    font-size: large;
+}

@@ -85,4 +85,12 @@
                 });
         </script>";
     }
+    function AddSearchBar(){
+        echo "<form class='searchbar' method='POST'>
+                <input type='text' class='searchbar-input' placeholder='type something' name='keyword'></input>
+                <button class='search-icon' type='submit'>" .file_get_contents('utilities/search.svg'). "</button>
+            </form>";
+        if($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['keyword']))
+            ChangePage("searchbar.php?keyword=$_POST[keyword]");
+    }
 ?>
