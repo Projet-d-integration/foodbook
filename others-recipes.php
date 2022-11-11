@@ -41,7 +41,7 @@
         <div class="banner-title">Recettes de 
             <?php  
                 $tabRecette = ShowSingleRecipe($idRecipe);
-                foreach($tabRecette as $idUser){
+                foreach($tabRecette as $idRecipe){
                     echo $idUser;
                 }
             ?>
