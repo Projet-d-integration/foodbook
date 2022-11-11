@@ -39,12 +39,12 @@
     <div class="header-banner">
         <a href="index.php"><?php echo file_get_contents("utilities/foodbook-logo.svg"); ?></a>
         <div class="banner-title">Recettes de 
-                            <?php  
-                                $tabRecette = ShowSingleRecipe($idRecipe);
-                                foreach($tabRecette as $idUser){
-                                    echo $idUser;
-                                }
-                            ?>
+            <?php  
+                $tabRecette = ShowSingleRecipe($idRecipe);
+                foreach($tabRecette as $idUser){
+                    echo $idUser;
+                }
+            ?>
                     
         </div>
 
