@@ -2,9 +2,7 @@
     // Fonctions de triage d'ingrédient
     // Triage par type ( par variable de la table)
 
-    function FilterRecipe($tabRecipe,$tabInfoRecipe,$nameRecipe = '', $pIdTypeRecette = '',$tempsPreparation = '', $nbPortions = 0){
-        $tabIdToRemove = [];
-        
+    function FilterRecipe($tabRecipe,$tabInfoRecipe,$nameRecipe = '', $pIdTypeRecette = '',$tempsPreparation = 0, $nbPortions = 0){
         if($nameRecipe != ''){
             foreach($tabRecipe as $singleRecipe){
                 if(!preg_match("/{$nameRecipe}/i", $singleRecipe[2])){
@@ -19,28 +17,26 @@
                     unset($tabRecipe[array_search($singleRecipe,$tabRecipe)]);
             }
         }
-
-        if($tempsPreparation != ''){
-            foreach($tabInfoRecipe as $singleinfoRecipe){
-                if($singleinfoRecipe[0] > $tempsPreparation)
-                    array_push($tabIdToRemove,intval($singleinfoRecipe[4]));
-            }
-        }
-
-        if($nbPortions != 0){
-            foreach($tabInfoRecipe as $singleinfoRecipe){
-                if($singleinfoRecipe[1] != $nbPortions)
-                    array_push($tabIdToRemove,intval($singleinfoRecipe[4]));
-            }
-        }
-
-        foreach($tabIdToRemove as $idToRemove){
+        if($tempsPreparation != 0){
             foreach($tabRecipe as $singleRecipe){
-                if(intval($singleRecipe[0]) == intval($idToRemove))
-                unset($tabRecipe[array_search($singleRecipe,$tabRecipe)]);
+                foreach($tabInfoRecipe as $singleinfoRecipe){
+                    if($singleRecipe[0] == $singleinfoRecipe[4]){
+                        if(intval($singleinfoRecipe[0]) > intval($tempsPreparation))
+                            unset($tabRecipe[array_search($singleRecipe,$tabRecipe)]);
+                    }
+                }
             }
         }
-        
+        if($nbPortions != 0){
+            foreach($tabRecipe as $singleRecipe){
+                foreach($tabInfoRecipe as $singleinfoRecipe){
+                    if($singleRecipe[0] == $singleinfoRecipe[4]){
+                        if($singleinfoRecipe[1] != $nbPortions)
+                            unset($tabRecipe[array_search($singleRecipe,$tabRecipe)]);
+                    }
+                }
+            }
+        }
         return $tabRecipe;
     }
     
