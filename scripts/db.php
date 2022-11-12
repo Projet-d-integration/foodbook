@@ -155,6 +155,26 @@ function UserInfo($email)
     $stmt->closeCursor();
     return $rangee;
 }
+/* Cela retourne un tableau qui contient les informations de l'utilisateur */
+function AllUserInfo()
+{
+    Connexion();
+    global $PDO;
+    mysqli_set_charset($PDO, "utf8mb4");
+
+    $stmt = $PDO->prepare("SELECT * FROM Utilisateur", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+    $stmt->execute();
+    $info = [];
+    while ($donnee = $stmt->fetch(PDO::FETCH_NUM)) {
+        $rangee = [];
+        array_push($rangee, $donnee[0]); // Id compte
+        array_push($rangee, $donnee[1]); // nom
+        array_push($rangee, $donnee[2]); // prenom
+        array_push($info,$rangee);
+    }
+    $stmt->closeCursor();
+    return $info;
+}
 function User($idCompte)
 {
     Connexion();

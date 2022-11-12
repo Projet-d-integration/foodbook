@@ -34,6 +34,7 @@ if (empty($_SESSION['idUser'])) {
     <div class="header-banner">
         <a href="index.php"><?php echo file_get_contents("utilities/foodbook-logo.svg"); ?></a>
         <div class="banner-title"> Liste d'épicerie </div>
+        <?php AddSearchBar(); ?>
         <div class="svg-wrapper">
             <a href="personal-recipes.php" class="svg-button list-button"> <?php echo file_get_contents("utilities/book.svg"); ?> </a>
             <a href="groceries-list.php" class="svg-button list-button"> <?php echo file_get_contents("utilities/list.svg"); ?> </a>

@@ -1,9 +1,11 @@
 .wrapper {
     display: flex;
-    justify-content: center;
-    padding: 2rem 10rem;
+    padding: 2rem 8rem;
     margin: auto;
     width: fit-content;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
 }
 
 .recipes-container {
@@ -64,4 +66,36 @@
     border-radius: 0.5rem;
     width: 100%;
     height: 100%;
+}
+
+.form-filter{
+    width: 100%;
+    padding: 1rem;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--color-secondary);
+    box-shadow: 0 0 20px rgb(0 0 0 / 15%);
+    border-radius: 0.3rem;
+    overflow: hidden;
+    font-size: 1rem;
+}
+
+input::placeholder {
+    font-size: 1rem;
+}
+
+.form-filter input {   
+    border-radius: 0.3rem;
+    background: var(--color-accent-border);
+    overflow: hidden;
+    padding: 1rem;
+}   
+
+.filter-button{
+    height: 1.5rem;
+    width: 1.5rem;
+    cursor: pointer;
 }
