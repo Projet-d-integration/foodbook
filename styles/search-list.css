@@ -1,0 +1,132 @@
+.wrapper-container {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-evenly;
+}
+.wrapper-background {  
+    background: rgba(255, 255, 255, 0.95);
+    border-left: 0.1rem solid var(--color-primary);
+    border-right: 0.1rem solid var(--color-primary);
+    min-height: 40rem;
+}
+.wrapper-recipes {
+    display: flex;
+    padding: 2rem 4rem;
+    width: 60%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    /* Hide scrollbar for IE, Edge and Firefox */
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+    flex-direction: column;
+}
+/* Hide scrollbar for Chrome, Safari and Opera */
+.wrapper-recipes::-webkit-scrollbar {
+    display: none;
+}
+.wrapper-users {
+    display: flex;
+    padding: 2rem 4rem;
+    width: 10%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    /* Hide scrollbar for IE, Edge and Firefox */
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+    flex-direction: column;
+}
+.wrapper-users::-webkit-scrollbar {
+    display: none;
+}
+.recipes-container {
+    width: fit-content;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 4rem;
+    max-height: 40rem;
+}
+.users-container {
+    width: fit-content;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+    max-height: 40rem;
+}
+
+.recipe-box {
+    background: var(--color-accent);
+    color: var(--color-secondary);
+    position: relative;
+    border-radius: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 15rem;
+    height: 15rem;
+}
+
+.recipe-box:hover{
+    cursor: pointer;
+}
+
+.recipe-box:hover .recipe-title {
+    transition: var(--transition);
+    font-size: 1.2rem;
+}
+
+.recipe-box:hover .recipe-overlay {
+    opacity: 0;
+}
+
+.recipe-overlay {
+    transition: var(--transition);
+    position: absolute;
+    opacity: 1;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(rgba(51, 51, 51, 0.6), rgba(0, 0, 0, 0));
+}
+
+.recipe-title {
+    color: var(--color-secondary);
+    transition: var(--transition);
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+.recipe-image {
+    object-fit: cover;
+    border-radius: 0.5rem;
+    width: 100%;
+    height: 100%;
+}
+.link-user{
+    min-width: 80%;
+    height: 2rem;
+}
+.recipe-title-wrapper{
+    text-align: center;
+    font-weight: bolder;
+    font-size: larger;
+}
+.user-title-wrapper{
+    text-align: center;
+    font-weight: bolder;
+    font-size: larger;
+}
+.recipe-empty{
+    text-align: center;
+    font-weight: bold;
+    font-size: large;
+}
+.user-empty{
+    text-align: center;
+    font-weight: bold;
+    font-size: large;
+}

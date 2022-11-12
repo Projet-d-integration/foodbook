@@ -16,20 +16,19 @@
         <?php require 'scripts/body-scripts.php'; ?>
         <?php require 'scripts/filter.php'; ?>
     </style>
-    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <?php RenderFavicon(); ?>
 </head>
 
 <body>
-
+    <?php 
+        AddAnimation();
+    ?>
     <div class="header-banner">
         <a href="index.php"><?php echo file_get_contents("utilities/foodbook-logo.svg"); ?></a>
         <div class="banner-title"> <?php if(!($_SERVER['REQUEST_METHOD'] === 'POST')){echo InfoSingleTypeRecipe($_GET['type'])[0][1];} else{echo InfoSingleTypeRecipe($_POST['type'])[0][1];} ?></div>
 
-        <div class="searchbar">
-            <input type="text" class="searchbar-input" placeholder="type something"></input>
-            <div class="search-icon"><?php echo file_get_contents("utilities/search.svg"); ?></div>
-        </div>
+        <?php AddSearchBar(); ?>
 
         <div class="svg-wrapper">
             <a href="personal-recipes.php" class="svg-button list-button"> <?php echo file_get_contents("utilities/book.svg"); ?> </a>
@@ -47,11 +46,41 @@
         </div>
     </div>
     <div class="wrapper">
+        <form class="form-filter" method="POST">
+            <input type="hidden" name="type" value="<?=$_GET['type']?>">
+            <input name="recipe-name" type="text" placeholder="Nom de la recette" value="<?=$_POST['recipe-name']?>"/>
+            <label name="recipe-portion">Nombre de portions : </label>
+            <select name="recipe-portion" style="width:6rem;">
+                <option value="0">Tout</option>
+                <option value="1">1 portion</option>
+                <option value="2">2 portions</option>
+                <option value="3">3 portions</option>
+                <option value="4">4 portions</option>
+                <option value="5">5 portions</option>
+                <option value="6">6 portions</option>
+                <option value="7">7 portions</option>
+                <option value="8">8 portions</option>
+            </select>
+            <label name="recipe-time">Temps de préparation : </label>
+            <select name="recipe-time" style="width:6rem;">
+            <option value="0">Tout</option>
+                <option value="15">15 min</option>
+                <option value="30">30 min</option>
+                <option value="45">45 min</option>
+                <option value="60">60 min</option>
+                <option value="75">75 min</option>
+                <option value="90">90 min</option>
+                <option value="105">105 min</option>
+                <option value="120">120 min</option>
+            </select>
+            <button class='filter-button' type='submit' name="filter-button" value="1"><?php echo file_get_contents('utilities/search.svg'); ?></button>
+        </form>
         <div class="recipes-container">
             <?php 
                 if(!($_SERVER['REQUEST_METHOD'] === 'POST')){$typeRecette = $_GET['type'];} else{$typeRecette = $_POST['type'];}
                 $tabRecette = ShowRecipe();
-                //add les filter
+                $tabInfoRecipe = InfoRecipe();
+                $tabRecette = FilterRecipe($tabRecette,$tabInfoRecipe,$_POST['recipe-name'],'',intval($_POST['recipe-time']),intval($_POST['recipe-portion']));
                 foreach($tabRecette as $singleRecette){
                     if($singleRecette[6] == $typeRecette && $singleRecette[3] == 1){
                         $infoRecipe = InfoRecipeByID($singleRecette[0]);

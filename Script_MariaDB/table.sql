@@ -215,10 +215,10 @@ ALTER TABLE Emplacement ADD `Svg` VARCHAR(40);
 
 DROP TABLE IF EXISTS IngredientRecette;
 CREATE TABLE IF NOT EXISTS InstructionRecette(
+	`idInstruction` INT NOT NULL,	
   `Recette_idRecette` INT NOT NULL,
   `Instruction` VARCHAR(350) NOT NULL,
-  `indice` INT NOT NULL,
-  PRIMARY KEY (`Recette_idRecette`,`indice`),
+  PRIMARY KEY (`idInstruction`),
   CONSTRAINT `fk_IngredientRecette_Instruction`
     FOREIGN KEY (`Recette_idRecette`)
     REFERENCES `FoodBook`.`Recette` (`idRecette`));

@@ -21,19 +21,20 @@
         <?php require 'scripts/body-scripts.php'; ?>
         <?php require 'scripts/db.php'; ?>
     </style>
-    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <?php RenderFavicon(); ?>
 </head>
 
 <body> 
+    <?php 
+        if($_SERVER['REQUEST_METHOD'] == 'POST')
+            AddAnimation();
+    ?>
     <div class="header-banner">
         <a href="index.php"><?php echo file_get_contents("utilities/foodbook-logo.svg"); ?></a>
         <div class="banner-title"> Vos Recettes </div>
 
-        <div class="searchbar">
-            <input type="text" class="searchbar-input" placeholder="type something"></input>
-            <div class="search-icon"><?php echo file_get_contents("utilities/search.svg"); ?></div>
-        </div>
+        <?php AddSearchBar(); ?>
 
         <div class="svg-wrapper">
             <a href="personal-recipes.php" class="svg-button list-button"> <?php echo file_get_contents("utilities/book.svg"); ?> </a>
@@ -70,7 +71,7 @@
                     <form method="post">
                     <div class="space-grid">';
                     foreach($tabRecette as $recette){
-                        echo "<a class='space-div' href='recipe.php?recette=$recette[0]' type='submit' name='buttonSpace' value='$recette[0]'> $recette[2] <div class='space-div-arrow'>". file_get_contents("utilities/caret.svg") ."</div> </a>";
+                        echo "<a class='space-div' href='recipe.php?id=$recette[0]' type='submit' name='buttonSpace' value='$recette[0]'> $recette[2] <div class='space-div-arrow'>". file_get_contents("utilities/caret.svg") ."</div> </a>";
                     }
                 echo '</div>
             </form>';
@@ -86,7 +87,6 @@
                     <div class="form-content-wrapper">
                         <div class="form-exit" onclick='HideFormRecipeCreation()'> <?php echo file_get_contents("utilities/x-symbol.svg"); ?> </div>
                         <div class="recipe-form-title">Ajouter Une recette</div>
-    
                         <div class="recipe-form-image-input">
                             <label for="image-input">Url de l'image</label>
                             <input type="text" name="image-input" class="text-input">

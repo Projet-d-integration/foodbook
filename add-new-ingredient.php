@@ -16,56 +16,61 @@
         <?php require 'scripts/body-scripts.php'; ?>
         <?php require 'scripts/db.php'; ?>
     </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <?php RenderFavicon(); ?>
 </head>
 
-<?php
-    if($_SERVER['REQUEST_METHOD'] === 'POST'){
+<body> 
+    <?php 
+        if($_SERVER['REQUEST_METHOD'] == 'POST')
+            AddAnimation();
+    ?>
+    <?php
+        if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
-        if(!isset($_POST['name-input'])){ $nameIngredient = ""; } 
-        else { $nameIngredient = $_POST['name-input']; } 
-        
-        if(!isset($_POST['description-input'])){ $description = ""; } 
-        else { $description = $_POST['description-input']; } 
+            if(!isset($_POST['name-input'])){ $nameIngredient = ""; } 
+            else { $nameIngredient = $_POST['name-input']; } 
+            
+            if(!isset($_POST['description-input'])){ $description = ""; } 
+            else { $description = $_POST['description-input']; } 
 
-        if(!isset($_POST['type-input'])){ $type = ""; } 
-        else { $type = $_POST['type-input']; } 
+            if(!isset($_POST['type-input'])){ $type = ""; } 
+            else { $type = $_POST['type-input']; } 
 
-        // Vérifie si tous les champs ont été entrés.
-        if(!empty($nameIngredient)
-        && !empty($description)
-        && !empty($type))
-        {
-            // Affiche un message d'erreur si le courriel est déjà utilisé
-            if (IngredientExist($_POST['name-input'])){
-                echo '
-                <script>
-                    window.onload = () => { document.getElementById("error_name_used").style.display = "block"; }
-                </script>';
-            }
-            else if(!ValidateNameInput($nameIngredient)) {
-                echo '
-                <script>
-                    window.onload = () => { document.getElementById("error_name").style.display = "block"; }
-                </script>';
+            // Vérifie si tous les champs ont été entrés.
+            if(!empty($nameIngredient)
+            && !empty($description)
+            && !empty($type))
+            {
+                // Affiche un message d'erreur si le courriel est déjà utilisé
+                if (IngredientExist($_POST['name-input'])){
+                    echo '
+                    <script>
+                        window.onload = () => { document.getElementById("error_name_used").style.display = "block"; }
+                    </script>';
+                }
+                else if(!ValidateNameInput($nameIngredient)) {
+                    echo '
+                    <script>
+                        window.onload = () => { document.getElementById("error_name").style.display = "block"; }
+                    </script>';
+                }
+                else {
+                    AddIngredient($_POST['name-input'],$_POST['description-input'],$_POST['type-input']);
+                }
             }
             else {
-                AddIngredient($_POST['name-input'],$_POST['description-input'],$_POST['type-input']);
+                echo '
+                <script>
+                    window.onload = () => { document.getElementById("error_entries").style.display = "block"; }
+                </script>';
             }
         }
-        else {
-            echo '
-            <script>
-                window.onload = () => { document.getElementById("error_entries").style.display = "block"; }
-            </script>';
-        }
-    }
-?>
-
-<body> 
+    ?>
     <div class="header-banner">
         <a href="index.php"><?php echo file_get_contents("utilities/foodbook-logo.svg"); ?></a>
         <div class="banner-title"> Ajouter Ingredient </div>
+        <?php AddSearchBar(); ?>
         <div class="svg-wrapper">
             <a href="groceries-list.php" class="svg-button list-button"> <?php echo file_get_contents("utilities/list.svg"); ?> </a>
             <?php 
