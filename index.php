@@ -5,7 +5,7 @@
         header('Location: index.php');
     }
 ?>
-
+ 
 <head>
     <title>Accueil Foodbook</title>
     
