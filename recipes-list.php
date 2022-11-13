@@ -171,7 +171,6 @@
         </form>
 
         <div class="recipes-container">
-
             <?php 
                 if(!($_SERVER['REQUEST_METHOD'] === 'POST')){$typeRecette = $_GET['type'];} else{$typeRecette = $_POST['type'];}
                 $tabRecette = ShowRecipe();

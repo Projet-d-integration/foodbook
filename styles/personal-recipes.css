@@ -1,6 +1,13 @@
 .wrapper {
-    padding: 2rem 10rem;
-    width: 40% !important;
+    padding: 2rem 5rem;
+    max-width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.banner-title {
+    margin-bottom: 2rem ;
 }
 
 .personal-recipes-wrapper {
@@ -9,6 +16,15 @@
     align-items: center;
     gap: 2rem;
     width: 100%;
+}
+
+.recipes-container {
+    margin: 0 auto;
+    width: fit-content;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 4rem;
 }
 
 .add-new-recipe {
@@ -184,33 +200,68 @@
     width: 100%;
 }
 
-.space-div {
+.recipe-box {
     background: var(--color-accent);
     color: var(--color-secondary);
+    position: relative;
     border-radius: 0.5rem;
     display: flex;
-    justify-content: space-between;
+    align-items: center;
+    justify-content: center;
+    width: 15rem;
+    height: 15rem;
+}
+
+.recipe-box:hover{
+    cursor: pointer;
+}
+
+.recipe-box:hover .recipe-title {
+    transition: var(--transition);
+    font-size: 1.2rem;
+}
+
+.recipe-box:hover .recipe-overlay {
+    opacity: 0;
+}
+
+.recipe-overlay {
+    transition: var(--transition);
+    position: absolute;
+    opacity: 1;
     width: 100%;
     height: 100%;
-    padding: 2rem;
+    background: radial-gradient(rgba(51, 51, 51, 0.6), rgba(0, 0, 0, 0));
 }
 
-.space-div-arrow {
+.recipe-title {
+    color: var(--color-secondary);
     transition: var(--transition);
-    transform: rotate(-90deg);
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
 }
 
-.space-div-arrow svg {
-    fill: var(--color-secondary);
-    height: 1.5rem;
-    width: 1.5rem;
+.recipe-image {
+    object-fit: cover;
+    border-radius: 0.5rem;
+    width: 100%;
+    height: 100%;
 }
 
-.space-div:hover {
-    background: var(--color-accent-hover);
-    transition: var(--transition);
-}
+@media screen and (max-width:800px) {
+    /* insert mobile code here */
 
-.space-div:hover .space-div-arrow {
-    transform: rotate(0deg);
+    .wrapper {
+        padding: 2rem;
+        width: 80% !important;
+    }
+
+    .recipe-box {
+        width: 15rem;
+        height: 10rem;
+    }
 }

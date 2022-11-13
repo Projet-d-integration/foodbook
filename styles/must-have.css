@@ -187,7 +187,9 @@ input {
 }
 
 .button-tertiary {
+    flex-direction: row;
     text-decoration: underline;
+    flex-wrap: nowrap !important;
     font-weight: unset;
     display: flex;
     align-items: center;
