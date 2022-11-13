@@ -259,4 +259,8 @@
         width: 15rem;
         height: 10rem;
     }
+
+    .button-tertiary-arrow {
+        display: none !important;
+    }
 }
