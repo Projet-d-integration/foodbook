@@ -871,6 +871,19 @@ function ModifyRecipe($pIdCompte, $pIdRecette,$pNomRecette, $pPublique, $pNbVus,
         return $e->getMessage();
     }    
 }
+function ModifyNameRecipe($pIdRecette,$pNomRecette){
+    Connexion();
+    global $PDO;
+    try{
+        mysqli_set_charset($PDO, "utf8mb4");
+        $stmt = $PDO->prepare("UPDATE Recette SET nomRecette = :pNomRecette WHERE idRecette = :pIdRecette", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+        $stmt->bindParam(':pIdRecette', $pIdRecette, PDO::PARAM_INT);
+        $stmt->bindParam(':pNomRecette', $pNomRecette, PDO::PARAM_STR);
+        $stmt->execute();
+    } catch (PDOException $e) {
+        return $e->getMessage();
+    }    
+}
 //Remove Recipe
 function DeleteRecipe($idRecette){
     try {
@@ -998,6 +1011,32 @@ function ModifyInfoRecipe($pTempsPreparation, $pNbPortions, $pDescription, $pIns
     } catch (PDOException $e) {
         return $e->getMessage();
     }   
+}
+function ModifyImageInfoRecipe($pIdRecette,$pImage){
+    Connexion();
+    global $PDO;
+    try{
+        mysqli_set_charset($PDO, "utf8mb4");
+        $stmt = $PDO->prepare("UPDATE InfoRecette SET image = :pImage WHERE  Recette_idRecette = :pIdRecette", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+        $stmt->bindParam(':pIdRecette', $pIdRecette, PDO::PARAM_INT);
+        $stmt->bindParam(':pImage', $pImage, PDO::PARAM_STR);
+        $stmt->execute();
+    } catch (PDOException $e) {
+        return $e->getMessage();
+    }    
+}
+function ModifyDescriptionInfoRecipe($pIdRecette,$pDescription){
+    Connexion();
+    global $PDO;
+    try{
+        mysqli_set_charset($PDO, "utf8mb4");
+        $stmt = $PDO->prepare("UPDATE InfoRecette SET description = :pDescription WHERE  Recette_idRecette = :pIdRecette", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+        $stmt->bindParam(':pIdRecette', $pIdRecette, PDO::PARAM_INT);
+        $stmt->bindParam(':pDescription', $pDescription, PDO::PARAM_STR);
+        $stmt->execute();
+    } catch (PDOException $e) {
+        return $e->getMessage();
+    }    
 }
 //Remove an information about a recipe
 function DeleteInfoRecipe($pRecette_idRecette){
@@ -1272,14 +1311,12 @@ function DeleteItemFromRecipe($Recette_idRecette,$Ingredient_idIngredient){
     }
 }
 /* Supprimer Evaluation commentaire */
-function DeleteCommentaryEvaluation($pEvaluation, $pCommentaire, $pRecette_idRecette, $pUtilisateur_idCompte){
+function DeleteCommentaryEvaluation($pRecette_idRecette, $pUtilisateur_idCompte){
     try {
         Connexion();
         global $PDO;
         mysqli_set_charset($PDO, "utf8mb4");
-        $stmt = $PDO->prepare("DELETE FROM EvaluationCommentaire WHERE evaluation = :pEvaluation, commentaire = :pCommentaire, Utilisateur_idCompte = :pUtilisateur_idCompte, Recette_idRecette = :pRecette_idRecette", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
-        $stmt->bindParam(':evaluation', $pEvaluation, PDO::PARAM_INT);
-        $stmt->bindParam(':commentaire', $pCommentaire, PDO::PARAM_STR);
+        $stmt = $PDO->prepare("DELETE FROM EvaluationCommentaire WHERE Utilisateur_idCompte = :pUtilisateur_idCompte AND Recette_idRecette = :pRecette_idRecette", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
         $stmt->bindParam(':Utilisateur_idCompte', $pUtilisateur_idCompte, PDO::PARAM_INT);
         $stmt->bindParam(':Recette_idRecette', $pRecette_idRecette, PDO::PARAM_INT);
         $stmt->execute();
@@ -1287,12 +1324,32 @@ function DeleteCommentaryEvaluation($pEvaluation, $pCommentaire, $pRecette_idRec
         return $e->getMessage();
     }
 }
+/*Show all Evaluation commentaire*/
+function ShowCommentaryEvaluation($pRecette_idRecette){
+    Connexion();
+    global $PDO;
+    mysqli_set_charset($PDO, "utf8mb4");
+
+    $stmt = $PDO->prepare("SELECT * FROM EvaluationCommentaire WHERE Recette_idRecette = :pRecette_idRecette", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+    $stmt->bindParam(':Recette_idRecette', $pRecette_idRecette, PDO::PARAM_INT);
+    $stmt->execute();
+    $info = [];
+    while ($donnee = $stmt->fetch(PDO::FETCH_NUM)) {
+        $rangee = [];
+        array_push($rangee, $donnee[0]); // eval
+        array_push($rangee, $donnee[1]); // commentaire
+        array_push($rangee, $donnee[2]); // id recette
+        array_push($rangee, $donnee[3]); // id compte
+        array_push($info, $rangee);
+    }
+    $stmt->closeCursor();
+    return $info;
+}
 
 function InfoItemRecipe($Recette_idRecette){
     Connexion();
     global $PDO;
     mysqli_set_charset($PDO, "utf8mb4");
-
     $stmt = $PDO->prepare("SELECT * FROM IngredientRecette WHERE Recette_idRecette = :Recette_idRecette", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
     $stmt->bindParam(':Recette_idRecette', $Recette_idRecette, PDO::PARAM_INT);
     $stmt->execute();
@@ -1302,28 +1359,6 @@ function InfoItemRecipe($Recette_idRecette){
         array_push($rangee, $donnee[0]); // qteIngredient
         array_push($rangee, $donnee[1]); // id Recette
         array_push($rangee, $donnee[2]); // id Ingredient
-        array_push($info, $rangee);
-    }
-    $stmt->closeCursor();
-    return $info;
-}
-function ShowCommentaryEvaluation($pEvaluation, $pCommentaire,$pUtilisateur_idCompte,$pRecette_idRecette){
-    Connexion();
-    global $PDO;
-    mysqli_set_charset($PDO, "utf8mb4");
-    $stmt = $PDO->prepare("SELECT * FROM EvaluationCommentaire WHERE evaluation = :pEvaluation, commentaire = :pCommentaire, Utilisateur_idCompte = :pUtilisateur_idCompte, Recette_idRecette = :pRecette_idRecette", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
-    $stmt->bindParam(':pEvaluation', $pEvaluation, PDO::PARAM_INT);
-    $stmt->bindParam(':pCommentaire', $pCommentaire, PDO::PARAM_STR);
-    $stmt->bindParam(':pUtilisateur_idCompte', $pUtilisateur_idCompte, PDO::PARAM_INT);
-    $stmt->bindParam(':pRecette_idRecette', $pRecette_idRecette, PDO::PARAM_INT);
-    $stmt->execute();
-    $info = [];
-    while ($donnee = $stmt->fetch(PDO::FETCH_NUM)) {
-        $rangee = [];
-        array_push($rangee, $donnee[0]); // Evaluation
-        array_push($rangee, $donnee[1]); // Commentary
-        array_push($rangee, $donnee[2]); // user Id
-        array_push($rangee, $donnee[3]); // Receip ID
         array_push($info, $rangee);
     }
     $stmt->closeCursor();
@@ -1360,15 +1395,13 @@ function DeleteFollower($pUtilisateur_idCompte, $pUtilisateur_idCompteSuivis){
     }
 }
 /*Show all follower*/
-function ShowFollower($pNotification, $pUtilisateur_idCompte, $pUtilisateur_idCompteSuivis){
+function ShowFollower($pUtilisateur_idCompte){
     Connexion();
     global $PDO;
     mysqli_set_charset($PDO, "utf8mb4");
 
-    $stmt = $PDO->prepare("SELECT * FROM follower WHERE notification = :pNotification, Utilisateur_idCompte = :pUtilisateur_idCompte, Utilisateur_idCompteSuivis = :pUtilisateur_idCompteSuivis", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
-    $stmt->bindParam(':notification', $pNotification, PDO::PARAM_BOOL);
+    $stmt = $PDO->prepare("SELECT * FROM follower WHERE Utilisateur_idCompte = :pUtilisateur_idCompte", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
     $stmt->bindParam(':Utilisateur_idCompte', $pUtilisateur_idCompte, PDO::PARAM_INT);
-    $stmt->bindParam(':Utilisateur_idCompteSuivis', $pUtilisateur_idCompteSuivis, PDO::PARAM_INT);
     $stmt->execute();
     $info = [];
     while ($donnee = $stmt->fetch(PDO::FETCH_NUM)) {
@@ -1476,14 +1509,13 @@ function InfoInstruction($Recette_idRecette){
     return $info;
 }
 /*Show all historique visionner*/
-function ShowWatchingRecipeHistory($pDateConsultation, $pUtilisateur_idCompte, $pRecette_idRecette){
+function ShowWatchingRecipeHistory($pUtilisateur_idCompte){
     Connexion();
     global $PDO;
     mysqli_set_charset($PDO, "utf8mb4");
-    $stmt = $PDO->prepare("SELECT * FROM HistoriqueRecetteVisioné  WHERE dateConsultation = :pDateConsultation, Utilisateur_idCompte = :pUtilisateur_idCompte, Recette_idRecette = :pRecette_idRecette", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
-    $stmt->bindParam(':dateConsultation', $pDateConsultation, PDO::PARAM_STR);
+
+    $stmt = $PDO->prepare("SELECT * FROM HistoriqueRecetteVisioné  WHERE Utilisateur_idCompte = :pUtilisateur_idCompte", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
     $stmt->bindParam(':Utilisateur_idCompte', $pUtilisateur_idCompte, PDO::PARAM_INT);
-    $stmt->bindParam(':Recette_idRecette', $pRecette_idRecette, PDO::PARAM_INT);
     $stmt->execute();
     $info = [];
     while ($donnee = $stmt->fetch(PDO::FETCH_NUM)) {
@@ -1545,14 +1577,13 @@ function DeleteAdmin($pidCompte, $pTitre){
 }
 
 /* Show all admin */
-function ShowAdmin($pidCompte, $pTitre){
+function ShowAdmin($pidCompte){
     Connexion();
     global $PDO;
     mysqli_set_charset($PDO, "utf8mb4");
 
-    $stmt = $PDO->prepare("SELECT * FROM Administrateur  WHERE idCompte = :pidCompte AND Titre = :pTitre", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+    $stmt = $PDO->prepare("SELECT * FROM Administrateur  WHERE idCompte = :pidCompte", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
     $stmt->bindParam(':idCompte', $pidCompte, PDO::PARAM_INT);
-    $stmt->bindParam(':Titre', $pTitre, PDO::PARAM_STR);
     $stmt->execute();
     $info = [];
     while ($donnee = $stmt->fetch(PDO::FETCH_NUM)) {
@@ -1564,4 +1595,26 @@ function ShowAdmin($pidCompte, $pTitre){
     $stmt->closeCursor();
     return $info;
 }
+
+/*Show Recipe made by a specific user*/ 
+function UserRecipe($pidCompte){
+    Connexion();
+    global $PDO;
+    mysqli_set_charset($PDO, "utf8mb4");
+
+    $stmt = $PDO->prepare("SELECT nomRecette FROM Recette  WHERE idCompte = :pidCompte", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+    $stmt->bindParam(':idCompte', $pidCompte, PDO::PARAM_INT);
+    $stmt->execute();
+    $stmt2 = $PDO->prepare("SELECT nom,prenom FROM Utilisateur WHERE idCompte = :pidCompte", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+    $stmt2->bindParam(':idCompte', $pidCompte, PDO::PARAM_INT);
+    $stmt2->execute();
+    $info = [];
+    while ($donnee = $stmt->fetch(PDO::FETCH_NUM)) {
+        $rangee = [];
+        array_push($rangee, $donnee[0]); // 
+        array_push($info, $rangee);
+    }
+    $stmt->closeCursor();
+    return $info;
+} 
 ?>

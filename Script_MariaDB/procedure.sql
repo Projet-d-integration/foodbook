@@ -324,7 +324,7 @@ END $$
 DELIMITER $$
 CREATE PROCEDURE ModifierEvaluationCommentaire(pEvaluation INT, pCommentaire VARCHAR(75), pRecette_idRecette INT, pUtlisateur_idCompte INT)
 BEGIN
-	UPDATE EvaluationCommentaire SET evaluation = pEvaluation, commentaire = pCommentaire, Recette_idRecette = pRecette_idRecette WHERE Utilisateur_idCompte = pUtilisateur_idCompte;
+	UPDATE EvaluationCommentaire SET evaluation = pEvaluation, commentaire = pCommentaire  WHERE Utilisateur_idCompte = pUtilisateur_idCompte and Recette_idRecette = pRecette_idRecette;
 END $$
 
 /* Add follower*/

@@ -13,7 +13,7 @@
 <head>
     <title>Accueil Foodbook</title>
     
-    <meta charset="utf-8" name="viewport" content="width=device-width" />
+    <meta charset="utf-8">
     
     <style>
         <?php require 'styles/personal-recipes.css'; ?>

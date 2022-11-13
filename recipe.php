@@ -20,15 +20,6 @@ if (array_key_exists('buttonDeconnecter', $_POST)) {
         <?php require 'scripts/filter.php'; ?>
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <?php
-    if (!($_SERVER['REQUEST_METHOD'] === 'POST')) {
-        $recette =  ShowSingleRecipe($_GET['id'])[0];
-        $infoRecette = InfoRecipeByID($recette[0])[0];
-    } else {
-        $recette = ShowSingleRecipe($_POST['id'])[0];
-        $infoRecette = InfoRecipeByID($recette[0])[0];
-    }
-    ?>
     <?php RenderFavicon(); ?>
 </head>
 
@@ -53,7 +44,19 @@ if (array_key_exists('buttonDeconnecter', $_POST)) {
             }
             else if(!empty($_POST['del-instruction'])){
                 DeleteInstruction($_POST['instruction']);
+            }else if(!empty($_POST['title-input'])){
+                ModifyNameRecipe($_POST['id'],$_POST['title-input']);
+            }else if(!empty($_POST['image-input'])){
+                ModifyImageInfoRecipe($_POST['id'],$_POST['image-input']);
+            }else if(!empty($_POST['description-input'])){
+                ModifyDescriptionInfoRecipe($_POST['id'],$_POST['description-input']);
             }
+            $recette = ShowSingleRecipe($_POST['id'])[0];
+            $infoRecette = InfoRecipeByID($recette[0])[0];
+        }
+        else{
+            $recette =  ShowSingleRecipe($_GET['id'])[0];
+            $infoRecette = InfoRecipeByID($recette[0])[0];
         }
     ?>
     <div class="header-banner">
@@ -84,51 +87,91 @@ if (array_key_exists('buttonDeconnecter', $_POST)) {
             </div>
 
             <div class="recipe-title">
-                <?= $recette[2] ?>
+                <?php
+                    if($_SESSION['idUser'] == $recette[1]){
+                        echo "<form method='post'>
+                                <input type='text' name='title-input' value='$recette[2]'/>
+                                <input type='hidden' name='id' value='$recette[0]'>
+                                <button type='submit' class='modify-button'>" . file_get_contents('utilities/notebook.svg') . "</button>
+                            </form>";
+                    }else{
+                        echo "$recette[2]";
+                    }
+                ?>
             </div>
         </div>
-        <div class="recipe-ingredients">
+        <?php
+            if($_SESSION['idUser'] == $recette[1]){
+                echo "<form method='post'>
+                        <label name='image-input'>Url de l'image :</label><input type='text' name='image-input' value='$infoRecette[5]'/>
+                        <input type='hidden' name='id' value='$recette[0]'>
+                        <button type='submit' class='modify-button'>" . file_get_contents('utilities/notebook.svg') . "</button>
+                    </form>";
+            }
+        ?>
+        <div class="publisher-info">
+                <?php 
+                    if($infoRecette[2] == "")
+                        $desc = "Aucune description à été rajouté pour le moment!";
+                    else
+                        $desc = $infoRecette[2];
+                    if($_SESSION['idUser'] == $recette[1]){
+                        echo "<form method='post'>
+                                <input style='width:20rem' type='text' name='description-input' value='$desc'/>
+                                <input type='hidden' name='id' value='$recette[0]'>
+                                <button type='submit' class='modify-button'>" . file_get_contents('utilities/notebook.svg') . "</button>
+                            </form>";
+                    }else{
+                        echo "$desc";
+                    }
+                ?>
+        </div>
+        <div class="recipe-ingredients-wrapper">
             <div class="checkboxes-container">
                 <?php
-                
                     $tabIngredientRecipe = InfoItemRecipe($recette[0]);
                     
                     if (count($tabIngredientRecipe) == 0) {
                         echo '<div class="neutral-message" style="display: flex"> Il n\'y a aucun ingrédient dans cette recette présentement</div>';
                     } 
+                    echo"<table class='form-ingredient-wrapper'>";
                     foreach ($tabIngredientRecipe as $ingredient) {
+                        echo "<tr id='table-row$ingredient[2]'>";
                         $infoIngredient = SingleIngredientInfo($ingredient[2]);
                         echo "<div class='recipe-ingredient'>";
                         if (!($_SESSION['idUser'] == $recette[1])) {
-                            echo "<input type='checkbox' class='recipe-ingredient-content'/>";
+                            echo "<td class='table-checkbox'><input onChange=' AddStyleWhenChecked($ingredient[2])' type='checkbox' id='checkbox-ingred-recipe$ingredient[2]' class='recipe-ingredient-content'/></td>";
                         }
+                        echo "<td id='name-ingred-table$ingredient[2]' class='table-name'table-name>$infoIngredient[1]</td>";
                         if ($_SESSION['idUser'] == $recette[1])
-                            echo "<Form method='post'><input style='width:10%' type='number' name='qteChosen' min='1' value='$ingredient[0]' class='recipe-ingredient-content'>";
+                            echo "<td class='table-number'><form method='post'><input style='width:10%' type='number' name='qteChosen' min='1' value='$ingredient[0]' class='recipe-ingredient-content'></td>";
                         else
-                            echo "<input style='width:5%' type='number' name='qteChosen' min='1' value='$ingredient[0]' class='recipe-ingredient-content' readonly>";
-                        echo "<div class='recipe-ingredient-content'>$infoIngredient[1]</div>";
+                            echo "<td id='num-ingred-table$ingredient[2]' class='table-number'><input style='width:10%' type='number' name='qteChosen' min='1' value='$ingredient[0]' class='recipe-ingredient-content' readonly></td>";
+                        
                         if ($_SESSION['idUser'] == $recette[1]){ 
                             echo "<input type='hidden' name='id' value='$recette[0]'>";
                             echo "<input type='hidden' name='ingredient' value='$infoIngredient[0]'>";
-                            echo "<button type='submit' name='edit-ingredient' value='true' class='recipe-ingredient-content'>Modifier</button></form>";
+                            echo " <td class='table-modify'><button type='submit' name='edit-ingredient' value='true' class='recipe-ingredient-content modify-button'>".file_get_contents("utilities/notebook.svg")."</button></form></td>";
                             echo "<form method='post'>
-                                <button type='submit' name='del-ingredient' value='1'>Supprimer</button>
+                            <td class='table-remove'> <button type='submit' name='del-ingredient' value='1' class='x-button'>".file_get_contents("utilities/x-symbol.svg")."</button></td>
                                 <input type='hidden' name='id' value='$recette[0]'>
                                 <input type='hidden' name='ingredient' value='$infoIngredient[0]'>
                             </form>";
                         }
+                        echo "</tr>";
                         echo "</div>";
+                        
                     }
+                    echo"</table>";
                     if ($_SESSION['idUser'] == $recette[1]) // || $_SESSION['idUser'] == table Admin
                     {
                         echo "<div class='button button-primary add-new-ingredient' id='add_new_ingredient' onclick='ShowFormItems()'>Ajouter un ingrédient</div>";
                     }
-                    
                 ?>
             </div>
         </div>
 
-        <div class="recipe-steps">
+        <div>
             <div class="checkboxes-container">
                 <?php
                 $tabInstruction = InfoInstruction($recette[0]);
@@ -137,27 +180,30 @@ if (array_key_exists('buttonDeconnecter', $_POST)) {
                     echo '<div class="neutral-message" style="display: flex"> Il n\'y a aucune étape dans cette recette présentement </div>';
                 } 
                 $cptInstruction = 1;
+                echo "<table class='form-steps-wrapper'>";
                 foreach ($tabInstruction as $instruction) {
-                    echo "<div class='recipe-ingredient'>";
+                    echo"<tr id='table-steps-row$instruction[0]'>";
+                    echo "<div class='recipe-ingredient-wrapper'>";
                     if ($_SESSION['idUser'] == $recette[1]){ // || $_SESSION['idUser'] == table Admin
-                        echo "<form method='post'><span>$cptInstruction - </span>";
-                        echo "<input type='text' name='edit-instruction' value='$instruction[2]'>";
+                        echo "<td class='table-count-instruction'><form method='post'><span>$cptInstruction - </span></td>";
+                        echo "<td class='table-steps'><textarea max='350' class='textearea-step' name='edit-instruction' value='$instruction[2]'>$instruction[2]</textarea></td>";
                         echo "<input type='hidden' name='id' value='$recette[0]'>";
                         echo "<input type='hidden' name='id-instruction' value='$instruction[0]'>";
-                        echo "<button type='submit' class='recipe-ingredient-content'>Modifier</button></form>";
+                        echo "<td class='table-modify'><button type='submit' class='recipe-ingredient-content modify-button'>".file_get_contents("utilities/notebook.svg")."</button></form></td>";
                         echo "<form method='post'>
-                            <button type='submit' name='del-instruction' value='1'>Supprimer</button>
+                            <td class='table-remove'><button type='submit' name='del-instruction' class='x-button' value='1'>".file_get_contents("utilities/x-symbol.svg")."</button></td>
                             <input type='hidden' name='id' value='$recette[0]'>
                             <input type='hidden' name='instruction' value='$instruction[0]'>
                         </form>";
                     }else{
-                        echo "<input type='checkbox' class='recipe-ingredient-content'/>";
-                        echo "<span>$cptInstruction - </span>";
-                        echo "<span>$instruction[2]</span>";
+                        echo "<td class='table-checkbox'><input type='checkbox' onChange='AddStyleWhenCheckedStep($instruction[0])' id='checkbox-steps$instruction[0]' class='recipe-ingredient-content'/> <span>$cptInstruction - </span></td>";
+                        echo "<td id='step-value$instruction[0]' colspan=3 class='table-steps'><span>$instruction[2]</span></td>";
                     }
                     echo "</div>";
                     $cptInstruction++;
+                    echo "</tr>";
                 }
+                echo "</table>";
                 foreach ($tabEtape as $etape) {
                     echo "<div class='recipe-step'>";
                     if ($_SESSION['idUser'] == $recette[1]) {
@@ -168,13 +214,17 @@ if (array_key_exists('buttonDeconnecter', $_POST)) {
                 
                 if ($_SESSION['idUser'] == $recette[1])
                     echo "<div class='button button-primary add-new-step' id='add_new_step' onclick='ShowFormInstruction()'>Ajouter une étape</div>";
+                
                 ?>
             </div>
         </div>
-
-        <a href="<?= $infoRecette[6] ?>" class="recipe-video">
-            Vidéo tutoriel
-        </a>
+        <?php 
+            if(!($infoRecette[6] == "")){
+                echo "<a href='$infoRecette[6]' class='recipe-video'>
+                        Vidéo tutoriel
+                    </a>";
+            }
+        ?>
         <div class="recipe-save-like">
             <div class="interractible-svg">
                 <?php echo file_get_contents("utilities/like.svg"); ?>
@@ -185,9 +235,6 @@ if (array_key_exists('buttonDeconnecter', $_POST)) {
                 </div>
             </div>
     
-            <div class="publisher-info">
-                <?= $infoRecette[2] ?>
-            </div>
     
             <div class="recipe-comments">
                 Section commentaires
@@ -205,15 +252,15 @@ if (array_key_exists('buttonDeconnecter', $_POST)) {
                         }
                         else{
                             echo "<div>Username: le commentaire</div>
-                              <div>Username: le commentaire</div>";
+                                <div>Username: le commentaire</div>";
                         }
                     }
-                   
+                
                     
-                    
-                 ?>
-                 <!--Rajouter un if pour vérifier que le user a ajouter un seul commentaire si oui ne pas afficher le bouton ci-dessous, sinon l'afficher-->
-                 <div onclick="ShowFormAddComments()" class="button button-secondary">Ajouter un commentaire</div>
+            
+                ?>
+                <!--Rajouter un if pour vérifier que le user a ajouter un seul commentaire si oui ne pas afficher le bouton ci-dessous, sinon l'afficher-->
+                <div onclick="ShowFormAddComments()" class="button button-secondary">Ajouter un commentaire</div>
             </div>
 
             <div class="comments-form" id="comments-form">
@@ -247,10 +294,10 @@ if (array_key_exists('buttonDeconnecter', $_POST)) {
                                     
                                 ';
                         ?>
-                         <div class="error_message" id="comment-field-empty">Vous devez remplir le/les champs obligatoires.</div>
+                        <div class="error_message" id="comment-field-empty">Vous devez remplir le/les champs obligatoires.</div>
                     </form>
                 </div>
-    </div>
+        </div>
 
             <?php
                 if(isset($_POST["addComments"]))
@@ -270,19 +317,14 @@ if (array_key_exists('buttonDeconnecter', $_POST)) {
                         echo '<script>window.onload = () => { 
                             ShowFormAddComments();
                             document.getElementById("comment-field-empty").style.display = "block";
-                             }</script>';
+                            }</script>';
                     }
 
                 }
                 
             ?>
         </div>
-        <div class="publisher-info">
-            <?= $infoRecette[2] ?>
-        </div>
     </div>
-
-    
     
     <div class="inventory-form" id="inventory-items-form">
         <div class="transparent-background">
@@ -338,7 +380,7 @@ if (array_key_exists('buttonDeconnecter', $_POST)) {
                                             <input type='hidden' name='place-input' value='$idEmplacement'>
                                             <input type='hidden' name='id' value='$recette[0]'>
                                             <input type='hidden' value='$spaceChosen' name='buttonSpace'>
-                                            <button type='submit' class='button button-secondary' name='ingredient-input' value='$singleIngredient[0]'>Ajouter</button><br>
+                                            <button type='submit' class='button button-primary' name='ingredient-input' value='$singleIngredient[0]'>Ajouter</button><br>
                                         </div>
                                     </form>";
                         }
@@ -352,25 +394,25 @@ if (array_key_exists('buttonDeconnecter', $_POST)) {
         </div>
     </div>
     <div class="inventory-form" id="instruction-form">
-            <div class="transparent-background">
-                <div class="items-form-content">
-                    <div class="form-exit" onclick='HideFormInstruction()'> <?php echo file_get_contents("utilities/x-symbol.svg"); ?> </div>
-                    <div class="instruction-form">
-                        <form method="POST">
-                            <span class='inventory-items-form-title'>Nouvelle Instruction </span>
+        <div class="transparent-background">
+            <div class="items-form-content">
+                <div class="form-exit" onclick='HideFormInstruction()'> <?php echo file_get_contents("utilities/x-symbol.svg"); ?> </div>
+                <div class="instruction-form">
+                    <form method="POST">
+                        <span class='inventory-items-form-title'>Nouvelle Instruction </span>
+                        <br>
+                        <span  placeholder="Inscrire la nouvelle instruction.." name="instruction-input" max="350" />
+                        <?php echo "<input type='hidden' name='id' value='$recette[0]' />"; ?>
+                        <br>
+                        <div class="items-form-submit">
+                            <button type='submit' class='button button-secondary' name='add-instruction'>Ajouter</button>
                             <br>
-                            <input type="text" placeholder="Inscrire la nouvelle instruction.." name="instruction-input" max="350" />
-                            <?php echo "<input type='hidden' name='id' value='$recette[0]' />"; ?>
-                            <br>
-                            <div class="items-form-submit">
-                                <button type='submit' class='button button-secondary' name='add-instruction'>Ajouter</button>
-                                <br>
-                            </div>
-                        </form>
-                    </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
+    </div>
     
     <?php GenerateFooter(); ?>
 </body>
@@ -408,5 +450,36 @@ if (array_key_exists('buttonDeconnecter', $_POST)) {
 
     function HideFormItemQuantity(id) {
         document.getElementById("inventory-item-form-" + id).style.display = "none";
+    }
+    
+        function AddStyleWhenChecked(idIngred)
+        {
+            var checkBox = document.getElementById("checkbox-ingred-recipe" + idIngred);
+            
+            if(checkBox.checked)
+            {
+                document.getElementById("name-ingred-table" + idIngred).style.textDecoration = "line-through";
+                document.getElementById("num-ingred-table" + idIngred).style.textDecoration = "line-through";
+                document.getElementById("table-row" + idIngred).classList.add("table-changed-background");
+            }
+            else{
+                document.getElementById("name-ingred-table" + idIngred).style.textDecoration = "none";
+                document.getElementById("num-ingred-table" + idIngred).style.textDecoration = "none";
+                document.getElementById("table-row" + idIngred).classList.remove("table-changed-background");
+            }
+        }
+    function AddStyleWhenCheckedStep(idStep)
+    {
+        var checkbox = document.getElementById("checkbox-steps" + idStep);
+
+        if(checkbox.checked)
+        {
+            document.getElementById("step-value" + idStep).style.textDecoration = "line-through";
+            document.getElementById("table-steps-row" + idStep).classList.add("table-changed-background-steps");
+        }
+        else{
+            document.getElementById("step-value" + idStep).style.textDecoration = "none";
+            document.getElementById("table-steps-row" + idStep).classList.remove("table-changed-background-steps");
+        }
     }
 </script>
