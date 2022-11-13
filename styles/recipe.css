@@ -44,13 +44,8 @@
     margin-left: 2rem;
 }
 
-.recipe-ingredients {
-    border: 0.1rem solid var(--color-primary);
-    background: var(--color-accent);
-    color: var(--color-secondary);
-    border-radius: 0.5rem;
-    padding: 3rem 0 3rem 0;
-    width: 100%;
+.recipe-ingredients-wrapper {
+    text-align: center;
 }
 
 .recipe-steps {
@@ -131,6 +126,7 @@
 .recipe-ingredient-content{
     display: inline;
     margin: 0.5rem;
+    background-color: transparent;
 }
 
 .neutral-message {
@@ -432,4 +428,96 @@ ul > *{
     padding: 0.5rem 1rem;
     width: 75%;
     flex-wrap: wrap;
+}
+.x-button svg,
+.modify-button svg{
+    height: 1.5rem;
+    width: 1.5rem;
+}
+.button-add-ingred,
+.button-add-step{
+    background-color: var(--color-tertiary);
+}
+.form-ingredient-wrapper{
+    border-collapse: collapse;
+    background: var(--color-secondary);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    min-width: 40rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    border-radius: 0.2rem;
+    overflow: hidden;
+}
+.form-ingredient-wrapper td {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+.form-ingredient-wrapper tr:nth-of-type(even) {
+    background-color: var(--color-accent-border);
+}
+
+.table-name {
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.table-modify {
+    text-align: center;
+}
+
+.table-number {
+    text-align: center;
+}
+
+.table-number input {
+    width: 4rem;
+    background-color: transparent;
+}
+
+.table-remove {
+    text-align: right;
+    padding-right: 2rem;
+}
+
+.table-changed-background {
+    background: var(--color-primary) !important;
+    color: var(--color-secondary);
+}
+.form-steps-wrapper{
+    border-collapse: collapse;
+    background: var(--color-secondary);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    min-width: 40rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    border-radius: 0.2rem;
+    overflow: hidden;
+}
+.form-steps-wrapper td {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+.form-steps-wrapper tr:nth-of-type(even) {
+    background-color: var(--color-accent-border);
+}
+.table-count-instruction{
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+.table-steps{
+    width: 4rem;
+    text-align: left;
+}
+.textearea-step{
+    max-width: 35rem;
+    max-height: 10rem;
+}
+.table-checkbox{
+    width: 5rem;
+}
+.table-changed-background-steps{
+    background: var(--color-primary) !important;
+    color: var(--color-secondary);
 }

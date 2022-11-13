@@ -256,6 +256,8 @@ input {
     font-style: italic;
     font-size: 0.8rem;
     padding: 0.5rem 2rem;
+    display: flex;
+    justify-content: space-between;
 }
 
 

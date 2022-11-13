@@ -871,6 +871,19 @@ function ModifyRecipe($pIdCompte, $pIdRecette,$pNomRecette, $pPublique, $pNbVus,
         return $e->getMessage();
     }    
 }
+function ModifyNameRecipe($pIdRecette,$pNomRecette){
+    Connexion();
+    global $PDO;
+    try{
+        mysqli_set_charset($PDO, "utf8mb4");
+        $stmt = $PDO->prepare("UPDATE Recette SET nomRecette = :pNomRecette WHERE idRecette = :pIdRecette", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+        $stmt->bindParam(':pIdRecette', $pIdRecette, PDO::PARAM_INT);
+        $stmt->bindParam(':pNomRecette', $pNomRecette, PDO::PARAM_STR);
+        $stmt->execute();
+    } catch (PDOException $e) {
+        return $e->getMessage();
+    }    
+}
 //Remove Recipe
 function DeleteRecipe($idRecette){
     try {
@@ -998,6 +1011,32 @@ function ModifyInfoRecipe($pTempsPreparation, $pNbPortions, $pDescription, $pIns
     } catch (PDOException $e) {
         return $e->getMessage();
     }   
+}
+function ModifyImageInfoRecipe($pIdRecette,$pImage){
+    Connexion();
+    global $PDO;
+    try{
+        mysqli_set_charset($PDO, "utf8mb4");
+        $stmt = $PDO->prepare("UPDATE InfoRecette SET image = :pImage WHERE  Recette_idRecette = :pIdRecette", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+        $stmt->bindParam(':pIdRecette', $pIdRecette, PDO::PARAM_INT);
+        $stmt->bindParam(':pImage', $pImage, PDO::PARAM_STR);
+        $stmt->execute();
+    } catch (PDOException $e) {
+        return $e->getMessage();
+    }    
+}
+function ModifyDescriptionInfoRecipe($pIdRecette,$pDescription){
+    Connexion();
+    global $PDO;
+    try{
+        mysqli_set_charset($PDO, "utf8mb4");
+        $stmt = $PDO->prepare("UPDATE InfoRecette SET description = :pDescription WHERE  Recette_idRecette = :pIdRecette", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+        $stmt->bindParam(':pIdRecette', $pIdRecette, PDO::PARAM_INT);
+        $stmt->bindParam(':pDescription', $pDescription, PDO::PARAM_STR);
+        $stmt->execute();
+    } catch (PDOException $e) {
+        return $e->getMessage();
+    }    
 }
 //Remove an information about a recipe
 function DeleteInfoRecipe($pRecette_idRecette){
