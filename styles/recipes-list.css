@@ -1,6 +1,6 @@
 .wrapper {
     display: flex;
-    padding: 2rem 8rem;
+    padding: 2rem 5rem;
     margin: auto;
     width: fit-content;
     flex-direction: column;
@@ -9,6 +9,7 @@
 }
 
 .recipes-container {
+    margin: 0 auto;
     width: fit-content;
     display: flex;
     flex-wrap: wrap;
@@ -68,9 +69,14 @@
     height: 100%;
 }
 
+.form-filter-wrapper {
+    width: fit-content;
+}
+
 .form-filter{
-    width: 100%;
+    width: fit-content;
     padding: 1rem;
+    gap: 1rem;
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
@@ -98,4 +104,101 @@ input::placeholder {
     height: 1.5rem;
     width: 1.5rem;
     cursor: pointer;
+}
+
+.banner-title {
+    margin-bottom: 1rem;
+}
+
+@media screen and (max-width:1000px) {
+    /* insert mobile code here */
+
+    .wrapper {
+        padding: 2rem;
+        width: 80% !important;
+    }
+
+    .form-filter {
+        width: 100%;
+        flex-direction: column;
+        justify-content: flex-start;
+        padding: 5rem 0 0 0;
+    }   
+
+    .form-exit svg {
+        width: 2rem;
+        height: 2rem;
+    }
+
+    .form-exit > * {
+        fill: var(--color-primary);
+    }
+
+    .form-exit {
+        position: absolute;
+        top: 1.5rem;
+        right: 3rem;
+    }
+
+    .filter-button {
+        width: fit-content;
+        height: fit-content;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 0.8rem 5rem;
+        border-radius: 0.3rem;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+        background: var(--color-secondary) !important;
+    }
+    
+    .filter-button svg {
+        width: 1.5rem;
+    }
+
+    .filters-menu-button svg {
+        width: 1rem;
+    }
+
+    .filters-menu-button {
+        width: 15rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border: 1px solid var(--color-accent-border);
+        padding: 1rem;
+        background: var(--color-secondary);
+        border-radius: 0.3rem;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .mobile-filters-menu {
+        position: fixed;
+        display: none;
+        height: 100%;
+        width: 100%;
+        z-index: 5;
+        top: 0;
+        left: 0;
+    }
+
+    .recipes-container {
+        gap: 2rem;
+    }
+
+    .recipe-box {
+        width: 15rem;
+        height: 10rem;
+    }
+
+    .recipe-name {
+        width: 20rem;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+        background: var(--color-secondary) !important;
+    }
+
+    .filter-text {
+        text-decoration: underline  ;
+    }
+
 }
