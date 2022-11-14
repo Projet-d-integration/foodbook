@@ -3,24 +3,17 @@ body {
     height: 100%;
 }
 
-.wrapper {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    padding: 2rem 10rem;
-    width: 40% !important;
-    gap: 2rem;
-}
-
-.inventory-space-form {
-    width: 100%;
-}
-
 .inventory-wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 2rem;
+    width: fit-content;
+}
+
+
+.wrapper {
+    padding: 2rem 10rem;
 }
 
 .inventory-form {
@@ -114,10 +107,6 @@ body {
     height: 3rem;
 }
 
-.item-wrapper {
-    text-align: center;
-}
-
 .inventory-item:hover {
     background: var(--color-accent-hover);
     cursor: pointer;
@@ -133,7 +122,6 @@ body {
     justify-content: center;
     align-items: center;
     display: none;
-    top: 0;
 }
 
 .items-form-overlay {
@@ -143,7 +131,7 @@ body {
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    min-height: 17rem;
+    height: 40%;
     width: 40%;
 }
 
@@ -173,7 +161,6 @@ body {
     justify-content: center;
     margin: auto;
     gap: 2rem;
-    width: 100%;
 }
 
 .space-div {
@@ -213,6 +200,10 @@ body {
     top: 7rem;
 }
 
+.inventory-form {
+    display: none;
+}
+
 .form-exit svg {
     fill: var(--color-primary);
     height: 1.5rem;
@@ -242,6 +233,19 @@ body {
     background: var(--color-accent-hover);
     cursor: pointer;
 }
+.item-wrapper{
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 1rem;
+}
+tr{
+    list-style-type: none;
+}
+tr > *{
+    width: 50%;
+}
 .display-filter-section{
     display: flex;
     justify-content: center;
@@ -251,11 +255,6 @@ body {
     padding: 0.5rem 1rem;
     width: 75%;
     flex-wrap: wrap;
-}
-
-.form-ingredient-button {
-    float: right;
-    margin-bottom: 2rem;
 }
 
 /*#region Table*/

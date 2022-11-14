@@ -19,6 +19,7 @@ if (empty($_SESSION['idUser'])) {
         <?php require 'scripts/body-scripts.php'; ?>
         <?php require 'scripts/db.php'; ?>
         <?php require 'scripts/filter.php'; ?>
+        <?php require 'styles/inventory.css'; ?>
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <?php RenderFavicon(); ?>
@@ -51,8 +52,113 @@ if (empty($_SESSION['idUser'])) {
     </div>
 
     <div class="wrapper">
+       
         <div class="inventory-wrapper">
-            <?php
+            <?php 
+                if(!($_SERVER['REQUEST_METHOD'] == 'POST')){
+                    $tabInfoSpace = InfoLocation($_SESSION['idUser']); 
+                    $numInfoSpace = count($tabInfoSpace);
+                    if ($numInfoSpace <= 0){
+                        echo '
+                        <script>
+                            window.onload = () => { 
+                                document.getElementById("add_new_location").style.display = "block"; 
+                                document.getElementById("error_no_space").style.display = "block";
+                                document.getElementById("add_new_location").style.display = "block";
+                            }
+                        </script>';
+                    }
+                    else {
+                        echo '
+                            <script>
+                                window.onload = () => { document.getElementById("add_new_location").style.display = "block"; }
+                            </script>';
+                        echo '
+                        <form method="post">
+                        <div class="space-grid">';
+                        foreach ($tabInfoSpace as $space) {
+                            echo "<button title='$space[2]' class='space-div' type='submit' name='buttonSpace' value='$space[0]'> $space[1] <div class='space-div-arrow'>" . file_get_contents("utilities/caret.svg") . "</div> </button>";
+                        }
+                        echo '</div>
+                        </form>';
+                    }
+                }else if(!empty($_POST['option-delete-place'])){
+                    DeleteLocation(intval($_POST['idEmplacementDelete']));
+                    ChangePage("groceries-list.php");
+                }else if(!empty($_POST['option-delete'])){
+                    DeleteIngredientInventory(intval($_SESSION['idUser']),intval($_POST['idIngredientDelete']),intval($_POST['idEmplacementDelete']));
+                    ChangePage("groceries-list.php");
+                }else if(!empty($_POST['qteChosen'])){
+                    echo ModifyIngredientInventory(intval($_SESSION['idUser']),intval($_POST['idIngredient']),intval($_POST['qteChosen']),intval($_POST['idEmplacement']));
+                    echo "<script>window.location.href = window.location.href;</script>";
+                }else if(!empty($_POST['ingredient-input'])){
+                    AddIngredientInventory(intval($_SESSION['idUser']),intval($_POST['ingredient-input']),intval($_POST['number-input']),intval($_POST['place-input']));
+                    echo "<script>window.location.href = window.location.href;</script>";
+                }else if(!empty($_POST['buttonSpace'])){
+                    $spaceChosen = $_POST['buttonSpace'];
+                    $tabInventaire = UserInventoryInfo($_SESSION['idUser']);
+                    echo '<form><div class="item-wrapper"><div class="return-button">'.GenerateButtonTertiary("Retourner aux Liste d'épicerie", "groceries-list.php").'</div></form>';
+                    echo "<div class='button button-primary form-ingredient-button' onclick='ShowFormItems()'>Ajouter un ingrédient</div>";
+                    echo '<table class="form-ingredient-wrapper">';
+                    $nbIngredient = 0;
+                    foreach($tabInventaire as $ingredientInventaire){
+                        $ingredientInfo = SingleIngredientInfo($ingredientInventaire[2]);
+                        if($ingredientInventaire[3] == $_POST['buttonSpace']){
+                            $nbIngredient = $nbIngredient + 1;
+                            echo "<tr> 
+                                <td class='table-name'>$ingredientInfo[1] </td>
+                                <form  method='post' class='form-ingredient-option'> 
+                                    <td class='table-number'><input type='number' name='qteChosen' min='1' value='$ingredientInventaire[0]'></td>
+                                    <input type='hidden' name='idIngredient' value='$ingredientInventaire[2]'>
+                                    <input type='hidden' name='idEmplacement' value='$spaceChosen'>
+                                    <td class='table-modify'><button type='submit' class='modify-button'>" . file_get_contents('utilities/notebook.svg') . "</button></td>
+                                </form>
+                                <form method='post' class='form-ingredient-option'>
+                                   <td class='table-remove'> <button type='submit' class='x-button' name='option-delete' value='1'>" . file_get_contents('utilities/x-symbol.svg') . "</button></td>
+                                    <input type='hidden' name='idIngredientDelete' value='$ingredientInventaire[2]'>
+                                    <input type='hidden' name='idEmplacementDelete' value='$spaceChosen'>
+                                </form>
+                                </tr>";
+                        }
+                    }
+                    echo '</table>';
+                    if($nbIngredient == 0){
+                        echo "
+                            <form method='post'>
+                                <button type='submit' class='danger-option' name='option-delete-place' value='1'>Retirer cet emplacement</button>
+                                <input type='hidden' name='idEmplacementDelete' value='$spaceChosen'>
+                            </form>";
+                    }
+                }else if(!empty($_POST['addLocation'])) {
+                    $tabInfoSpace = InfoLocation($_SESSION['idUser']); 
+                    $newLocation = $_POST['location-name'];
+                    $locationAlreadyExists = false;
+
+                    foreach ($tabInfoSpace as $location) {
+                        if (strtolower($location[1]) == strtolower($newLocation)) {
+                            $locationAlreadyExists = true;
+                            break;
+                        }
+                    }
+
+                    if (!$locationAlreadyExists) {
+                        echo "emplacement ajouté!";
+                        // Pour le deuxième paramètre de la méthode AddLocation, laisser vide pour l'instant (pas de svg encore)
+                        AddLocation($newLocation,'',$_SESSION['idUser']);
+                        ChangePage("groceries-list.php");
+                    }
+                    else {
+                        echo "Vous avez déjà un emplacement nommé ainsi, il n'a donc pas été ajouté.";
+                        echo '<form><div class="item-wrapper"><div class="return-button">'.GenerateButtonTertiary("Retour", "groceries-list.php").'</div></form>';
+                    }
+                }
+            ?>
+            <div class="neutral_message" id="error_no_location">Pour visionner et classer vos items, veuillez créer un emplacement.</div>
+            <div class="neutral_message" id="error_no_space">Vous n'avez pas d'emplacement pour le moment.</div>
+            <div class='add-new-location' id="add_new_location" onclick='ShowFormEmplacement()'>Ajouter une liste d'épicerie</div>
+        </div>
+        <!--
+            </*?php
             if (!($_SERVER['REQUEST_METHOD'] === 'POST')) {
                 $tabInfoSpace = InfoGroceriesList($_SESSION['idUser']);
                 $numInfoSpace = count($tabInfoSpace);
@@ -123,13 +229,13 @@ if (empty($_SESSION['idUser'])) {
                         }
                     }
                     echo '</table>';
-                echo '<ul>';
+                echo '<table class="form-ingredient-wrapper">';
                 $nbIngredient = 0;
                 foreach ($tabInventaire as $ingredientInventaire) {
                     $ingredientInfo = SingleIngredientInfo($ingredientInventaire[3]);
                     if ($ingredientInventaire[2] == $_POST['buttonSpace']) {
                         $nbIngredient = $nbIngredient + 1;
-                        echo "<li>";
+                        echo "<tr>";
                         if ($ingredientInventaire[1])
                             echo "<form method='post' class='form-ingredient-option'><input type='checkbox' value='$ingredientInventaire[1]' name='isChecked' checked/>";
                         else
@@ -151,10 +257,10 @@ if (empty($_SESSION['idUser'])) {
                                     <input type='hidden' value='$spaceChosen' name='buttonSpace'>
                                     <input type='hidden' name='idEmplacementDelete' value='$spaceChosen'>
                                 </form>
-                                </li>";
+                                </tr>";
                     }
                 }
-                echo '</ul>';
+                echo '</table>';
                 if ($nbIngredient == 0) {
                     echo "
                             <form method='post'>
@@ -199,7 +305,7 @@ if (empty($_SESSION['idUser'])) {
                     echo '<form><div class="item-wrapper"><div class="return-button">' . GenerateButtonTertiary("Retour", "groceries-list.php") . '</div></form>';
                 }
             }
-            ?>
+            ?> */  -->
             <div class="neutral_message" id="empty-field-form-list">Tous les champs doivent être remplie pour ajouter une liste.</div>
             <div class="neutral_message" id="error_no_location">Pour visionner et classer vos items, veuillez créer une liste.</div>
             <div class="neutral_message" id="error_no_space">Vous n'avez pas de liste d'épicerie pour le moment.</div>
