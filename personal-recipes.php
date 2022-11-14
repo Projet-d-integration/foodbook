@@ -13,7 +13,7 @@
 <head>
     <title>Accueil Foodbook</title>
     
-    <meta charset="utf-8">
+    <meta charset="utf-8" name="viewport" content="width=device-width" />
     
     <style>
         <?php require 'styles/personal-recipes.css'; ?>
@@ -25,53 +25,100 @@
     <?php RenderFavicon(); ?>
 </head>
 
-<body> 
+<div> 
     <?php 
         if($_SERVER['REQUEST_METHOD'] == 'POST')
             AddAnimation();
     ?>
-    <div class="header-banner">
+    <div class="header-banner hide-mobile">
         <a href="index.php"><?php echo file_get_contents("utilities/foodbook-logo.svg"); ?></a>
-        <div class="banner-title"> Vos Recettes </div>
-
         <?php AddSearchBar(); ?>
-
         <div class="svg-wrapper">
             <a href="personal-recipes.php" class="svg-button list-button"> <?php echo file_get_contents("utilities/book.svg"); ?> </a>
-            <a href="login.php" class="svg-button list-button"> <?php echo file_get_contents("utilities/list.svg"); ?> </a>
+            <a href="groceries-list.php" class="svg-button list-button"> <?php echo file_get_contents("utilities/list.svg"); ?> </a>
             <a href="inventory.php" class="svg-button inventory-button"> <?php echo file_get_contents("utilities/food.svg"); ?> </a>
             <?php 
+                if(!empty($_SESSION['idUser'])){
                     echo '<a href="edit-profil.php" class="svg-button login-button"> '.file_get_contents("utilities/account.svg").'</a>';
-                    echo '<form method="post"><button type="submit" name="buttonDeconnecter" class="svg-button login-button" value="buttonDeconnecter" />'.file_get_contents("utilities/logout.svg").'</form>';
-                    if($_SERVER['REQUEST_METHOD'] == 'POST'){
-                        if(!empty($_POST['title-input'])){
-                            if(isset($_POST['isPublic'])){
-                                echo AddRecipe($_SESSION['idUser'],$_POST['title-input'],1,0,date('Y-m-d H:i:s'),$_POST['type-input']);
-                                $idRecette = LastInsertedRecipe();
-                                AddInfoRecipe($idRecette,$_POST['image-input'],$_POST['video-input']) ;
-                                ChangePage("personal-recipes.php");
-                            }else{
-                                echo AddRecipe($_SESSION['idUser'],$_POST['title-input'],0,0,date('Y-m-d H:i:s'),$_POST['type-input']);
-                                $idRecette = LastInsertedRecipe();
-                                AddInfoRecipe($idRecette,$_POST['image-input'],$_POST['video-input']) ;
-                                ChangePage("personal-recipes.php");
-                            }
-                        }
-                    }
+                    echo '<form method="post"><button type="submit" name="buttonDeconnecter" class="svg-button login-button logout-button" value="buttonDeconnecter" />'.file_get_contents("utilities/logout.svg").'</form>';
+                }
+                else{
+                    echo '<a href="login.php" class="svg-button login-button"> '.file_get_contents("utilities/account.svg").'</a>';
+                }
             ?>
         </div>
     </div>
 
+    <!-- mobile header -->
+    <div class="header-mobile-banner hide-desktop">
+        <a href="index.php"><?php echo file_get_contents("utilities/foodbook-logo.svg"); ?></a>
+        <button class="menu-icon" onclick="ShowMenu()"><?php echo file_get_contents("utilities/menu.svg"); ?></button>
+    </div>
+
+    <div class="mobile-popup-menu hide-desktop" id="mobile-popup-menu">
+        <div class="mobile-svg-wrapper hide-desktop">
+            <?php AddSearchBar(); ?>
+
+            <a href="personal-recipes.php" class="svg-button list-button"> 
+                <?php echo file_get_contents("utilities/book.svg"); ?> 
+                <span class="header-text">Vos recettes</span>
+            </a>
+            <a href="groceries-list.php" class="svg-button list-button"> 
+                <?php echo file_get_contents("utilities/list.svg"); ?> 
+                <span class="header-text">Liste d'épicerie</span>
+            </a>
+            <a href="inventory.php" class="svg-button inventory-button"> 
+                <?php echo file_get_contents("utilities/food.svg"); ?> 
+                <span class="header-text">Inventaire</span>
+            </a>
+            <div class="form-exit" onclick='HideMenu()'> <?php echo file_get_contents("utilities/x-symbol.svg"); ?> </div>
+            <?php 
+                if(!empty($_SESSION['idUser'])){
+                    echo '<a href="edit-profil.php" class="svg-button login-button"> 
+                        '.file_get_contents("utilities/account.svg");
+                        echo "
+                        <span class='header-text'>" . User($_SESSION['idUser'])[2] . " " . User($_SESSION['idUser'])[1] . "</span>
+                    </a>";
+                    echo '<form method="post">
+                    <button type="submit" name="buttonDeconnecter" class="svg-button login-button logout-button" value="buttonDeconnecter" />
+                        '.file_get_contents("utilities/logout.svg").'
+                        <span class="header-text">Se déconnecter</span>
+                    </form>';
+                }
+                else{
+                    echo '<a href="login.php" class="svg-button login-button logout-button"> 
+                    '.file_get_contents("utilities/account.svg").'
+                    <span class="header-text">Se connecter</span>
+                    </a>';
+                }
+            ?>
+        </div>
+    </div>
+</div>
+
+<body> 
     <div class="wrapper">
-        <div class="personal-recipes-wrapper">
-            <div class="add-new-recipe" id="add_new_recipe" onclick='ShowFormRecipeCreation()'>Ajouter une recette</div>
+        <div class="banner-title"><span>Vos recettes</span></div>
+        <a class="button button-tertiary" id="add_new_recipe" onclick='ShowFormRecipeCreation()'> 
+            <span> Ajouter une recette</span>
+            <div class="button-tertiary-arrow"> <?php echo file_get_contents("./utilities/arrow.svg") ?></div>
+        </a>
+        <div class="recipes-container">
             <?php 
                 $tabRecette = ShowRecipe($_SESSION['idUser']);
-                echo '
-                    <form method="post">
+                echo '  
+                    <form method="post" class="personal-recipes-form">
                     <div class="space-grid">';
                     foreach($tabRecette as $recette){
-                        echo "<a class='space-div' href='recipe.php?id=$recette[0]' type='submit' name='buttonSpace' value='$recette[0]'> $recette[2] <div class='space-div-arrow'>". file_get_contents("utilities/caret.svg") ."</div> </a>";
+                        $infoRecipe = InfoRecipeByID($recette[0]);
+                        $srcImage =  $infoRecipe[0][5];
+                        // <a type='submit' name='buttonSpace' value='$recette[0]'> $recette[2] <div class='space-div-arrow'>". file_get_contents("utilities/caret.svg") ."</div> </a>
+                        echo "
+                            <a type='submit' name='buttonSpace' value='$recette[0]' href='recipe.php?id=$recette[0]' class='recipe-box'>
+                            <div class='recipe-overlay'></div>
+                            <span class='recipe-title'>$recette[2]</span>
+                            <img src='$srcImage' title='$recette[2]' class='recipe-image'>
+                        </a>";
                     }
                 echo '</div>
             </form>';
@@ -161,19 +208,19 @@
     window.onload = () => {
         <?php
             if(!($_SERVER['REQUEST_METHOD'] === 'POST')) {
-                echo 'document.getElementById("add_new_recipe").style.display = "block";';
+                echo 'document.getElementById("add_new_recipe").style.display = "flex";';
 
                 $tabRecette = ShowRecipe($_SESSION['idUser']);
                 
                 if(!(count($tabRecette) > 0)) {
-                    echo 'document.getElementById("error_no_recipes").style.display = "block";';
+                    echo 'document.getElementById("error_no_recipes").style.display = "flex";';
                 }
             }
         ?>
     }
 
     function ShowFormRecipeCreation() {
-        document.getElementById("personal-recipes-add-recipe-form").style.display = "block";
+        document.getElementById("personal-recipes-add-recipe-form").style.display = "flex";
     }
 
     function HideFormRecipeCreation() {
@@ -181,7 +228,7 @@
     }
 
     function ShowFormAddNewIngredient() {
-        document.getElementById("personal-recipes-add-ingredient-form").style.display = "block";
+        document.getElementById("personal-recipes-add-ingredient-form").style.display = "flex";
     }
 
     function HideFormAddNewIngredient() {
@@ -189,10 +236,18 @@
     }
 
     function ShowFormAddNewStep() {
-        document.getElementById("personal-recipes-add-step-form").style.display = "block";
+        document.getElementById("personal-recipes-add-step-form").style.display = "flex";
     }
 
     function HideFormAddNewStep() {
         document.getElementById("personal-recipes-add-step-form").style.display = "none";
+    }
+
+    function ShowMenu() {
+        document.getElementById("mobile-popup-menu").style.display = "flex";
+    }
+
+    function HideMenu() {
+        document.getElementById("mobile-popup-menu").style.display = "none";
     }
 </script>
