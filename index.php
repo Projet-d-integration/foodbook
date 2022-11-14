@@ -50,7 +50,6 @@
     </div>
 </div>
 
-
 <body> 
     <div class="separators">
         <?php 
