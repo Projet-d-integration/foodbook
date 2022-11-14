@@ -106,7 +106,7 @@
     /* insert mobile code here */
 
     .separators {
-        padding: 2rem;
+        padding: 2rem 1rem 1rem 1rem;
         width: 80%;
     }
 }

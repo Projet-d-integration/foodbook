@@ -1,5 +1,5 @@
 .wrapper {
-    padding: 2rem 10rem;
+    padding: 2rem 5rem;
 }
 
 .edit-profil-form{
@@ -27,4 +27,16 @@
     display: flex;
     flex-direction: column;
     margin:15rem 10rem;
+}
+@media screen and (max-width:800px){
+    .wrapper{
+        padding: 2rem 1rem 1rem 1rem;
+        width: 80% !important;
+    }
+    .text-input-profil{
+        width: 100%;
+    }
+    .edit-profil-form{
+        width: 100%;
+    }
 }

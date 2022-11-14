@@ -97,14 +97,13 @@
 </div>
 
 <body> 
-
     <div class="wrapper">
         <div class="banner-title"><span>Vos recettes</span></div>
+        <a class="button button-tertiary" id="add_new_recipe" onclick='ShowFormRecipeCreation()'> 
+            <span> Ajouter une recette</span>
+            <div class="button-tertiary-arrow"> <?php echo file_get_contents("./utilities/arrow.svg") ?></div>
+        </a>
         <div class="recipes-container">
-            <a class="button button-tertiary" id="add_new_recipe" onclick='ShowFormRecipeCreation()'> 
-                <span> Ajouter une recette</span>
-                <div class="button-tertiary-arrow"> <?php echo file_get_contents("./utilities/arrow.svg") ?></div>
-            </a>
             <?php 
                 $tabRecette = ShowRecipe($_SESSION['idUser']);
                 echo '  

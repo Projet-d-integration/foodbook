@@ -4,10 +4,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-}
-
-.banner-title {
-    margin-bottom: 2rem ;
+    gap: 2rem;
 }
 
 .personal-recipes-wrapper {
@@ -20,6 +17,7 @@
 }
 
 .recipes-container {
+    flex-direction: column;
     margin: 0 auto;
     width: fit-content;
     display: flex;
@@ -251,12 +249,12 @@
     /* insert mobile code here */
 
     .wrapper {
-        padding: 2rem;
+        padding: 2rem 1rem 1rem 1rem;
         width: 80% !important;
     }
 
     .recipe-box {
-        width: 15rem;
+        width: 12rem;
         height: 10rem;
     }
 
