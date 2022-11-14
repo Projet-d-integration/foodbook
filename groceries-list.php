@@ -98,7 +98,7 @@ if (empty($_SESSION['idUser'])) {
                     $tabInventaire = InfoItemGroceriesList($spaceChosen);
                     echo '<form><div class="item-wrapper"><div class="return-button">'.GenerateButtonTertiary("Retourner aux liste d'épicerie", "groceries-list.php").'</div></form>';
                     echo "<div class='button button-primary form-ingredient-button' onclick='ShowFormItems()'>Ajouter un ingrédient</div>";
-                    echo '<table class="form-ingredient-wrapper">';
+                    echo '<table class="item-wrapper">';
                     $nbIngredient = 0;
                     foreach($tabInventaire as $ingredientInventaire){
                         $ingredientInfo = SingleIngredientInfo($ingredientInventaire[2]);
@@ -121,7 +121,7 @@ if (empty($_SESSION['idUser'])) {
                         }
                     }
                     echo '</table>';
-                    echo '<table class="form-ingredient-wrapper">';
+                    echo '<table class="item-wrapper">';
                     $nbIngredient = 0;
                     foreach ($tabInventaire as $ingredientInventaire) {
                         $ingredientInfo = SingleIngredientInfo($ingredientInventaire[3]);
@@ -198,10 +198,7 @@ if (empty($_SESSION['idUser'])) {
                     }
                     }
             ?>
-            <div class="neutral_message" id="error_no_location">Pour visionner et classer vos items, veuillez créer un emplacement.</div>
-            <div class="neutral_message" id="error_no_space">Vous n'avez pas d'emplacement pour le moment.</div>
-            <div class='add-new-location' id="add_new_location" onclick='ShowFormEmplacement()'>Ajouter un emplacement</div>
-        </div>
+   
         <!--
             </*?php
             if (!($_SERVER['REQUEST_METHOD'] === 'POST')) {
@@ -354,6 +351,7 @@ if (empty($_SESSION['idUser'])) {
             <div class="neutral_message" id="empty-field-form-list">Tous les champs doivent être remplie pour ajouter une liste.</div>
             <div class="neutral_message" id="error_no_location">Pour visionner et classer vos items, veuillez créer une liste.</div>
             <div class="neutral_message" id="error_no_space">Vous n'avez pas de liste d'épicerie pour le moment.</div>
+        </div>
             <div class='add-new-location' id="add_new_location" onclick='ShowFormEmplacement()'>Ajouter une liste d'épicerie</div>
             <div class="inventory-form" id="inventory-location-form">
                 <div class="transparent-background">

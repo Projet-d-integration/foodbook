@@ -239,6 +239,14 @@ body {
     align-items: center;
     flex-direction: column;
     gap: 1rem;
+    border-collapse: collapse;
+    background: var(--color-secondary);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    min-width: 40rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    border-radius: 0.2rem;
+    overflow: hidden;
 }
 table{
     list-style-type: none;
