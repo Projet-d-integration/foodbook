@@ -100,6 +100,29 @@ if (empty($_SESSION['idUser'])) {
                 $tabInventaire = InfoItemGroceriesList($spaceChosen);
                 echo '<div class="item-wrapper"><div class="return-button">' . GenerateButtonTertiary("Retourner aux listes d'épicerie", "groceries-list.php") . '</div>';
                 echo "<div class='button button-primary' onclick='ShowFormItems()'>Ajouter un ingredient</div>";
+                echo '<table class="form-ingredient-wrapper">';
+                    $nbIngredient = 0;
+                    foreach($tabInventaire as $ingredientInventaire){
+                        $ingredientInfo = SingleIngredientInfo($ingredientInventaire[2]);
+                        if($ingredientInventaire[3] == $_POST['buttonSpace']){
+                            $nbIngredient = $nbIngredient + 1;
+                            echo "<tr> 
+                                <td class='table-name'>$ingredientInfo[1] </td>
+                                <form  method='post' class='form-ingredient-option'> 
+                                    <td class='table-number'><input type='number' name='qteChosen' min='1' value='$ingredientInventaire[0]'></td>
+                                    <input type='hidden' name='idIngredient' value='$ingredientInventaire[2]'>
+                                    <input type='hidden' name='idEmplacement' value='$spaceChosen'>
+                                    <td class='table-modify'><button type='submit' class='modify-button'>" . file_get_contents('utilities/notebook.svg') . "</button></td>
+                                </form>
+                                <form method='post' class='form-ingredient-option'>
+                                   <td class='table-remove'> <button type='submit' class='x-button' name='option-delete' value='1'>" . file_get_contents('utilities/x-symbol.svg') . "</button></td>
+                                    <input type='hidden' name='idIngredientDelete' value='$ingredientInventaire[2]'>
+                                    <input type='hidden' name='idEmplacementDelete' value='$spaceChosen'>
+                                </form>
+                                </tr>";
+                        }
+                    }
+                    echo '</table>';
                 echo '<ul>';
                 $nbIngredient = 0;
                 foreach ($tabInventaire as $ingredientInventaire) {

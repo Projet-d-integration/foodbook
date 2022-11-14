@@ -92,6 +92,7 @@
     </div>
 </div>
 
+
 <body> 
     <div class="separators">
         <div class="banner-title"><span>Accueil</span></div>
