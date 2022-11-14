@@ -25,7 +25,7 @@
     <?php RenderFavicon(); ?>
 </head>
 
-<body> 
+<div> 
     <?php 
         if($_SERVER['REQUEST_METHOD'] == 'POST')
             AddAnimation();
@@ -49,7 +49,7 @@
         </div>
     </div>
 
-     <!-- mobile header -->
+    <!-- mobile header -->
     <div class="header-mobile-banner hide-desktop">
         <a href="index.php"><?php echo file_get_contents("utilities/foodbook-logo.svg"); ?></a>
         <button class="menu-icon" onclick="ShowMenu()"><?php echo file_get_contents("utilities/menu.svg"); ?></button>
@@ -94,6 +94,9 @@
             ?>
         </div>
     </div>
+</div>
+
+<body> 
 
         <div class="wrapper">
             <?php 
