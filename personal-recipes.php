@@ -171,7 +171,6 @@
                         
                         <label name="recipe-portion">Nombre de portions : </label>
                     <select name="recipe-portion" style="width:6rem;">
-                        <option value="0">Tout</option>
                         <option value="1">1 portion</option>
                         <option value="2">2 portions</option>
                         <option value="3">3 portions</option>
@@ -183,7 +182,6 @@
                     </select>
                     <label name="recipe-time">Temps de préparation : </label>
                     <select name="recipe-time" style="width:6rem;">
-                        <option value="0">Tout</option>
                         <option value="15">15 min</option>
                         <option value="30">30 min</option>
                         <option value="45">45 min</option>
@@ -200,7 +198,7 @@
                         </div>
 
                         <input name="add-new-recipe" value="Ajouter" class="button button-primary" type="submit">
-                        <div id="empty-field-form-add-recipe" class="error_message">Veuillez remplir les champs obligatoires</div>
+                        <div id="empty-field-form-add-recipe" class="error_message">Veuillez remplir les champs obligatoires.</div>
                     </div>
                 </form>
             </div>
