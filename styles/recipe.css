@@ -85,10 +85,16 @@
     align-items: center;
     justify-content: center;
     display: flex;
+    flex-direction: row;
     height: 5rem;
     width: 100%;
+    gap: 2rem;
 }
-
+.description-recette{
+    background: transparent;
+    color: white;
+    font-size: 1rem;
+}
 .recipe-save-like{
     display: flex;
     margin-right: 4rem;
@@ -174,6 +180,7 @@
 .items-form-content {
     background: var(--color-tertiary);
     border: 0.1rem solid var(--color-primary);
+    flex-direction: column;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -183,6 +190,7 @@
     height: 75%;
     z-index: 3;
     padding: 2rem;
+    gap: 2rem;
 }
 
 .danger-option {
@@ -261,9 +269,23 @@
 }
 
 .inventory-items-form-title {
-    margin-bottom: 2rem;
+    font-size: 2rem;
+    position: absolute;
+    top: 15rem;
 }
-
+.input-add-step{
+    width: 20rem;
+    height: 3rem;
+    border-radius: 1rem 1.5rem;
+    background: var(--color-accent);
+    color: white;
+    font-size: large;
+}
+.input-add-step::placeholder{
+    color: white;
+    font-family: 'italic';
+    font-size: large;
+}
 .form-exit-item {
     position: relative;
     right: -45%;
@@ -520,4 +542,10 @@ ul > *{
 .table-changed-background-steps{
     background: var(--color-primary) !important;
     color: var(--color-secondary);
+}
+.instruction-form{
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    flex-direction: column;
 }
