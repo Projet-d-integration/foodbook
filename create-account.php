@@ -165,8 +165,8 @@
             <input class="text-input name-input" name="name-input" type="text" placeholder="Nom" value="<?= $name ?>">
             <input class="text-input last-name-input" name="last-name-input" type="text" placeholder="Prénom" value="<?= $last_name?>">
             <input class="text-input email-input" name="email-input" type="text" placeholder="Addresse courriel" value="<?=$email?>">
-            <input class="text-input password-input" name="password-input" type="password password-input" placeholder="Mot de passe">
-            <input class="text-input password-input" name="password-input-confirm" type="password password-input" placeholder="Confirmer le mot de passe">
+            <input class="text-input password-input" name="password-input" type="password" placeholder="Mot de passe">
+            <input class="text-input password-input" name="password-input-confirm" type="password" placeholder="Confirmer le mot de passe">
 
             <div class="error_message" id="error_entries">Tous les champs sont obligatoires</div>
             <div class="error_message" id="error_email_used">Courriel déjà utilisé</div>
