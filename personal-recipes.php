@@ -35,16 +35,26 @@
         <?php AddSearchBar(); ?>
         <div class="svg-wrapper">
             <a href="personal-recipes.php" class="svg-button list-button"> <?php echo file_get_contents("utilities/book.svg"); ?> </a>
-            <a href="groceries-list.php" class="svg-button list-button"> <?php echo file_get_contents("utilities/list.svg"); ?> </a>
+            <a href="login.php" class="svg-button list-button"> <?php echo file_get_contents("utilities/list.svg"); ?> </a>
             <a href="inventory.php" class="svg-button inventory-button"> <?php echo file_get_contents("utilities/food.svg"); ?> </a>
             <?php 
-                if(!empty($_SESSION['idUser'])){
                     echo '<a href="edit-profil.php" class="svg-button login-button"> '.file_get_contents("utilities/account.svg").'</a>';
-                    echo '<form method="post"><button type="submit" name="buttonDeconnecter" class="svg-button login-button logout-button" value="buttonDeconnecter" />'.file_get_contents("utilities/logout.svg").'</form>';
-                }
-                else{
-                    echo '<a href="login.php" class="svg-button login-button"> '.file_get_contents("utilities/account.svg").'</a>';
-                }
+                    echo '<form method="post"><button type="submit" name="buttonDeconnecter" class="svg-button login-button" value="buttonDeconnecter" />'.file_get_contents("utilities/logout.svg").'</form>';
+                    if($_SERVER['REQUEST_METHOD'] == 'POST'){
+                        if(!empty($_POST['title-input'])){
+                            if(isset($_POST['isPublic'])){
+                                echo AddRecipe($_SESSION['idUser'],$_POST['title-input'],1,0,date('Y-m-d H:i:s'),$_POST['type-input']);
+                                $idRecette = LastInsertedRecipe();
+                                AddInfoRecipe($idRecette,$_POST['image-input'],$_POST['video-input'],$_POST['recipe-portion'],$_POST['recipe-time']) ;
+                                ChangePage("personal-recipes.php");
+                            }else{
+                                echo AddRecipe($_SESSION['idUser'],$_POST['title-input'],0,0,date('Y-m-d H:i:s'),$_POST['type-input']);
+                                $idRecette = LastInsertedRecipe();
+                                AddInfoRecipe($idRecette,$_POST['image-input'],$_POST['video-input'],$_POST['recipe-portion'],$_POST['recipe-time']) ;
+                                ChangePage("personal-recipes.php");
+                            }
+                        }
+                    }
             ?>
         </div>
     </div>
@@ -133,14 +143,14 @@
                 <form method="post" class="form-content">
                     <div class="form-content-wrapper">
                         <div class="form-exit" onclick='HideFormRecipeCreation()'> <?php echo file_get_contents("utilities/x-symbol.svg"); ?> </div>
-                        <div class="recipe-form-title">Ajouter Une recette</div>
+                        <div class="recipe-form-title">Ajout une recette</div>
                         <div class="recipe-form-image-input">
                             <label for="image-input">Url de l'image</label>
                             <input type="text" name="image-input" class="text-input">
                         </div>
     
                         <div class="recipe-form-title-input">
-                            <label for="title-input">Title</label>
+                            <label for="title-input">Titre</label>
                             <input type="text" name="title-input" class="text-input">
                         </div>
 
@@ -155,16 +165,40 @@
                         </select>
 
                         <div class="recipe-form-video-input">
-                            <label for="video-input">Ajouter un vidéo</label>
+                            <label for="video-input">Lien pour la vidéo</label>
                             <input type="text" name="video-input" class="text-input">
                         </div>
+                        
+                        <label name="recipe-portion">Nombre de portions : </label>
+                    <select name="recipe-portion" style="width:6rem;">
+                        <option value="1">1 portion</option>
+                        <option value="2">2 portions</option>
+                        <option value="3">3 portions</option>
+                        <option value="4">4 portions</option>
+                        <option value="5">5 portions</option>
+                        <option value="6">6 portions</option>
+                        <option value="7">7 portions</option>
+                        <option value="8">8 portions</option>
+                    </select>
+                    <label name="recipe-time">Temps de préparation : </label>
+                    <select name="recipe-time" style="width:6rem;">
+                        <option value="15">15 min</option>
+                        <option value="30">30 min</option>
+                        <option value="45">45 min</option>
+                        <option value="60">60 min</option>
+                        <option value="75">75 min</option>
+                        <option value="90">90 min</option>
+                        <option value="105">105 min</option>
+                        <option value="120">120 min</option>
+                    </select>
                         
                         <div class="recipe-form-private-input">
                             <div>Rendre la recette publique</div>
                             <input type="checkbox" name="isPublic">
                         </div>
 
-                        <input type="submit">
+                        <input name="add-new-recipe" value="Ajouter" class="button button-primary" type="submit">
+                        <div id="empty-field-form-add-recipe" class="error_message">Veuillez remplir les champs obligatoires.</div>
                     </div>
                 </form>
             </div>
@@ -204,7 +238,10 @@
 </body>
 
 
-<script>
+
+
+
+<script defer>
     window.onload = () => {
         <?php
             if(!($_SERVER['REQUEST_METHOD'] === 'POST')) {
@@ -250,4 +287,14 @@
     function HideMenu() {
         document.getElementById("mobile-popup-menu").style.display = "none";
     }
+
+    <?php 
+    if(isset($_POST["add-new-recipe"]))
+    {
+        if(empty($_POST['title-input']) || empty($_POST["image-input"])){
+            echo 'ShowFormRecipeCreation();';
+            echo 'document.getElementById("empty-field-form-add-recipe").style.display = "block";';
+        }
+    }
+    ?>
 </script>

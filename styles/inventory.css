@@ -315,3 +315,10 @@ body {
 }
 
 /*#endregion */
+
+@media screen and (max-width:800px){
+    .wrapper{
+        padding: 2rem;
+        width: 80% !important;
+    }
+}
