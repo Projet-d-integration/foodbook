@@ -408,7 +408,7 @@ if (array_key_exists('buttonDeconnecter', $_POST)) {
                             <br>
                         </div>
                        
-                        <div id="empty-step-input" class='error_message'>Veuillez ne laisser aucun champ vide.</div>
+                        <div id="empty-step-input" class="error_message">Veuillez remplir le champ obligatoire.</div>
                     </form> 
             </div>
         </div>
@@ -487,7 +487,7 @@ if (array_key_exists('buttonDeconnecter', $_POST)) {
     }
 
     <?php
-        if(!empty($_POST['instruction-input']) && $_POST['instruction-input'] == "")
+        if($_POST['instruction-input'] == "" && isset($_POST["add-instruction"])) //Checker avec antho si acceptable
         {
             echo 'ShowFormInstruction();';
             echo 'document.getElementById("empty-step-input").style.display = "block";';
