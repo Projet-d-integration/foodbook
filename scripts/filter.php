@@ -50,6 +50,7 @@
                 }
             }
         }
+        
 
         if($idTypeIngredient != ''){
             foreach($tabIngredient as $singleIngredient){
