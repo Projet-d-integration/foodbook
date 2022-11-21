@@ -179,7 +179,6 @@ if (empty($_SESSION['idUser'])) {
                             </tr>";
                     }
                 }
-                echo '</table>';
                 if ($nbIngredient == 0) {
                     echo "
                             <form method='post'>
@@ -187,7 +186,9 @@ if (empty($_SESSION['idUser'])) {
                                 <input type='hidden' name='idEmplacementDelete' value='$spaceChosen'>
                             </form>";
                 }
-            } else if (!empty($_POST['addLocation'])) {
+                echo '</table>';
+            } 
+                else if (!empty($_POST['addLocation'])) {
                 $tabInfoSpace = InfoGroceriesList($_SESSION['idUser']);
                 $newList = $_POST['list-name'];
                 $description = $_POST['description-name'];
