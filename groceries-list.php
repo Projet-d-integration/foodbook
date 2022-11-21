@@ -24,32 +24,78 @@ if (empty($_SESSION['idUser'])) {
     <?php RenderFavicon(); ?>
 </head>
 
-
-<body>
-    <!-- Loading animation -->
-    <?php
-    if ($_SERVER['REQUEST_METHOD'] == 'POST')
-        AddAnimation();
+<div> 
+    <?php 
+        if($_SERVER['REQUEST_METHOD'] == 'POST')
+            AddAnimation();
     ?>
-    <div class="header-banner">
+    <div class="header-banner hide-mobile">
         <a href="index.php"><?php echo file_get_contents("utilities/foodbook-logo.svg"); ?></a>
-        <div class="banner-title"> Liste d'épicerie </div>
         <?php AddSearchBar(); ?>
         <div class="svg-wrapper">
             <a href="personal-recipes.php" class="svg-button list-button"> <?php echo file_get_contents("utilities/book.svg"); ?> </a>
             <a href="groceries-list.php" class="svg-button list-button"> <?php echo file_get_contents("utilities/list.svg"); ?> </a>
             <a href="inventory.php" class="svg-button inventory-button"> <?php echo file_get_contents("utilities/food.svg"); ?> </a>
-            <?php
-            if (!empty($_SESSION['idUser'])) {
-                echo '<a href="edit-profil.php" class="svg-button login-button"> ' . file_get_contents("utilities/account.svg") . '</a>';
-                echo '<form method="post"><button type="submit" name="buttonDeconnecter" class="svg-button login-button" value="buttonDeconnecter" />' . file_get_contents("utilities/logout.svg") . '</form>';
-            } else {
-                echo '<a href="login.php" class="svg-button login-button"> ' . file_get_contents("utilities/account.svg") . '</a>';
-            }
+            <?php 
+                if(!empty($_SESSION['idUser'])){
+                    echo '<a href="edit-profil.php" class="svg-button login-button"> '.file_get_contents("utilities/account.svg").'</a>';
+                    echo '<form method="post"><button type="submit" name="buttonDeconnecter" class="svg-button login-button logout-button" value="buttonDeconnecter" />'.file_get_contents("utilities/logout.svg").'</form>';
+                }
+                else{
+                    echo '<a href="login.php" class="svg-button login-button"> '.file_get_contents("utilities/account.svg").'</a>';
+                }
             ?>
         </div>
     </div>
 
+    <!-- mobile header -->
+    <div class="header-mobile-banner hide-desktop">
+        <a href="index.php"><?php echo file_get_contents("utilities/foodbook-logo.svg"); ?></a>
+        <button class="menu-icon" onclick="ShowMenu()"><?php echo file_get_contents("utilities/menu.svg"); ?></button>
+    </div>
+
+    <div class="mobile-popup-menu hide-desktop" id="mobile-popup-menu">
+        <div class="mobile-svg-wrapper hide-desktop">
+            <?php AddSearchBar(); ?>
+
+            <a href="personal-recipes.php" class="svg-button list-button"> 
+                <?php echo file_get_contents("utilities/book.svg"); ?> 
+                <span class="header-text">Vos recettes</span>
+            </a>
+            <a href="groceries-list.php" class="svg-button list-button"> 
+                <?php echo file_get_contents("utilities/list.svg"); ?> 
+                <span class="header-text">Liste d'épicerie</span>
+            </a>
+            <a href="inventory.php" class="svg-button inventory-button"> 
+                <?php echo file_get_contents("utilities/food.svg"); ?> 
+                <span class="header-text">Inventaire</span>
+            </a>
+            <div class="form-exit" onclick='HideMenu()'> <?php echo file_get_contents("utilities/x-symbol.svg"); ?> </div>
+            <?php 
+                if(!empty($_SESSION['idUser'])){
+                    echo '<a href="edit-profil.php" class="svg-button login-button"> 
+                        '.file_get_contents("utilities/account.svg");
+                        echo "
+                        <span class='header-text'>" . User($_SESSION['idUser'])[2] . " " . User($_SESSION['idUser'])[1] . "</span>
+                    </a>";
+                    echo '<form method="post">
+                    <button type="submit" name="buttonDeconnecter" class="svg-button login-button logout-button" value="buttonDeconnecter" />
+                        '.file_get_contents("utilities/logout.svg").'
+                        <span class="header-text">Se déconnecter</span>
+                    </form>';
+                }
+                else{
+                    echo '<a href="login.php" class="svg-button login-button logout-button"> 
+                    '.file_get_contents("utilities/account.svg").'
+                    <span class="header-text">Se connecter</span>
+                    </a>';
+                }
+            ?>
+        </div>
+    </div>
+</div>
+
+<body>
     <div class="wrapper">
         <div class="inventory-wrapper">
             <?php
@@ -100,38 +146,40 @@ if (empty($_SESSION['idUser'])) {
                 $tabInventaire = InfoItemGroceriesList($spaceChosen);
                 echo '<div class="item-wrapper"><div class="return-button">' . GenerateButtonTertiary("Retourner aux listes d'épicerie", "groceries-list.php") . '</div>';
                 echo "<div class='button button-primary' onclick='ShowFormItems()'>Ajouter un ingredient</div>";
-                echo '<ul>';
+                echo '<table class="form-ingredient-wrapper">';
                 $nbIngredient = 0;
                 foreach ($tabInventaire as $ingredientInventaire) {
                     $ingredientInfo = SingleIngredientInfo($ingredientInventaire[3]);
                     if ($ingredientInventaire[2] == $_POST['buttonSpace']) {
                         $nbIngredient = $nbIngredient + 1;
-                        echo "<li>";
+                        echo "<tr>";
                         if ($ingredientInventaire[1])
-                            echo "<form method='post' class='form-ingredient-option'><input type='checkbox' value='$ingredientInventaire[1]' name='isChecked' checked/>";
+                            echo "<td><form method='post' class='form-ingredient-option'><input type='checkbox' value='$ingredientInventaire[1]' name='isChecked' checked/></td>";
                         else
                             echo "<form method='post' class='form-ingredient-option'><input type='checkbox' onChange='this.form.submit()' value='$ingredientInventaire[1]' name='isChecked'/>";
                         if ($ingredientInventaire[1]) {
-                            echo "<span style='text-decoration:line-through'>$ingredientInfo[1]</span>";
+                            echo "<td><span class='table-name' style='text-decoration:line-through'>$ingredientInfo[1]</span></td>";
                         } else {
                             echo "<span title='$ingredientInfo[2]'>$ingredientInfo[1]</span>";
                         }
-                        echo "<input type='number' name='qteChosen' min='1' value='$ingredientInventaire[0]'>
+                        echo "<td class='table-number'><input type='number' name='qteChosen' min='1' value='$ingredientInventaire[0]'></td>
                                     <input type='hidden' name='idIngredient' value='$ingredientInventaire[3]'>
                                     <input type='hidden' name='idEmplacement' value='$spaceChosen'>
                                     <input type='hidden' value='$spaceChosen' name='buttonSpace'>
-                                    <button type='submit'>Modifier</button>
+                                    <td class='table-modify'><button type='submit'>Modifier</button></td>
                                 </form>
-                                <form method='post' class='form-ingredient-option'>
-                                    <button type='submit' name='option-delete' value='1'>Supprimer</button>
-                                    <input type='hidden' name='idIngredientDelete' value='$ingredientInventaire[3]'>
-                                    <input type='hidden' value='$spaceChosen' name='buttonSpace'>
-                                    <input type='hidden' name='idEmplacementDelete' value='$spaceChosen'>
-                                </form>
-                                </li>";
+                                <td class='table-modify'>
+                                    <form method='post' class='form-ingredient-option'>
+                                        <button type='submit' name='option-delete' value='1'>Supprimer</button>
+                                        <input type='hidden' name='idIngredientDelete' value='$ingredientInventaire[3]'>
+                                        <input type='hidden' value='$spaceChosen' name='buttonSpace'>
+                                        <input type='hidden' name='idEmplacementDelete' value='$spaceChosen'>
+                                    </form>
+                                </td>
+                            </tr>";
                     }
                 }
-                echo '</ul>';
+                echo '</table>';
                 if ($nbIngredient == 0) {
                     echo "
                             <form method='post'>
@@ -156,14 +204,14 @@ if (empty($_SESSION['idUser'])) {
                     //echo "Liste ajouté!";
                     // Pour le deuxième paramètre de la méthode AddLocation, laisser vide pour l'instant (pas de svg encore)
                     if (count($tabInfoSpace) < 1) {
-                        if (!empty($_POST["list-name"]) || !empty($_POST["description-name"])) {
+                        if (!empty($_POST["list-name"]) && !empty($_POST["description-name"])) {
                             AddGroceriesList($newList, $description, 1, $_SESSION['idUser']);
                             ChangePage("groceries-list.php");
                         } else {
                             echo '<script>window.onload = () => { document.getElementById("empty-field-form-list").style.display = "block"; }</script>';
                         }
                     } else {
-                        if (!empty($_POST["list-name"]) || !empty($_POST["description-name"])) {
+                        if (!empty($_POST["list-name"]) && !empty($_POST["description-name"])) {
                             AddGroceriesList($newList, $description, 0, $_SESSION['idUser']);
                             ChangePage("groceries-list.php");
                         } else {
@@ -241,19 +289,19 @@ if (empty($_SESSION['idUser'])) {
                                 }
                                 if (!$isAlreadyInList) {
                                     echo "
-                                            <div class='inventory-item' onclick='ShowFormItemQuantity($singleIngredient[0])'> $singleIngredient[1] </div>
-                                            <form method='post' class='inventory-item-form' id='inventory-item-form-$singleIngredient[0]'>
-                                                <div class='items-form-overlay'>
-                                                    <div class='form-exit-item' onclick='HideFormItemQuantity($singleIngredient[0])'>";
+                                        <div class='inventory-item' onclick='ShowFormItemQuantity($singleIngredient[0])'> $singleIngredient[1] </div>
+                                        <form method='post' class='inventory-item-form' id='inventory-item-form-$singleIngredient[0]'>
+                                            <div class='items-form-overlay'>
+                                                <div class='form-exit-item' onclick='HideFormItemQuantity($singleIngredient[0])'>";
                                     echo file_get_contents('utilities/x-symbol.svg');
                                     echo " </div>
-                                                    <span class='inventory-items-form-title'>Combien voulez vous ajouter de cet item : $singleIngredient[1] </span>
-                                                    <input type='number' name='number-input' min='1' max='100' placeholder='Cb' value = 0> <br>
-                                                    <input type='hidden' name='place-input' value='$idEmplacement'>
-                                                    <input type='hidden' value='$spaceChosen' name='buttonSpace'>
-                                                    <button type='submit' class='button button-secondary' name='ingredient-input' value='$singleIngredient[0]'>Ajouter</button><br>
-                                                </div>
-                                            </form>";
+                                                <span class='inventory-items-form-title'>Combien voulez vous ajouter de cet item : $singleIngredient[1] </span>
+                                                <input type='number' name='number-input' min='1' max='100' placeholder='Cb' value = 0> <br>
+                                                <input type='hidden' name='place-input' value='$idEmplacement'>
+                                                <input type='hidden' value='$spaceChosen' name='buttonSpace'>
+                                                <button type='submit' class='button button-secondary' name='ingredient-input' value='$singleIngredient[0]'>Ajouter</button><br>
+                                            </div>
+                                        </form>";
                                 }
                             }
                             ?>
@@ -265,9 +313,13 @@ if (empty($_SESSION['idUser'])) {
                 </div>
             </div>
         </div>
+        </div>
     </div>
     <?php GenerateFooter(); ?>
 </body>
+
+
+
 <script>
     function ShowFormEmplacement() {
         document.getElementById("inventory-location-form").style.display = "block";
@@ -291,5 +343,13 @@ if (empty($_SESSION['idUser'])) {
 
     function HideFormItemQuantity(id) {
         document.getElementById("inventory-item-form-" + id).style.display = "none";
+    }
+
+    function ShowMenu() {
+        document.getElementById("mobile-popup-menu").style.display = "flex";
+    }
+
+    function HideMenu() {
+        document.getElementById("mobile-popup-menu").style.display = "none";
     }
 </script>

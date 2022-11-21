@@ -1,7 +1,7 @@
 <?php
     // Fonctions de triage d'ingrédient
     // Triage par type ( par variable de la table)
-
+    
     function FilterRecipe($tabRecipe,$tabInfoRecipe,$nameRecipe = '', $pIdTypeRecette = '',$tempsPreparation = 0, $nbPortions = 0){
         if($nameRecipe != ''){
             foreach($tabRecipe as $singleRecipe){
