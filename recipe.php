@@ -487,7 +487,7 @@ if (array_key_exists('buttonDeconnecter', $_POST)) {
     }
 
     <?php
-        if($_POST['instruction-input'] == "" && isset($_POST["add-instruction"])) //Checker avec antho si acceptable
+        if($_POST['instruction-input'] == "" && isset($_POST["add-instruction"]))
         {
             echo 'ShowFormInstruction();';
             echo 'document.getElementById("empty-step-input").style.display = "block";';
