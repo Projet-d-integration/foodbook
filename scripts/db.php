@@ -977,15 +977,17 @@ function ShowSingleRecipe($idRecipe){
         return $info;
 }
 //Add Information on a Recipe
-function AddInfoRecipe($pRecette_idRecette, $pImage, $pVideo){
+function AddInfoRecipe($pRecette_idRecette, $pImage, $pVideo,$pTempsPreparation,$pNbPortions){
     Connexion();
     global $PDO;
     try{
-        $sqlProcedure = "CALL AjouterInfoRecette(:pRecette_idRecette, :pImage, :pVideo)";
+        $sqlProcedure = "CALL AjouterInfoRecette(:pRecette_idRecette, :pImage, :pVideo, :pTempsPreparation, :pNbPortions)";
         $stmt = $PDO->prepare($sqlProcedure);
         $stmt->bindParam(':pRecette_idRecette', $pRecette_idRecette, PDO::PARAM_INT);
         $stmt->bindParam(':pImage', $pImage, PDO::PARAM_STR);
         $stmt->bindParam(':pVideo', $pVideo, PDO::PARAM_STR);
+        $stmt->bindParam(':pTempsPreparation', $pTempsPreparation, PDO::PARAM_STR);
+        $stmt->bindParam(':pNbPortions', $pNbPortions, PDO::PARAM_INT);
         $stmt->execute();
         $stmt->closeCursor();
     } catch (PDOException $e) {

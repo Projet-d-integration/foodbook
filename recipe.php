@@ -117,7 +117,7 @@ if (array_key_exists('buttonDeconnecter', $_POST)) {
                         $desc = $infoRecette[2];
                     if($_SESSION['idUser'] == $recette[1]){
                         echo "<form method='post'>
-                                <input style='width:20rem' type='text' name='description-input' value='$desc'/>
+                                <input style='width:20rem' type='text' class='description-recette' name='description-input' value='$desc'/>
                                 <input type='hidden' name='id' value='$recette[0]'>
                                 <button type='submit' class='modify-button'>" . file_get_contents('utilities/notebook.svg') . "</button>
                             </form>";
@@ -397,27 +397,30 @@ if (array_key_exists('buttonDeconnecter', $_POST)) {
         <div class="transparent-background">
             <div class="items-form-content">
                 <div class="form-exit" onclick='HideFormInstruction()'> <?php echo file_get_contents("utilities/x-symbol.svg"); ?> </div>
-                <div class="instruction-form">
-                    <form method="POST">
-                        <span class='inventory-items-form-title'>Nouvelle Instruction </span>
+                    <form method="POST" class="instruction-form">
+                        <span class='inventory-items-form-title'>Ajout d'une nouvelle étape </span>
                         <br>
-                        <span  placeholder="Inscrire la nouvelle instruction.." name="instruction-input" max="350" />
+                        <input class="input-add-step" type="text"  placeholder="Inscrire la nouvelle instruction.." name="instruction-input" maxlength="350">
                         <?php echo "<input type='hidden' name='id' value='$recette[0]' />"; ?>
                         <br>
                         <div class="items-form-submit">
-                            <button type='submit' class='button button-secondary' name='add-instruction'>Ajouter</button>
+                            <button type='submit' class='button button-primary' name='add-instruction'>Ajouter</button>
                             <br>
                         </div>
-                    </form>
-                </div>
+                       
+                        <div id="empty-step-input" class="error_message">Veuillez remplir le champ obligatoire.</div>
+                    </form> 
             </div>
         </div>
     </div>
+
+    <?php ?>
     
     <?php GenerateFooter(); ?>
 </body>
 
 <script defer>
+     
     function ShowFormAddComments()
     {
         document.getElementById("comments-form").style.display = "block";
@@ -482,4 +485,15 @@ if (array_key_exists('buttonDeconnecter', $_POST)) {
             document.getElementById("table-steps-row" + idStep).classList.remove("table-changed-background-steps");
         }
     }
+
+    <?php
+        if($_POST['instruction-input'] == "" && isset($_POST["add-instruction"]))
+        {
+            echo 'ShowFormInstruction();';
+            echo 'document.getElementById("empty-step-input").style.display = "block";';
+        }
+    ?>
+
+
+
 </script>

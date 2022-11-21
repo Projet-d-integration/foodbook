@@ -210,13 +210,14 @@ if (empty($_SESSION['idUser'])) {
                         } else {
                             echo '<script>window.onload = () => { document.getElementById("empty-field-form-list").style.display = "block"; }</script>';
                         }
-                    } else {
-                        if (!empty($_POST["list-name"]) && !empty($_POST["description-name"])) {
+                    } 
+                    else {
+                        if (empty($_POST["list-name"]) || empty($_POST["description-name"])) {
+                            echo '<div class="return-button">' . GenerateButtonTertiary("Retour aux listes.", "groceries-list.php") . '</div>';
+                            echo '<script>window.onload = () => { document.getElementById("empty-field-form-list").style.display = "block"; }</script>';
+                        } else {
                             AddGroceriesList($newList, $description, 0, $_SESSION['idUser']);
                             ChangePage("groceries-list.php");
-                        } else {
-                            echo '<div class="return-button">' . GenerateButtonTertiary("Retour aux listes.", "groceries-list.php") . '</div>';
-                            echo '<script> window.onload = () => { document.getElementById("empty-field-form-list").style.display = "block"; } </script>';
                         }
                     }
                 } else {
