@@ -156,11 +156,11 @@ if (empty($_SESSION['idUser'])) {
                         if ($ingredientInventaire[1])
                             echo "<td><form method='post' class='form-ingredient-option'><input type='checkbox' value='$ingredientInventaire[1]' name='isChecked' checked/></td>";
                         else
-                            echo "<form method='post' class='form-ingredient-option'><input type='checkbox' onChange='this.form.submit()' value='$ingredientInventaire[1]' name='isChecked'/>";
+                            echo "<td><form method='post' class='form-ingredient-option'><input type='checkbox' onChange='this.form.submit()' value='$ingredientInventaire[1]' name='isChecked'/></td>";
                         if ($ingredientInventaire[1]) {
                             echo "<td><span class='table-name' style='text-decoration:line-through'>$ingredientInfo[1]</span></td>";
                         } else {
-                            echo "<span title='$ingredientInfo[2]'>$ingredientInfo[1]</span>";
+                            echo "<td><span title='$ingredientInfo[2]'>$ingredientInfo[1]</span></td>";
                         }
                         echo "<td class='table-number'><input type='number' name='qteChosen' min='1' value='$ingredientInventaire[0]'></td>
                                     <input type='hidden' name='idIngredient' value='$ingredientInventaire[3]'>
