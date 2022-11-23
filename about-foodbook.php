@@ -100,7 +100,7 @@
                     <div class="message-about-us">
                         <h2>Qui sommes-nous ?</h2>
                         <p>
-                        Notre site FoodBook réalisé par quatres jeunes étudiants travaillants et inventifs du Collège Lionel-Groulx est à la fois 
+                        Notre site FoodBook réalisé par trois jeunes étudiants travaillants et inventifs du Collège Lionel-Groulx est à la fois 
                         un gestionnaire de nourriture et de recettes ainsi qu'un réseau social hors du commun. Il est à seul but de faciliter la vie des
                         gens lorsqu'il est question d'alimentation car nous savons de nos jours que c'est un sujet qui peut être compliqué.
                         </p>
