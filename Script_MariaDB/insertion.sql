@@ -1,5 +1,5 @@
 /* Projet d'intégration : FoodBook */
-/* Anthony Lamothe - Guillaume Légaré - Gabriel Lessard - Samy Tétrault */
+/* Anthony Lamothe - Gabriel Lessard - Samy Tétrault */
 
 USE FoodBook;
 

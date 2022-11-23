@@ -125,7 +125,8 @@
                 </select>
                 <button class='filter-button' type='submit' name="filter-button" value="1"><?php echo file_get_contents('utilities/search.svg'); ?></button>
             </div>
-            
+            </form>
+            <form class="form-filter-wrapper" method="POST">
             <div class="filters-menu-button hide-tablet-up" onclick="ShowFilters()">Filtres<?php echo file_get_contents("utilities/caret.svg"); ?></div>
             <div class="mobile-filters-menu hide-tablet-up" id="mobile-filters-menu">
                 <div class="form-filter hide-tablet-up">
