@@ -14,20 +14,16 @@ if (empty($_SESSION['idUser'])) {
     <title>Liste d'épicerie</title>
     <meta charset="utf-8" name="viewport" content="width=device-width" />
     <style>
-        <?php require 'styles/groceries-list.css'; ?>
-        <?php require 'styles/must-have.css'; ?>
-        <?php require 'scripts/body-scripts.php'; ?>
-        <?php require 'scripts/db.php'; ?>
-        <?php require 'scripts/filter.php'; ?>
+        <?php require 'styles/groceries-list.css'; ?><?php require 'styles/must-have.css'; ?><?php require 'scripts/body-scripts.php'; ?><?php require 'scripts/db.php'; ?><?php require 'scripts/filter.php'; ?>
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <?php RenderFavicon(); ?>
 </head>
 
-<div> 
-    <?php 
-        if($_SERVER['REQUEST_METHOD'] == 'POST')
-            AddAnimation();
+<div>
+    <?php
+    if ($_SERVER['REQUEST_METHOD'] == 'POST')
+        AddAnimation();
     ?>
     <div class="header-banner hide-mobile">
         <a href="index.php"><?php echo file_get_contents("utilities/foodbook-logo.svg"); ?></a>
@@ -36,14 +32,13 @@ if (empty($_SESSION['idUser'])) {
             <a href="personal-recipes.php" class="svg-button list-button"> <?php echo file_get_contents("utilities/book.svg"); ?> </a>
             <a href="groceries-list.php" class="svg-button list-button"> <?php echo file_get_contents("utilities/list.svg"); ?> </a>
             <a href="inventory.php" class="svg-button inventory-button"> <?php echo file_get_contents("utilities/food.svg"); ?> </a>
-            <?php 
-                if(!empty($_SESSION['idUser'])){
-                    echo '<a href="edit-profil.php" class="svg-button login-button"> '.file_get_contents("utilities/account.svg").'</a>';
-                    echo '<form method="post"><button type="submit" name="buttonDeconnecter" class="svg-button login-button logout-button" value="buttonDeconnecter" />'.file_get_contents("utilities/logout.svg").'</form>';
-                }
-                else{
-                    echo '<a href="login.php" class="svg-button login-button"> '.file_get_contents("utilities/account.svg").'</a>';
-                }
+            <?php
+            if (!empty($_SESSION['idUser'])) {
+                echo '<a href="edit-profil.php" class="svg-button login-button"> ' . file_get_contents("utilities/account.svg") . '</a>';
+                echo '<form method="post"><button type="submit" name="buttonDeconnecter" class="svg-button login-button logout-button" value="buttonDeconnecter" />' . file_get_contents("utilities/logout.svg") . '</form>';
+            } else {
+                echo '<a href="login.php" class="svg-button login-button"> ' . file_get_contents("utilities/account.svg") . '</a>';
+            }
             ?>
         </div>
     </div>
@@ -58,38 +53,37 @@ if (empty($_SESSION['idUser'])) {
         <div class="mobile-svg-wrapper hide-desktop">
             <?php AddSearchBar(); ?>
 
-            <a href="personal-recipes.php" class="svg-button list-button"> 
-                <?php echo file_get_contents("utilities/book.svg"); ?> 
+            <a href="personal-recipes.php" class="svg-button list-button">
+                <?php echo file_get_contents("utilities/book.svg"); ?>
                 <span class="header-text">Vos recettes</span>
             </a>
-            <a href="groceries-list.php" class="svg-button list-button"> 
-                <?php echo file_get_contents("utilities/list.svg"); ?> 
+            <a href="groceries-list.php" class="svg-button list-button">
+                <?php echo file_get_contents("utilities/list.svg"); ?>
                 <span class="header-text">Liste d'épicerie</span>
             </a>
-            <a href="inventory.php" class="svg-button inventory-button"> 
-                <?php echo file_get_contents("utilities/food.svg"); ?> 
+            <a href="inventory.php" class="svg-button inventory-button">
+                <?php echo file_get_contents("utilities/food.svg"); ?>
                 <span class="header-text">Inventaire</span>
             </a>
             <div class="form-exit" onclick='HideMenu()'> <?php echo file_get_contents("utilities/x-symbol.svg"); ?> </div>
-            <?php 
-                if(!empty($_SESSION['idUser'])){
-                    echo '<a href="edit-profil.php" class="svg-button login-button"> 
-                        '.file_get_contents("utilities/account.svg");
-                        echo "
+            <?php
+            if (!empty($_SESSION['idUser'])) {
+                echo '<a href="edit-profil.php" class="svg-button login-button"> 
+                        ' . file_get_contents("utilities/account.svg");
+                echo "
                         <span class='header-text'>" . User($_SESSION['idUser'])[2] . " " . User($_SESSION['idUser'])[1] . "</span>
                     </a>";
-                    echo '<form method="post">
+                echo '<form method="post">
                     <button type="submit" name="buttonDeconnecter" class="svg-button login-button logout-button" value="buttonDeconnecter" />
-                        '.file_get_contents("utilities/logout.svg").'
+                        ' . file_get_contents("utilities/logout.svg") . '
                         <span class="header-text">Se déconnecter</span>
                     </form>';
-                }
-                else{
-                    echo '<a href="login.php" class="svg-button login-button logout-button"> 
-                    '.file_get_contents("utilities/account.svg").'
+            } else {
+                echo '<a href="login.php" class="svg-button login-button logout-button"> 
+                    ' . file_get_contents("utilities/account.svg") . '
                     <span class="header-text">Se connecter</span>
                     </a>';
-                }
+            }
             ?>
         </div>
     </div>
@@ -154,11 +148,11 @@ if (empty($_SESSION['idUser'])) {
                         $nbIngredient = $nbIngredient + 1;
                         echo "<tr>";
                         if ($ingredientInventaire[1])
-                            echo "<td><form method='post' class='form-ingredient-option'><input type='checkbox' value='$ingredientInventaire[1]' name='isChecked' checked/></td>";
+                            echo "<td class='td-checkbox'><form method='post' class='form-ingredient-option'><input type='checkbox' value='$ingredientInventaire[1]' name='isChecked' checked/></td>";
                         else
                             echo "<td><form method='post' class='form-ingredient-option'><input type='checkbox' onChange='this.form.submit()' value='$ingredientInventaire[1]' name='isChecked'/></td>";
                         if ($ingredientInventaire[1]) {
-                            echo "<td><span class='table-name' style='text-decoration:line-through'>$ingredientInfo[1]</span></td>";
+                            echo "<td class='td-table-name'><span class='table-name' style='text-decoration:line-through'>$ingredientInfo[1]</span></td>";
                         } else {
                             echo "<td><span title='$ingredientInfo[2]'>$ingredientInfo[1]</span></td>";
                         }
@@ -166,11 +160,11 @@ if (empty($_SESSION['idUser'])) {
                                     <input type='hidden' name='idIngredient' value='$ingredientInventaire[3]'>
                                     <input type='hidden' name='idEmplacement' value='$spaceChosen'>
                                     <input type='hidden' value='$spaceChosen' name='buttonSpace'>
-                                    <td class='table-modify'><button type='submit'>Modifier</button></td>
+                                    <td class='table-modify'><button type='submit' class='modify-button'>" . file_get_contents("utilities/notebook.svg") . "</button></td>
                                 </form>
                                 <td class='table-modify'>
                                     <form method='post' class='form-ingredient-option'>
-                                        <button type='submit' name='option-delete' value='1'>Supprimer</button>
+                                        <button type='submit' name='option-delete' value='1' class='x-button'>" . file_get_contents("utilities/x-symbol.svg") . "</button>
                                         <input type='hidden' name='idIngredientDelete' value='$ingredientInventaire[3]'>
                                         <input type='hidden' value='$spaceChosen' name='buttonSpace'>
                                         <input type='hidden' name='idEmplacementDelete' value='$spaceChosen'>
@@ -187,8 +181,7 @@ if (empty($_SESSION['idUser'])) {
                             </form>";
                 }
                 echo '</table>';
-            } 
-                else if (!empty($_POST['addLocation'])) {
+            } else if (!empty($_POST['addLocation'])) {
                 $tabInfoSpace = InfoGroceriesList($_SESSION['idUser']);
                 $newList = $_POST['list-name'];
                 $description = $_POST['description-name'];
@@ -211,8 +204,7 @@ if (empty($_SESSION['idUser'])) {
                         } else {
                             echo '<script>window.onload = () => { document.getElementById("empty-field-form-list").style.display = "block"; }</script>';
                         }
-                    } 
-                    else {
+                    } else {
                         if (empty($_POST["list-name"]) || empty($_POST["description-name"])) {
                             echo '<div class="return-button">' . GenerateButtonTertiary("Retour aux listes.", "groceries-list.php") . '</div>';
                             echo '<script>window.onload = () => { document.getElementById("empty-field-form-list").style.display = "block"; }</script>';
@@ -315,7 +307,7 @@ if (empty($_SESSION['idUser'])) {
                 </div>
             </div>
         </div>
-        </div>
+    </div>
     </div>
     <?php GenerateFooter(); ?>
 </body>

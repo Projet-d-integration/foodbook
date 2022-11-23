@@ -320,4 +320,25 @@ ul > *{
         padding: 2rem 1rem 1rem 1rem;
         width: 80% !important;
     }
+    .item-wrapper{
+        width: 90% !important ;
+    }
+    /* .td-table-name{
+        width: 4rem;
+    }
+    .table-number, .table-number input{
+       width: 2rem;
+    }
+    .td-checkbox{
+        width: 1rem;
+    }
+    */
+    .form-ingredient-wrapper{
+        min-width: revert;
+        width: 90% !important;
+    }
+    .form-ingredient-wrapper td{
+        padding: 1rem;
+        align-items: center;
+    }
 }
