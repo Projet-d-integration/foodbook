@@ -321,4 +321,12 @@ body {
         padding: 2rem 1rem 1rem 1rem;
         width: 80% !important;
     }
+    .form-ingredient-wrapper{
+        min-width: revert;
+        width: 90% !important;
+    }
+    .form-ingredient-wrapper td{
+        padding: 1rem;
+        align-items: center;
+    }
 }
