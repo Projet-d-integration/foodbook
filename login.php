@@ -148,3 +148,13 @@
 
     <?php GenerateFooter(); ?>
 </body>
+
+<script>
+    function ShowMenu() {
+        document.getElementById("mobile-popup-menu").style.display = "flex";
+    }
+
+    function HideMenu() {
+        document.getElementById("mobile-popup-menu").style.display = "none";
+    }
+</script>
