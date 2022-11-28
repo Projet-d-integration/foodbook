@@ -1232,15 +1232,16 @@ function InfoFavoriteRecipe($pUtilisateur_idCompte,$pRecette_idRecette){
 }
 
 // Info contenue recette
-function AddItemToRecipe($pQteIngredient,$Recette_idRecette,$Ingredient_idIngredient){
+function AddItemToRecipe($pQteIngredient,$Recette_idRecette,$Ingredient_idIngredient, $pMesure){
     Connexion();
     global $PDO;
     try{
-        $sqlProcedure = "CALL AjouterIngredientRecette(:pQteIngredient, :Recette_idRecette, :Ingredient_idIngredient)";
+        $sqlProcedure = "CALL AjouterIngredientRecette(:pQteIngredient, :Recette_idRecette, :Ingredient_idIngredient, :pMesure)";
         $stmt = $PDO->prepare($sqlProcedure);
         $stmt->bindParam(':pQteIngredient', $pQteIngredient, PDO::PARAM_INT);
         $stmt->bindParam(':Recette_idRecette', $Recette_idRecette, PDO::PARAM_INT);
-        $stmt->bindParam(':Ingredient_idIngredient', $Ingredient_idIngredient, PDO::PARAM_INT);        
+        $stmt->bindParam(':Ingredient_idIngredient', $Ingredient_idIngredient, PDO::PARAM_INT);
+        $stmt->bindParam(':pMesure', $pMesure, PDO::PARAM_STR);          
         $stmt->execute();
         $stmt->closeCursor();
     } catch (PDOException $e) {
@@ -1361,6 +1362,7 @@ function InfoItemRecipe($Recette_idRecette){
         array_push($rangee, $donnee[0]); // qteIngredient
         array_push($rangee, $donnee[1]); // id Recette
         array_push($rangee, $donnee[2]); // id Ingredient
+        array_push($rangee, $donnee[3]); // Mesure
         array_push($info, $rangee);
     }
     $stmt->closeCursor();

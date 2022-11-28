@@ -292,9 +292,9 @@ BEGIN
 END$$ 
 
 /* Contenue Recette*/
-CREATE DEFINER=`root`@`localhost` PROCEDURE `AjouterIngredientRecette`(pQteIngredient INT, Recette_idRecette INT, Ingredient_idIngredient INT)
-INSERT INTO IngredientRecette(qteIngredient,Recette_idRecette,Ingredient_idIngredient)
-		VALUES(pQteIngredient,Recette_idRecette,Ingredient_idIngredient)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `AjouterIngredientRecette`(pQteIngredient INT, Recette_idRecette INT, Ingredient_idIngredient INT, pMesure Varchar(15))
+INSERT INTO IngredientRecette(qteIngredient,Recette_idRecette,Ingredient_idIngredient,metrique)
+		VALUES(pQteIngredient,Recette_idRecette,Ingredient_idIngredient,pMesure)
 
 DELIMITER $$
 CREATE PROCEDURE ModifierIngredientRecette(pQteIngredient INT, Recette_idRecette INT, Ingredient_idIngredient INT)

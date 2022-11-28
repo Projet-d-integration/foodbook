@@ -223,6 +223,9 @@ CREATE TABLE IF NOT EXISTS InstructionRecette(
     FOREIGN KEY (`Recette_idRecette`)
     REFERENCES `FoodBook`.`Recette` (`idRecette`));
 
+ALTER TABLE `FoodBook`.`IngredientRecette` 
+ADD COLUMN `metrique` VARCHAR(15) NULL AFTER `Ingredient_idIngredient`;
+
 DROP TABLE IF EXISTS Administrateur;
 CREATE TABLE Administrateur(
  `idCompte` INT,
