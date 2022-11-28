@@ -97,9 +97,9 @@ if (array_key_exists('buttonDeconnecter', $_POST)) {
                     }else{
                         echo "$recette[2]";
                     }
-                    echo file_get_contents('utilities/poeple.svg');
-                    echo "<br>";
-                    echo file_get_contents('utilities/time.svg');
+                    
+                    echo $infoRecette[1] . file_get_contents('utilities/people.svg');
+                    echo $infoRecette[0] . file_get_contents('utilities/time.svg');
                 ?>
             </div>
         </div>

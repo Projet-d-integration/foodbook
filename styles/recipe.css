@@ -39,7 +39,13 @@
     display: flex;
     align-items: center;
 }
-
+.recipe-title > svg > *{
+    fill: var(--color-primary);
+}
+.recipe-title > svg{
+    width: 2rem;
+    height: 2rem;
+}
 .checkboxes-container {
     margin-left: 2rem;
 }
