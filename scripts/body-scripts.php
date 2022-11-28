@@ -1,53 +1,63 @@
-<?php 
-    function GenerateFooter() {
-        echo '    
+<?php
+function GenerateFooter()
+{
+    echo '    
         <div class="footer">
-        <div>
-        Une création du Collège Lionel-Groulx, fait par Anthony Lamothe, Gabriel Lesard et Samy Tétrault<a href="./ui-kit.php" class="hidden-cursor">.</a>
+        <div class="footer-text">
+        Une création du Collège Lionel-Groulx, fait par Anthony Lamothe, Gabriel Lessard et Samy Tétrault<span><a href="./ui-kit.php" class="hidden-cursor">.</a></span>
         </div>
-            <div class="display-icon-about"> <a href="about-foodbook.php" class="svg-button svg-about">'.file_get_contents("./utilities/about-symbol.svg").'</a> </div>
-        </div>'; 
-    }
+            <div class="display-icon-about"> <a href="about-foodbook.php" class="footer-svg-button svg-about">' . file_get_contents("./utilities/about-symbol.svg") . '</a> </div>
+        </div>';
+}
 
-    function RenderFavicon() {
-        echo '<link rel="shortcut icon" href="./utilities/recipe.ico" type="image/x-icon"/>';
-    }
+function RenderFavicon()
+{
+    echo '<link rel="shortcut icon" href="./utilities/recipe.ico" type="image/x-icon"/>';
+}
 
-    function GenerateButtonPrimary(string $content, string $link) {
-        echo '<a class="button button-Primary" href="'.$link.'"> '.$content.' </a>';
-    }
+function GenerateButtonPrimary(string $content, string $link)
+{
+    echo '<a class="button button-Primary" href="' . $link . '"> ' . $content . ' </a>';
+}
 
-    function GenerateButtonSecondary(string $content, string $link) {
-        echo '<a class="button button-secondary" href="'.$link.'"> '.$content.' </a>';
-    }
-    
-    function GenerateButtonTertiary(string $content, string $link) {
-        echo '
-        <a class="button button-tertiary" href="'.$link.'"> '.$content.'
-            <div class="button-tertiary-arrow"> '.file_get_contents("./utilities/arrow.svg").'</div>
+function GenerateButtonSecondary(string $content, string $link)
+{
+    echo '<a class="button button-secondary" href="' . $link . '"> ' . $content . ' </a>';
+}
+
+function GenerateButtonTertiary(string $content, string $link)
+{
+    echo '
+        <a class="button button-tertiary" href="' . $link . '"> ' . $content . '
+            <div class="button-tertiary-arrow"> ' . file_get_contents("./utilities/arrow.svg") . '</div>
         </a>';
-    }
+}
 
-    // Returns true if an email has a valid format
-    function ValidateEmailInput($input) { 
-        return !filter_var($input, FILTER_VALIDATE_EMAIL);
-    }
+// Returns true if an email has a valid format
+function ValidateEmailInput($input)
+{
+    return !filter_var($input, FILTER_VALIDATE_EMAIL);
+}
 
-    // Returns true if name has valid format
-    function ValidateNameInput($input){
-        return preg_match("/^[a-zA-Z-' ]*$/", $input);
-    }
+// Returns true if name has valid format
+function ValidateNameInput($input)
+{
+    return preg_match("/^[a-zA-Z-' ]*$/", $input);
+}
 
-    // Returns true if password has right formatting
-    function ValidatePasswordInput($input) {
-        return preg_match("/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{5,}$/", $input);
-    }
+// Returns true if password has right formatting
+function ValidatePasswordInput($input)
+{
+    return preg_match("/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{5,}$/", $input);
+}
 
-    function ChangePage($goTo){
-        echo "<script> window.location.href='". $goTo ."'; </script>";
-    }
-    function AddAnimation(){
-        echo '
+function ChangePage($goTo)
+{
+    echo "<script> window.location.href='" . $goTo . "'; </script>";
+}
+function AddAnimation()
+{
+    echo '
             <div class="loader" id="loader">
                 <div class="loader-inner">
                     <div id="restLoader">
@@ -77,20 +87,20 @@
                     </div>
                 </div>
             </div>';
-        echo "<script>
+    echo "<script>
                 $(window).on('load',()=>{
                     setTimeout(function() { 
                         $('.loader').fadeOut('slow');
                     },1000);
                 });
         </script>";
-    }
-    function AddSearchBar(){
-        echo "<form class='searchbar' method='POST'>
+}
+function AddSearchBar()
+{
+    echo "<form class='searchbar' method='POST'>
                 <input type='text' class='searchbar-input' placeholder='Écrivez quelque chose' name='keyword'></input>
-                <button class='search-icon' type='submit'>" .file_get_contents('utilities/search.svg'). "</button>
+                <button class='search-icon' type='submit'>" . file_get_contents('utilities/search.svg') . "</button>
             </form>";
-        if($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['keyword']))
-            ChangePage("searchbar.php?keyword=$_POST[keyword]");
-    }
-?>
+    if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['keyword']))
+        ChangePage("searchbar.php?keyword=$_POST[keyword]");
+}
