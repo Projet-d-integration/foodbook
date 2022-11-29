@@ -142,7 +142,7 @@
             <div class="transparent-background">
                 <form method="post" class="form-content">
                     <div class="form-content-wrapper">
-                        <div class="form-exit" onclick='HideFormRecipeCreation()'> <?php echo file_get_contents("utilities/x-symbol.svg"); ?> </div>
+                        <div class="form-exit-recipe" onclick='HideFormRecipeCreation()'> <?php echo file_get_contents("utilities/x-symbol.svg"); ?> </div>
                         <div class="recipe-form-title">Ajout une recette</div>
                         <div class="recipe-form-image-input">
                             <label for="image-input">Url de l'image</label>
@@ -154,50 +154,56 @@
                             <input type="text" name="title-input" class="text-input">
                         </div>
 
-                        <div>Veuillez choisir un type pour votre recette</div>
-                        <select name="type-input">
-                            <?php  
-                                $tabTypeRecette = InfoTypeRecipe();
-                                foreach($tabTypeRecette as $typeIngredient){
-                                    echo "<option value=$typeIngredient[0]>$typeIngredient[1]</option>";
-                                }
-                            ?>
-                        </select>
+                        <div class="recipe-form-select-input">
+                            <div>Veuillez choisir un type pour votre recette</div>
+                            <select name="type-input" class="personal-recipe-type-input">
+                                <?php  
+                                    $tabTypeRecette = InfoTypeRecipe();
+                                    foreach($tabTypeRecette as $typeIngredient){
+                                        echo "<option value=$typeIngredient[0]>$typeIngredient[1]</option>";
+                                    }
+                                ?>
+                            </select>
+                        </div>
 
                         <div class="recipe-form-video-input">
                             <label for="video-input">Lien pour la vidéo</label>
                             <input type="text" name="video-input" class="text-input">
                         </div>
-                        
-                        <label name="recipe-portion">Nombre de portions : </label>
-                    <select name="recipe-portion" style="width:6rem;">
-                        <option value="1">1 portion</option>
-                        <option value="2">2 portions</option>
-                        <option value="3">3 portions</option>
-                        <option value="4">4 portions</option>
-                        <option value="5">5 portions</option>
-                        <option value="6">6 portions</option>
-                        <option value="7">7 portions</option>
-                        <option value="8">8 portions</option>
-                    </select>
-                    <label name="recipe-time">Temps de préparation : </label>
-                    <select name="recipe-time" style="width:6rem;">
-                        <option value="15">15 min</option>
-                        <option value="30">30 min</option>
-                        <option value="45">45 min</option>
-                        <option value="60">60 min</option>
-                        <option value="75">75 min</option>
-                        <option value="90">90 min</option>
-                        <option value="105">105 min</option>
-                        <option value="120">120 min</option>
-                    </select>
-                        
+                                                
+                        <div class="recipe-form-select-input">
+                            <label name="recipe-portion">Nombre de portions : </label>
+                            <select name="recipe-portion" style="width:6rem;">
+                                <option value="1">1 portion</option>
+                                <option value="2">2 portions</option>
+                                <option value="3">3 portions</option>
+                                <option value="4">4 portions</option>
+                                <option value="5">5 portions</option>
+                                <option value="6">6 portions</option>
+                                <option value="7">7 portions</option>
+                                <option value="8">8 portions</option>
+                            </select>
+                        </div>
+                        <div class="recipe-form-select-input">
+                            <label name="recipe-time">Temps de préparation : </label>
+                            <select name="recipe-time" style="width:6rem;">
+                                <option value="15">15 min</option>
+                                <option value="30">30 min</option>
+                                <option value="45">45 min</option>
+                                <option value="60">60 min</option>
+                                <option value="75">75 min</option>
+                                <option value="90">90 min</option>
+                                <option value="105">105 min</option>
+                                <option value="120">120 min</option>
+                            </select>
+                        </div>
+                            
                         <div class="recipe-form-private-input">
                             <div>Rendre la recette publique</div>
                             <input type="checkbox" name="isPublic">
                         </div>
 
-                        <input name="add-new-recipe" value="Ajouter" class="button button-primary" type="submit">
+                        <input name="add-new-recipe" value="Ajouter" class="button button-primary personal-recipes-add-button" type="submit">
                         <div id="empty-field-form-add-recipe" class="error_message">Veuillez remplir les champs obligatoires.</div>
                     </div>
                 </form>

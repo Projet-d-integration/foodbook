@@ -226,14 +226,14 @@ if (empty($_SESSION['idUser'])) {
             <div class="inventory-form" id="inventory-location-form">
                 <div class="transparent-background">
                     <form method="post" class="form-content">
-                        <div class="form-exit" onclick='HideFormEmplacement()'> <?php echo file_get_contents("utilities/x-symbol.svg"); ?> </div>
+                        <div class="form-exit-groceries-list" onclick='HideFormEmplacement()'> <?php echo file_get_contents("utilities/x-symbol.svg"); ?> </div>
                         <div class="infos-emplacement">Vous avez actuellement <?php echo $numInfoSpace; ?>/10 listes.</div>
                         <?php
                         $tabInfoSpace = InfoGroceriesList($_SESSION['idUser']);
                         if (count($tabInfoSpace) < 10) {
                             echo '
-                                    <input type="text" class="searchbar-input" name="list-name" placeholder="Nom de la liste" maxlength="30">
-                                    <input type="text" class="searchbar-input" name="description-name" placeholder="Description de la liste" maxlength="100">
+                                    <input type="text" class="text-input" name="list-name" placeholder="Nom de la liste" maxlength="30">
+                                    <input type="text" class="text-input" name="description-name" placeholder="Description de la liste" maxlength="100">
                                     <input type="submit" class="button button-primary" name="addLocation" value="Ajouter cette liste">
                                 ';
                         }
@@ -245,7 +245,7 @@ if (empty($_SESSION['idUser'])) {
             <div class="inventory-form" id="inventory-items-form">
                 <div class="transparent-background">
                     <div class="items-form-content">
-                        <div class="form-exit" onclick='HideFormItems()'> <?php echo file_get_contents("utilities/x-symbol.svg"); ?> </div>
+                        <div class="form-exit-groceries-list" onclick='HideFormItems()'> <?php echo file_get_contents("utilities/x-symbol.svg"); ?> </div>
                         <div class="items-form">
                             <?php
                             // Formulaire de tri

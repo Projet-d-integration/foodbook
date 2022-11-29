@@ -33,10 +33,16 @@ body {
     height: 100%;
     width: 100%;
     z-index: 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .form-content{
-    background: var(--color-tertiary);
+    background-image: repeating-linear-gradient(white, white,white,white, white,white,white,white,white,white,white,white,  white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,  white,white,white,white,white,  white,
+    rgba(51, 51, 51,0.8));
+    background-size: 25px 20px;
+    background-attachment: local;
     border: 0.1rem solid var(--color-primary);
     overflow: auto;
     display: flex;
@@ -47,7 +53,9 @@ body {
     gap: 2rem;
     margin: 5rem;
     height: 75%;
+    width: 40rem;
     z-index: 3;
+    position: relative;
 }
 
 .items-form-content {
@@ -197,25 +205,32 @@ body {
 .space-div:hover .space-div-arrow {
     transform: rotate(0deg);
 }
-
-.form-exit {
+.form-exit-groceries-list {
     position: absolute;
-    right: 7rem;
-    top: 7rem;
+    top: 3rem;
+    right: 3rem;
+}
+
+.form-exit-groceries-list svg {
+    fill: var(--color-primary);
+    height: 1.5rem !important;
+    width: 1.5rem !important;
+}
+
+.form-exit-groceries-list:hover {
+    cursor: pointer;
 }
 
 .inventory-form {
     display: none;
 }
 
-.form-exit svg {
-    fill: var(--color-primary);
-    height: 1.5rem;
-    width: 1.5rem;
-}
-
-.form-exit:hover {
-    cursor: pointer;
+.text-input{
+    width: 20rem;
+    height: 2rem;
+    padding: 0 0.5rem;
+    border-radius: 0.5rem;
+    border: 1px solid black;
 }
 
 .add-new-location {
@@ -323,16 +338,6 @@ ul > *{
     .item-wrapper{
         width: 90% !important ;
     }
-    /* .td-table-name{
-        width: 4rem;
-    }
-    .table-number, .table-number input{
-       width: 2rem;
-    }
-    .td-checkbox{
-        width: 1rem;
-    }
-    */
     .form-ingredient-wrapper{
         min-width: revert;
         width: 90% !important;
@@ -340,5 +345,30 @@ ul > *{
     .form-ingredient-wrapper td{
         padding: 1rem;
         align-items: center;
+    }
+    .form-content{
+        background-image: repeating-linear-gradient(white, white,white,white, white,white,white,white,white,white,white,white,  white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,  white,white,white,white,white,  white,
+        lightgray);
+        margin: 0;
+        width: 90%;
+        height: 25rem;
+    }
+
+    .form-content *:not(.form-exit-groceries-list){
+        width: 75%;
+    }
+
+    .infos-emplacement {
+        text-align: center;
+    }
+
+    .form-exit-recipe {
+        position: relative !important;
+        top: 0 !important;
+        right: 0 !important;
+        width: 100%;
+        display: flex;
+        flex-direction: row !important;
+        justify-content: flex-end;
     }
 }
