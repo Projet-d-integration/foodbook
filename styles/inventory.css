@@ -36,10 +36,15 @@ body {
     height: 100%;
     width: 100%;
     z-index: 3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .form-content{
-    background: var(--color-tertiary);
+    background-image: repeating-linear-gradient(rgba(0, 0, 0, 0.85),white, white,white,white, white,white,white,white,white,white,white,white,  white,white,white,white,white,  white,white,white,white,white,white,white,white,white,white,white,  white,white,white,white,white,  white,white,white, black);
+    background-size: 25px 20px;
+    background-attachment: local;
     border: 0.1rem solid var(--color-primary);
     overflow: auto;
     display: flex;
@@ -50,7 +55,9 @@ body {
     gap: 2rem;
     margin: 5rem;
     height: 75%;
+    width: 40rem;
     z-index: 3;
+    position: relative;
 }
 
 .items-form-content {
@@ -207,19 +214,26 @@ body {
     transform: rotate(0deg);
 }
 
-.form-exit {
+.form-exit-inventory {
     position: absolute;
-    right: 7rem;
-    top: 7rem;
+    right: 3rem;
+    top: 3rem;
 }
 
-.form-exit svg {
+.form-exit-inventory svg {
     fill: var(--color-primary);
     height: 1.5rem;
     width: 1.5rem;
 }
+.text-input{
+    width: 20rem;
+    height: 2rem;
+    padding: 0 0.5rem;
+    border-radius: 0.5rem;
+    border: 1px solid black;
+}
 
-.form-exit:hover {
+.form-exit-inventory:hover {
     cursor: pointer;
 }
 
@@ -328,5 +342,28 @@ body {
     .form-ingredient-wrapper td{
         padding: 1rem;
         align-items: center;
+    }
+    .form-content{
+        background-image: repeating-linear-gradient(white, white,white,white, white,white,white,white,white,white,white,white,  white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,  white,white,white,white,white,  white,
+        lightgray);
+        margin: 0;
+        width: 90%;
+        height: 20rem;
+    }
+    
+    .form-content *:not(.form-exit-inventory > *){
+        width: 75%;
+    }
+
+    .form-exit-inventory {
+        position: relative !important;
+        top: 0 !important;
+        right: 0 !important;
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .infos-emplacement {
+        text-align: center;
     }
 }
