@@ -50,6 +50,10 @@ if (array_key_exists('buttonDeconnecter', $_POST)) {
                 ModifyImageInfoRecipe($_POST['id'],$_POST['image-input']);
             }else if(!empty($_POST['description-input'])){
                 ModifyDescriptionInfoRecipe($_POST['id'],$_POST['description-input']);
+            }else if(!empty($_POST['idCompte-comment-remove'])){
+                DeleteCommentaryEvaluation($_POST['id'],$_POST['idCompte-comment-remove']);
+            }else if(!empty($_POST['modify-comment'])){
+                echo ModifyCommentaryEvaluation($_POST['modify-eval'],$_POST['modify-comment'],$_POST['id'],$_SESSION['idUser']);
             }
             $recette = ShowSingleRecipe($_POST['id'])[0];
             $infoRecette = InfoRecipeByID($recette[0])[0];
@@ -253,11 +257,22 @@ if (array_key_exists('buttonDeconnecter', $_POST)) {
                     $userInfo = User($commentaire[3]);
                     if($_SESSION["idUser"] == $commentaire[3]) //Si le idCompte du commentaire est le même que le idUser
                     {
-                        echo "<div>$commentaire[1]</div>";
+                        echo "<div>Votre commentaire :</div>";
+                        echo "<form method='POST'><input type='hidden' name='id' value='$recette[0]'>";
+                        echo "<input type='number' name='modify-eval' max='5' min='0' value='$commentaire[0]'></input>";
+                        echo "<input type='text' name='modify-comment' value='$commentaire[1]'></input>";
+                        echo "<button name='modify-comment-button' value='1' type='submit' class='recipe-ingredient-content modify-button'>".file_get_contents("utilities/notebook.svg")."</button></form>";
                     }
                     else{
                         echo "<div>$userInfo[2] $userInfo[1] $commentaire[0]/5</div>";
                         echo "<div>$commentaire[1]</div>";
+                    }
+                    if($_SESSION["idUser"] == $commentaire[3] || $_SESSION["idUser"] == $recette[1]){
+                        echo "<form method='post'>
+                                <button type='submit' name='del-comment' class='x-button' value='1'>".file_get_contents("utilities/x-symbol.svg")."</button>
+                                <input type='hidden' name='idCompte-comment-remove' value='$commentaire[3]'>
+                                <input type='hidden' name='id' value='$recette[0]'>
+                            </form>";
                     }
                 }        
             ?>
