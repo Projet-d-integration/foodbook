@@ -555,3 +555,26 @@ ul > *{
     justify-content: center;
     flex-direction: column;
 }
+.add-comment-button{
+    transition: var(--transition);
+    align-self: flex-end;
+    width: auto;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+.add-comment-button > svg{
+    transition: var(--transition);
+    fill: var(--color-primary);
+    width:2rem;
+    height:2rem;
+}
+.add-comment-button:hover{
+    gap: 0.6rem;
+    cursor: pointer;
+    font-size: 1.1rem;
+}
+.add-comment-button:hover > svg{
+    width:2.2rem;
+    height:2.2rem;
+}

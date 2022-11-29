@@ -313,12 +313,11 @@ BEGIN
 END
 /*Ajouter evaluation commentaire *
 /*Ajouter evaluation commentaire */
-DELIMITER $$
-CREATE PROCEDURE AjouterEvaluationCommentaire(pEvaluation INT, pCommentaire VARCHAR(75), pRecette_idRecette INT, pUtlisateur_idCompte INT)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `AjouterEvaluationCommentaire`(pEvaluation INT, pCommentaire VARCHAR(75), pRecette_idRecette INT, pUtlisateur_idCompte INT)
 BEGIN
 	INSERT INTO EvaluationCommentaire(evaluation, commentaire, Recette_idRecette, Utilisateur_idCompte)
-		VALUES(pEvaluation, pCommentaire, pRecette_idRecette, pUtilisateur_idCompte);
-END $$
+		VALUES(pEvaluation, pCommentaire, pRecette_idRecette, pUtlisateur_idCompte);
+END
 /* Modifier Evaluation commentaire */
 DELIMITER $$
 CREATE PROCEDURE ModifierEvaluationCommentaire(pEvaluation INT, pCommentaire VARCHAR(75), pRecette_idRecette INT, pUtlisateur_idCompte INT)
