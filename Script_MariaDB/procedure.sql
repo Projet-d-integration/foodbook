@@ -319,11 +319,10 @@ BEGIN
 		VALUES(pEvaluation, pCommentaire, pRecette_idRecette, pUtlisateur_idCompte);
 END
 /* Modifier Evaluation commentaire */
-DELIMITER $$
-CREATE PROCEDURE ModifierEvaluationCommentaire(pEvaluation INT, pCommentaire VARCHAR(75), pRecette_idRecette INT, pUtlisateur_idCompte INT)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ModifierEvaluationCommentaire`(pEvaluation INT, pCommentaire VARCHAR(75), pRecette_idRecette INT, pUtilisateur_idCompte INT)
 BEGIN
-	UPDATE EvaluationCommentaire SET evaluation = pEvaluation, commentaire = pCommentaire  WHERE Utilisateur_idCompte = pUtilisateur_idCompte and Recette_idRecette = pRecette_idRecette;
-END $$
+	UPDATE EvaluationCommentaire SET evaluation = pEvaluation, commentaire = pCommentaire WHERE Utilisateur_idCompte = pUtilisateur_idCompte AND Recette_idRecette = pRecette_idRecette;
+END
 
 /* Add follower*/
 DELIMITER $$
