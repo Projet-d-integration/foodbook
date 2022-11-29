@@ -245,7 +245,7 @@ if (empty($_SESSION['idUser'])) {
             <div class="inventory-form" id="inventory-items-form">
                 <div class="transparent-background">
                     <div class="items-form-content">
-                        <div class="form-exit-groceries-list" onclick='HideFormItems()'> <?php echo file_get_contents("utilities/x-symbol.svg"); ?> </div>
+                        <div class="form-exit-add-new-item" onclick='HideFormItems()'> <?php echo file_get_contents("utilities/x-symbol.svg"); ?> </div>
                         <div class="items-form">
                             <?php
                             // Formulaire de tri
