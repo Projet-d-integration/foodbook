@@ -230,6 +230,7 @@ if (array_key_exists('buttonDeconnecter', $_POST)) {
         ?>
     
         <div class="recipe-comments">
+            <div onclick="ShowFormAddComments()" class="button button-secondary"><?php echo file_get_contents('utilities/plus.svg'); ?></div>
             Section commentaires
 
             <?php
@@ -250,7 +251,6 @@ if (array_key_exists('buttonDeconnecter', $_POST)) {
                 }        
             ?>
             <!--Rajouter un if pour vérifier que le user a ajouter un seul commentaire si oui ne pas afficher le bouton ci-dessous, sinon l'afficher-->
-            <div onclick="ShowFormAddComments()" class="button button-secondary">Ajouter un commentaire</div>
         </div>
 
         <div class="comments-form" id="comments-form">
