@@ -205,13 +205,13 @@
         <div class="inventory-form" id="inventory-location-form">
             <div class="transparent-background">
                 <form method="post" class="form-content">
-                    <div class="form-exit" onclick='HideFormEmplacement()'> <?php echo file_get_contents("utilities/x-symbol.svg"); ?> </div>
+                    <div class="form-exit-inventory" onclick='HideFormEmplacement()'> <?php echo file_get_contents("utilities/x-symbol.svg"); ?> </div>
                     <div class="infos-emplacement">Vous avez actuellement <?php echo $numInfoSpace; ?>/10 emplacements</div>
                     <?php 
                         $tabInfoSpace = InfoLocation($_SESSION['idUser']); 
                         if(count($tabInfoSpace) < 10){
                             echo '
-                                <input type="text" class="searchbar-input" name="location-name" placeholder="Nom de l\'emplacement" maxlength="30">
+                                <input type="text" class="text-input" name="location-name" placeholder="Nom de l\'emplacement" maxlength="30">
                                 <input type="submit" class="button button-primary" name="addLocation" value="Ajouter l\'emplacement">
                             ';
                         }
@@ -223,7 +223,7 @@
         <div class="inventory-form" id="inventory-items-form">
             <div class="transparent-background">
                 <div class="items-form-content">
-                    <div class="form-exit" onclick='HideFormItems()'> <?php echo file_get_contents("utilities/x-symbol.svg"); ?> </div>
+                    <div class="form-exit-inventory" onclick='HideFormItems()'> <?php echo file_get_contents("utilities/x-symbol.svg"); ?> </div>
                     <div class="items-form">
                         <?php
                         // Formulaire de tri

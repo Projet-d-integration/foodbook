@@ -28,7 +28,7 @@ if (array_key_exists('buttonDeconnecter', $_POST)) {
         if ($_SERVER['REQUEST_METHOD'] == 'POST'){
             AddAnimation();
             if(!empty($_POST['ingredient-input'])){
-                AddItemToRecipe($_POST['number-input'],$_POST['id'],$_POST['ingredient-input']);
+                AddItemToRecipe($_POST['number-input'],$_POST['id'],$_POST['ingredient-input'],$_POST['metrique-input']);
             }
             else if(!empty($_POST['edit-ingredient'])){
                 ModifyItemsRecipe($_POST['qteChosen'],$_POST['id'],$_POST['ingredient']);
@@ -97,8 +97,17 @@ if (array_key_exists('buttonDeconnecter', $_POST)) {
                     }else{
                         echo "$recette[2]";
                     }
+                    
+                    echo $infoRecette[1] . file_get_contents('utilities/people.svg');
+                    echo $infoRecette[0] . file_get_contents('utilities/time.svg');
                 ?>
             </div>
+        </div>
+        <div>
+            <?php
+                $userRecette = User($recette[1]);
+                echo "<a href='others-recipes.php?user=$recette[1]'>Autres recettes de $userRecette[2] $userRecette[1]</a>";
+            ?>
         </div>
         <?php
             if($_SESSION['idUser'] == $recette[1]){
@@ -147,7 +156,7 @@ if (array_key_exists('buttonDeconnecter', $_POST)) {
                             echo "<td class='table-number'><form method='post'><input style='width:10%' type='number' name='qteChosen' min='1' value='$ingredient[0]' class='recipe-ingredient-content'></td>";
                         else
                             echo "<td id='num-ingred-table$ingredient[2]' class='table-number'><input style='width:10%' type='number' name='qteChosen' min='1' value='$ingredient[0]' class='recipe-ingredient-content' readonly></td>";
-                        
+                        echo "<td>$ingredient[3]</td>";
                         if ($_SESSION['idUser'] == $recette[1]){ 
                             echo "<input type='hidden' name='id' value='$recette[0]'>";
                             echo "<input type='hidden' name='ingredient' value='$infoIngredient[0]'>";
@@ -225,93 +234,78 @@ if (array_key_exists('buttonDeconnecter', $_POST)) {
                     </a>";
             }
         ?>
-        <div class="recipe-save-like">
-            <div class="interractible-svg">
-                <?php echo file_get_contents("utilities/like.svg"); ?>
-            </div>
+        <?php 
+            /* Ajouter verif si commentaire existe deja et si c lauteur*/
+            if(empty($_SESSION['idUser'])){
+                echo "<div class='add-comment-button' onclick='GoToLogin()'>Ajouter un commentaire" . file_get_contents('utilities/plus.svg') . "</div>";
+            }else if($_SESSION['idUser'] != $recette[1] && !FindCommentaryEvaluation(intval($recette[0]),intval($_SESSION['idUser']))){
+                echo "<div class='add-comment-button' onclick='ShowFormAddComments()'>Ajouter un commentaire" . file_get_contents('utilities/plus.svg') . "</div>";
+            }
+        ?>
+        <div class="recipe-comments">
 
-            <div class="interractible-svg">
-                <?php echo file_get_contents("utilities/floppy-disk.svg"); ?>
-                </div>
-            </div>
-    
-    
-            <div class="recipe-comments">
-                Section commentaires
-
-                <?php
-                    $tabCommentaire = []; //Faire méthode pour aller chercher tous les commentaire d'une recette en fonction de l'id de la recette
-                
-                    foreach($tabCommentaire as $commentaire)
-                    {
-                        //Faire afficher le nom de la personne qui a mis le commentaire et le commentaire lui-même
-                        
-                        if($_SESSION["idUser"] == $commentaire[1]) //Si le idCompte du commentaire est le même que le idUser
-                        {
-                            echo "<div>Vous: le commentaire</div>";
-                        }
-                        else{
-                            echo "<div>Username: le commentaire</div>
-                                <div>Username: le commentaire</div>";
-                        }
-                    }
-                
-                    
+            <?php
+                $tabCommentaire = ShowCommentaryEvaluation($recette[0]); //Faire méthode pour aller chercher tous les commentaire d'une recette en fonction de l'id de la recette
             
-                ?>
-                <!--Rajouter un if pour vérifier que le user a ajouter un seul commentaire si oui ne pas afficher le bouton ci-dessous, sinon l'afficher-->
-                <div onclick="ShowFormAddComments()" class="button button-secondary">Ajouter un commentaire</div>
-            </div>
-
-            <div class="comments-form" id="comments-form">
-                <div class="transparent-background">
-                    <form method="post" class="form-content">
-                        <div class="comments-form-title">Ajouter un commentaire</div>
-                        <div class="form-exit" onclick='HideFormAddComments()'> <?php echo file_get_contents("utilities/x-symbol.svg"); ?> </div>
-                        <?php 
-                                echo  "<input type='hidden' name='id' value='$recette[0]'>";
-                                echo '
-                                    <input type="text" class="searchbar-input" name="comment-value" placeholder="Votre commentaire..." maxlength="100">
-                                    Évaluation: 
-                                    <div class="rating-wrapper">
-                                        <input class="rating-input" type="radio" name="rating" id="r1" value="5">
-                                        <label for="r1"></label>
-                                        
-                                        <input class="rating-input" type="radio" name="rating" id="r2" value="4">
-                                        <label for="r2"></label>
-
-                                        <input class="rating-input" type="radio" name="rating" id="r3" value="3">
-                                        <label for="r3"></label>
-
-                                        <input class="rating-input" type="radio" name="rating" id="r4"value="2">
-                                        <label for="r4"></label>
-
-                                        <input class="rating-input" type="radio" name="rating" id="r5" value="1">
-                                        <label for="r5"></label>
-                                    </div>
-                                    
-                                    <input type="submit" class="button button-primary" name="addComments" value="Ajouter">
-                                    
-                                ';
-                        ?>
-                        <div class="error_message" id="comment-field-empty">Vous devez remplir le/les champs obligatoires.</div>
-                    </form>
-                </div>
+                foreach($tabCommentaire as $commentaire)
+                {
+                    //Faire afficher le nom de la personne qui a mis le commentaire et le commentaire lui-même
+                    $userInfo = User($commentaire[3]);
+                    if($_SESSION["idUser"] == $commentaire[3]) //Si le idCompte du commentaire est le même que le idUser
+                    {
+                        echo "<div>$commentaire[1]</div>";
+                    }
+                    else{
+                        echo "<div>$userInfo[2] $userInfo[1] $commentaire[0]/5</div>";
+                        echo "<div>$commentaire[1]</div>";
+                    }
+                }        
+            ?>
+            <!--Rajouter un if pour vérifier que le user a ajouter un seul commentaire si oui ne pas afficher le bouton ci-dessous, sinon l'afficher-->
         </div>
 
+        <div class="comments-form" id="comments-form">
+            <div class="transparent-background">
+                <form method="post" class="form-content">
+                    <div class="comments-form-title">Ajouter un commentaire</div>
+                    <div class="form-exit" onclick='HideFormAddComments()'> <?php echo file_get_contents("utilities/x-symbol.svg"); ?> </div>
+                    <?php 
+                            echo  "<form method='POST'><input type='hidden' name='id' value='$recette[0]'>";
+                            echo '
+                                <input type="text" class="searchbar-input" name="comment-value" placeholder="Votre commentaire..." maxlength="100">
+                                Évaluation: 
+                                <div class="rating-wrapper">
+                                    <input class="rating-input" type="radio" name="rating" id="r1" value="5">
+                                    <label for="r1"></label>
+                                    
+                                    <input class="rating-input" type="radio" name="rating" id="r2" value="4">
+                                    <label for="r2"></label>
+                                    <input class="rating-input" type="radio" name="rating" id="r3" value="3">
+                                    <label for="r3"></label>
+                                    <input class="rating-input" type="radio" name="rating" id="r4"value="2">
+                                    <label for="r4"></label>
+                                    <input class="rating-input" type="radio" name="rating" id="r5" value="1">
+                                    <label for="r5"></label>
+                                </div>        
+                                <input type="submit" class="button button-primary" name="addComments" value="Ajouter">
+                                </form>
+                            ';
+                    ?>
+                    <div class="error_message" id="comment-field-empty">Vous devez remplir le/les champs obligatoires.</div>
+                </form>
+            </div>
             <?php
                 if(isset($_POST["addComments"]))
                 {
-
                     if(empty($_POST["rating"]) && !empty($_POST["comment-value"]))
                     {
-                        //La fonction AddComment() valeur de evalutation écrire explicitement 0 dans les paramètres
-                        echo "<script> alert('Nb:étoile 0')</script>";
+                        AddCommentaryEvaluation(0,$_POST['comment-value'],$recette[0],$_SESSION['idUser']);
+                        echo "<script>window.location.href = 'recipe.php?id=$recette[0]';</script>";
                     }
                     else if(!empty($_POST["rating"]) && !empty($_POST["comment-value"]))
                     {
-                        //La fonction AddComment() valeur de evalutation = $_POST["rating"]
-                        echo "<script> alert('Nb étoiles: $_POST[rating]')</script>";
+                        AddCommentaryEvaluation($_POST['rating'],$_POST['comment-value'],$recette[0],$_SESSION['idUser']);
+                        echo "<script>window.location.href = 'recipe.php?id=$recette[0]';</script>";
                     }
                     else {
                         echo '<script>window.onload = () => { 
@@ -319,9 +313,7 @@ if (array_key_exists('buttonDeconnecter', $_POST)) {
                             document.getElementById("comment-field-empty").style.display = "block";
                             }</script>';
                     }
-
                 }
-                
             ?>
         </div>
     </div>
@@ -329,7 +321,7 @@ if (array_key_exists('buttonDeconnecter', $_POST)) {
     <div class="inventory-form" id="inventory-items-form">
         <div class="transparent-background">
             <div class="items-form-content">
-                <div class="form-exit" onclick='HideFormItems()'> <?php echo file_get_contents("utilities/x-symbol.svg"); ?> </div>
+                <div class="form-exit" onclick='HideFormItems()'><?php echo file_get_contents("utilities/x-symbol.svg");?></div>
                 <div class="items-form">
                     <?php
                     // Formulaire de tri
@@ -376,7 +368,8 @@ if (array_key_exists('buttonDeconnecter', $_POST)) {
                             echo file_get_contents('utilities/x-symbol.svg');
                             echo " </div>
                                             <span class='inventory-items-form-title'>Combien voulez vous ajouter de cet item : $singleIngredient[1] </span>
-                                            <input type='number' name='number-input' min='1' max='100' placeholder='Cb' value = 0> <br>
+                                            <input type='number' name='number-input' min='1' max='100000' placeholder='Cb' value = 0> <br>
+                                            <input type='text' name='metrique-input'  placeholder='Votre mesure'> <br>
                                             <input type='hidden' name='place-input' value='$idEmplacement'>
                                             <input type='hidden' name='id' value='$recette[0]'>
                                             <input type='hidden' value='$spaceChosen' name='buttonSpace'>
@@ -413,14 +406,14 @@ if (array_key_exists('buttonDeconnecter', $_POST)) {
             </div>
         </div>
     </div>
-
-    <?php ?>
     
     <?php GenerateFooter(); ?>
 </body>
 
 <script defer>
-     
+    function GoToLogin(){
+        window.location.href = "login.php";
+    }
     function ShowFormAddComments()
     {
         document.getElementById("comments-form").style.display = "block";

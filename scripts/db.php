@@ -52,7 +52,6 @@ function UserExist($email)
 {
     // 0 -> false
     // 1 -> true
-
     Connexion();
     global $PDO;
 
@@ -1232,50 +1231,16 @@ function InfoFavoriteRecipe($pUtilisateur_idCompte,$pRecette_idRecette){
 }
 
 // Info contenue recette
-function AddItemToRecipe($pQteIngredient,$Recette_idRecette,$Ingredient_idIngredient){
+function AddItemToRecipe($pQteIngredient,$Recette_idRecette,$Ingredient_idIngredient, $pMesure){
     Connexion();
     global $PDO;
     try{
-        $sqlProcedure = "CALL AjouterIngredientRecette(:pQteIngredient, :Recette_idRecette, :Ingredient_idIngredient)";
+        $sqlProcedure = "CALL AjouterIngredientRecette(:pQteIngredient, :Recette_idRecette, :Ingredient_idIngredient, :pMesure)";
         $stmt = $PDO->prepare($sqlProcedure);
         $stmt->bindParam(':pQteIngredient', $pQteIngredient, PDO::PARAM_INT);
         $stmt->bindParam(':Recette_idRecette', $Recette_idRecette, PDO::PARAM_INT);
-        $stmt->bindParam(':Ingredient_idIngredient', $Ingredient_idIngredient, PDO::PARAM_INT);        
-        $stmt->execute();
-        $stmt->closeCursor();
-    } catch (PDOException $e) {
-        return $e->getMessage();
-    }   
-}
-/*Ajouter evaluation commentaire */
-function AddCommentaryEvaluation($pEvaluation, $pCommentaire, $pRecette_idRecette, $pUtilisateur_idCompte){
-    Connexion();
-    global $PDO;
-
-    try{
-        $sqlProcedure = "CALL AjouterEvaluationCommentaire(:pEvaluation,:pCommentaire,:pRecette_idRecette,:pUtilisateur_idCompte)";
-        $stmt = $PDO->prepare($sqlProcedure);
-        $stmt->bindParam(':pEvaluation', $pEvaluation, PDO::PARAM_INT);
-        $stmt->bindParam(':pCommentaire', $pCommentaire, PDO::PARAM_STR);
-        $stmt->bindParam(':pRecette_idRecette', $pRecette_idRecette, PDO::PARAM_INT);
-        $stmt->bindParam(':pUtilisateur_idCompte', $pUtilisateur_idCompte, PDO::PARAM_INT);
-        $stmt->execute();
-        $stmt->closeCursor();
-    } catch(PDOException $e){
-        return $e->getMessage();
-    }
-}
-/* Modifier Evaluation commentaire */
-function ModifyCommentaryEvaluation($pEvaluation, $pCommentaire, $pRecette_idRecette, $pUtilisateur_idCompte){
-    Connexion();
-    global $PDO;
-    try{
-        $sqlProcedure = "CALL ModifierEvaluationCommentaire(:pEvaluation,:pCommentaire,:pRecette_idRecette,:pUtilisateur_idCompte)";
-        $stmt = $PDO->prepare($sqlProcedure);
-        $stmt->bindParam(':pEvaluation', $pEvaluation, PDO::PARAM_INT);
-        $stmt->bindParam(':pCommentaire', $pCommentaire, PDO::PARAM_STR);
-        $stmt->bindParam(':pRecette_idRecette', $pRecette_idRecette, PDO::PARAM_INT);
-        $stmt->bindParam(':pUtilisateur_idCompte', $pUtilisateur_idCompte, PDO::PARAM_INT);
+        $stmt->bindParam(':Ingredient_idIngredient', $Ingredient_idIngredient, PDO::PARAM_INT);
+        $stmt->bindParam(':pMesure', $pMesure, PDO::PARAM_STR);          
         $stmt->execute();
         $stmt->closeCursor();
     } catch (PDOException $e) {
@@ -1312,6 +1277,41 @@ function DeleteItemFromRecipe($Recette_idRecette,$Ingredient_idIngredient){
         return $e->getMessage();
     }
 }
+/*Ajouter evaluation commentaire */
+function AddCommentaryEvaluation($pEvaluation, $pCommentaire, $pRecette_idRecette, $pUtilisateur_idCompte){
+    Connexion();
+    global $PDO;
+
+    try{
+        $sqlProcedure = "CALL AjouterEvaluationCommentaire(:pEvaluation,:pCommentaire,:pRecette_idRecette,:pUtilisateur_idCompte)";
+        $stmt = $PDO->prepare($sqlProcedure);
+        $stmt->bindParam(':pEvaluation', $pEvaluation, PDO::PARAM_INT);
+        $stmt->bindParam(':pCommentaire', $pCommentaire, PDO::PARAM_STR);
+        $stmt->bindParam(':pRecette_idRecette', $pRecette_idRecette, PDO::PARAM_INT);
+        $stmt->bindParam(':pUtilisateur_idCompte', $pUtilisateur_idCompte, PDO::PARAM_INT);
+        $stmt->execute();
+        $stmt->closeCursor();
+    } catch(PDOException $e){
+        return $e->getMessage();
+    }
+}
+/* Modifier Evaluation commentaire */
+function ModifyCommentaryEvaluation($pEvaluation, $pCommentaire, $pRecette_idRecette, $pUtilisateur_idCompte){
+    Connexion();
+    global $PDO;
+    try{
+        $sqlProcedure = "CALL ModifierEvaluationCommentaire(:pEvaluation,:pCommentaire,:pRecette_idRecette,:pUtilisateur_idCompte)";
+        $stmt = $PDO->prepare($sqlProcedure);
+        $stmt->bindParam(':pEvaluation', $pEvaluation, PDO::PARAM_INT);
+        $stmt->bindParam(':pCommentaire', $pCommentaire, PDO::PARAM_STR);
+        $stmt->bindParam(':pRecette_idRecette', $pRecette_idRecette, PDO::PARAM_INT);
+        $stmt->bindParam(':pUtilisateur_idCompte', $pUtilisateur_idCompte, PDO::PARAM_INT);
+        $stmt->execute();
+        $stmt->closeCursor();
+    } catch (PDOException $e) {
+        return $e->getMessage();
+    }   
+}
 /* Supprimer Evaluation commentaire */
 function DeleteCommentaryEvaluation($pRecette_idRecette, $pUtilisateur_idCompte){
     try {
@@ -1319,8 +1319,8 @@ function DeleteCommentaryEvaluation($pRecette_idRecette, $pUtilisateur_idCompte)
         global $PDO;
         mysqli_set_charset($PDO, "utf8mb4");
         $stmt = $PDO->prepare("DELETE FROM EvaluationCommentaire WHERE Utilisateur_idCompte = :pUtilisateur_idCompte AND Recette_idRecette = :pRecette_idRecette", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
-        $stmt->bindParam(':Utilisateur_idCompte', $pUtilisateur_idCompte, PDO::PARAM_INT);
-        $stmt->bindParam(':Recette_idRecette', $pRecette_idRecette, PDO::PARAM_INT);
+        $stmt->bindParam(':pUtilisateur_idCompte', $pUtilisateur_idCompte, PDO::PARAM_INT);
+        $stmt->bindParam(':pRecette_idRecette', $pRecette_idRecette, PDO::PARAM_INT);
         $stmt->execute();
     } catch (PDOException $e) {
         return $e->getMessage();
@@ -1333,7 +1333,7 @@ function ShowCommentaryEvaluation($pRecette_idRecette){
     mysqli_set_charset($PDO, "utf8mb4");
 
     $stmt = $PDO->prepare("SELECT * FROM EvaluationCommentaire WHERE Recette_idRecette = :pRecette_idRecette", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
-    $stmt->bindParam(':Recette_idRecette', $pRecette_idRecette, PDO::PARAM_INT);
+    $stmt->bindParam(':pRecette_idRecette', $pRecette_idRecette, PDO::PARAM_INT);
     $stmt->execute();
     $info = [];
     while ($donnee = $stmt->fetch(PDO::FETCH_NUM)) {
@@ -1347,7 +1347,29 @@ function ShowCommentaryEvaluation($pRecette_idRecette){
     $stmt->closeCursor();
     return $info;
 }
+function FindCommentaryEvaluation($pRecette_idRecette,$idCompte){
+    Connexion();
+    global $PDO;
+    try{
+        $stmt = $PDO->prepare("SELECT EXISTS (SELECT commentaire FROM EvaluationCommentaire WHERE Recette_idRecette = :pRecette_idRecette AND Utilisateur_idCompte = :idCompte)", array(PDO::ATTR_CURSOR, PDO::CURSOR_FWDONLY));
+        $stmt->bindParam(':pRecette_idRecette', $pRecette_idRecette, PDO::PARAM_INT);
+        $stmt->bindParam(':idCompte', $idCompte, PDO::PARAM_INT);
+        $stmt->execute();
+        $exist = false;
 
+        if ($donnee = $stmt->fetch(PDO::FETCH_NUM)) {
+            $etat = $donnee[0];
+        }
+
+        if ($etat == 1) {
+            $exist = true;
+        }
+        $stmt->closeCursor();
+        return $exist;
+    } catch(PDOException $e){
+        return $e->getMessage();
+    }
+}
 function InfoItemRecipe($Recette_idRecette){
     Connexion();
     global $PDO;
@@ -1361,6 +1383,7 @@ function InfoItemRecipe($Recette_idRecette){
         array_push($rangee, $donnee[0]); // qteIngredient
         array_push($rangee, $donnee[1]); // id Recette
         array_push($rangee, $donnee[2]); // id Ingredient
+        array_push($rangee, $donnee[3]); // Mesure
         array_push($info, $rangee);
     }
     $stmt->closeCursor();

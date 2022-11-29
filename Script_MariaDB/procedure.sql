@@ -292,9 +292,9 @@ BEGIN
 END$$ 
 
 /* Contenue Recette*/
-CREATE DEFINER=`root`@`localhost` PROCEDURE `AjouterIngredientRecette`(pQteIngredient INT, Recette_idRecette INT, Ingredient_idIngredient INT)
-INSERT INTO IngredientRecette(qteIngredient,Recette_idRecette,Ingredient_idIngredient)
-		VALUES(pQteIngredient,Recette_idRecette,Ingredient_idIngredient)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `AjouterIngredientRecette`(pQteIngredient INT, Recette_idRecette INT, Ingredient_idIngredient INT, pMesure Varchar(15))
+INSERT INTO IngredientRecette(qteIngredient,Recette_idRecette,Ingredient_idIngredient,metrique)
+		VALUES(pQteIngredient,Recette_idRecette,Ingredient_idIngredient,pMesure)
 
 DELIMITER $$
 CREATE PROCEDURE ModifierIngredientRecette(pQteIngredient INT, Recette_idRecette INT, Ingredient_idIngredient INT)
@@ -313,12 +313,11 @@ BEGIN
 END
 /*Ajouter evaluation commentaire *
 /*Ajouter evaluation commentaire */
-DELIMITER $$
-CREATE PROCEDURE AjouterEvaluationCommentaire(pEvaluation INT, pCommentaire VARCHAR(75), pRecette_idRecette INT, pUtlisateur_idCompte INT)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `AjouterEvaluationCommentaire`(pEvaluation INT, pCommentaire VARCHAR(75), pRecette_idRecette INT, pUtlisateur_idCompte INT)
 BEGIN
 	INSERT INTO EvaluationCommentaire(evaluation, commentaire, Recette_idRecette, Utilisateur_idCompte)
-		VALUES(pEvaluation, pCommentaire, pRecette_idRecette, pUtilisateur_idCompte);
-END $$
+		VALUES(pEvaluation, pCommentaire, pRecette_idRecette, pUtlisateur_idCompte);
+END
 /* Modifier Evaluation commentaire */
 DELIMITER $$
 CREATE PROCEDURE ModifierEvaluationCommentaire(pEvaluation INT, pCommentaire VARCHAR(75), pRecette_idRecette INT, pUtlisateur_idCompte INT)
