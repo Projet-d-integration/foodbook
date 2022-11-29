@@ -62,6 +62,7 @@ body {
     height: 75%;
     z-index: 3;
     padding: 2rem;
+    width: 90%;
 }
 
 .danger-option {
