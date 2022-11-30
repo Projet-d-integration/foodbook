@@ -204,10 +204,6 @@ $idUser = $_GET['user'];
         ?>
     }
 
-
-
-
-
     function ShowMenu() {
         document.getElementById("mobile-popup-menu").style.display = "flex";
     }
