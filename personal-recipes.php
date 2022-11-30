@@ -45,7 +45,7 @@
                             if(isset($_POST['isPublic'])){
                                 echo AddRecipe($_SESSION['idUser'],$_POST['title-input'],1,0,date('Y-m-d H:i:s'),$_POST['type-input']);
                                 $idRecette = LastInsertedRecipe();
-                                AddInfoRecipe($idRecette,$_POST['image-input'],$_POST['video-input'],$_POST['recipe-portion'],$_POST['recipe-time']) ;
+                                AddInfoRecipe($idRecette,$_POST['image-input'],$_POST['video-input'],$_POST['recipe-time'],$_POST['recipe-portion']) ;
                                 ChangePage("personal-recipes.php");
                             }else{
                                 echo AddRecipe($_SESSION['idUser'],$_POST['title-input'],0,0,date('Y-m-d H:i:s'),$_POST['type-input']);
