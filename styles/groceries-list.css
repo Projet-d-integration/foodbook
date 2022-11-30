@@ -71,6 +71,7 @@ body {
     z-index: 3;
     padding: 2rem;
     width: 90%;
+    position: relative;
 }
 
 .danger-option {
@@ -330,6 +331,13 @@ ul > *{
     height: 1.5rem;
     width: 1.5rem;
 }
+.form-exit-add-new-item svg{
+   position: absolute;
+   right: 3rem;
+   top: 3rem;
+   width: 1.5rem;
+   height: 1.5rem;
+}
 
 @media screen and (max-width:800px){
     .wrapper{
@@ -371,5 +379,31 @@ ul > *{
         display: flex;
         flex-direction: row !important;
         justify-content: flex-end;
+    }
+    .items-form-content{
+        width: 55% !important;
+    }
+    .items-form{
+        height: 60%;
+    }
+    .inventory-item-form{
+        top: 0;
+    }
+    .inventory-items-form-title{
+        width: fit-content;
+        text-align: center;
+    }
+    .items-form-overlay{
+        width: 80%;
+    }
+    .inventory-item{
+       width: 7rem;
+    }
+    .items-form{
+        width: 50%;
+    }
+    .display-filter-section{
+        width: 60%;
+        padding: 1rem;
     }
 }
