@@ -7,6 +7,7 @@ if (array_key_exists('buttonDeconnecter', $_POST)) {
 
 ?>
 
+
 <head>
     <title> Recette Foodbook</title>
     
