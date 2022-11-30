@@ -193,7 +193,7 @@ $idUser = $_GET['user'];
     window.onload = () => {
         <?php
         if (!($_SERVER['REQUEST_METHOD'] === 'POST')) {
-            $tabRecette = ShowRecipe($idUser); //Appeler la méthode ShowSingleRecipe($id_user) pour afficher les recette de cet usager.
+            $tabRecette = ShowRecipe($idUser);
 
             if (count($tabRecette) <= 0) {
                 echo 'document.getElementById("error_user_no_recipes").style.display = "block";';
