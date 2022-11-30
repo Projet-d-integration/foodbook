@@ -59,7 +59,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 100%;
+    width: 90%;
+    text-align: center;
     height: 100%;
 }
 
@@ -101,10 +102,6 @@ input::placeholder {
     height: 1.5rem;
     width: 1.5rem;
     cursor: pointer;
-}
-
-.banner-title {
-    margin-bottom: 1rem;
 }
 
 @media screen and (max-width:1000px) {
