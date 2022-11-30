@@ -63,26 +63,76 @@ if (array_key_exists('buttonDeconnecter', $_POST)) {
             $infoRecette = InfoRecipeByID($recette[0])[0];
         }
     ?>
-    <div class="header-banner">
+<div> 
+    <?php 
+        if($_SERVER['REQUEST_METHOD'] == 'POST')
+            AddAnimation();
+    ?>
+    <div class="header-banner hide-mobile">
         <a href="index.php"><?php echo file_get_contents("utilities/foodbook-logo.svg"); ?></a>
-        <div class="banner-title"> <?php echo $recette[2]; ?> </div>
-
         <?php AddSearchBar(); ?>
-
         <div class="svg-wrapper">
             <a href="personal-recipes.php" class="svg-button list-button"> <?php echo file_get_contents("utilities/book.svg"); ?> </a>
             <a href="groceries-list.php" class="svg-button list-button"> <?php echo file_get_contents("utilities/list.svg"); ?> </a>
             <a href="inventory.php" class="svg-button inventory-button"> <?php echo file_get_contents("utilities/food.svg"); ?> </a>
-            <?php
-            if (!empty($_SESSION['idUser'])) {
-                echo '<a href="edit-profil.php" class="svg-button login-button"> ' . file_get_contents("utilities/account.svg") . '</a>';
-                echo '<form method="post"><button type="submit" name="buttonDeconnecter" class="svg-button login-button" value="buttonDeconnecter" />' . file_get_contents("utilities/logout.svg") . '</form>';
-            } else {
-                echo '<a href="login.php" class="svg-button login-button"> ' . file_get_contents("utilities/account.svg") . '</a>';
-            }
+            <?php 
+                if(!empty($_SESSION['idUser'])){
+                    echo '<a href="edit-profil.php" class="svg-button login-button"> '.file_get_contents("utilities/account.svg").'</a>';
+                    echo '<form method="post"><button type="submit" name="buttonDeconnecter" class="svg-button login-button logout-button" value="buttonDeconnecter" />'.file_get_contents("utilities/logout.svg").'</form>';
+                }
+                else{
+                    echo '<a href="login.php" class="svg-button login-button"> '.file_get_contents("utilities/account.svg").'</a>';
+                }
             ?>
         </div>
     </div>
+
+    <!-- mobile header -->
+    <div class="header-mobile-banner hide-desktop">
+        <a href="index.php"><?php echo file_get_contents("utilities/foodbook-logo.svg"); ?></a>
+        <button class="menu-icon" onclick="ShowMenu()"><?php echo file_get_contents("utilities/menu.svg"); ?></button>
+    </div>
+
+    <div class="mobile-popup-menu hide-desktop" id="mobile-popup-menu">
+        <div class="mobile-svg-wrapper hide-desktop">
+            <?php AddSearchBar(); ?>
+
+            <a href="personal-recipes.php" class="svg-button list-button"> 
+                <?php echo file_get_contents("utilities/book.svg"); ?> 
+                <span class="header-text">Vos recettes</span>
+            </a>
+            <a href="groceries-list.php" class="svg-button list-button"> 
+                <?php echo file_get_contents("utilities/list.svg"); ?> 
+                <span class="header-text">Liste d'épicerie</span>
+            </a>
+            <a href="inventory.php" class="svg-button inventory-button"> 
+                <?php echo file_get_contents("utilities/food.svg"); ?> 
+                <span class="header-text">Inventaire</span>
+            </a>
+            <div class="form-exit" onclick='HideMenu()'> <?php echo file_get_contents("utilities/x-symbol.svg"); ?> </div>
+            <?php 
+                if(!empty($_SESSION['idUser'])){
+                    echo '<a href="edit-profil.php" class="svg-button login-button"> 
+                        '.file_get_contents("utilities/account.svg");
+                        echo "
+                        <span class='header-text'>" . User($_SESSION['idUser'])[2] . " " . User($_SESSION['idUser'])[1] . "</span>
+                    </a>";
+                    echo '<form method="post">
+                    <button type="submit" name="buttonDeconnecter" class="svg-button login-button logout-button" value="buttonDeconnecter" />
+                        '.file_get_contents("utilities/logout.svg").'
+                        <span class="header-text">Se déconnecter</span>
+                    </form>';
+                }
+                else{
+                    echo '<a href="login.php" class="svg-button login-button logout-button"> 
+                    '.file_get_contents("utilities/account.svg").'
+                    <span class="header-text">Se connecter</span>
+                    </a>';
+                }
+            ?>
+        </div>
+    </div>
+</div>
 
     <div class="recipe-container wrapper">
         <div class="recipe-header">
@@ -93,8 +143,8 @@ if (array_key_exists('buttonDeconnecter', $_POST)) {
             <div class="recipe-title">
                 <?php
                     if($_SESSION['idUser'] == $recette[1]){
-                        echo "<form method='post'>
-                                <input type='text' name='title-input' value='$recette[2]'/>
+                        echo "<form method='post' class='title-wrapper'>
+                                <input type='text' name='title-input' class='title-input' value='$recette[2]'/>
                                 <input type='hidden' name='id' value='$recette[0]'>
                                 <button type='submit' class='modify-button'>" . file_get_contents('utilities/notebook.svg') . "</button>
                             </form>";
@@ -102,8 +152,11 @@ if (array_key_exists('buttonDeconnecter', $_POST)) {
                         echo "$recette[2]";
                     }
                     
-                    echo $infoRecette[1] . file_get_contents('utilities/people.svg');
-                    echo $infoRecette[0] . file_get_contents('utilities/time.svg');
+                    echo" 
+                    <div class='lower-title'>
+                        <div> " . $infoRecette[1] . file_get_contents('utilities/people.svg') . "</div>
+                        <div> " . $infoRecette[0] . file_get_contents('utilities/time.svg') . "</div>
+                    </div>";
                 ?>
             </div>
         </div>
@@ -115,8 +168,8 @@ if (array_key_exists('buttonDeconnecter', $_POST)) {
         </div>
         <?php
             if($_SESSION['idUser'] == $recette[1]){
-                echo "<form method='post'>
-                        <label name='image-input'>Url de l'image :</label><input type='text' name='image-input' value='$infoRecette[5]'/>
+                echo "<form method='post' class='image-form'>
+                        <label name='image-input'>Url de l'image :</label><input type='text' name='image-input' class='image-input' value='$infoRecette[5]'/>
                         <input type='hidden' name='id' value='$recette[0]'>
                         <button type='submit' class='modify-button'>" . file_get_contents('utilities/notebook.svg') . "</button>
                     </form>";
@@ -129,8 +182,8 @@ if (array_key_exists('buttonDeconnecter', $_POST)) {
                     else
                         $desc = $infoRecette[2];
                     if($_SESSION['idUser'] == $recette[1]){
-                        echo "<form method='post'>
-                                <input style='width:20rem' type='text' class='description-recette' name='description-input' value='$desc'/>
+                        echo "<form method='post' class='description-form'>
+                                <input type='text' class='description-recette' name='description-input' value='$desc'/>
                                 <input type='hidden' name='id' value='$recette[0]'>
                                 <button type='submit' class='modify-button'>" . file_get_contents('utilities/notebook.svg') . "</button>
                             </form>";
@@ -260,7 +313,7 @@ if (array_key_exists('buttonDeconnecter', $_POST)) {
                         echo "<div>Votre commentaire :</div>";
                         echo "<form method='POST'><input type='hidden' name='id' value='$recette[0]'>";
                         echo "<input type='number' name='modify-eval' max='5' min='0' value='$commentaire[0]'></input>";
-                        echo "<input type='text' name='modify-comment' value='$commentaire[1]'></input>";
+                        echo '<input type="text" name="modify-comment" value="'.$commentaire[1].'"></input>';
                         echo "<button name='modify-comment-button' value='1' type='submit' class='recipe-ingredient-content modify-button'>".file_get_contents("utilities/notebook.svg")."</button></form>";
                     }
                     else{
@@ -336,17 +389,16 @@ if (array_key_exists('buttonDeconnecter', $_POST)) {
     <div class="inventory-form" id="inventory-items-form">
         <div class="transparent-background">
             <div class="items-form-content">
-                <div class="form-exit" onclick='HideFormItems()'><?php echo file_get_contents("utilities/x-symbol.svg");?></div>
-                <div class="items-form">
-                    <?php
+                <div class="form-exit-add-new-item" onclick='HideFormItems()'> <?php echo file_get_contents("utilities/x-symbol.svg"); ?> </div>
+                <?php
                     // Formulaire de tri
                     if ($_POST['filter'])
-                        echo '<script>document.getElementById("inventory-items-form").style.display = "block";</script>';
-                    $idEmplacement = $recette[0];
+                    echo '<script>document.getElementById("inventory-items-form").style.display = "block";</script>';
+                    $idEmplacement = $_POST['buttonSpace'];
                     $tabTypeIngredient = TypeIngredientInfo();
                     $nameSearched = $_POST['name-input'];
                     echo "<form class='display-filter-section' method='post'>";
-                    echo "<input class='text-input' name='name-input' type='text' placeholder='Nom ingredient' value=$nameSearched >";
+                    echo "<input class='inventory-text-input' name='name-input' type='text' placeholder='Nom ingredient' value=$nameSearched >";
                     echo '<select name="type-input">';
                     echo '<option value="">Tout les types</option>';
                     foreach ($tabTypeIngredient as $typeIngredient)
@@ -358,45 +410,44 @@ if (array_key_exists('buttonDeconnecter', $_POST)) {
                     echo '</select>';
                     echo '<input type="hidden" value="set" name="filter">';
                     echo "<input type='hidden' value='$idEmplacement' name='buttonSpace'>";
-                    echo "<input type='hidden' name='id' value='$recette[0]'>";
                     echo '<div class="buttons-wrapper"><input class="button button-primary" type="submit" value="Chercher"></div>';
                     echo "</form>";
+                ?>
+                <div class="items-form">
+                    <?php
                     // Trier les informations
-                    
                     $tabIngredient = AllIngredientInfo($_POST['order-input']); // [1] == nom
                     $tabIngredient = FilterIngredient($tabIngredient, $_POST['name-input'], $_POST['type-input']);
                     //Aficher les informations
                     foreach ($tabIngredient as $singleIngredient) {
                         // Empeche un ingredient d'apparaitre dans la liste de choix si il existe deja dans la liste
                         $isAlreadyInList = false;
-                        foreach ($tabIngredientRecipe as $infoInventaire) {
-                            if ($infoInventaire[2] == $singleIngredient[0]) {
+                        foreach ($tabInventaire as $infoInventaire) {
+                            if ($infoInventaire[3] == $singleIngredient[0]) {
                                 $isAlreadyInList = true;
                             }
                         }
                         if (!$isAlreadyInList) {
                             echo "
-                                    <div class='inventory-item' onclick='ShowFormItemQuantity($singleIngredient[0])'> $singleIngredient[1] </div>
-                                    <form method='post' class='inventory-item-form' id='inventory-item-form-$singleIngredient[0]'>
-                                        <div class='items-form-overlay'>
-                                            <div class='form-exit-item' onclick='HideFormItemQuantity($singleIngredient[0])'>";
+                                <div class='inventory-item' onclick='ShowFormItemQuantity($singleIngredient[0])'> <span>$singleIngredient[1]</span> </div>
+                                <form method='post' class='inventory-item-form' id='inventory-item-form-$singleIngredient[0]'>
+                                    <div class='items-form-overlay'>
+                                        <div class='form-exit-item' onclick='HideFormItemQuantity($singleIngredient[0])'>";
                             echo file_get_contents('utilities/x-symbol.svg');
                             echo " </div>
-                                            <span class='inventory-items-form-title'>Combien voulez vous ajouter de cet item : $singleIngredient[1] </span>
-                                            <input type='number' name='number-input' min='1' max='100000' placeholder='Cb' value = 0> <br>
-                                            <input type='text' name='metrique-input'  placeholder='Votre mesure'> <br>
-                                            <input type='hidden' name='place-input' value='$idEmplacement'>
-                                            <input type='hidden' name='id' value='$recette[0]'>
-                                            <input type='hidden' value='$spaceChosen' name='buttonSpace'>
-                                            <button type='submit' class='button button-primary' name='ingredient-input' value='$singleIngredient[0]'>Ajouter</button><br>
-                                        </div>
-                                    </form>";
+                                        <span class='inventory-items-form-title'>Combien voulez vous ajouter de cet item : $singleIngredient[1] </span>
+                                        <input type='number' name='number-input' min='1' max='100' placeholder='Cb' value = 0> <br>
+                                        <input type='hidden' name='place-input' value='$idEmplacement'>
+                                        <input type='hidden' value='$spaceChosen' name='buttonSpace'>
+                                        <button type='submit' class='button button-secondary' name='ingredient-input' value='$singleIngredient[0]'>Ajouter</button><br>
+                                    </div>
+                                </form>";
                         }
                     }
                     ?>
-                    <div class="items-form-submit">
-                        <form> <?php GenerateButtonPrimary("Ajouter un nouvel ingredient inexistant", "add-new-ingredient.php") ?></form>
-                    </div>
+                </div>
+                <div class="items-form-submit">
+                    <form> <?php GenerateButtonPrimary("Ajouter un nouvel ingredient inexistant", "add-new-ingredient.php") ?></form>
                 </div>
             </div>
         </div>
@@ -502,6 +553,12 @@ if (array_key_exists('buttonDeconnecter', $_POST)) {
         }
     ?>
 
+    function ShowMenu() {
+        document.getElementById("mobile-popup-menu").style.display = "flex";
+    }
 
+    function HideMenu() {
+        document.getElementById("mobile-popup-menu").style.display = "none";
+    }
 
 </script>

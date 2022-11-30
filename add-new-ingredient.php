@@ -88,7 +88,6 @@
     <div class="wrapper">
         <?php 
             $tabTypeIngredient = TypeIngredientInfo();
-            echo '<form><div class="item-wrapper"><div class="return-button">'.GenerateButtonTertiary("Retour", "inventory.php").'</div></form>';
         ?>
         <form method="post" class="create-ingredient-form">
             <input class="text-input" name="name-input" type="text" placeholder="Nom ingredient" value="<?= $name ?>">

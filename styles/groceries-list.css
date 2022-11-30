@@ -59,18 +59,13 @@ body {
 }
 
 .items-form-content {
-    background: var(--color-tertiary);
-    border: 0.1rem solid var(--color-primary);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow-y: auto;
-    border-radius: 2rem;
-    margin: 5rem;
-    height: 75%;
-    z-index: 3;
-    padding: 2rem;
-    width: 90%;
+    background-image: repeating-linear-gradient(white, white,white,white, white,white,white,white,white,white,white,white,  white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,  white,white,white,white,white,  white,
+    rgba(51, 51, 51,0.8));
+    background-size: 25px 20px;
+    background-attachment: local;
+    border: 1px solid var(--color-primary);
+    border-radius: 0.5rem;
+    padding: 2rem 0;
     position: relative;
 }
 
@@ -79,25 +74,29 @@ body {
 }
 
 .items-form {
+    min-height: 10rem;
+    height: 30%;
+    width: 50rem;
     display: flex;
-    align-items: center;
-    justify-content: center;
     flex-direction: row;
     flex-wrap: wrap;
-    position: fixed;
-    top: 18rem;
-    gap: 2rem;
-    width: 75%;
-    max-height: 50%;
-    min-width: 20rem;
-    overflow-y: scroll;
+    overflow: auto;
+    justify-content: center;
+    gap: 1rem 2rem ;
+    padding: 2rem 0;
+    border: 1px solid var(--color-primary);
+    margin: 2rem;
+    border-radius: 0.5rem;
 }
 
 .items-form-submit {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 75%;
+}
+
+.items-form-submit form {
+    margin: 0;
 }
 
 .items-form svg {
@@ -112,13 +111,21 @@ body {
     transition: var(--transition);
     border: 0.1rem solid var(--color-primary);
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     justify-content: center;
     border-radius: 0.3rem;
-    min-width: fit-content;
-    width: 10rem;
-    height: 3rem;
+    width: 9rem;
+    height: fit-content;
+    min-height: 3rem;
+}
+
+.inventory-item > span {
+    text-align: center;
+    display: block;
+    width: 90%;
+    padding: 1rem;
+    overflow-wrap: break-word;
 }
 
 .inventory-item:hover {
@@ -127,6 +134,7 @@ body {
 }
 
 .inventory-item-form {
+    top: 0;
     background: var(--color-accent-hover);
     color: var(--color-secondary);
     background-color: rgba(51, 51, 51,0.8);
@@ -145,18 +153,21 @@ body {
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    height: 40%;
+    height: 15rem;
     width: 40%;
+    position: relative;
 }
 
 .inventory-items-form-title {
+    text-align: center;
+    width: 90%;
     margin-bottom: 2rem;
 }
 
 .form-exit-item {
-    position: relative;
-    right: -45%;
-    top: -8%;
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
 }
 
 .form-exit-item:hover {
@@ -164,7 +175,7 @@ body {
 }
 
 .form-ingredient-option{
-    display: inline-block;
+    margin: 0;
 }
 
 .space-grid {
@@ -228,7 +239,7 @@ body {
 }
 
 .text-input{
-    width: 20rem;
+    width: 17rem;
     height: 2rem;
     padding: 0 0.5rem;
     border-radius: 0.5rem;
@@ -255,7 +266,6 @@ body {
     cursor: pointer;
 }
 .item-wrapper{
-    white-space: nowrap;
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -268,14 +278,11 @@ ul > *{
     width: 50%;
 }
 .display-filter-section{
+    gap: 1.5rem;
     display: flex;
+    flex-wrap: nowrap;
     justify-content: center;
-    gap: 1rem;
-    position: fixed;
-    top: 12rem;
-    padding: 0.5rem 1rem;
-    width: 75%;
-    flex-wrap: wrap;
+    margin: 0;
 }
 
 .form-ingredient-wrapper {
@@ -290,8 +297,13 @@ ul > *{
 }
 
 .form-ingredient-wrapper td {
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
+    padding: 1rem;
+}
+
+.form-ingredient-wrapper td span {
+    max-width: 40rem;
+    display: block;
+    overflow-wrap: break-word;
 }
 
 .form-ingredient-wrapper tr:nth-of-type(even) {
@@ -332,11 +344,14 @@ ul > *{
     width: 1.5rem;
 }
 .form-exit-add-new-item svg{
-   position: absolute;
-   right: 3rem;
-   top: 3rem;
    width: 1.5rem;
    height: 1.5rem;
+}
+
+.form-exit-add-new-item {
+    position: absolute;
+    right: 1.5rem;
+    top: 1.5rem;
 }
 
 @media screen and (max-width:800px){
@@ -352,7 +367,7 @@ ul > *{
         width: 90% !important;
     }
     .form-ingredient-wrapper td{
-        padding: 1rem;
+        padding: 0.3rem;
         align-items: center;
     }
     .form-content{
@@ -380,30 +395,55 @@ ul > *{
         flex-direction: row !important;
         justify-content: flex-end;
     }
-    .items-form-content{
-        width: 55% !important;
-    }
-    .items-form{
-        height: 60%;
-    }
+
     .inventory-item-form{
         top: 0;
     }
+
     .inventory-items-form-title{
+        padding: 1.5rem;
+        width: 90%;
         width: fit-content;
         text-align: center;
     }
+
     .items-form-overlay{
         width: 80%;
     }
     .inventory-item{
        width: 7rem;
     }
-    .items-form{
-        width: 50%;
+
+    .items-form {
+        height: 10rem !important;
+        width: 90% !important;
+        gap: 1rem !important;
+        margin: 1rem !important;
     }
-    .display-filter-section{
-        width: 60%;
-        padding: 1rem;
+
+    .display-filter-section {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 1rem !important;
+        width: 95%;
+    }
+
+    .table-number input{
+        width: 2rem;
+    }
+
+    .form-ingredient-wrapper td span {
+        max-width: 5rem;
+    }
+    .form-ingredient-wrapper td {
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+    }
+
+    .items-form-content{
+        background-image: repeating-linear-gradient(white, white,white,white, white,white,white,white,white,white,white,white,  white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,  white,white,white,white,white,  white,
+        lightgray);
     }
 }

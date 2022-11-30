@@ -14,7 +14,11 @@ if (empty($_SESSION['idUser'])) {
     <title>Liste d'épicerie</title>
     <meta charset="utf-8" name="viewport" content="width=device-width" />
     <style>
-        <?php require 'styles/groceries-list.css'; ?><?php require 'styles/must-have.css'; ?><?php require 'scripts/body-scripts.php'; ?><?php require 'scripts/db.php'; ?><?php require 'scripts/filter.php'; ?>
+        <?php require 'styles/groceries-list.css';
+        require 'styles/must-have.css';
+        require 'scripts/body-scripts.php';
+        require 'scripts/db.php';
+        require 'scripts/filter.php'; ?>
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <?php RenderFavicon(); ?>
@@ -232,8 +236,8 @@ if (empty($_SESSION['idUser'])) {
                         $tabInfoSpace = InfoGroceriesList($_SESSION['idUser']);
                         if (count($tabInfoSpace) < 10) {
                             echo '
-                                    <input type="text" class="text-input" name="list-name" placeholder="Nom de la liste" maxlength="30">
-                                    <input type="text" class="text-input" name="description-name" placeholder="Description de la liste" maxlength="100">
+                                    <input type="text" class="inventory-text-input" name="list-name" placeholder="Nom de la liste" maxlength="30">
+                                    <input type="text" class="inventory-text-input" name="description-name" placeholder="Description de la liste" maxlength="100">
                                     <input type="submit" class="button button-primary" name="addLocation" value="Ajouter cette liste">
                                 ';
                         }
@@ -246,16 +250,15 @@ if (empty($_SESSION['idUser'])) {
                 <div class="transparent-background">
                     <div class="items-form-content">
                         <div class="form-exit-add-new-item" onclick='HideFormItems()'> <?php echo file_get_contents("utilities/x-symbol.svg"); ?> </div>
-                        <div class="items-form">
-                            <?php
+                        <?php
                             // Formulaire de tri
                             if ($_POST['filter'])
-                                echo '<script>document.getElementById("inventory-items-form").style.display = "block";</script>';
+                            echo '<script>document.getElementById("inventory-items-form").style.display = "block";</script>';
                             $idEmplacement = $_POST['buttonSpace'];
                             $tabTypeIngredient = TypeIngredientInfo();
                             $nameSearched = $_POST['name-input'];
                             echo "<form class='display-filter-section' method='post'>";
-                            echo "<input class='text-input' name='name-input' type='text' placeholder='Nom ingredient' value=$nameSearched >";
+                            echo "<input class='inventory-text-input' name='name-input' type='text' placeholder='Nom ingredient' value=$nameSearched >";
                             echo '<select name="type-input">';
                             echo '<option value="">Tout les types</option>';
                             foreach ($tabTypeIngredient as $typeIngredient)
@@ -269,6 +272,9 @@ if (empty($_SESSION['idUser'])) {
                             echo "<input type='hidden' value='$idEmplacement' name='buttonSpace'>";
                             echo '<div class="buttons-wrapper"><input class="button button-primary" type="submit" value="Chercher"></div>';
                             echo "</form>";
+                        ?>
+                        <div class="items-form">
+                            <?php
                             // Trier les informations
                             $tabIngredient = AllIngredientInfo($_POST['order-input']); // [1] == nom
                             $tabIngredient = FilterIngredient($tabIngredient, $_POST['name-input'], $_POST['type-input']);
@@ -283,7 +289,7 @@ if (empty($_SESSION['idUser'])) {
                                 }
                                 if (!$isAlreadyInList) {
                                     echo "
-                                        <div class='inventory-item' onclick='ShowFormItemQuantity($singleIngredient[0])'> $singleIngredient[1] </div>
+                                        <div class='inventory-item' onclick='ShowFormItemQuantity($singleIngredient[0])'> <span>$singleIngredient[1]</span> </div>
                                         <form method='post' class='inventory-item-form' id='inventory-item-form-$singleIngredient[0]'>
                                             <div class='items-form-overlay'>
                                                 <div class='form-exit-item' onclick='HideFormItemQuantity($singleIngredient[0])'>";
@@ -299,9 +305,9 @@ if (empty($_SESSION['idUser'])) {
                                 }
                             }
                             ?>
-                            <div class="items-form-submit">
-                                <form> <?php GenerateButtonPrimary("Ajouter un nouvel ingredient inexistant", "add-new-ingredient.php") ?></form>
-                            </div>
+                        </div>
+                        <div class="items-form-submit">
+                            <form> <?php GenerateButtonPrimary("Ajouter un nouvel ingredient inexistant", "add-new-ingredient.php") ?></form>
                         </div>
                     </div>
                 </div>

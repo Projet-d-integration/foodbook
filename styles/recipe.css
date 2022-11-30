@@ -9,12 +9,14 @@
 .wrapper {
     margin: auto;
     width: fit-content;
-    padding: 2rem 10rem;
+    padding: 2rem 5rem;
 }
 
 .recipe-header {
+    align-items: center;
     width: 100%;
     display: flex;
+    height: fit-content;
 }
 
 .recipe-image{
@@ -22,8 +24,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 20rem;
-    height: 20rem;
+    max-width: 20rem;
+    max-height: 20rem;
 }
 
 .recipe-image img {
@@ -33,18 +35,73 @@
     border-radius: 0.5rem;
 }
 
+.image-form {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.description-form {
+    display: flex;
+    gap: 1.5rem;
+    margin: 0;
+}
+
+.description-form input {
+    border: 1px solid var(--color-secondary);
+    padding: 0.3rem;
+    border-radius: 0.3rem;
+    width: 15rem;
+    font-size: 1rem;
+}
+
 .recipe-title {
+    height: 100%;
+    gap: 2rem;
     margin: 0 0 0 5rem;
     font-size: 3rem;
     display: flex;
+    flex-direction: column;
+    justify-content: space-around;
     align-items: center;
 }
-.recipe-title > svg > *{
+
+.title-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.title-input,
+.image-input {
+    padding: 0.3rem;
+    border-radius: 0.3rem;
+    width: 15rem;
+    font-size: 1rem;
+    border: 1px solid var(--color-primary);
+}
+
+.lower-title {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.lower-title div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem
+}
+
+.recipe-title svg *{
     fill: var(--color-primary);
 }
-.recipe-title > svg{
-    width: 2rem;
-    height: 2rem;
+
+.recipe-title svg{
+    width: 2.5rem;
+    height: 2.5rem;
 }
 .checkboxes-container {
     margin-left: 2rem;
@@ -94,8 +151,13 @@
     flex-direction: row;
     height: 5rem;
     width: 100%;
-    gap: 2rem;
+    padding: 2rem;
 }
+
+.publisher-info svg * {
+    fill: var(--color-secondary);
+}
+
 .description-recette{
     background: transparent;
     color: white;
@@ -153,21 +215,6 @@
     width: fit-content;
 }
 
-.inventory-form {
-    background-color: rgba(51, 51, 51,0.8);
-    position: fixed;
-    display: none;
-    width: 100%;
-    height: 100%;
-    top: 0;
-}
-
-.transparent-background {
-    height: 100%;
-    width: 100%;
-    z-index: 3;
-}
-
 .form-content{
     background: var(--color-tertiary);
     border: 0.1rem solid var(--color-primary);
@@ -183,46 +230,8 @@
     z-index: 3;
 }
 
-.items-form-content {
-    background: var(--color-tertiary);
-    border: 0.1rem solid var(--color-primary);
-    flex-direction: column;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow-y: auto;
-    border-radius: 2rem;
-    margin: 5rem;
-    height: 75%;
-    z-index: 3;
-    padding: 2rem;
-    gap: 2rem;
-}
-
 .danger-option {
     color: red;
-}
-
-.items-form {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: row;
-    flex-wrap: wrap;
-    position: fixed;
-    top: 18rem;
-    gap: 2rem;
-    width: 75%;
-    max-height: 50%;
-    min-width: 20rem;
-    overflow-y: scroll;
-}
-
-.items-form-submit {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 75%;
 }
 
 .items-form svg {
@@ -231,21 +240,14 @@
     width: 1.5rem;
 }
 
-.inventory-item {
-    background: var(--color-accent);
-    color: var(--color-secondary);
-    transition: var(--transition);
-    border: 0.1rem solid var(--color-primary);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    border-radius: 0.3rem;
-    min-width: fit-content;
-    width: 10rem;
-    height: 3rem;
-}
 
+.text-input{
+    width: 17rem;
+    height: 2rem;
+    padding: 0 0.5rem;
+    border-radius: 0.5rem;
+    border: 1px solid black;
+}
 .inventory-item:hover {
     background: var(--color-accent-hover);
     cursor: pointer;
@@ -447,16 +449,7 @@ ul{
 ul > *{
     width: 50%;
 }
-.display-filter-section{
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-    position: fixed;
-    top: 12rem;
-    padding: 0.5rem 1rem;
-    width: 75%;
-    flex-wrap: wrap;
-}
+
 .x-button svg,
 .modify-button svg{
     height: 1.5rem;
@@ -577,4 +570,12 @@ ul > *{
 .add-comment-button:hover > svg{
     width:2.2rem;
     height:2.2rem;
+}
+
+@media screen and (max-width:1000px) {
+
+    .wrapper {
+        padding: 2rem;
+        width: 80% !important;
+    }
 }

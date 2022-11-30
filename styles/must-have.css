@@ -197,6 +197,39 @@ input {
     gap: 1rem;
 }
 
+.inventory-form {
+    background-color: rgba(51, 51, 51,0.8);
+    position: fixed;
+    display: none;
+    width: 100%;
+    height: 100%;
+    top: 0;
+}
+
+.form-exit-item {
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+}
+
+.form-exit-item svg {
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+.form-exit-item:hover {
+    cursor: pointer;
+}
+
+.transparent-background {
+    height: 100%;
+    width: 100%;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .button-tertiary:hover {
     text-decoration: none;
 }
@@ -281,7 +314,6 @@ input {
     display: flex;
     align-items: center;
 }
-
 .loader {
     bottom: 0;
     height: 25%;
@@ -344,7 +376,130 @@ input {
     animation-delay: 0.15s;
 }
 
+.items-form-content {
+    background-image: repeating-linear-gradient(white, white,white,white, white,white,white,white,white,white,white,white,  white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,  white,white,white,white,white,  white,
+    rgba(51, 51, 51,0.8));
+    background-size: 25px 20px;
+    background-attachment: local;
+    border: 1px solid var(--color-primary);
+    border-radius: 0.5rem;
+    padding: 2rem 0;
+    position: relative;
+}
 
+.items-form {
+    min-height: 10rem;
+    height: 30%;
+    width: 50rem;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    overflow: auto;
+    justify-content: center;
+    gap: 1rem 2rem ;
+    padding: 2rem 0;
+    border: 1px solid var(--color-primary);
+    margin: 2rem;
+    border-radius: 0.5rem;
+}
+.items-form-submit form {
+    margin: 0;
+}
+.inventory-item {
+    background: var(--color-accent);
+    color: var(--color-secondary);
+    transition: var(--transition);
+    border: 0.1rem solid var(--color-primary);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.3rem;
+    width: 9rem;
+    height: fit-content;
+    min-height: 3rem;
+}
+
+.inventory-item > span {
+    text-align: center;
+    display: block;
+    width: 90%;
+    padding: 1rem;
+    overflow-wrap: break-word;
+}
+.inventory-item-form {
+    top: 0;
+    background: var(--color-accent-hover);
+    color: var(--color-secondary);
+    background-color: rgba(51, 51, 51,0.8);
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    justify-content: center;
+    align-items: center;
+    display: none;
+}
+
+.items-form-submit {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.items-form-overlay {
+    background: var(--color-accent);
+    border-radius: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 15rem;
+    width: 40%;
+    position: relative;
+}
+.inventory-items-form-title {
+    text-align: center;
+    width: 90%;
+    margin-bottom: 2rem;
+}
+
+.form-ingredient-option{
+    margin: 0;
+}
+.inventory-text-input{
+    width: 17rem;
+    height: 2rem;
+    padding: 0 0.5rem;
+    border-radius: 0.5rem;
+    border: 1px solid black;
+}
+.display-filter-section{
+    gap: 1.5rem;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    margin: 0;
+}
+.form-ingredient-wrapper td {
+    padding: 1rem;
+}
+
+.form-ingredient-wrapper td span {
+    max-width: 40rem;
+    display: block;
+    overflow-wrap: break-word;
+}
+
+.form-exit-add-new-item {
+    position: absolute;
+    right: 1.5rem;
+    top: 1.5rem;
+}
+
+.form-exit-add-new-item svg{
+    width: 1.5rem;
+    height: 1.5rem;
+ }
 
 @keyframes cooking {
     18% {
@@ -549,12 +704,50 @@ input {
         box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
     }
 
-    .footer {
-        padding: 1rem
+    .form-ingredient-wrapper td{
+        padding: 0.3rem;
+        align-items: center;
+    }
+    .inventory-items-form-title{
+        padding: 1.5rem;
+        width: 90%;
+        width: fit-content;
+        text-align: center;
+    }
+    .items-form {
+        height: 10rem !important;
+        width: 90% !important;
+        gap: 1rem !important;
+        margin: 1rem !important;
     }
 
-    .footer-text {
-        display: unset !important;
-        padding-right: 1rem;
+    .display-filter-section {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 1rem !important;
+        width: 95%;
+    }
+
+    .table-number input{
+        width: 2rem;
+    }
+
+    .form-ingredient-wrapper td span {
+        max-width: 5rem;
+    }
+    .form-ingredient-wrapper td {
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+    }
+
+    .inventory-item {
+        width: 7rem;
+    }
+
+    .items-form-content{
+        background-image: repeating-linear-gradient(white, white,white,white, white,white,white,white,white,white,white,white,  white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,  white,white,white,white,white,  white,
+        lightgray);
     }
 }
