@@ -750,4 +750,9 @@ input {
         background-image: repeating-linear-gradient(white, white,white,white, white,white,white,white,white,white,white,white,  white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,white,  white,white,white,white,white,  white,
         lightgray);
     }
+
+    .footer-text {
+        display: revert !important;
+        padding-right: 1rem;
+    }
 }

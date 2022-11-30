@@ -64,6 +64,10 @@
     gap: 1rem;
 }
 
+.banner-title {
+    margin-bottom: 1rem;
+}
+
 .recipes-container {
     width: fit-content;
     display: flex;

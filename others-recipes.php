@@ -90,6 +90,11 @@ $idUser = $_GET['user'];
 
 <body>
     <div class="wrapper">
+        <div class="banner-title">
+            <?php
+            $infos = User($_GET['user']);
+            echo "$infos[1] $infos[2]"; ?>
+        </div>
         <form class="form-filter hide-tablet" method="POST">
             <input type="hidden" name="user" value="<?= $_GET['user'] ?>">
             <input name="recipe-name" type="text" placeholder="Nom de la recette" value="<?= $_POST['recipe-name'] ?>" />

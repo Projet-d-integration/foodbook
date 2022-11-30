@@ -299,35 +299,36 @@ if (array_key_exists('buttonDeconnecter', $_POST)) {
             }
         ?>
         <div class="recipe-comments">
-
-            <?php
-                $tabCommentaire = ShowCommentaryEvaluation($recette[0]); //Faire méthode pour aller chercher tous les commentaire d'une recette en fonction de l'id de la recette
-            
-                foreach($tabCommentaire as $commentaire)
-                {
-                    //Faire afficher le nom de la personne qui a mis le commentaire et le commentaire lui-même
-                    $userInfo = User($commentaire[3]);
-                    if($_SESSION["idUser"] == $commentaire[3]) //Si le idCompte du commentaire est le même que le idUser
+            <div class="comments-wrapper">
+                <?php
+                    $tabCommentaire = ShowCommentaryEvaluation($recette[0]); //Faire méthode pour aller chercher tous les commentaire d'une recette en fonction de l'id de la recette
+                
+                    foreach($tabCommentaire as $commentaire)
                     {
-                        echo "<div>Votre commentaire :</div>";
-                        echo "<form method='POST'><input type='hidden' name='id' value='$recette[0]'>";
-                        echo "<input type='number' name='modify-eval' max='5' min='0' value='$commentaire[0]'></input>";
-                        echo '<input type="text" name="modify-comment" value="'.$commentaire[1].'"></input>';
-                        echo "<button name='modify-comment-button' value='1' type='submit' class='recipe-ingredient-content modify-button'>".file_get_contents("utilities/notebook.svg")."</button></form>";
-                    }
-                    else{
-                        echo "<div>$userInfo[2] $userInfo[1] $commentaire[0]/5</div>";
-                        echo "<div>$commentaire[1]</div>";
-                    }
-                    if($_SESSION["idUser"] == $commentaire[3] || $_SESSION["idUser"] == $recette[1]){
-                        echo "<form method='post'>
-                                <button type='submit' name='del-comment' class='x-button' value='1'>".file_get_contents("utilities/x-symbol.svg")."</button>
-                                <input type='hidden' name='idCompte-comment-remove' value='$commentaire[3]'>
-                                <input type='hidden' name='id' value='$recette[0]'>
-                            </form>";
-                    }
-                }        
-            ?>
+                        //Faire afficher le nom de la personne qui a mis le commentaire et le commentaire lui-même
+                        $userInfo = User($commentaire[3]);
+                        if($_SESSION["idUser"] == $commentaire[3]) //Si le idCompte du commentaire est le même que le idUser
+                        {
+                            echo "<div>Votre commentaire :</div>";
+                            echo "<form method='POST'><input type='hidden' name='id' value='$recette[0]'>";
+                            echo "<input type='number' name='modify-eval' max='5' min='0' value='$commentaire[0]'></input>";
+                            echo '<input type="text" name="modify-comment" value="'.$commentaire[1].'"></input>';
+                            echo "<button name='modify-comment-button' value='1' type='submit' class='recipe-ingredient-content modify-button'>".file_get_contents("utilities/notebook.svg")."</button></form>";
+                        }
+                        else{
+                            echo "<div class='comment'><a href='others-recipes.php?user=$userInfo[1]'>$userInfo[2] $userInfo[1] $commentaire[0]/5</a>";
+                            echo "<div>$commentaire[1]</div></div>";
+                        }
+                        if($_SESSION["idUser"] == $commentaire[3] || $_SESSION["idUser"] == $recette[1]){
+                            echo "<form method='post'>
+                                    <button type='submit' name='del-comment' class='x-button' value='1'>".file_get_contents("utilities/x-symbol.svg")."</button>
+                                    <input type='hidden' name='idCompte-comment-remove' value='$commentaire[3]'>
+                                    <input type='hidden' name='id' value='$recette[0]'>
+                                </form>";
+                        }
+                    }        
+                ?>
+            </div>
             <!--Rajouter un if pour vérifier que le user a ajouter un seul commentaire si oui ne pas afficher le bouton ci-dessous, sinon l'afficher-->
         </div>
 
