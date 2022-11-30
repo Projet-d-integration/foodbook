@@ -309,7 +309,7 @@ if (array_key_exists('buttonDeconnecter', $_POST)) {
                         $userInfo = User($commentaire[3]);
                         if($_SESSION["idUser"] == $commentaire[3]) //Si le idCompte du commentaire est le même que le idUser
                         {
-                            echo "<div>Votre commentaire :</div>";
+                            echo "<div>Vous:</div>";
                             echo "<form method='POST'><input type='hidden' name='id' value='$recette[0]'>";
                             echo "<input type='number' name='modify-eval' max='5' min='0' value='$commentaire[0]'></input>";
                             echo '<input type="text" name="modify-comment" value="'.$commentaire[1].'"></input>';
