@@ -121,7 +121,7 @@ $idUser = $_GET['user'];
         </form>
         <form class="form-filter-wrapper" method="POST">
             <div class="filters-menu-button hide-tablet-up" onclick="ShowFilters()">Filtres<?php echo file_get_contents("utilities/caret.svg"); ?></div>
-            <!--<div class="error_message" id="error_user_no_recipes">Cet usager n'a aucune recette pour le moment.</div>-->
+            <div class="error_message" id="error_user_no_recipes">Cet usager n'a aucune recette pour le moment.</div>
             <div class="mobile-filters-menu hide-tablet-up" id="mobile-filters-menu">
                 <div class="form-filter hide-tablet-up">
                     <div class="form-exit" onclick='HideFilters()'> <?php echo file_get_contents("utilities/x-symbol.svg"); ?> </div>
@@ -167,6 +167,7 @@ $idUser = $_GET['user'];
         <div class="recipes-container">
             <?php
             $tabRecette = ShowRecipe($idUser);
+            
             $tabInfoRecipe = InfoRecipe();
             $tabRecette = FilterRecipe($tabRecette, $tabInfoRecipe, $_POST['recipe-name'], '', intval($_POST['recipe-time']), intval($_POST['recipe-portion']));
             foreach ($tabRecette as $singleRecette) {
@@ -192,9 +193,9 @@ $idUser = $_GET['user'];
     window.onload = () => {
         <?php
         if (!($_SERVER['REQUEST_METHOD'] === 'POST')) {
-            $tabRecette = ShowSingleRecipe($_SESSION['idUser']); //Appeler la méthode ShowSingleRecipe($id_user) pour afficher les recette de cet usager.
+            $tabRecette = ShowRecipe($idUser); //Appeler la méthode ShowSingleRecipe($id_user) pour afficher les recette de cet usager.
 
-            if (count($tabRecette) == 0) {
+            if (count($tabRecette) <= 0) {
                 echo 'document.getElementById("error_user_no_recipes").style.display = "block";';
             } else {
                 echo 'document.getElementById("error_user_no_recipes").style.display = "none";';
@@ -202,6 +203,7 @@ $idUser = $_GET['user'];
         }
         ?>
     }
+
 
 
 
