@@ -429,6 +429,7 @@ input {
 }
 .inventory-item-form {
     top: 0;
+    right: 0;
     background: var(--color-accent-hover);
     color: var(--color-secondary);
     background-color: rgba(51, 51, 51,0.8);
