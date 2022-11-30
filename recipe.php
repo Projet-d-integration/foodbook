@@ -466,7 +466,6 @@ if (array_key_exists('buttonDeconnecter', $_POST)) {
                             <button type='submit' class='button button-primary' name='add-instruction'>Ajouter</button>
                             <br>
                         </div>
-                       
                         <div id="empty-step-input" class="error_message">Veuillez remplir le champ obligatoire.</div>
                     </form> 
             </div>
