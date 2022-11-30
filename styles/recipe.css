@@ -17,6 +17,7 @@
     width: 100%;
     display: flex;
     height: fit-content;
+    justify-content: space-between;
 }
 
 .recipe-image{
@@ -64,6 +65,7 @@
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
+    text-align: center;
 }
 
 .title-wrapper {
@@ -103,8 +105,10 @@
     width: 2.5rem;
     height: 2.5rem;
 }
-.checkboxes-container {
-    margin-left: 2rem;
+.checkboxes-container .neutral-message{
+    justify-content: center;
+    width: 100%;
+    text-align: center;
 }
 
 .recipe-ingredients-wrapper {
@@ -149,8 +153,8 @@
     justify-content: center;
     display: flex;
     flex-direction: row;
-    height: 5rem;
-    width: 100%;
+    text-align: center;
+    width: 93%;
     padding: 2rem;
 }
 
@@ -491,8 +495,12 @@ ul > *{
     text-align: center;
 }
 
+.table-number form {
+    margin: 0;
+}
+
 .table-number input {
-    width: 4rem;
+    width: 6rem;
     background-color: transparent;
 }
 
@@ -536,6 +544,10 @@ ul > *{
     max-height: 10rem;
 }
 .table-checkbox{
+    width: 1rem;
+}
+
+.table-checkbox-steps {
     width: 5rem;
 }
 .table-changed-background-steps{
@@ -572,10 +584,55 @@ ul > *{
     height:2.2rem;
 }
 
-@media screen and (max-width:1000px) {
+@media screen and (max-width:800px) {
 
     .wrapper {
-        padding: 2rem;
-        width: 80% !important;
+        padding: 1rem;
+        width: 90% !important;
+    }
+
+    .recipe-header {
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    .recipe-title {
+        margin: 0;
+    }
+
+    .title-wrapper {
+
+        margin: 0
+    }
+
+    .publisher-info {
+        width: 80%;
+    }
+
+    .table-number input {
+        width: 4rem;
+        margin: 0;
+    }
+
+    .table-name {
+        max-width: 6rem;
+    }
+    .recipe-ingredients-wrapper,
+    .checkboxes-container {
+        width: 100%;
+    }
+    .form-ingredient-wrapper,
+    .form-steps-wrapper  {
+        width: 100%;
+        min-width: 10rem;
+        margin: 0;
+    }
+
+    .recipe-title {
+        font-size: 2rem;
+    }
+
+    .recipe-image img {
+        max-width: 90%;
     }
 }

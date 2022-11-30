@@ -96,7 +96,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 100%;
+    text-align: center;
+    width: 90%;
     height: 100%;
 }
 
@@ -129,4 +130,31 @@
     text-align: center;
     font-weight: bold;
     font-size: large;
+}
+
+@media screen and (max-width:800px) {
+    .wrapper-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .wrapper-users,
+    .wrapper-recipes{
+        padding: 0;
+        width: 80%;
+        height: 20rem;
+        overflow: auto;
+    }
+
+    .wrapper-users {
+        border-top: 1px solid var(--color-primary);
+    }
+
+    .wrapper-background {
+        min-height: unset;
+    }
+
+    .link-user {
+        min-width: 70%;
+    }
 }
