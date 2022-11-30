@@ -158,19 +158,19 @@ input::placeholder {
 .filters-menu-button{
     display: none;
 }
-@media screen and (max-width:800px){
+@media screen and (max-width:1000px) {
+    /* insert mobile code here */
+
     .wrapper {
         padding: 2rem;
         width: 80% !important;
     }
-    /*.form-filter {
+
+    .form-filter {
         width: 100%;
         flex-direction: column;
         justify-content: flex-start;
         padding: 5rem 0 0 0;
-    }*/
-    .form-filter{
-        display: none;
     }   
 
     .form-exit svg {
@@ -229,7 +229,24 @@ input::placeholder {
         top: 0;
         left: 0;
     }
+
+    .recipes-container {
+        gap: 2rem;
+    }
+
+    .recipe-box {
+        width: 15rem;
+        height: 10rem;
+    }
+
+    .recipe-name {
+        width: 20rem;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+        background: var(--color-secondary) !important;
+    }
+
     .filter-text {
         text-decoration: underline  ;
     }
+
 }
