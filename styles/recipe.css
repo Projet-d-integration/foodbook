@@ -268,7 +268,6 @@
     align-items: center;
     display: none;
 }
-
 .items-form-overlay {
     background: var(--color-accent);
     border-radius: 0.5rem;
@@ -276,19 +275,15 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    height: 40%;
+    height: 15rem;
     width: 40%;
+    position: relative;
 }
 
-.inventory-items-form-title {
-    font-size: 2rem;
-    position: absolute;
-    top: 15rem;
-}
-.input-add-step{
+ .input-add-step{
     width: 20rem;
     height: 3rem;
-    border-radius: 1rem 1.5rem;
+    border-radius: 0.3rem;
     background: var(--color-accent);
     color: white;
     font-size: large;
@@ -297,11 +292,6 @@
     color: white;
     font-family: 'italic';
     font-size: large;
-}
-.form-exit-item {
-    position: relative;
-    right: -45%;
-    top: -8%;
 }
 
 .form-exit-item:hover {
@@ -355,8 +345,8 @@
 
 .form-exit {
     position: absolute;
-    right: 7rem;
-    top: 7rem;
+    right: 1.5rem;
+    top: 1.5rem;
 }
 
 .inventory-form {
@@ -556,10 +546,17 @@ ul > *{
 }
 .instruction-form{
     display: flex;
-    gap: 2rem;
-    justify-content: center;
+    align-items: center;
     flex-direction: column;
+    justify-content: space-around;
+    margin: 0;
+    gap: 2rem;
 }
+
+.items-form-content.steps {
+    width: 40rem;
+}
+
 .add-comment-button{
     transition: var(--transition);
     align-self: flex-end;
@@ -604,13 +601,22 @@ ul > *{
 .comment:not(:last-of-type){
     border-bottom: 1px solid var(--color-primary);
 }
-
+.editFormComments{
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+}
 .comments-wrapper {
     border: 1px solid var(--color-primary);
     height: 100%;
     width: 90%;
     border-radius: 0.3rem;
-    margin: 1.5rem 0;
+    margin: 1.5rem 0rem;
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+    justify-content: center;
 }
 
 @media screen and (max-width:800px) {

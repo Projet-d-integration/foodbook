@@ -451,17 +451,10 @@ input {
     background: var(--color-accent);
     border-radius: 0.5rem;
     display: flex;
-    align-items: center;
-    justify-content: center;
     flex-direction: column;
-    height: 15rem;
+    height: 40%;
     width: 40%;
-    position: relative;
-}
-.inventory-items-form-title {
-    text-align: center;
-    width: 90%;
-    margin-bottom: 2rem;
+    gap: 0.5rem;
 }
 
 .form-ingredient-option{
