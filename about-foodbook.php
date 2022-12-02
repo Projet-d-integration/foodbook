@@ -95,19 +95,13 @@ if (array_key_exists('buttonDeconnecter', $_POST)) {
                 <h2>Qui sommes-nous?</h2>
                 <p>
                     Notre site FoodBook réalisé par trois jeunes étudiants travaillants et inventifs du Collège Lionel-Groulx est
-                    une plateforme qui permet la gestion de nourriture et de recettes ainsi qu'un réseau social dynamique. C'est le site idéal pour Il est à seul but de faciliter la vie des
-                    gens lorsqu'il est question d'alimentation car nous savons de nos jours que c'est un sujet qui peut être compliqué.
+                    une plateforme qui permet le partage de recettes, la gestion d'inventaire de nourriture et la gestion de listes d'épîcerie.
+                    Il est à seul but de faciliter la vie des gens lorsqu'il est question d'alimentation car nous savons de nos jours que c'est un sujet qui peut être compliqué.
                 </p>
-                <p>
-                    Pour ce qui est du réseau social, nous voulons que nos utilisateurs se sentent à l'aisent de publier, commenter et évaluer
-                    les recettes des autres utilisateurs dans le plus grand respect. Nous voulons que cela puissent également créer des amitiés entre les utilisateurs
-                    afin que notre site soit propice à un environnement agréable pour tous.
-                </p>
-
                 <p>
                     Comme mentionné plutôt, nous sommes trois étudiants du Collège Lionel-Groulx qui se sont données coprs et âmes à la confection
-                    de FoodBook. Étant tous jeunes et passionés d'informatique nous avons fait tout ce qui étaient en notre pouvoir grâce l'aide de nos connaissances et aptitudes, nous voulions simplement facilité et amélioré la vie des gens qui auraient de
-                    la difficulté à gérer leur nourriture ainsi que pouvoir créer des liens d'amitiés sain et affectueux. Nous vous remercions infiniement de faire confiance à notre site web
+                    de FoodBook. Étant tous jeunes et passionés d'informatique nous nous sommes donnés à fond en utilisant nos connaissances et aptitudes acquises au sein de notre
+                    parcours du programme de techniques de l'informatique. Nous vous remercions infiniement de faire confiance à notre site web
                     et espèrons que vous allez prendre plaisir à toutes ses fonctionnalités.
                 </p>
                 <p>
