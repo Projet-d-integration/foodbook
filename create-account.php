@@ -162,8 +162,8 @@
     <div class="wrapper">
         <div class="banner-title"><span>Créer un comtpe</span></div>
         <form method="post" class="create-account-form">
-            <input class="text-input name-input" name="name-input" type="text" placeholder="Nom" value="<?= $name ?>">
-            <input class="text-input last-name-input" name="last-name-input" type="text" placeholder="Prénom" value="<?= $last_name?>">
+            <input class="text-input name-input" name="name-input" type="text" placeholder="Prénom" value="<?= $name ?>">
+            <input class="text-input last-name-input" name="last-name-input" type="text" placeholder="Nom" value="<?= $last_name?>">
             <input class="text-input email-input" name="email-input" type="text" placeholder="Addresse courriel" value="<?=$email?>">
             <input class="text-input password-input" name="password-input" type="password password-input" placeholder="Mot de passe">
             <input class="text-input password-input" name="password-input-confirm" type="password password-input" placeholder="Confirmer le mot de passe">
