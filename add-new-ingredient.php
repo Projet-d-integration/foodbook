@@ -44,12 +44,6 @@
                     window.onload = () => { document.getElementById("error_name_used").style.display = "block"; }
                 </script>';
             }
-            else if(!ValidateNameInput($nameIngredient)) {
-                echo '
-                <script>
-                    window.onload = () => { document.getElementById("error_name").style.display = "block"; }
-                </script>';
-            }
             else {
                 AddIngredient($_POST['name-input'],$_POST['description-input'],$_POST['type-input']);
             }

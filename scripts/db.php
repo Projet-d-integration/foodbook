@@ -407,6 +407,8 @@ function DeleteTypeIngredient($idTypeIngredient)
 function AddIngredient($pNomIngredient, $pDescriptionIngredient, $pIdTypeIngredient){
     Connexion();
     global $PDO;
+    mysqli_set_charset($PDO, "utf8mb4");
+    
     try{
         $sqlProcedure = "CALL AjouterIngredient(:pNomIngredient, :pDescriptionIngredient, :pIdTypeIngredient)";
         $stmt = $PDO->prepare($sqlProcedure);

@@ -78,16 +78,18 @@ if (array_key_exists('buttonDeconnecter', $_POST)) {
                         echo "
                         <span class='header-text'>" . User($_SESSION['idUser'])[2] . " " . User($_SESSION['idUser'])[1] . "</span>
                     </a>";
-                    echo '<form method="post">
-                    <button type="submit" name="buttonDeconnecter" class="svg-button login-button logout-button" value="buttonDeconnecter" />
+                    echo '
+                    <form method="post">
+                        <button type="submit" name="buttonDeconnecter" class="svg-button login-button logout-button" value="buttonDeconnecter" />
                         '.file_get_contents("utilities/logout.svg").'
                         <span class="header-text">Se déconnecter</span>
                     </form>';
                 }
                 else{
-                    echo '<a href="login.php" class="svg-button login-button logout-button"> 
-                    '.file_get_contents("utilities/account.svg").'
-                    <span class="header-text">Se connecter</span>
+                    echo '
+                    <a href="login.php" class="svg-button login-button logout-button"> 
+                        '.file_get_contents("utilities/account.svg").'
+                        <span class="header-text">Se connecter</span>
                     </a>';
                 }
             ?>
