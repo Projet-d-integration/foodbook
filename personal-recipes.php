@@ -166,10 +166,10 @@
                             </select>
                         </div>
 
-                        <div class="recipe-form-video-input">
+                        <!-- <div class="recipe-form-video-input">
                             <label for="video-input">Lien pour la vidéo</label>
                             <input type="text" name="video-input" class="text-input">
-                        </div>
+                        </div> -->
                                                 
                         <div class="recipe-form-select-input">
                             <label name="recipe-portion">Nombre de portions : </label>

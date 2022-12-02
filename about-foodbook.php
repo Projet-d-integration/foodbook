@@ -10,7 +10,11 @@ if (array_key_exists('buttonDeconnecter', $_POST)) {
     <title>À propos de Foodbook</title>
     <meta charset="utf-8" name="viewport" content="width=device-width" />
     <style>
-        <?php require 'styles/about-page.css'; ?><?php require 'styles/must-have.css'; ?><?php require 'styles/ui-kit.css'; ?><?php require 'scripts/body-scripts.php'; ?><?php require 'scripts/db.php'; ?>
+        <?php require 'styles/about-page.css'; ?>
+        <?php require 'styles/must-have.css'; ?>
+        <?php require 'styles/ui-kit.css'; ?>
+        <?php require 'scripts/body-scripts.php'; ?>
+        <?php require 'scripts/db.php'; ?>
     </style>
     <?php RenderFavicon(); ?>
 </head>
@@ -97,6 +101,30 @@ if (array_key_exists('buttonDeconnecter', $_POST)) {
                     Notre site FoodBook réalisé par trois jeunes étudiants travaillants et inventifs du Collège Lionel-Groulx est
                     une plateforme qui permet le partage de recettes, la gestion d'inventaire de nourriture et la gestion de listes d'épîcerie.
                     Il est à seul but de faciliter la vie des gens lorsqu'il est question d'alimentation car nous savons de nos jours que c'est un sujet qui peut être compliqué.
+                </p>
+                <p>
+                    Ceci est votre première visite et vous vous demandez comment utiliser FoodBook pour partager vos recettes? Voici quelques étapes simples à suivre pour commencer à partager vos recettes.
+                    <br>
+                    <span class="about-step">
+                        - Commencez par vous créer un compte en appuyant sur <?php echo '<a href="create-account.php" class="svg-button login-button text-button"> ' . file_get_contents("utilities/account.svg") . '</a>'; ?>
+                    </span>
+                    <span class="about-step">
+                        - Rendez-vous sur votre page de recettes personnelles en appuyant sur <?php echo '<a href="personal-recipes.php" class="svg-button list-button text-button">' . file_get_contents("utilities/book.svg") . '<a>'; ?>
+                    </span>
+                    <span class="about-step">
+                        - Appuyez sur le bouton «ajouter une recette»
+                    </span>
+                    <span class="about-step">
+                        - Entrez les informations générales de la recette (il est impossible pour l'instant de mettre vos propres images sur FoodBook)
+                    </span>
+                    <span class="about-step">
+                        - Allez sur la page de votre recette en appuyant dessus et entrez uns-par-uns les ingrédients et étapes pour votre recette.
+                    </span>
+                    <span class="about-step">
+                        - INSTRUCTIONS IMPORTANTES POUR LES INGRÉDIENTS : les ingrédients sont créés par la communauté et sont définitifs. Si vous voulez
+                        ajouter un ingrédient qui ne figure pas dans la liste, appuyez sur "ajouter un nouvel ingrédient" et entrez les informations dans les champs
+                        appropriés.
+                    </span>
                 </p>
                 <p>
                     Comme mentionné plutôt, nous sommes trois étudiants du Collège Lionel-Groulx qui se sont données coprs et âmes à la confection

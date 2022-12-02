@@ -35,6 +35,16 @@
     margin-top: -5rem;
 }
 
+.about-step {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.text-button *{
+    fill: var(--color-primary);
+}
+
 @media screen and (max-width:800px){
     .image-about-page{
         width: 100%;
