@@ -42,17 +42,17 @@
                     echo '<form method="post"><button type="submit" name="buttonDeconnecter" class="svg-button login-button" value="buttonDeconnecter" />'.file_get_contents("utilities/logout.svg").'</form>';
                     if($_SERVER['REQUEST_METHOD'] == 'POST'){
                         if(!empty($_POST['title-input'])){
-                            if(isset($_POST['isPublic'])){
+                            // if(isset($_POST['isPublic'])){
                                 echo AddRecipe($_SESSION['idUser'],$_POST['title-input'],1,0,date('Y-m-d H:i:s'),$_POST['type-input']);
                                 $idRecette = LastInsertedRecipe();
                                 AddInfoRecipe($idRecette,$_POST['image-input'],$_POST['video-input'],$_POST['recipe-time'],$_POST['recipe-portion']) ;
                                 ChangePage("personal-recipes.php");
-                            }else{
-                                echo AddRecipe($_SESSION['idUser'],$_POST['title-input'],0,0,date('Y-m-d H:i:s'),$_POST['type-input']);
-                                $idRecette = LastInsertedRecipe();
-                                AddInfoRecipe($idRecette,$_POST['image-input'],$_POST['video-input'],$_POST['recipe-time'],$_POST['recipe-portion']) ;
-                                ChangePage("personal-recipes.php");
-                            }
+                            // }else{
+                            //     echo AddRecipe($_SESSION['idUser'],$_POST['title-input'],0,0,date('Y-m-d H:i:s'),$_POST['type-input']);
+                            //     $idRecette = LastInsertedRecipe();
+                            //     AddInfoRecipe($idRecette,$_POST['image-input'],$_POST['video-input'],$_POST['recipe-time'],$_POST['recipe-portion']) ;
+                            //     ChangePage("personal-recipes.php");
+                            // }
                         }
                     }
             ?>
@@ -198,10 +198,10 @@
                             </select>
                         </div>
                             
-                        <div class="recipe-form-private-input">
+                        <!-- <div class="recipe-form-private-input">
                             <div>Rendre la recette publique</div>
                             <input type="checkbox" name="isPublic">
-                        </div>
+                        </div> -->
 
                         <input name="add-new-recipe" value="Ajouter" class="button button-primary personal-recipes-add-button" type="submit">
                         <div id="empty-field-form-add-recipe" class="error_message">Veuillez remplir les champs obligatoires.</div>
